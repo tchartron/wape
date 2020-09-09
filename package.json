@@ -1,17 +1,20 @@
 {
-  "name": "webpage-builder",
-  "version": "1.0.0",
-  "description": "Webpage builder",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "webpage",
-    "builder",
-    "html",
-    "editor"
-  ],
-  "author": "Thomas Chartron",
-  "license": "MIT"
+    "name": "webpage-builder",
+    "version": "1.0.0",
+    "description": "Webpage builder",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "webpage",
+        "builder",
+        "html",
+        "editor"
+    ],
+    "author": "Thomas Chartron",
+    "license": "MIT",
+    "devDependencies": {
+        "rollup": "^2.26.11"
+    }
 }
