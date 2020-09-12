@@ -1,3 +1,3 @@
-import editor from 'Editor/index'
+import { banner } from 'Build/config'
 
-editor.init('hello world')
+console.log(banner)
