@@ -1,3 +1,3 @@
-import config from "./editor/index"
+import editor from 'Editor/index'
 
 editor.init('hello world')
