@@ -9,6 +9,6 @@
   },
   "rules": {
     "strict": "off",
-    "quotes": ["warn", "single"]
+    "quotes": ["warn", "single", { "allowTemplateLiterals": true }]
   }
 }
