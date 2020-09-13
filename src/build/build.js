@@ -1,3 +1,1 @@
-import { banner } from 'Build/config'
-
-console.log(banner)
+console.log('hello world')

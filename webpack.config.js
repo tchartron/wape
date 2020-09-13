@@ -1,4 +1,6 @@
 const path = require('path');
+const webpack = require('webpack')
+const config = require('./src/build/config')
 
 module.exports = {
   // mode: 'production',
@@ -75,6 +77,6 @@ module.exports = {
   // stats: 'detailed',
   stats: 'normal',
   plugins: [
-    // ...
+    new webpack.BannerPlugin(config.banner)
   ]
 }

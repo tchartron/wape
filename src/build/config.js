@@ -1,10 +1,11 @@
-const version = process.env.VERSION || require('../../package.json').version
-
+const pkg = require('../../package.json')
 const banner =
   '/*\n' +
-  ` * Webedit version ${version}\n` +
-  ` * Thomas Chartron\n` +
+  ` * Webedit version ${pkg.version}\n` +
+  ` * ${pkg.author}\n` +
   ' * Released under the MIT License.\n' +
   ' */'
 
-export { banner }
+module.exports = {
+    banner: banner
+}
