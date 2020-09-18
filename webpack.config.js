@@ -9,7 +9,8 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
     // publicPath: '/assets/',
-    library: 'webedit',
+    library: 'Webedit',
+    libraryExport: 'default',
     libraryTarget: 'umd'
   },
   module: {
