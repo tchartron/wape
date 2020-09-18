@@ -2,20 +2,29 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <title></title>
-  <meta name="author" content="">
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Webedit</title>
+    <meta name="author" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link href="css/style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
 
-  <p>Hello, world!</p>
+    <div id="editor"></div>
 
-  <script src="dist/bundle.js"></script>
+    <script src="dist/bundle.js"></script>
+    <script type="text/javascript">
+        new Webedit({
+            test: "hello"
+        });
+        // var options = {
+        //     test: "hello"
+        // }
+        // var editor = Webedit.init(options);
+    </script>
 </body>
 
 </html>

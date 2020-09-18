@@ -1,6 +1,6 @@
 /*!
  * /*
- *  * Webedit version 1.0.0
+ *  * Webedit version 0.0.1
  *  * Thomas Chartron
  *  * Released under the MIT License.
  *  * /
@@ -11,9 +11,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["webedit"] = factory();
+		exports["Webedit"] = factory();
 	else
-		root["webedit"] = factory();
+		root["Webedit"] = factory();
 })(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -107,24 +107,46 @@ return /******/ (function(modules) { // webpackBootstrap
 /*!****************************!*\
   !*** ./src/build/build.js ***!
   \****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// import { config } from 'Build/config'
-// import webpack from 'webpack';
-// const version = process.env.VERSION || require('../../package.json').version
-// const banner =
-//   '/*\n' +
-//   ` * Webedit version ${version}\n` +
-//   ` * Thomas Chartron\n` +
-//   ' * Released under the MIT License.\n' +
-//   ' */'
-// new webpack.BannerPlugin(banner);
-// console.log(config)
-console.log('hello world');
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var Editor_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Editor/editor */ "./src/editor/editor.js");
+ // export default {
+//     init(options) {
+//         editor.init(options)
+//     }
+// }
+// export default function(options) {
+//     editor.init(options)
+// }
+
+function we(options) {
+  Editor_editor__WEBPACK_IMPORTED_MODULE_0__["default"].init(options);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (we);
+
+/***/ }),
+
+/***/ "./src/editor/editor.js":
+/*!******************************!*\
+  !*** ./src/editor/editor.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  init: function init(arg) {
+    console.log(arg);
+  }
+});
 
 /***/ })
 
-/******/ });
+/******/ })["default"];
 });
 //# sourceMappingURL=bundle.js.map
