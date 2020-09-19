@@ -20,6 +20,10 @@
         "css",
         "layout"
     ],
+    "repository": {
+        "type" : "git",
+        "url" : "https://github.com/tchartron/wape.git"
+    },
     "author": "Thomas Chartron",
     "license": "MIT",
     "devDependencies": {
