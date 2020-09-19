@@ -1,6 +1,6 @@
 /*!
  * /*
- *  * Webedit version 0.0.1
+ *  * Wape version 0.0.1
  *  * Thomas Chartron
  *  * Released under the MIT License.
  *  * /
@@ -11,9 +11,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["Webedit"] = factory();
+		exports["Wape"] = factory();
 	else
-		root["Webedit"] = factory();
+		root["Wape"] = factory();
 })(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -122,11 +122,11 @@ __webpack_require__.r(__webpack_exports__);
 //     editor.init(options)
 // }
 
-function we(options) {
+function wape(options) {
   Editor_editor__WEBPACK_IMPORTED_MODULE_0__["default"].init(options);
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (we);
+/* harmony default export */ __webpack_exports__["default"] = (wape);
 
 /***/ }),
 
@@ -149,4 +149,4 @@ __webpack_require__.r(__webpack_exports__);
 
 /******/ })["default"];
 });
-//# sourceMappingURL=bundle.js.map
+//# sourceMappingURL=wape.js.map

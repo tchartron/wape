@@ -9,7 +9,7 @@ import editor from 'Editor/editor'
 // export default function(options) {
 //     editor.init(options)
 // }
-function we(options) {
+function wape(options) {
     editor.init(options)
 }
-export default we
+export default wape

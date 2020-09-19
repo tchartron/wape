@@ -1,15 +1,16 @@
 const path = require('path');
 const webpack = require('webpack')
 const config = require('./src/build/config')
+const pkg = require('./package.json')
 
 module.exports = {
   // mode: 'production',
   entry: './src/build/build.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: pkg.name.toLowerCase() + '.js',
     // publicPath: '/assets/',
-    library: 'Webedit',
+    library: pkg.name,
     libraryExport: 'default',
     libraryTarget: 'umd'
   },
