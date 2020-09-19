@@ -21,8 +21,8 @@
         "layout"
     ],
     "repository": {
-        "type" : "git",
-        "url" : "https://github.com/tchartron/wape.git"
+        "type": "git",
+        "url": "https://github.com/tchartron/wape.git"
     },
     "author": "Thomas Chartron",
     "license": "MIT",
@@ -42,6 +42,7 @@
         "webpack-cli": "^3.3.12"
     },
     "dependencies": {
-        "vue": "^2.6.12"
+        "vue": "^2.6.12",
+        "vue-router": "^3.4.3"
     }
 }
