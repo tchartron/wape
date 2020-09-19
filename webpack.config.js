@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack')
 const config = require('./src/build/config')
 const pkg = require('./package.json')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
   // mode: 'production',
@@ -18,9 +19,9 @@ module.exports = {
     rules: [
       {
         enforce: 'pre',
-        test: /\.js$/,
-        exclude: '/node_modules/',
+        test: /\.(js|vue)$/,
         loader: 'eslint-loader',
+        exclude: '/node_modules/'
       },
       {
         test: /\.js$/,
@@ -31,28 +32,18 @@ module.exports = {
           presets: ['@babel/preset-env']
         }
       },
-      // {
-      //   test: /\.js$/,
-      //   include: [
-      //     path.resolve(__dirname, 'src')
-      //   ],
-      //   exclude: [
-      //     path.resolve(__dirname, 'node_modules')
-      //   ],
-      //   loader: ['babel-loader', 'eslint-loader'],
-      //   options: {
-      //     // presets: ['es2015']
-      //     presets: ['@babel/preset-env']
-      //   }
-      // },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
       {
         test: /\.html$/,
         loader: 'htmllint-loader',
         exclude: '/node_modules/',
       },
       {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader', 'vue-style-loader'],
       },
     ],
   },
@@ -79,6 +70,7 @@ module.exports = {
   // stats: 'detailed',
   stats: 'normal',
   plugins: [
-    new webpack.BannerPlugin(config.banner)
+    new webpack.BannerPlugin(config.banner),
+    new VueLoaderPlugin()
   ]
 }
