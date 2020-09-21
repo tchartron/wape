@@ -8,7 +8,7 @@ module.exports = {
         sourceType: 'module'
     },
     extends: [
-        'plugin:vue/essential'
+        'plugin:vue/recommended'
     ],
     rules: {
         strict: 'off',

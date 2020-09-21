@@ -1,12 +1,12 @@
 const path = require('path');
 const webpack = require('webpack')
-const config = require('./src/build/config')
+const config = require('./src/app/config')
 const pkg = require('./package.json')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
   // mode: 'production',
-  entry: './src/build/build.js',
+  entry: './src/app/app.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: pkg.name.toLowerCase() + '.js',
@@ -51,8 +51,10 @@ module.exports = {
     modules: ['node_modules'],
     extensions: ['.js', '.json', '.jsx', '.css'],
     alias: {
-      Build: path.resolve(__dirname, 'src/build/'),
-      Editor: path.resolve(__dirname, 'src/editor/')
+      App: path.resolve(__dirname, 'src/app/'),
+      Editor: path.resolve(__dirname, 'src/editor/'),
+      Components: path.resolve(__dirname, 'src/editor/components'),
+      Config: path.resolve(__dirname, 'src/editor/config'),
     }
   },
   performance: {
