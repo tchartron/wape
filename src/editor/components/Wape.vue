@@ -1,15 +1,21 @@
 <template>
-    <div class="wape">
-        Hi
-    </div>
+  <div class="wape">
+    <TopPanel />
+    Hi
+  </div>
 </template>
 
 <script>
+import TopPanel from 'Components/layout/TopPanel.vue'
+
 export default {
     name: 'Wape',
-    methods: {
+    components: {
+        TopPanel
     },
     mounted() {
+    },
+    methods: {
     }
 }
 </script>
