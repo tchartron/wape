@@ -31,14 +31,14 @@
         "@babel/preset-env": "^7.11.5",
         "babel-loader": "^8.1.0",
         "css-loader": "^4.3.0",
-        "eslint": "^7.8.1",
+        "eslint": "^7.9.0",
         "eslint-loader": "^4.0.2",
         "eslint-plugin-vue": "^7.0.0-beta.3",
         "htmllint-loader": "^2.1.4",
         "style-loader": "^1.2.1",
         "vue-loader": "^15.9.3",
         "vue-template-compiler": "^2.6.12",
-        "webpack": "^4.44.1",
+        "webpack": "^4.44.2",
         "webpack-cli": "^3.3.12"
     },
     "dependencies": {
