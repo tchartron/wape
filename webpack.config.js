@@ -43,7 +43,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'vue-style-loader'],
+        use: ['vue-style-loader', 'style-loader', 'css-loader'],
       },
     ],
   },
@@ -53,8 +53,7 @@ module.exports = {
     alias: {
       App: path.resolve(__dirname, 'src/app/'),
       Editor: path.resolve(__dirname, 'src/editor/'),
-      Components: path.resolve(__dirname, 'src/editor/components'),
-      Config: path.resolve(__dirname, 'src/editor/config'),
+      Components: path.resolve(__dirname, 'src/editor/components')
     }
   },
   performance: {
