@@ -119,7 +119,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Wape',
@@ -142,6 +141,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Components_layout_TopPanel_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Components/layout/TopPanel.vue */ "./src/editor/components/layout/TopPanel.vue");
+//
+//
 //
 //
 //
@@ -172,7 +173,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\nh1[data-v-19eda8f4] {\n    color: blue;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/TopPanel.vue"],"names":[],"mappings":";AAmBA;IACA,WAAA;AACA","sourcesContent":["<template>\n  <div class=\"top-panel\">\n    <h1>Top panel</h1>\n  </div>\n</template>\n\n<script>\nimport TopPanel from 'Components/layout/TopPanel.vue'\n\nexport default {\n    name: 'TopPanel',\n    mounted() {\n    },\n    methods: {\n    }\n}\n</script>\n\n<style scoped>\n    h1 {\n        color: blue;\n    }\n</style>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.top-panel[data-v-19eda8f4] {\n    align-items: center;\n    background: #454545;\n    display: flex;\n    height: 3.5rem;\n}\ndiv.top-panel > div.logo[data-v-19eda8f4] {\n    color: #ffffff;\n    font-size: 2rem;\n    padding: .5rem\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/TopPanel.vue"],"names":[],"mappings":";AAqBA;IACA,mBAAA;IACA,mBAAA;IACA,aAAA;IACA,cAAA;AACA;AACA;IACA,cAAA;IACA,eAAA;IACA;AACA","sourcesContent":["<template>\n  <div class=\"top-panel\">\n    <div class=\"logo\">\n      <i class=\"fab fa-weebly\" />\n    </div>\n  </div>\n</template>\n\n<script>\nimport TopPanel from 'Components/layout/TopPanel.vue'\n\nexport default {\n    name: 'TopPanel',\n    mounted() {\n    },\n    methods: {\n    }\n}\n</script>\n\n<style scoped>\n    div.top-panel {\n        align-items: center;\n        background: #454545;\n        display: flex;\n        height: 3.5rem;\n    }\n    div.top-panel > div.logo {\n        color: #ffffff;\n        font-size: 2rem;\n        padding: .5rem\n    }\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -1107,12 +1108,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "wape" },
-    [_c("TopPanel"), _vm._v("\n  Hi\n")],
-    1
-  )
+  return _c("div", { staticClass: "wape" }, [_c("TopPanel")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -1144,7 +1140,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "top-panel" }, [
-      _c("h1", [_vm._v("Top panel")])
+      _c("div", { staticClass: "logo" }, [
+        _c("i", { staticClass: "fab fa-weebly" })
+      ])
     ])
   }
 ]

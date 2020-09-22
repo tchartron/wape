@@ -1,7 +1,6 @@
 <template>
   <div class="wape">
     <TopPanel />
-    Hi
   </div>
 </template>
 

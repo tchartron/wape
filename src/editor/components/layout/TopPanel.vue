@@ -1,6 +1,8 @@
 <template>
   <div class="top-panel">
-    <h1>Top panel</h1>
+    <div class="logo">
+      <i class="fab fa-weebly" />
+    </div>
   </div>
 </template>
 
@@ -17,7 +19,15 @@ export default {
 </script>
 
 <style scoped>
-    h1 {
-        color: blue;
+    div.top-panel {
+        align-items: center;
+        background: #454545;
+        display: flex;
+        height: 3.5rem;
+    }
+    div.top-panel > div.logo {
+        color: #ffffff;
+        font-size: 2rem;
+        padding: .5rem
     }
 </style>
