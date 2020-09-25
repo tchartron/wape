@@ -21,6 +21,9 @@
       <div class="redo">
         <i class="fas fa-redo" />
       </div>
+      <div class="code">
+        <i class="fas fa-code" />
+      </div>
       <div class="save">
         <i class="far fa-save" />
       </div>
@@ -86,7 +89,8 @@ export default {
       border-left: .5px solid #000;
       border-right: .5px solid #000;
     }
-    div.top-panel > div.devices > div.mobile
+    div.top-panel > div.devices > div.mobile,
+    div.top-panel > div.actions > div.code
     {
       border-right: .5px solid #000;
     }
