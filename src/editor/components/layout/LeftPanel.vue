@@ -30,7 +30,7 @@ export default {
     }
     div.left-panel > div.actions {
       display: flex;
-      flex-grow: 1;
+      border-bottom: .5px solid #000;
     }
     div.left-panel > div.actions > div {
       padding: .5rem;
