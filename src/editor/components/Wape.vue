@@ -4,7 +4,7 @@
     <div class="wrapper">
       <LeftPanel />
       <div class="canvas">
-        content
+        <MainPanel />
       </div>
       <RightPanel />
     </div>
@@ -15,13 +15,15 @@
 import TopPanel from 'Components/layout/TopPanel.vue'
 import LeftPanel from 'Components/layout/LeftPanel.vue'
 import RightPanel from 'Components/layout/RightPanel.vue'
+import MainPanel from 'Components/layout/MainPanel.vue'
 
 export default {
     name: 'Wape',
     components: {
         TopPanel,
         LeftPanel,
-        RightPanel
+        RightPanel,
+        MainPanel
     },
     mounted() {
     },
