@@ -24,7 +24,6 @@ export default {
 <style scoped>
     div.left-panel {
         background: #454545;
-        display: flex;
         height: calc(100vh - 3.5rem);
         width: 15rem;
     }
