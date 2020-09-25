@@ -23,7 +23,8 @@ export default {
 
 <style scoped>
     div.left-panel {
-        background: #454545;
+        background-color: #454545;
+        border-top: .5px solid #000;
         height: calc(100vh - 3.5rem);
         width: 15rem;
     }
