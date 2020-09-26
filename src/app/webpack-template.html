@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta name="author" content="<%= author %>" />
+    <meta name="description" content="<%= desc %>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script src="https://kit.fontawesome.com/b71e068415.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div id="editor"></div>
+
+    <script type="text/javascript">
+        new Wape({
+            mount: "#editor"
+        });
+        // var options = {
+        //     test: "hello"
+        // }
+        // var editor = Webedit.init(options);
+    </script>
+</body>
+
+</html>
