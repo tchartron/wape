@@ -23,22 +23,13 @@
         class="add-element"
       >
         <div
+          v-for="template in templates"
+          :key="template.id"
           class="elem"
           draggable="true"
         >
-          <i class="far fa-square" />
-        </div>
-        <div
-          class="elem"
-          draggable="true"
-        >
-          <i class="fas fa-columns" />
-        </div>
-        <div
-          class="elem"
-          draggable="true"
-        >
-          <i class="fas fa-border-all" />
+          <i :class="template.icon" />
+          <span class="elem-title">{{ template.title }}</span>
         </div>
       </div>
     </transition>
@@ -57,12 +48,15 @@
 </template>
 
 <script>
+import templates from 'Editor/templates/templates'
+
 export default {
     name: 'LeftPanel',
     data() {
       return {
         currentPanel: 'add',
-        animating: false
+        animating: false,
+        templates
       }
     },
     mounted() {

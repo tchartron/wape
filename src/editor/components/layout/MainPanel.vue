@@ -3,7 +3,6 @@
     class="main-panel"
     @drop="coco('bob')"
     @dragover.prevent
-    @dragenter.prevent
   />
 </template>
 

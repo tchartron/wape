@@ -156,6 +156,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var Editor_templates_templates__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Editor/templates/templates */ "./src/editor/templates/templates.js");
 //
 //
 //
@@ -205,21 +206,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'LeftPanel',
   data: function data() {
     return {
       currentPanel: 'add',
-      animating: false
+      animating: false,
+      templates: Editor_templates_templates__WEBPACK_IMPORTED_MODULE_0__["default"]
     };
   },
   mounted: function mounted() {},
@@ -248,7 +242,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -386,7 +379,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.left-panel[data-v-becf9070] {\n    background-color: #454545;\n    border-top: .5px solid #000;\n    width: 20rem;\n}\ndiv.left-panel > div.actions[data-v-becf9070] {\n  display: flex;\n  border-bottom: .5px solid #000;\n  margin-bottom: 1rem;\n}\ndiv.left-panel > div.actions > div[data-v-becf9070] {\n  padding: .5rem;\n  color: #fff;\n  font-size: 1.5rem;\n  cursor: pointer;\n}\ndiv.left-panel > div.actions > div.add[data-v-becf9070]\n{\n  border-right: .5px solid #000;\n}\ndiv.left-panel > div.actions > div.structure[data-v-becf9070]\n{\n  border-right: .5px solid #000;\n}\ndiv.left-panel > div.add-element[data-v-becf9070] {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  padding: 0 1rem;\n}\ndiv.left-panel > div.add-element > div.elem[data-v-becf9070] {\n  display: flex;\n  cursor: all-scroll;\n  justify-content: space-between;\n  flex-direction: column;\n  margin: 3% 2.5%;\n  width: 45%;\n  min-width: 45%;\n  box-sizing: border-box;\n  border: 1px solid #000;\n  padding: 1em;\n  border-radius: 5px;\n  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);\n}\ndiv.left-panel > div.add-element > div.elem > i[data-v-becf9070] {\n  font-size: 3rem;\n  color: #fff;\n  text-align: center;\n}\n/* Animations thanks animista.net */\n.fade-enter-active[data-v-becf9070] {\n  -webkit-animation: swing-in-top-fwd-data-v-becf9070 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n          animation: swing-in-top-fwd-data-v-becf9070 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n}\n.fade-leave-active[data-v-becf9070] {\n  -webkit-animation: swing-out-top-bck-data-v-becf9070 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n          animation: swing-out-top-bck-data-v-becf9070 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n}\n@-webkit-keyframes swing-in-top-fwd-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n}\n@keyframes swing-in-top-fwd-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n}\n@-webkit-keyframes swing-out-top-bck-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n}\n@keyframes swing-out-top-bck-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/LeftPanel.vue"],"names":[],"mappings":";AAqFA;IACA,yBAAA;IACA,2BAAA;IACA,YAAA;AACA;AACA;EACA,aAAA;EACA,8BAAA;EACA,mBAAA;AACA;AACA;EACA,cAAA;EACA,WAAA;EACA,iBAAA;EACA,eAAA;AACA;AACA;;EAEA,6BAAA;AACA;AACA;;EAEA,6BAAA;AACA;AACA;EACA,aAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AACA;AACA;EACA,aAAA;EACA,kBAAA;EACA,8BAAA;EACA,sBAAA;EACA,eAAA;EACA,UAAA;EACA,cAAA;EACA,sBAAA;EACA,sBAAA;EACA,YAAA;EACA,kBAAA;EACA,2CAAA;AACA;AACA;EACA,eAAA;EACA,WAAA;EACA,kBAAA;AACA;AACA,mCAAA;AACA;EACA,sGAAA;UACA,8FAAA;AACA;AACA;EACA,wGAAA;UACA,gGAAA;AACA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AAEA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA","sourcesContent":["<template>\n  <div class=\"left-panel\">\n    <div class=\"actions\">\n      <div\n        class=\"add\"\n        @click=\"switchPanel('add')\"\n      >\n        <i class=\"fas fa-plus\" />\n      </div>\n      <div\n        class=\"structure\"\n        @click=\"switchPanel('structure')\"\n      >\n        <i class=\"fas fa-bars\" />\n      </div>\n    </div>\n    <transition\n      name=\"fade\"\n      @after-leave=\"animationEnd\"\n    >\n      <div\n        v-if=\"(showPanel('add')) && !animating\"\n        class=\"add-element\"\n      >\n        <div\n          class=\"elem\"\n          draggable=\"true\"\n        >\n          <i class=\"far fa-square\" />\n        </div>\n        <div\n          class=\"elem\"\n          draggable=\"true\"\n        >\n          <i class=\"fas fa-columns\" />\n        </div>\n        <div\n          class=\"elem\"\n          draggable=\"true\"\n        >\n          <i class=\"fas fa-border-all\" />\n        </div>\n      </div>\n    </transition>\n    <transition\n      name=\"fade\"\n      @after-leave=\"animationEnd\"\n    >\n      <div\n        v-if=\"(showPanel('structure') && !animating)\"\n        class=\"show-structure\"\n      >\n        <p>STRUCTURE</p>\n      </div>\n    </transition>\n  </div>\n</template>\n\n<script>\nexport default {\n    name: 'LeftPanel',\n    data() {\n      return {\n        currentPanel: 'add',\n        animating: false\n      }\n    },\n    mounted() {\n    },\n    methods: {\n      switchPanel(panel) {\n        this.animating = true\n        this.currentPanel = panel\n      },\n      showPanel(panel) {\n        return (this.currentPanel === panel)\n      },\n      animationEnd() {\n        this.animating = false\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.left-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 20rem;\n  }\n  div.left-panel > div.actions {\n    display: flex;\n    border-bottom: .5px solid #000;\n    margin-bottom: 1rem;\n  }\n  div.left-panel > div.actions > div {\n    padding: .5rem;\n    color: #fff;\n    font-size: 1.5rem;\n    cursor: pointer;\n  }\n  div.left-panel > div.actions > div.add\n  {\n    border-right: .5px solid #000;\n  }\n  div.left-panel > div.actions > div.structure\n  {\n    border-right: .5px solid #000;\n  }\n  div.left-panel > div.add-element {\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: flex-start;\n    padding: 0 1rem;\n  }\n  div.left-panel > div.add-element > div.elem {\n    display: flex;\n    cursor: all-scroll;\n    justify-content: space-between;\n    flex-direction: column;\n    margin: 3% 2.5%;\n    width: 45%;\n    min-width: 45%;\n    box-sizing: border-box;\n    border: 1px solid #000;\n    padding: 1em;\n    border-radius: 5px;\n    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);\n  }\n  div.left-panel > div.add-element > div.elem > i {\n    font-size: 3rem;\n    color: #fff;\n    text-align: center;\n  }\n  /* Animations thanks animista.net */\n  .fade-enter-active {\n    -webkit-animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n            animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n  }\n  .fade-leave-active {\n    -webkit-animation: swing-out-top-bck 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n            animation: swing-out-top-bck 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n  }\n  @-webkit-keyframes swing-in-top-fwd {\n    0% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n  }\n  @keyframes swing-in-top-fwd {\n    0% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n  }\n\n  @-webkit-keyframes swing-out-top-bck {\n    0% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n    100% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n  }\n  @keyframes swing-out-top-bck {\n    0% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n    100% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n  }\n</style>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.left-panel[data-v-becf9070] {\n    background-color: #454545;\n    border-top: .5px solid #000;\n    width: 20rem;\n}\ndiv.left-panel > div.actions[data-v-becf9070] {\n  display: flex;\n  border-bottom: .5px solid #000;\n  margin-bottom: 1rem;\n}\ndiv.left-panel > div.actions > div[data-v-becf9070] {\n  padding: .5rem;\n  color: #fff;\n  font-size: 1.5rem;\n  cursor: pointer;\n}\ndiv.left-panel > div.actions > div.add[data-v-becf9070]\n{\n  border-right: .5px solid #000;\n}\ndiv.left-panel > div.actions > div.structure[data-v-becf9070]\n{\n  border-right: .5px solid #000;\n}\ndiv.left-panel > div.add-element[data-v-becf9070] {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  padding: 0 1rem;\n}\ndiv.left-panel > div.add-element > div.elem[data-v-becf9070] {\n  display: flex;\n  cursor: all-scroll;\n  justify-content: space-between;\n  flex-direction: column;\n  margin: 3% 2.5%;\n  width: 45%;\n  min-width: 45%;\n  box-sizing: border-box;\n  border: 1px solid #000;\n  padding: 1em;\n  border-radius: 5px;\n  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);\n}\ndiv.left-panel > div.add-element > div.elem > i[data-v-becf9070] {\n  font-size: 3rem;\n  color: #fff;\n  text-align: center;\n}\n/* Animations thanks animista.net */\n.fade-enter-active[data-v-becf9070] {\n  -webkit-animation: swing-in-top-fwd-data-v-becf9070 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n          animation: swing-in-top-fwd-data-v-becf9070 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n}\n.fade-leave-active[data-v-becf9070] {\n  -webkit-animation: swing-out-top-bck-data-v-becf9070 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n          animation: swing-out-top-bck-data-v-becf9070 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n}\n@-webkit-keyframes swing-in-top-fwd-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n}\n@keyframes swing-in-top-fwd-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n}\n@-webkit-keyframes swing-out-top-bck-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n}\n@keyframes swing-out-top-bck-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/LeftPanel.vue"],"names":[],"mappings":";AA+EA;IACA,yBAAA;IACA,2BAAA;IACA,YAAA;AACA;AACA;EACA,aAAA;EACA,8BAAA;EACA,mBAAA;AACA;AACA;EACA,cAAA;EACA,WAAA;EACA,iBAAA;EACA,eAAA;AACA;AACA;;EAEA,6BAAA;AACA;AACA;;EAEA,6BAAA;AACA;AACA;EACA,aAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AACA;AACA;EACA,aAAA;EACA,kBAAA;EACA,8BAAA;EACA,sBAAA;EACA,eAAA;EACA,UAAA;EACA,cAAA;EACA,sBAAA;EACA,sBAAA;EACA,YAAA;EACA,kBAAA;EACA,2CAAA;AACA;AACA;EACA,eAAA;EACA,WAAA;EACA,kBAAA;AACA;AACA,mCAAA;AACA;EACA,sGAAA;UACA,8FAAA;AACA;AACA;EACA,wGAAA;UACA,gGAAA;AACA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AAEA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA","sourcesContent":["<template>\n  <div class=\"left-panel\">\n    <div class=\"actions\">\n      <div\n        class=\"add\"\n        @click=\"switchPanel('add')\"\n      >\n        <i class=\"fas fa-plus\" />\n      </div>\n      <div\n        class=\"structure\"\n        @click=\"switchPanel('structure')\"\n      >\n        <i class=\"fas fa-bars\" />\n      </div>\n    </div>\n    <transition\n      name=\"fade\"\n      @after-leave=\"animationEnd\"\n    >\n      <div\n        v-if=\"(showPanel('add')) && !animating\"\n        class=\"add-element\"\n      >\n        <div\n          v-for=\"template in templates\"\n          :key=\"template.id\"\n          class=\"elem\"\n          draggable=\"true\"\n        >\n          <i :class=\"template.icon\" />\n          <span class=\"elem-title\">{{ template.title }}</span>\n        </div>\n      </div>\n    </transition>\n    <transition\n      name=\"fade\"\n      @after-leave=\"animationEnd\"\n    >\n      <div\n        v-if=\"(showPanel('structure') && !animating)\"\n        class=\"show-structure\"\n      >\n        <p>STRUCTURE</p>\n      </div>\n    </transition>\n  </div>\n</template>\n\n<script>\nimport templates from 'Editor/templates/templates'\n\nexport default {\n    name: 'LeftPanel',\n    data() {\n      return {\n        currentPanel: 'add',\n        animating: false,\n        templates\n      }\n    },\n    mounted() {\n    },\n    methods: {\n      switchPanel(panel) {\n        this.animating = true\n        this.currentPanel = panel\n      },\n      showPanel(panel) {\n        return (this.currentPanel === panel)\n      },\n      animationEnd() {\n        this.animating = false\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.left-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 20rem;\n  }\n  div.left-panel > div.actions {\n    display: flex;\n    border-bottom: .5px solid #000;\n    margin-bottom: 1rem;\n  }\n  div.left-panel > div.actions > div {\n    padding: .5rem;\n    color: #fff;\n    font-size: 1.5rem;\n    cursor: pointer;\n  }\n  div.left-panel > div.actions > div.add\n  {\n    border-right: .5px solid #000;\n  }\n  div.left-panel > div.actions > div.structure\n  {\n    border-right: .5px solid #000;\n  }\n  div.left-panel > div.add-element {\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: flex-start;\n    padding: 0 1rem;\n  }\n  div.left-panel > div.add-element > div.elem {\n    display: flex;\n    cursor: all-scroll;\n    justify-content: space-between;\n    flex-direction: column;\n    margin: 3% 2.5%;\n    width: 45%;\n    min-width: 45%;\n    box-sizing: border-box;\n    border: 1px solid #000;\n    padding: 1em;\n    border-radius: 5px;\n    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);\n  }\n  div.left-panel > div.add-element > div.elem > i {\n    font-size: 3rem;\n    color: #fff;\n    text-align: center;\n  }\n  /* Animations thanks animista.net */\n  .fade-enter-active {\n    -webkit-animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n            animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n  }\n  .fade-leave-active {\n    -webkit-animation: swing-out-top-bck 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n            animation: swing-out-top-bck 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n  }\n  @-webkit-keyframes swing-in-top-fwd {\n    0% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n  }\n  @keyframes swing-in-top-fwd {\n    0% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n  }\n\n  @-webkit-keyframes swing-out-top-bck {\n    0% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n    100% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n  }\n  @keyframes swing-out-top-bck {\n    0% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n    100% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n  }\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -408,7 +401,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.main-panel[data-v-754a1a56] {\n  width: 100%;\n  height: 100%;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/MainPanel.vue"],"names":[],"mappings":";AAuBA;EACA,WAAA;EACA,YAAA;AACA","sourcesContent":["<template>\n  <div\n    class=\"main-panel\"\n    @drop=\"coco('bob')\"\n    @dragover.prevent\n    @dragenter.prevent\n  />\n</template>\n\n<script>\nexport default {\n    name: 'MainPanel',\n    mounted() {\n    },\n    methods: {\n      coco() {\n        console.log('drop')\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.main-panel {\n    width: 100%;\n    height: 100%;\n  }\n</style>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.main-panel[data-v-754a1a56] {\n  width: 100%;\n  height: 100%;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/MainPanel.vue"],"names":[],"mappings":";AAsBA;EACA,WAAA;EACA,YAAA;AACA","sourcesContent":["<template>\n  <div\n    class=\"main-panel\"\n    @drop=\"coco('bob')\"\n    @dragover.prevent\n  />\n</template>\n\n<script>\nexport default {\n    name: 'MainPanel',\n    mounted() {\n    },\n    methods: {\n      coco() {\n        console.log('drop')\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.main-panel {\n    width: 100%;\n    height: 100%;\n  }\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -1584,25 +1577,28 @@ var render = function() {
         { attrs: { name: "fade" }, on: { "after-leave": _vm.animationEnd } },
         [
           _vm.showPanel("add") && !_vm.animating
-            ? _c("div", { staticClass: "add-element" }, [
-                _c(
-                  "div",
-                  { staticClass: "elem", attrs: { draggable: "true" } },
-                  [_c("i", { staticClass: "far fa-square" })]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "elem", attrs: { draggable: "true" } },
-                  [_c("i", { staticClass: "fas fa-columns" })]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "elem", attrs: { draggable: "true" } },
-                  [_c("i", { staticClass: "fas fa-border-all" })]
-                )
-              ])
+            ? _c(
+                "div",
+                { staticClass: "add-element" },
+                _vm._l(_vm.templates, function(template) {
+                  return _c(
+                    "div",
+                    {
+                      key: template.id,
+                      staticClass: "elem",
+                      attrs: { draggable: "true" }
+                    },
+                    [
+                      _c("i", { class: template.icon }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "elem-title" }, [
+                        _vm._v(_vm._s(template.title))
+                      ])
+                    ]
+                  )
+                }),
+                0
+              )
             : _vm._e()
         ]
       ),
@@ -1651,9 +1647,6 @@ var render = function() {
         return _vm.coco("bob")
       },
       dragover: function($event) {
-        $event.preventDefault()
-      },
-      dragenter: function($event) {
         $event.preventDefault()
       }
     }
@@ -11216,6 +11209,37 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].config.productionTip =  false ? unde
     }).$mount(options.mount);
   }
 });
+
+/***/ }),
+
+/***/ "./src/editor/templates/templates.js":
+/*!*******************************************!*\
+  !*** ./src/editor/templates/templates.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ([{
+  id: 1,
+  name: 'section',
+  title: 'Section',
+  icon: 'far fa-square',
+  content: "<div class=\"section\"></div>"
+}, {
+  id: 2,
+  name: 'two-columns',
+  title: 'Two Columns',
+  icon: 'fas fa-columns',
+  content: "<div class=\"two-columns\">\n            <div class=\"column\">\n            </div>\n            <div class=\"column\">\n            </div>\n        </div>"
+}, {
+  id: 3,
+  name: 'three-columns',
+  title: 'Three Columns',
+  icon: 'fas fa-border-all',
+  content: "<div class=\"three-columns\">\n            <div class=\"column\">\n            </div>\n            <div class=\"column\">\n            </div>\n            <div class=\"column\">\n            </div>\n        </div>"
+}]);
 
 /***/ })
 
