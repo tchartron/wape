@@ -35,6 +35,7 @@ export default {
 <style scoped>
   div.wrapper {
     display: flex;
+    height: calc(100vh - 3.5rem);
   }
   div.canvas {
     width: 100%;

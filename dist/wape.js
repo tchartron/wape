@@ -169,10 +169,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'LeftPanel',
+  data: function data() {
+    return {
+      currentPanel: 'add'
+    };
+  },
   mounted: function mounted() {},
-  methods: {}
+  methods: {
+    switchPanel: function switchPanel(panel) {
+      this.currentPanel = panel;
+    },
+    showPanel: function showPanel(panel) {
+      return this.currentPanel === panel;
+    }
+  }
 });
 
 /***/ }),
@@ -295,7 +325,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.wrapper[data-v-852525a2] {\n  display: flex;\n}\ndiv.canvas[data-v-852525a2] {\n  width: 100%;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/Wape.vue"],"names":[],"mappings":";AAmCA;EACA,aAAA;AACA;AACA;EACA,WAAA;AACA","sourcesContent":["<template>\n  <div class=\"wape\">\n    <TopPanel />\n    <div class=\"wrapper\">\n      <LeftPanel />\n      <div class=\"canvas\">\n        <MainPanel />\n      </div>\n      <RightPanel />\n    </div>\n  </div>\n</template>\n\n<script>\nimport TopPanel from 'Components/layout/TopPanel.vue'\nimport LeftPanel from 'Components/layout/LeftPanel.vue'\nimport RightPanel from 'Components/layout/RightPanel.vue'\nimport MainPanel from 'Components/layout/MainPanel.vue'\n\nexport default {\n    name: 'Wape',\n    components: {\n        TopPanel,\n        LeftPanel,\n        RightPanel,\n        MainPanel\n    },\n    mounted() {\n    },\n    methods: {\n    }\n}\n</script>\n\n<style scoped>\n  div.wrapper {\n    display: flex;\n  }\n  div.canvas {\n    width: 100%;\n  }\n</style>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.wrapper[data-v-852525a2] {\n  display: flex;\n  height: calc(100vh - 3.5rem);\n}\ndiv.canvas[data-v-852525a2] {\n  width: 100%;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/Wape.vue"],"names":[],"mappings":";AAmCA;EACA,aAAA;EACA,4BAAA;AACA;AACA;EACA,WAAA;AACA","sourcesContent":["<template>\n  <div class=\"wape\">\n    <TopPanel />\n    <div class=\"wrapper\">\n      <LeftPanel />\n      <div class=\"canvas\">\n        <MainPanel />\n      </div>\n      <RightPanel />\n    </div>\n  </div>\n</template>\n\n<script>\nimport TopPanel from 'Components/layout/TopPanel.vue'\nimport LeftPanel from 'Components/layout/LeftPanel.vue'\nimport RightPanel from 'Components/layout/RightPanel.vue'\nimport MainPanel from 'Components/layout/MainPanel.vue'\n\nexport default {\n    name: 'Wape',\n    components: {\n        TopPanel,\n        LeftPanel,\n        RightPanel,\n        MainPanel\n    },\n    mounted() {\n    },\n    methods: {\n    }\n}\n</script>\n\n<style scoped>\n  div.wrapper {\n    display: flex;\n    height: calc(100vh - 3.5rem);\n  }\n  div.canvas {\n    width: 100%;\n  }\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -317,7 +347,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.left-panel[data-v-becf9070] {\n    background-color: #454545;\n    border-top: .5px solid #000;\n    height: calc(100vh - 3.5rem);\n    width: 15rem;\n}\ndiv.left-panel > div.actions[data-v-becf9070] {\n  display: flex;\n  border-bottom: .5px solid #000;\n}\ndiv.left-panel > div.actions > div[data-v-becf9070] {\n  padding: .5rem;\n  color: #fff;\n  font-size: 1.5rem;\n  cursor: pointer;\n}\ndiv.left-panel > div.actions > div.add[data-v-becf9070]\n{\n  border-right: .5px solid #000;\n}\ndiv.left-panel > div.actions > div.structure[data-v-becf9070]\n{\n  border-right: .5px solid #000;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/LeftPanel.vue"],"names":[],"mappings":";AAwBA;IACA,yBAAA;IACA,2BAAA;IACA,4BAAA;IACA,YAAA;AACA;AACA;EACA,aAAA;EACA,8BAAA;AACA;AACA;EACA,cAAA;EACA,WAAA;EACA,iBAAA;EACA,eAAA;AACA;AACA;;EAEA,6BAAA;AACA;AACA;;EAEA,6BAAA;AACA","sourcesContent":["<template>\n  <div class=\"left-panel\">\n    <div class=\"actions\">\n      <div class=\"add\">\n        <i class=\"fas fa-plus\" />\n      </div>\n      <div class=\"structure\">\n        <i class=\"fas fa-bars\" />\n      </div>\n    </div>\n  </div>\n</template>\n\n<script>\nexport default {\n    name: 'LeftPanel',\n    mounted() {\n    },\n    methods: {\n    }\n}\n</script>\n\n<style scoped>\n    div.left-panel {\n        background-color: #454545;\n        border-top: .5px solid #000;\n        height: calc(100vh - 3.5rem);\n        width: 15rem;\n    }\n    div.left-panel > div.actions {\n      display: flex;\n      border-bottom: .5px solid #000;\n    }\n    div.left-panel > div.actions > div {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n    }\n    div.left-panel > div.actions > div.add\n    {\n      border-right: .5px solid #000;\n    }\n    div.left-panel > div.actions > div.structure\n    {\n      border-right: .5px solid #000;\n    }\n</style>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.left-panel[data-v-becf9070] {\n    background-color: #454545;\n    border-top: .5px solid #000;\n    width: 15rem;\n}\ndiv.left-panel > div.actions[data-v-becf9070] {\n  display: flex;\n  border-bottom: .5px solid #000;\n}\ndiv.left-panel > div.actions > div[data-v-becf9070] {\n  padding: .5rem;\n  color: #fff;\n  font-size: 1.5rem;\n  cursor: pointer;\n}\ndiv.left-panel > div.actions > div.add[data-v-becf9070]\n{\n  border-right: .5px solid #000;\n}\ndiv.left-panel > div.actions > div.structure[data-v-becf9070]\n{\n  border-right: .5px solid #000;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/LeftPanel.vue"],"names":[],"mappings":";AAqDA;IACA,yBAAA;IACA,2BAAA;IACA,YAAA;AACA;AACA;EACA,aAAA;EACA,8BAAA;AACA;AACA;EACA,cAAA;EACA,WAAA;EACA,iBAAA;EACA,eAAA;AACA;AACA;;EAEA,6BAAA;AACA;AACA;;EAEA,6BAAA;AACA","sourcesContent":["<template>\n  <div class=\"left-panel\">\n    <div class=\"actions\">\n      <div\n        class=\"add\"\n        @click=\"switchPanel('add')\"\n      >\n        <i class=\"fas fa-plus\" />\n      </div>\n      <div\n        class=\"structure\"\n        @click=\"switchPanel('structure')\"\n      >\n        <i class=\"fas fa-bars\" />\n      </div>\n    </div>\n    <div\n      v-if=\"(showPanel('add'))\"\n      class=\"add-element\"\n    >\n      <p>ADD</p>\n    </div>\n    <div\n      v-if=\"(showPanel('structure'))\"\n      class=\"show-structure\"\n    >\n      <p>STRUCTURE</p>\n    </div>\n  </div>\n</template>\n\n<script>\nexport default {\n    name: 'LeftPanel',\n    data() {\n      return {\n        currentPanel: 'add'\n      }\n    },\n    mounted() {\n    },\n    methods: {\n      switchPanel(panel) {\n        this.currentPanel = panel\n      },\n      showPanel(panel) {\n        return (this.currentPanel === panel)\n      }\n    }\n}\n</script>\n\n<style scoped>\n    div.left-panel {\n        background-color: #454545;\n        border-top: .5px solid #000;\n        width: 15rem;\n    }\n    div.left-panel > div.actions {\n      display: flex;\n      border-bottom: .5px solid #000;\n    }\n    div.left-panel > div.actions > div {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n    }\n    div.left-panel > div.actions > div.add\n    {\n      border-right: .5px solid #000;\n    }\n    div.left-panel > div.actions > div.structure\n    {\n      border-right: .5px solid #000;\n    }\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -339,7 +369,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.right-panel[data-v-d9217e66] {\n  background-color: #454545;\n  border-top: .5px solid #000;\n  height: calc(100vh - 3.5rem);\n  width: 15rem;\n}\ndiv.right-panel > div.actions[data-v-d9217e66] {\n  display: flex;\n  border-bottom: .5px solid #000;\n}\ndiv.right-panel > div.actions > div[data-v-d9217e66] {\n  padding: .5rem;\n  color: #fff;\n  font-size: 1.5rem;\n  cursor: pointer;\n}\ndiv.right-panel > div.actions > div.style[data-v-d9217e66]\n{\n  border-right: .5px solid #000;\n}\ndiv.right-panel > div.actions > div.setting[data-v-d9217e66]\n{\n  border-right: .5px solid #000;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/RightPanel.vue"],"names":[],"mappings":";AAwBA;EACA,yBAAA;EACA,2BAAA;EACA,4BAAA;EACA,YAAA;AACA;AACA;EACA,aAAA;EACA,8BAAA;AACA;AACA;EACA,cAAA;EACA,WAAA;EACA,iBAAA;EACA,eAAA;AACA;AACA;;EAEA,6BAAA;AACA;AACA;;EAEA,6BAAA;AACA","sourcesContent":["<template>\n  <div class=\"right-panel\">\n    <div class=\"actions\">\n      <div class=\"style\">\n        <i class=\"fas fa-paint-brush\" />\n      </div>\n      <div class=\"settings\">\n        <i class=\"fas fa-cog\" />\n      </div>\n    </div>\n  </div>\n</template>\n\n<script>\nexport default {\n    name: 'RightPanel',\n    mounted() {\n    },\n    methods: {\n    }\n}\n</script>\n\n<style scoped>\n    div.right-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      height: calc(100vh - 3.5rem);\n      width: 15rem;\n    }\n    div.right-panel > div.actions {\n      display: flex;\n      border-bottom: .5px solid #000;\n    }\n    div.right-panel > div.actions > div {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n    }\n    div.right-panel > div.actions > div.style\n    {\n      border-right: .5px solid #000;\n    }\n    div.right-panel > div.actions > div.setting\n    {\n      border-right: .5px solid #000;\n    }\n</style>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.right-panel[data-v-d9217e66] {\n  background-color: #454545;\n  border-top: .5px solid #000;\n  width: 15rem;\n}\ndiv.right-panel > div.actions[data-v-d9217e66] {\n  display: flex;\n  border-bottom: .5px solid #000;\n}\ndiv.right-panel > div.actions > div[data-v-d9217e66] {\n  padding: .5rem;\n  color: #fff;\n  font-size: 1.5rem;\n  cursor: pointer;\n}\ndiv.right-panel > div.actions > div.style[data-v-d9217e66]\n{\n  border-right: .5px solid #000;\n}\ndiv.right-panel > div.actions > div.setting[data-v-d9217e66]\n{\n  border-right: .5px solid #000;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/RightPanel.vue"],"names":[],"mappings":";AAwBA;EACA,yBAAA;EACA,2BAAA;EACA,YAAA;AACA;AACA;EACA,aAAA;EACA,8BAAA;AACA;AACA;EACA,cAAA;EACA,WAAA;EACA,iBAAA;EACA,eAAA;AACA;AACA;;EAEA,6BAAA;AACA;AACA;;EAEA,6BAAA;AACA","sourcesContent":["<template>\n  <div class=\"right-panel\">\n    <div class=\"actions\">\n      <div class=\"style\">\n        <i class=\"fas fa-paint-brush\" />\n      </div>\n      <div class=\"settings\">\n        <i class=\"fas fa-cog\" />\n      </div>\n    </div>\n  </div>\n</template>\n\n<script>\nexport default {\n    name: 'RightPanel',\n    mounted() {\n    },\n    methods: {\n    }\n}\n</script>\n\n<style scoped>\n    div.right-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 15rem;\n    }\n    div.right-panel > div.actions {\n      display: flex;\n      border-bottom: .5px solid #000;\n    }\n    div.right-panel > div.actions > div {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n    }\n    div.right-panel > div.actions > div.style\n    {\n      border-right: .5px solid #000;\n    }\n    div.right-panel > div.actions > div.setting\n    {\n      border-right: .5px solid #000;\n    }\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -1427,26 +1457,47 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "left-panel" }, [
-      _c("div", { staticClass: "actions" }, [
-        _c("div", { staticClass: "add" }, [
-          _c("i", { staticClass: "fas fa-plus" })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "structure" }, [
-          _c("i", { staticClass: "fas fa-bars" })
+  return _c("div", { staticClass: "left-panel" }, [
+    _c("div", { staticClass: "actions" }, [
+      _c(
+        "div",
+        {
+          staticClass: "add",
+          on: {
+            click: function($event) {
+              return _vm.switchPanel("add")
+            }
+          }
+        },
+        [_c("i", { staticClass: "fas fa-plus" })]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "structure",
+          on: {
+            click: function($event) {
+              return _vm.switchPanel("structure")
+            }
+          }
+        },
+        [_c("i", { staticClass: "fas fa-bars" })]
+      )
+    ]),
+    _vm._v(" "),
+    _vm.showPanel("add")
+      ? _c("div", { staticClass: "add-element" }, [_c("p", [_vm._v("ADD")])])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.showPanel("structure")
+      ? _c("div", { staticClass: "show-structure" }, [
+          _c("p", [_vm._v("STRUCTURE")])
         ])
-      ])
-    ])
-  }
-]
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -1468,9 +1519,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "main-panel" })
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "main-panel" }, [
+      _c("p", [_vm._v("hi content")])
+    ])
+  }
+]
 render._withStripped = true
 
 
