@@ -1,7 +1,10 @@
 <template>
-  <div class="main-panel">
-    <p>hi content</p>
-  </div>
+  <div
+    class="main-panel"
+    @drop="coco('bob')"
+    @dragover.prevent
+    @dragenter.prevent
+  />
 </template>
 
 <script>
@@ -10,9 +13,16 @@ export default {
     mounted() {
     },
     methods: {
+      coco() {
+        console.log('drop')
+      }
     }
 }
 </script>
 
 <style scoped>
+  div.main-panel {
+    width: 100%;
+    height: 100%;
+  }
 </style>
