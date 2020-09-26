@@ -5,8 +5,9 @@
     "browser": "dist/wape.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
+        "serve": "webpack-dev-server --mode='development' --hot",
+        "watch": "webpack --mode='development' --watch",
         "build:dev": "webpack --mode='development'",
-        "build:watch": "webpack --mode='development' --watch",
         "build:prod": "webpack --mode='production'"
     },
     "keywords": [
@@ -35,12 +36,14 @@
         "eslint": "^7.9.0",
         "eslint-loader": "^4.0.2",
         "eslint-plugin-vue": "^7.0.0-beta.3",
+        "html-webpack-plugin": "^4.5.0",
         "htmllint-loader": "^2.1.4",
         "style-loader": "^1.2.1",
         "vue-loader": "^15.9.3",
         "vue-template-compiler": "^2.6.12",
         "webpack": "^4.44.2",
-        "webpack-cli": "^3.3.12"
+        "webpack-cli": "^3.3.12",
+        "webpack-dev-server": "^3.11.0"
     },
     "dependencies": {
         "vue": "^2.6.12"
