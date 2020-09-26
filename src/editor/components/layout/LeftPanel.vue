@@ -14,9 +14,12 @@
         <i class="fas fa-bars" />
       </div>
     </div>
-    <transition name="fade">
+    <transition
+      name="fade"
+      @after-leave="animationEnd"
+    >
       <div
-        v-if="(showPanel('add'))"
+        v-if="(showPanel('add')) && !animating"
         class="add-element"
       >
         <div class="elem" draggable="true">
@@ -30,9 +33,12 @@
         </div>
       </div>
     </transition>
-    <transition name="fade">
+    <transition
+      name="fade"
+      @after-leave="animationEnd"
+    >
       <div
-        v-if="(showPanel('structure'))"
+        v-if="(showPanel('structure') && !animating)"
         class="show-structure"
       >
         <p>STRUCTURE</p>
@@ -46,17 +52,22 @@ export default {
     name: 'LeftPanel',
     data() {
       return {
-        currentPanel: 'add'
+        currentPanel: 'add',
+        animating: false
       }
     },
     mounted() {
     },
     methods: {
       switchPanel(panel) {
+        this.animating = true
         this.currentPanel = panel
       },
       showPanel(panel) {
         return (this.currentPanel === panel)
+      },
+      animationEnd() {
+        this.animating = false
       }
     }
 }
