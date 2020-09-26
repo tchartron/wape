@@ -14,18 +14,30 @@
         <i class="fas fa-bars" />
       </div>
     </div>
-    <div
-      v-if="(showPanel('add'))"
-      class="add-element"
-    >
-      <p>ADD</p>
-    </div>
-    <div
-      v-if="(showPanel('structure'))"
-      class="show-structure"
-    >
-      <p>STRUCTURE</p>
-    </div>
+    <transition name="fade">
+      <div
+        v-if="(showPanel('add'))"
+        class="add-element"
+      >
+        <div class="elem">
+          <i class="far fa-square" />
+        </div>
+        <div class="elem">
+          <i class="fas fa-columns" />
+        </div>
+        <div class="elem">
+          <i class="fas fa-border-all" />
+        </div>
+      </div>
+    </transition>
+    <transition name="fade">
+      <div
+        v-if="(showPanel('structure'))"
+        class="show-structure"
+      >
+        <p>STRUCTURE</p>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -54,11 +66,12 @@ export default {
     div.left-panel {
         background-color: #454545;
         border-top: .5px solid #000;
-        width: 15rem;
+        width: 20rem;
     }
     div.left-panel > div.actions {
       display: flex;
       border-bottom: .5px solid #000;
+      margin-bottom: 1rem;
     }
     div.left-panel > div.actions > div {
       padding: .5rem;
@@ -73,5 +86,111 @@ export default {
     div.left-panel > div.actions > div.structure
     {
       border-right: .5px solid #000;
+    }
+    div.left-panel > div.add-element {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      padding: 0 1rem;
+    }
+    div.left-panel > div.add-element > div.elem {
+      display: flex;
+      cursor: all-scroll;
+      justify-content: space-between;
+      flex-direction: column;
+      margin: 3% 2.5%;
+      width: 45%;
+      min-width: 45%;
+      box-sizing: border-box;
+      border: 1px solid #000;
+      padding: 1em;
+      border-radius: 5px;
+      box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);
+    }
+    div.left-panel > div.add-element > div.elem > i {
+      font-size: 3rem;
+      color: #fff;
+      text-align: center;
+    }
+    /* Animations */
+    .swing-in-top-fwd {
+      -webkit-animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+              animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+    }
+    @-webkit-keyframes swing-in-top-fwd {
+      0% {
+        -webkit-transform: rotateX(-100deg);
+                transform: rotateX(-100deg);
+        -webkit-transform-origin: top;
+                transform-origin: top;
+        opacity: 0;
+      }
+      100% {
+        -webkit-transform: rotateX(0deg);
+                transform: rotateX(0deg);
+        -webkit-transform-origin: top;
+                transform-origin: top;
+        opacity: 1;
+      }
+    }
+    @keyframes swing-in-top-fwd {
+      0% {
+        -webkit-transform: rotateX(-100deg);
+                transform: rotateX(-100deg);
+        -webkit-transform-origin: top;
+                transform-origin: top;
+        opacity: 0;
+      }
+      100% {
+        -webkit-transform: rotateX(0deg);
+                transform: rotateX(0deg);
+        -webkit-transform-origin: top;
+                transform-origin: top;
+        opacity: 1;
+      }
+    }
+    .swing-out-top-bck {
+      -webkit-animation: swing-out-top-bck 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;
+              animation: swing-out-top-bck 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;
+    }
+    @-webkit-keyframes swing-out-top-bck {
+      0% {
+        -webkit-transform: rotateX(0deg);
+                transform: rotateX(0deg);
+        -webkit-transform-origin: top;
+                transform-origin: top;
+        opacity: 1;
+      }
+      100% {
+        -webkit-transform: rotateX(-100deg);
+                transform: rotateX(-100deg);
+        -webkit-transform-origin: top;
+                transform-origin: top;
+        opacity: 0;
+      }
+    }
+    @keyframes swing-out-top-bck {
+      0% {
+        -webkit-transform: rotateX(0deg);
+                transform: rotateX(0deg);
+        -webkit-transform-origin: top;
+                transform-origin: top;
+        opacity: 1;
+      }
+      100% {
+        -webkit-transform: rotateX(-100deg);
+                transform: rotateX(-100deg);
+        -webkit-transform-origin: top;
+                transform-origin: top;
+        opacity: 0;
+      }
+    }
+    .fade-enter-active {
+      -webkit-animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+              animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+    }
+    .fade-leave-active {
+      -webkit-animation: swing-out-top-bck 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;
+              animation: swing-out-top-bck 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;
     }
 </style>
