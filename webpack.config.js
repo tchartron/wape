@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const config = require('./src/app/config')
 const pkg = require('./package.json')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   // mode: 'production',
@@ -36,11 +37,11 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader'
       },
-      {
-        test: /\.html$/,
-        loader: 'htmllint-loader',
-        exclude: '/node_modules/',
-      },
+      // {
+      //   test: /\.html$/,
+      //   loader: 'htmllint-loader',
+      //   exclude: '/node_modules/',
+      // },
       {
         test: /\.css$/,
         use: ['vue-style-loader', 'style-loader', 'css-loader'],
@@ -72,6 +73,15 @@ module.exports = {
   stats: 'normal',
   plugins: [
     new webpack.BannerPlugin(config.banner),
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new HtmlWebpackPlugin({
+        title: pkg.name,
+        templateParameters: {
+          'author': pkg.author,
+          'desc': pkg.description,
+        },
+        inject: 'head',
+        template: 'src/app/webpack-template.html'
+    })
   ]
 }
