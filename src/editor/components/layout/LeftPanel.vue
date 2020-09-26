@@ -131,6 +131,13 @@ export default {
     color: #fff;
     text-align: center;
   }
+  div.elem > span.elem-title {
+    text-align: center;
+    color: #fff;
+    font-weight: 300;
+    font-size: 0.9rem;
+    margin-top: .5rem;
+  }
   /* Animations thanks animista.net */
   .fade-enter-active {
     -webkit-animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
