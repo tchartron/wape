@@ -27,12 +27,14 @@
           :key="template.id"
           class="elem"
           draggable="true"
+          @dragstart="emitDragging(template)"
         >
           <i :class="template.icon" />
           <span class="elem-title">{{ template.title }}</span>
         </div>
       </div>
     </transition>
+
     <transition
       name="fade"
       @after-leave="animationEnd"
@@ -71,6 +73,9 @@ export default {
       },
       animationEnd() {
         this.animating = false
+      },
+      emitDragging(elem) {
+        this.$root.$emit('dragging-element', elem)
       }
     }
 }
