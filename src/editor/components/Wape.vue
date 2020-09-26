@@ -25,17 +25,6 @@ export default {
         RightPanel,
         MainPanel
     },
-    data() {
-      return {
-        currentElement: Object
-      }
-    },
-    mounted() {
-      this.$root.$on('dragging-element', (elem) => {
-        this.currentElement = elem
-        console.log(this.currentElement)
-      })
-    },
     methods: {
     }
 }

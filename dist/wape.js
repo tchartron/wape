@@ -141,19 +141,6 @@ __webpack_require__.r(__webpack_exports__);
     RightPanel: Components_layout_RightPanel_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     MainPanel: Components_layout_MainPanel_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
-  data: function data() {
-    return {
-      currentElement: Object
-    };
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    this.$root.$on('dragging-element', function (elem) {
-      _this.currentElement = elem;
-      console.log(_this.currentElement);
-    });
-  },
   methods: {}
 });
 
@@ -267,12 +254,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'MainPanel',
-  mounted: function mounted() {},
+  data: function data() {
+    return {
+      currentElement: false,
+      content: ''
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$root.$on('dragging-element', function (elem) {
+      _this.currentElement = elem;
+      console.log(_this.currentElement);
+    });
+  },
   methods: {
-    coco: function coco() {
-      console.log('drop');
+    handleDrop: function handleDrop() {
+      if (this.currentElement) {
+        this.content += this.currentElement.content;
+      }
     }
   }
 });
@@ -374,7 +378,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.wrapper[data-v-852525a2] {\n  display: flex;\n  height: calc(100vh - 3.5rem);\n}\ndiv.canvas[data-v-852525a2] {\n  width: 100%;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/Wape.vue"],"names":[],"mappings":";AA4CA;EACA,aAAA;EACA,4BAAA;AACA;AACA;EACA,WAAA;AACA","sourcesContent":["<template>\n  <div class=\"wape\">\n    <TopPanel />\n    <div class=\"wrapper\">\n      <LeftPanel />\n      <div class=\"canvas\">\n        <MainPanel />\n      </div>\n      <RightPanel />\n    </div>\n  </div>\n</template>\n\n<script>\nimport TopPanel from 'Components/layout/TopPanel.vue'\nimport LeftPanel from 'Components/layout/LeftPanel.vue'\nimport RightPanel from 'Components/layout/RightPanel.vue'\nimport MainPanel from 'Components/layout/MainPanel.vue'\n\nexport default {\n    name: 'Wape',\n    components: {\n        TopPanel,\n        LeftPanel,\n        RightPanel,\n        MainPanel\n    },\n    data() {\n      return {\n        currentElement: Object\n      }\n    },\n    mounted() {\n      this.$root.$on('dragging-element', (elem) => {\n        this.currentElement = elem\n        console.log(this.currentElement)\n      })\n    },\n    methods: {\n    }\n}\n</script>\n\n<style scoped>\n  div.wrapper {\n    display: flex;\n    height: calc(100vh - 3.5rem);\n  }\n  div.canvas {\n    width: 100%;\n  }\n</style>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.wrapper[data-v-852525a2] {\n  display: flex;\n  height: calc(100vh - 3.5rem);\n}\ndiv.canvas[data-v-852525a2] {\n  width: 100%;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/Wape.vue"],"names":[],"mappings":";AAiCA;EACA,aAAA;EACA,4BAAA;AACA;AACA;EACA,WAAA;AACA","sourcesContent":["<template>\n  <div class=\"wape\">\n    <TopPanel />\n    <div class=\"wrapper\">\n      <LeftPanel />\n      <div class=\"canvas\">\n        <MainPanel />\n      </div>\n      <RightPanel />\n    </div>\n  </div>\n</template>\n\n<script>\nimport TopPanel from 'Components/layout/TopPanel.vue'\nimport LeftPanel from 'Components/layout/LeftPanel.vue'\nimport RightPanel from 'Components/layout/RightPanel.vue'\nimport MainPanel from 'Components/layout/MainPanel.vue'\n\nexport default {\n    name: 'Wape',\n    components: {\n        TopPanel,\n        LeftPanel,\n        RightPanel,\n        MainPanel\n    },\n    methods: {\n    }\n}\n</script>\n\n<style scoped>\n  div.wrapper {\n    display: flex;\n    height: calc(100vh - 3.5rem);\n  }\n  div.canvas {\n    width: 100%;\n  }\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -418,7 +422,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.main-panel[data-v-754a1a56] {\n  width: 100%;\n  height: 100%;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/MainPanel.vue"],"names":[],"mappings":";AAsBA;EACA,WAAA;EACA,YAAA;AACA","sourcesContent":["<template>\n  <div\n    class=\"main-panel\"\n    @drop=\"coco('bob')\"\n    @dragover.prevent\n  />\n</template>\n\n<script>\nexport default {\n    name: 'MainPanel',\n    mounted() {\n    },\n    methods: {\n      coco() {\n        console.log('drop')\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.main-panel {\n    width: 100%;\n    height: 100%;\n  }\n</style>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.main-panel[data-v-754a1a56] {\n  width: 100%;\n  height: 100%;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/MainPanel.vue"],"names":[],"mappings":";AAoCA;EACA,WAAA;EACA,YAAA;AACA","sourcesContent":["<template>\n  <!-- eslint-disable vue/no-v-html  -->\n  <div\n    class=\"main-panel\"\n    @drop=\"handleDrop\"\n    @dragover.prevent\n    v-html=\"content\"\n  />\n</template>\n\n<script>\nexport default {\n    name: 'MainPanel',\n    data() {\n      return {\n        currentElement: false,\n        content: ''\n      }\n    },\n    mounted() {\n      this.$root.$on('dragging-element', (elem) => {\n        this.currentElement = elem\n        console.log(this.currentElement)\n      })\n    },\n    methods: {\n      handleDrop() {\n        if(this.currentElement) {\n          this.content += this.currentElement.content\n        }\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.main-panel {\n    width: 100%;\n    height: 100%;\n  }\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -1664,10 +1668,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", {
     staticClass: "main-panel",
+    domProps: { innerHTML: _vm._s(_vm.content) },
     on: {
-      drop: function($event) {
-        return _vm.coco("bob")
-      },
+      drop: _vm.handleDrop,
       dragover: function($event) {
         $event.preventDefault()
       }
