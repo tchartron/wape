@@ -19,13 +19,13 @@
         v-if="(showPanel('add'))"
         class="add-element"
       >
-        <div class="elem">
+        <div class="elem" draggable="true">
           <i class="far fa-square" />
         </div>
-        <div class="elem">
+        <div class="elem" draggable="true">
           <i class="fas fa-columns" />
         </div>
-        <div class="elem">
+        <div class="elem" draggable="true">
           <i class="fas fa-border-all" />
         </div>
       </div>

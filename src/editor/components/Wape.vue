@@ -3,7 +3,7 @@
     <TopPanel />
     <div class="wrapper">
       <LeftPanel />
-      <div class="canvas">
+      <div class="canvas" @drop="coco('bob')" @dragover.prevent @dragenter.prevent>
         <MainPanel />
       </div>
       <RightPanel />
@@ -28,6 +28,9 @@ export default {
     mounted() {
     },
     methods: {
+      coco() {
+        alert('hello')
+      }
     }
 }
 </script>
