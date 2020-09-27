@@ -98,7 +98,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/app/app.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/app/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -246,6 +246,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -430,7 +432,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.main-panel[data-v-754a1a56] {\n  width: 100%;\n  height: 100%;\n}\niframe.content[data-v-754a1a56] {\n  display: block;\n  border: 0px none;\n  height: 100%;\n  width: 100%;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/MainPanel.vue"],"names":[],"mappings":";AA4CA;EACA,WAAA;EACA,YAAA;AACA;AACA;EACA,cAAA;EACA,gBAAA;EACA,YAAA;EACA,WAAA;AACA","sourcesContent":["<template>\n  <!-- eslint-disable vue/no-v-html  -->\n  <div\n    class=\"main-panel\"\n    @drop=\"handleDrop\"\n    @dragover.prevent\n  >\n    <iframe\n      :src=\"iframeFilePath\"\n      class=\"content\"\n    />\n  </div>\n</template>\n\n<script>\nexport default {\n    name: 'MainPanel',\n    data() {\n      return {\n        currentElement: false,\n        content: ''\n      }\n    },\n    computed: {\n      iframeFilePath() {\n        return 'iframe.html'\n      }\n    },\n    mounted() {\n      this.$root.$on('dragging-element', (elem) => {\n        this.currentElement = elem\n      })\n    },\n    methods: {\n      handleDrop() {\n        if(this.currentElement) {\n          this.content += this.currentElement.content\n        }\n      }\n    },\n}\n</script>\n\n<style scoped>\n  div.main-panel {\n    width: 100%;\n    height: 100%;\n  }\n  iframe.content {\n    display: block;\n    border: 0px none;\n    height: 100%;\n    width: 100%;\n  }\n</style>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.main-panel[data-v-754a1a56] {\n  width: 100%;\n  height: 100%;\n}\niframe.content[data-v-754a1a56] {\n  display: block;\n  border: 0px none;\n  height: 100%;\n  width: 100%;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/MainPanel.vue"],"names":[],"mappings":";AA8CA;EACA,WAAA;EACA,YAAA;AACA;AACA;EACA,cAAA;EACA,gBAAA;EACA,YAAA;EACA,WAAA;AACA","sourcesContent":["<template>\n  <!-- eslint-disable vue/no-v-html  -->\n  <div\n    class=\"main-panel\"\n    @drop=\"handleDrop\"\n    @dragover.prevent\n  >\n    <iframe\n      id=\"content\"\n      name=\"content\"\n      :src=\"iframeFilePath\"\n      class=\"content\"\n    />\n  </div>\n</template>\n\n<script>\nexport default {\n    name: 'MainPanel',\n    data() {\n      return {\n        currentElement: false,\n        content: ''\n      }\n    },\n    computed: {\n      iframeFilePath() {\n        return 'iframe.html'\n      }\n    },\n    mounted() {\n      this.$root.$on('dragging-element', (elem) => {\n        this.currentElement = elem\n      })\n    },\n    methods: {\n      handleDrop() {\n        if(this.currentElement) {\n          this.content += this.currentElement.content\n        }\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.main-panel {\n    width: 100%;\n    height: 100%;\n  }\n  iframe.content {\n    display: block;\n    border: 0px none;\n    height: 100%;\n    width: 100%;\n  }\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -1740,7 +1742,7 @@ var render = function() {
     [
       _c("iframe", {
         staticClass: "content",
-        attrs: { src: _vm.iframeFilePath }
+        attrs: { id: "content", name: "content", src: _vm.iframeFilePath }
       })
     ]
   )
@@ -10819,10 +10821,10 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "./src/app/app.js":
-/*!************************!*\
-  !*** ./src/app/app.js ***!
-  \************************/
+/***/ "./src/app/index.js":
+/*!**************************!*\
+  !*** ./src/app/index.js ***!
+  \**************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

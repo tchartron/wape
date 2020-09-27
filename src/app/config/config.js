@@ -1,4 +1,5 @@
-const pkg = require('../../package.json')
+const path = require('path')
+const pkg = require('./../../../package.json')
 const banner =
   '/*\n' +
   ` * ${pkg.name} version ${pkg.version}\n` +
