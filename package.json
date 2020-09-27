@@ -28,6 +28,10 @@
     },
     "author": "Thomas Chartron",
     "license": "MIT",
+    "bugs": {
+    "url": "https://github.com/tchartron/wape/issues"
+    },
+    "homepage": "https://github.com/tchartron/wape#readme",
     "devDependencies": {
         "@babel/core": "^7.11.6",
         "@babel/preset-env": "^7.11.5",
