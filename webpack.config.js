@@ -2,8 +2,9 @@ const path = require('path');
 const webpack = require('webpack')
 const config = require('./src/app/config')
 const pkg = require('./package.json')
+const iframeConfig = require('./src/app/config/iframe')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   // mode: 'production',
@@ -76,12 +77,22 @@ module.exports = {
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
         title: pkg.name,
+        filename: 'index.html', //default
         templateParameters: {
           'author': pkg.author,
           'desc': pkg.description,
         },
         inject: 'head',
         template: 'src/app/webpack-template.html'
+    }),
+    new HtmlWebpackPlugin({
+        title: iframeConfig.title,
+        filename: 'iframe.html',
+        templateParameters: {
+          'css': iframeConfig.css
+        },
+        inject: false,
+        template: 'src/app/webpack-iframe-template.html'
     })
   ]
 }
