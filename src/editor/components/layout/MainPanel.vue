@@ -4,8 +4,14 @@
     class="main-panel"
     @drop="handleDrop"
     @dragover.prevent
-    v-html="content"
-  />
+  >
+    <iframe
+      id="content"
+      name="content"
+      :src="iframeFilePath"
+      class="content"
+    />
+  </div>
 </template>
 
 <script>
@@ -17,10 +23,14 @@ export default {
         content: ''
       }
     },
+    computed: {
+      iframeFilePath() {
+        return 'iframe.html'
+      }
+    },
     mounted() {
       this.$root.$on('dragging-element', (elem) => {
         this.currentElement = elem
-        console.log(this.currentElement)
       })
     },
     methods: {
@@ -37,5 +47,11 @@ export default {
   div.main-panel {
     width: 100%;
     height: 100%;
+  }
+  iframe.content {
+    display: block;
+    border: 0px none;
+    height: 100%;
+    width: 100%;
   }
 </style>
