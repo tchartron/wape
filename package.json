@@ -2,7 +2,7 @@
   "name": "Wape",
   "version": "0.0.1",
   "description": "Webpage application page editor",
-  "browser": "dist/wape.js",
+  "main": "dist/wape.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "webpack-dev-server --mode='development' --hot",
