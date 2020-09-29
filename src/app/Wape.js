@@ -7,6 +7,5 @@ export default class Wape {
     }
     init() {
         let editor = new Editor(this.options.el)
-        console.log(editor)
     }
 }
