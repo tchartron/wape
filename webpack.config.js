@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack')
-const config = require('./src/app/config/config')
+const config = require('./src/app/config/build')
 const pkg = require('./package.json')
 const iframeConfig = require('./src/app/config/iframe')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
