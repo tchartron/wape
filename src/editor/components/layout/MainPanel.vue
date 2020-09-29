@@ -1,10 +1,6 @@
 <template>
   <!-- eslint-disable vue/no-v-html  -->
-  <div
-    class="main-panel"
-    @drop="handleDrop"
-    @dragover.prevent
-  >
+  <div class="main-panel">
     <iframe
       id="content"
       name="content"
@@ -35,9 +31,10 @@ export default {
     },
     methods: {
       handleDrop() {
-        if(this.currentElement) {
-          this.content += this.currentElement.content
-        }
+        // if(this.currentElement) {
+        //   this.content += this.currentElement.content
+        // }
+        console.log('dropped')
       }
     }
 }
