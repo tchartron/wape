@@ -1,7 +1,7 @@
-import editor from 'Editor/editor'
+import Wape from './Wape'
 import './styles/main.css'
 
-function wape(options) {
-    editor.init(options)
-}
-export default wape
+// function wape(options) {
+//     editor.init(options)
+// }
+export default Wape
