@@ -33,7 +33,7 @@ export default {
     },
     methods: {
       iframeLoaded() {
-        this.iframe = new Iframe('#content', '.container')
+        this.iframe = new Iframe('#content', '#editor-content')
         this.iframe.bindEvents()
       },
       handleDrop() {
