@@ -6,17 +6,21 @@
       name="content"
       :src="iframeFilePath"
       class="content"
+      @load="iframeLoaded"
     />
   </div>
 </template>
 
 <script>
+import Iframe from 'Editor/Iframe'
+
 export default {
     name: 'MainPanel',
     data() {
       return {
         currentElement: false,
-        content: ''
+        // content: '',
+        iframe: Object
       }
     },
     computed: {
@@ -30,6 +34,10 @@ export default {
       })
     },
     methods: {
+      iframeLoaded() {
+        this.iframe = new Iframe('#content')
+        this.iframe.bindEvents()
+      },
       handleDrop() {
         // if(this.currentElement) {
         //   this.content += this.currentElement.content
