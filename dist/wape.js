@@ -246,6 +246,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var Editor_Iframe__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Editor/Iframe */ "./src/editor/Iframe.js");
 //
 //
 //
@@ -258,16 +259,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'MainPanel',
   data: function data() {
     return {
       currentElement: false,
-      content: ''
+      // content: '',
+      iframe: Object
     };
   },
   computed: {
@@ -281,12 +280,15 @@ __webpack_require__.r(__webpack_exports__);
     this.$root.$on('dragging-element', function (elem) {
       _this.currentElement = elem;
     });
+    this.iframe = new Editor_Iframe__WEBPACK_IMPORTED_MODULE_0__["default"]('#content');
+    this.iframe.bindEvents();
   },
   methods: {
     handleDrop: function handleDrop() {
-      if (this.currentElement) {
-        this.content += this.currentElement.content;
-      }
+      // if(this.currentElement) {
+      //   this.content += this.currentElement.content
+      // }
+      console.log('dropped');
     }
   }
 });
@@ -410,7 +412,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.left-panel[data-v-becf9070] {\n    background-color: #454545;\n    border-top: .5px solid #000;\n    width: 20rem;\n}\ndiv.left-panel > div.actions[data-v-becf9070] {\n  display: flex;\n  border-bottom: .5px solid #000;\n  margin-bottom: 1rem;\n}\ndiv.left-panel > div.actions > div[data-v-becf9070] {\n  padding: .5rem;\n  color: #fff;\n  font-size: 1.5rem;\n  cursor: pointer;\n}\ndiv.left-panel > div.actions > div.add[data-v-becf9070]\n{\n  border-right: .5px solid #000;\n}\ndiv.left-panel > div.actions > div.structure[data-v-becf9070]\n{\n  border-right: .5px solid #000;\n}\ndiv.left-panel > div.add-element[data-v-becf9070] {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  padding: 0 1rem;\n}\ndiv.left-panel > div.add-element > div.elem[data-v-becf9070] {\n  display: flex;\n  cursor: all-scroll;\n  justify-content: space-between;\n  flex-direction: column;\n  margin: 3% 2.5%;\n  width: 45%;\n  min-width: 45%;\n  box-sizing: border-box;\n  border: 1px solid #000;\n  padding: 1em;\n  border-radius: 5px;\n  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);\n}\ndiv.left-panel > div.add-element > div.elem > i[data-v-becf9070] {\n  font-size: 3rem;\n  color: #fff;\n  text-align: center;\n}\ndiv.elem > span.elem-title[data-v-becf9070] {\n  text-align: center;\n  color: #fff;\n  font-weight: 300;\n  font-size: 0.9rem;\n  margin-top: .5rem;\n}\n/* Animations thanks animista.net */\n.fade-enter-active[data-v-becf9070] {\n  -webkit-animation: swing-in-top-fwd-data-v-becf9070 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n          animation: swing-in-top-fwd-data-v-becf9070 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n}\n.fade-leave-active[data-v-becf9070] {\n  -webkit-animation: swing-out-top-bck-data-v-becf9070 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n          animation: swing-out-top-bck-data-v-becf9070 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n}\n@-webkit-keyframes swing-in-top-fwd-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n}\n@keyframes swing-in-top-fwd-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n}\n@-webkit-keyframes swing-out-top-bck-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n}\n@keyframes swing-out-top-bck-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/LeftPanel.vue"],"names":[],"mappings":";AAoFA;IACA,yBAAA;IACA,2BAAA;IACA,YAAA;AACA;AACA;EACA,aAAA;EACA,8BAAA;EACA,mBAAA;AACA;AACA;EACA,cAAA;EACA,WAAA;EACA,iBAAA;EACA,eAAA;AACA;AACA;;EAEA,6BAAA;AACA;AACA;;EAEA,6BAAA;AACA;AACA;EACA,aAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AACA;AACA;EACA,aAAA;EACA,kBAAA;EACA,8BAAA;EACA,sBAAA;EACA,eAAA;EACA,UAAA;EACA,cAAA;EACA,sBAAA;EACA,sBAAA;EACA,YAAA;EACA,kBAAA;EACA,2CAAA;AACA;AACA;EACA,eAAA;EACA,WAAA;EACA,kBAAA;AACA;AACA;EACA,kBAAA;EACA,WAAA;EACA,gBAAA;EACA,iBAAA;EACA,iBAAA;AACA;AACA,mCAAA;AACA;EACA,sGAAA;UACA,8FAAA;AACA;AACA;EACA,wGAAA;UACA,gGAAA;AACA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AAEA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA","sourcesContent":["<template>\n  <div class=\"left-panel\">\n    <div class=\"actions\">\n      <div\n        class=\"add\"\n        @click=\"switchPanel('add')\"\n      >\n        <i class=\"fas fa-plus\" />\n      </div>\n      <div\n        class=\"structure\"\n        @click=\"switchPanel('structure')\"\n      >\n        <i class=\"fas fa-bars\" />\n      </div>\n    </div>\n    <transition\n      name=\"fade\"\n      @after-leave=\"animationEnd\"\n    >\n      <div\n        v-if=\"(showPanel('add')) && !animating\"\n        class=\"add-element\"\n      >\n        <div\n          v-for=\"template in templates\"\n          :key=\"template.id\"\n          class=\"elem\"\n          draggable=\"true\"\n          @dragstart=\"emitDragging(template)\"\n        >\n          <i :class=\"template.icon\" />\n          <span class=\"elem-title\">{{ template.title }}</span>\n        </div>\n      </div>\n    </transition>\n\n    <transition\n      name=\"fade\"\n      @after-leave=\"animationEnd\"\n    >\n      <div\n        v-if=\"(showPanel('structure') && !animating)\"\n        class=\"show-structure\"\n      >\n        <p>STRUCTURE</p>\n      </div>\n    </transition>\n  </div>\n</template>\n\n<script>\nimport templates from 'Editor/templates/templates'\n\nexport default {\n    name: 'LeftPanel',\n    data() {\n      return {\n        currentPanel: 'add',\n        animating: false,\n        templates\n      }\n    },\n    mounted() {\n    },\n    methods: {\n      switchPanel(panel) {\n        this.animating = true\n        this.currentPanel = panel\n      },\n      showPanel(panel) {\n        return (this.currentPanel === panel)\n      },\n      animationEnd() {\n        this.animating = false\n      },\n      emitDragging(elem) {\n        this.$root.$emit('dragging-element', elem)\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.left-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 20rem;\n  }\n  div.left-panel > div.actions {\n    display: flex;\n    border-bottom: .5px solid #000;\n    margin-bottom: 1rem;\n  }\n  div.left-panel > div.actions > div {\n    padding: .5rem;\n    color: #fff;\n    font-size: 1.5rem;\n    cursor: pointer;\n  }\n  div.left-panel > div.actions > div.add\n  {\n    border-right: .5px solid #000;\n  }\n  div.left-panel > div.actions > div.structure\n  {\n    border-right: .5px solid #000;\n  }\n  div.left-panel > div.add-element {\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: flex-start;\n    padding: 0 1rem;\n  }\n  div.left-panel > div.add-element > div.elem {\n    display: flex;\n    cursor: all-scroll;\n    justify-content: space-between;\n    flex-direction: column;\n    margin: 3% 2.5%;\n    width: 45%;\n    min-width: 45%;\n    box-sizing: border-box;\n    border: 1px solid #000;\n    padding: 1em;\n    border-radius: 5px;\n    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);\n  }\n  div.left-panel > div.add-element > div.elem > i {\n    font-size: 3rem;\n    color: #fff;\n    text-align: center;\n  }\n  div.elem > span.elem-title {\n    text-align: center;\n    color: #fff;\n    font-weight: 300;\n    font-size: 0.9rem;\n    margin-top: .5rem;\n  }\n  /* Animations thanks animista.net */\n  .fade-enter-active {\n    -webkit-animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n            animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n  }\n  .fade-leave-active {\n    -webkit-animation: swing-out-top-bck 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n            animation: swing-out-top-bck 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n  }\n  @-webkit-keyframes swing-in-top-fwd {\n    0% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n  }\n  @keyframes swing-in-top-fwd {\n    0% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n  }\n\n  @-webkit-keyframes swing-out-top-bck {\n    0% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n    100% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n  }\n  @keyframes swing-out-top-bck {\n    0% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n    100% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n  }\n</style>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.left-panel[data-v-becf9070] {\n    background-color: #454545;\n    border-top: .5px solid #000;\n    width: 20rem;\n}\ndiv.left-panel > div.actions[data-v-becf9070] {\n  display: flex;\n  border-bottom: .5px solid #000;\n  margin-bottom: 1rem;\n}\ndiv.left-panel > div.actions > div[data-v-becf9070] {\n  padding: .5rem;\n  color: #fff;\n  font-size: 1.5rem;\n  cursor: pointer;\n}\ndiv.left-panel > div.actions > div.add[data-v-becf9070]\n{\n  border-right: .5px solid #000;\n}\ndiv.left-panel > div.actions > div.structure[data-v-becf9070]\n{\n  border-right: .5px solid #000;\n}\ndiv.left-panel > div.add-element[data-v-becf9070] {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  padding: 0 1rem;\n}\ndiv.left-panel > div.add-element > div.elem[data-v-becf9070] {\n  display: flex;\n  cursor: all-scroll;\n  justify-content: space-between;\n  flex-direction: column;\n  margin: 3% 2.5%;\n  width: 45%;\n  min-width: 45%;\n  box-sizing: border-box;\n  border: 1px solid #000;\n  padding: 1em;\n  border-radius: 5px;\n  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);\n  user-select: none;\n}\ndiv.left-panel > div.add-element > div.elem > i[data-v-becf9070] {\n  font-size: 3rem;\n  color: #fff;\n  text-align: center;\n}\ndiv.elem > span.elem-title[data-v-becf9070] {\n  text-align: center;\n  color: #fff;\n  font-weight: 300;\n  font-size: 0.9rem;\n  margin-top: .5rem;\n}\n/* Animations thanks animista.net */\n.fade-enter-active[data-v-becf9070] {\n  -webkit-animation: swing-in-top-fwd-data-v-becf9070 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n          animation: swing-in-top-fwd-data-v-becf9070 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n}\n.fade-leave-active[data-v-becf9070] {\n  -webkit-animation: swing-out-top-bck-data-v-becf9070 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n          animation: swing-out-top-bck-data-v-becf9070 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n}\n@-webkit-keyframes swing-in-top-fwd-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n}\n@keyframes swing-in-top-fwd-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n}\n@-webkit-keyframes swing-out-top-bck-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n}\n@keyframes swing-out-top-bck-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/LeftPanel.vue"],"names":[],"mappings":";AAoFA;IACA,yBAAA;IACA,2BAAA;IACA,YAAA;AACA;AACA;EACA,aAAA;EACA,8BAAA;EACA,mBAAA;AACA;AACA;EACA,cAAA;EACA,WAAA;EACA,iBAAA;EACA,eAAA;AACA;AACA;;EAEA,6BAAA;AACA;AACA;;EAEA,6BAAA;AACA;AACA;EACA,aAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AACA;AACA;EACA,aAAA;EACA,kBAAA;EACA,8BAAA;EACA,sBAAA;EACA,eAAA;EACA,UAAA;EACA,cAAA;EACA,sBAAA;EACA,sBAAA;EACA,YAAA;EACA,kBAAA;EACA,2CAAA;EACA,iBAAA;AACA;AACA;EACA,eAAA;EACA,WAAA;EACA,kBAAA;AACA;AACA;EACA,kBAAA;EACA,WAAA;EACA,gBAAA;EACA,iBAAA;EACA,iBAAA;AACA;AACA,mCAAA;AACA;EACA,sGAAA;UACA,8FAAA;AACA;AACA;EACA,wGAAA;UACA,gGAAA;AACA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AAEA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA","sourcesContent":["<template>\n  <div class=\"left-panel\">\n    <div class=\"actions\">\n      <div\n        class=\"add\"\n        @click=\"switchPanel('add')\"\n      >\n        <i class=\"fas fa-plus\" />\n      </div>\n      <div\n        class=\"structure\"\n        @click=\"switchPanel('structure')\"\n      >\n        <i class=\"fas fa-bars\" />\n      </div>\n    </div>\n    <transition\n      name=\"fade\"\n      @after-leave=\"animationEnd\"\n    >\n      <div\n        v-if=\"(showPanel('add')) && !animating\"\n        class=\"add-element\"\n      >\n        <div\n          v-for=\"template in templates\"\n          :key=\"template.id\"\n          class=\"elem\"\n          draggable=\"true\"\n          @dragstart=\"emitDragging(template)\"\n        >\n          <i :class=\"template.icon\" />\n          <span class=\"elem-title\">{{ template.title }}</span>\n        </div>\n      </div>\n    </transition>\n\n    <transition\n      name=\"fade\"\n      @after-leave=\"animationEnd\"\n    >\n      <div\n        v-if=\"(showPanel('structure') && !animating)\"\n        class=\"show-structure\"\n      >\n        <p>STRUCTURE</p>\n      </div>\n    </transition>\n  </div>\n</template>\n\n<script>\nimport templates from 'Editor/templates/templates'\n\nexport default {\n    name: 'LeftPanel',\n    data() {\n      return {\n        currentPanel: 'add',\n        animating: false,\n        templates\n      }\n    },\n    mounted() {\n    },\n    methods: {\n      switchPanel(panel) {\n        this.animating = true\n        this.currentPanel = panel\n      },\n      showPanel(panel) {\n        return (this.currentPanel === panel)\n      },\n      animationEnd() {\n        this.animating = false\n      },\n      emitDragging(elem) {\n        this.$root.$emit('dragging-element', elem)\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.left-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 20rem;\n  }\n  div.left-panel > div.actions {\n    display: flex;\n    border-bottom: .5px solid #000;\n    margin-bottom: 1rem;\n  }\n  div.left-panel > div.actions > div {\n    padding: .5rem;\n    color: #fff;\n    font-size: 1.5rem;\n    cursor: pointer;\n  }\n  div.left-panel > div.actions > div.add\n  {\n    border-right: .5px solid #000;\n  }\n  div.left-panel > div.actions > div.structure\n  {\n    border-right: .5px solid #000;\n  }\n  div.left-panel > div.add-element {\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: flex-start;\n    padding: 0 1rem;\n  }\n  div.left-panel > div.add-element > div.elem {\n    display: flex;\n    cursor: all-scroll;\n    justify-content: space-between;\n    flex-direction: column;\n    margin: 3% 2.5%;\n    width: 45%;\n    min-width: 45%;\n    box-sizing: border-box;\n    border: 1px solid #000;\n    padding: 1em;\n    border-radius: 5px;\n    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);\n    user-select: none;\n  }\n  div.left-panel > div.add-element > div.elem > i {\n    font-size: 3rem;\n    color: #fff;\n    text-align: center;\n  }\n  div.elem > span.elem-title {\n    text-align: center;\n    color: #fff;\n    font-weight: 300;\n    font-size: 0.9rem;\n    margin-top: .5rem;\n  }\n  /* Animations thanks animista.net */\n  .fade-enter-active {\n    -webkit-animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n            animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n  }\n  .fade-leave-active {\n    -webkit-animation: swing-out-top-bck 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n            animation: swing-out-top-bck 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n  }\n  @-webkit-keyframes swing-in-top-fwd {\n    0% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n  }\n  @keyframes swing-in-top-fwd {\n    0% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n  }\n\n  @-webkit-keyframes swing-out-top-bck {\n    0% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n    100% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n  }\n  @keyframes swing-out-top-bck {\n    0% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n    100% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n  }\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -432,7 +434,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.main-panel[data-v-754a1a56] {\n  width: 100%;\n  height: 100%;\n}\niframe.content[data-v-754a1a56] {\n  display: block;\n  border: 0px none;\n  height: 100%;\n  width: 100%;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/MainPanel.vue"],"names":[],"mappings":";AA8CA;EACA,WAAA;EACA,YAAA;AACA;AACA;EACA,cAAA;EACA,gBAAA;EACA,YAAA;EACA,WAAA;AACA","sourcesContent":["<template>\n  <!-- eslint-disable vue/no-v-html  -->\n  <div\n    class=\"main-panel\"\n    @drop=\"handleDrop\"\n    @dragover.prevent\n  >\n    <iframe\n      id=\"content\"\n      name=\"content\"\n      :src=\"iframeFilePath\"\n      class=\"content\"\n    />\n  </div>\n</template>\n\n<script>\nexport default {\n    name: 'MainPanel',\n    data() {\n      return {\n        currentElement: false,\n        content: ''\n      }\n    },\n    computed: {\n      iframeFilePath() {\n        return 'iframe.html'\n      }\n    },\n    mounted() {\n      this.$root.$on('dragging-element', (elem) => {\n        this.currentElement = elem\n      })\n    },\n    methods: {\n      handleDrop() {\n        if(this.currentElement) {\n          this.content += this.currentElement.content\n        }\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.main-panel {\n    width: 100%;\n    height: 100%;\n  }\n  iframe.content {\n    display: block;\n    border: 0px none;\n    height: 100%;\n    width: 100%;\n  }\n</style>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.main-panel[data-v-754a1a56] {\n  width: 100%;\n  height: 100%;\n}\niframe.content[data-v-754a1a56] {\n  display: block;\n  border: 0px none;\n  height: 100%;\n  width: 100%;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/MainPanel.vue"],"names":[],"mappings":";AAgDA;EACA,WAAA;EACA,YAAA;AACA;AACA;EACA,cAAA;EACA,gBAAA;EACA,YAAA;EACA,WAAA;AACA","sourcesContent":["<template>\n  <!-- eslint-disable vue/no-v-html  -->\n  <div class=\"main-panel\">\n    <iframe\n      id=\"content\"\n      name=\"content\"\n      :src=\"iframeFilePath\"\n      class=\"content\"\n    />\n  </div>\n</template>\n\n<script>\nimport Iframe from 'Editor/Iframe'\n\nexport default {\n    name: 'MainPanel',\n    data() {\n      return {\n        currentElement: false,\n        // content: '',\n        iframe: Object\n      }\n    },\n    computed: {\n      iframeFilePath() {\n        return 'iframe.html'\n      }\n    },\n    mounted() {\n      this.$root.$on('dragging-element', (elem) => {\n        this.currentElement = elem\n      })\n      this.iframe = new Iframe('#content')\n      this.iframe.bindEvents()\n    },\n    methods: {\n      handleDrop() {\n        // if(this.currentElement) {\n        //   this.content += this.currentElement.content\n        // }\n        console.log('dropped')\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.main-panel {\n    width: 100%;\n    height: 100%;\n  }\n  iframe.content {\n    display: block;\n    border: 0px none;\n    height: 100%;\n    width: 100%;\n  }\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -1728,24 +1730,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "main-panel",
-      on: {
-        drop: _vm.handleDrop,
-        dragover: function($event) {
-          $event.preventDefault()
-        }
-      }
-    },
-    [
-      _c("iframe", {
-        staticClass: "content",
-        attrs: { id: "content", name: "content", src: _vm.iframeFilePath }
-      })
-    ]
-  )
+  return _c("div", { staticClass: "main-panel" }, [
+    _c("iframe", {
+      staticClass: "content",
+      attrs: { id: "content", name: "content", src: _vm.iframeFilePath }
+    })
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -10821,6 +10811,47 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "./src/app/Wape.js":
+/*!*************************!*\
+  !*** ./src/app/Wape.js ***!
+  \*************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Wape; });
+/* harmony import */ var Editor_Editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Editor/Editor */ "./src/editor/Editor.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+var Wape = /*#__PURE__*/function () {
+  function Wape(options) {
+    _classCallCheck(this, Wape);
+
+    this.options = options;
+    this.init();
+  }
+
+  _createClass(Wape, [{
+    key: "init",
+    value: function init() {
+      var editor = new Editor_Editor__WEBPACK_IMPORTED_MODULE_0__["default"](this.options.el);
+    }
+  }]);
+
+  return Wape;
+}();
+
+
+
+/***/ }),
+
 /***/ "./src/app/index.js":
 /*!**************************!*\
   !*** ./src/app/index.js ***!
@@ -10830,17 +10861,15 @@ module.exports = g;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var Editor_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Editor/editor */ "./src/editor/editor.js");
+/* harmony import */ var _Wape__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Wape */ "./src/app/Wape.js");
 /* harmony import */ var _styles_main_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles/main.css */ "./src/app/styles/main.css");
 /* harmony import */ var _styles_main_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_styles_main_css__WEBPACK_IMPORTED_MODULE_1__);
 
+ // function wape(options) {
+//     editor.init(options)
+// }
 
-
-function wape(options) {
-  Editor_editor__WEBPACK_IMPORTED_MODULE_0__["default"].init(options);
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (wape);
+/* harmony default export */ __webpack_exports__["default"] = (_Wape__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 
@@ -10862,6 +10891,112 @@ var add = __webpack_require__(/*! ../../../node_modules/vue-style-loader/lib/add
 var update = add("779a5066", content, false, {});
 // Hot Module Replacement
 if(false) {}
+
+/***/ }),
+
+/***/ "./src/editor/Editor.js":
+/*!******************************!*\
+  !*** ./src/editor/Editor.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Editor; });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var _components_Wape_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Wape.vue */ "./src/editor/components/Wape.vue");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+ //Vue config file elsewhere ?
+
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].config.silent =  false ? undefined : false;
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].config.performance =  false ? undefined : true;
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].config.devtools =  false ? undefined : true;
+vue__WEBPACK_IMPORTED_MODULE_0__["default"].config.productionTip =  false ? undefined : true;
+
+var Editor = /*#__PURE__*/function () {
+  function Editor(el) {
+    _classCallCheck(this, Editor);
+
+    this.el = el;
+    this.init();
+  }
+
+  _createClass(Editor, [{
+    key: "init",
+    value: function init() {
+      new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
+        render: function render(h) {
+          return h(_components_Wape_vue__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            props: {}
+          });
+        }
+      }).$mount(this.el);
+    }
+  }]);
+
+  return Editor;
+}();
+
+
+
+/***/ }),
+
+/***/ "./src/editor/Iframe.js":
+/*!******************************!*\
+  !*** ./src/editor/Iframe.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Iframe; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Iframe = /*#__PURE__*/function () {
+  function Iframe(id) {
+    _classCallCheck(this, Iframe);
+
+    this.id = id; //context
+
+    this.window = document.querySelector(id).contentWindow;
+    this.document = document.querySelector(id).contentDocument; // console.log(this)
+  }
+
+  _createClass(Iframe, [{
+    key: "bindEvents",
+    value: function bindEvents() {
+      this.document.addEventListener('DOMContentLoaded', function () {
+        console.log('iframe loaded');
+      });
+      console.log(this.document.body);
+      var elem = this.document.createElement('div');
+      elem.style.cssText = 'width:200px;height:200px;opacity:0.7;background-color:#000';
+      this.document.body.appendChild(elem);
+      this.document.body.addEventListener('dragenter', function (event) {
+        console.log('dragenter');
+      });
+      this.document.body.addEventListener('dragenter', function (event) {
+        console.log('dragover');
+      });
+    }
+  }]);
+
+  return Iframe;
+}();
+
+
 
 /***/ }),
 
@@ -11297,37 +11432,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TopPanel_vue_vue_type_template_id_19eda8f4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
-
-/***/ }),
-
-/***/ "./src/editor/editor.js":
-/*!******************************!*\
-  !*** ./src/editor/editor.js ***!
-  \******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm.js");
-/* harmony import */ var _components_Wape_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Wape.vue */ "./src/editor/components/Wape.vue");
-
-
-vue__WEBPACK_IMPORTED_MODULE_0__["default"].config.silent =  false ? undefined : false;
-vue__WEBPACK_IMPORTED_MODULE_0__["default"].config.performance =  false ? undefined : true;
-vue__WEBPACK_IMPORTED_MODULE_0__["default"].config.devtools =  false ? undefined : true;
-vue__WEBPACK_IMPORTED_MODULE_0__["default"].config.productionTip =  false ? undefined : true;
-/* harmony default export */ __webpack_exports__["default"] = ({
-  init: function init(options) {
-    new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
-      render: function render(h) {
-        return h(_components_Wape_vue__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          props: {}
-        });
-      }
-    }).$mount(options.mount);
-  }
-});
 
 /***/ }),
 
