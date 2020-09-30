@@ -1,4 +1,4 @@
-body > div.container {
+body > div.editor-content {
     height: 150px;
-    border: 1px solid #000;
+    border-bottom: 1px dashed #000;
 }
