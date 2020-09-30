@@ -1,14 +1,11 @@
 <template>
-  <!-- eslint-disable vue/no-v-html  -->
-  <div class="main-panel">
-    <iframe
-      id="content"
-      name="content"
-      :src="iframeFilePath"
-      class="content"
-      @load="iframeLoaded"
-    />
-  </div>
+  <iframe
+    id="content"
+    name="content"
+    :src="iframeFilePath"
+    class="content"
+    @load="iframeLoaded"
+  />
 </template>
 
 <script>
@@ -50,10 +47,6 @@ export default {
 </script>
 
 <style scoped>
-  div.main-panel {
-    width: 100%;
-    height: 100%;
-  }
   iframe.content {
     display: block;
     border: 0px none;
