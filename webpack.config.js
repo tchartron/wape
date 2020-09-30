@@ -89,6 +89,7 @@ module.exports = {
         title: iframeConfig.title,
         filename: 'iframe.html',
         templateParameters: {
+          'bulma': iframeConfig.bulma,
           'css': iframeConfig.css
         },
         inject: false,

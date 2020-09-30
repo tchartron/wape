@@ -31,11 +31,12 @@ export default {
     mounted() {
       this.$root.$on('dragging-element', (elem) => {
         this.currentElement = elem
+        this.iframe.elemDomString = elem.content
       })
     },
     methods: {
       iframeLoaded() {
-        this.iframe = new Iframe('#content')
+        this.iframe = new Iframe('#content', '.container')
         this.iframe.bindEvents()
       },
       handleDrop() {
