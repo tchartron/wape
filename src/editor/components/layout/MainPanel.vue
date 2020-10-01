@@ -15,7 +15,7 @@ export default {
     name: 'MainPanel',
     data() {
       return {
-        currentElement: false,
+        // currentElement: false,
         // content: '',
         iframe: Object
       }
@@ -27,20 +27,14 @@ export default {
     },
     mounted() {
       this.$root.$on('dragging-element', (elem) => {
-        this.currentElement = elem
-        this.iframe.elemDomString = elem.content
+        // this.currentElement = elem
+        this.iframe.draggedElem = elem
       })
     },
     methods: {
       iframeLoaded() {
         this.iframe = new Iframe('#content', '#editor-content')
         this.iframe.bindEvents()
-      },
-      handleDrop() {
-        // if(this.currentElement) {
-        //   this.content += this.currentElement.content
-        // }
-        console.log('dropped')
       }
     }
 }

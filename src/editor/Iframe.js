@@ -6,7 +6,7 @@ export default class Iframe {
         this.window = document.querySelector(id).contentWindow
         this.document = document.querySelector(id).contentDocument
         this.mainContainer = this.document.querySelector(container)
-        this.elemDomString = Object
+        this.draggedElem = Object
         this.debouncedHandleDrag = debounce(this.handleDrag, 300, { maxWait: 500 })
     }
     bindEvents() {
@@ -16,11 +16,10 @@ export default class Iframe {
         this.mainContainer.addEventListener('dragover', (event) => {
             event.preventDefault()
             this.debouncedHandleDrag()
-            // this.debouncedHandleDrag.call(this, event)
         })
         this.mainContainer.addEventListener('drop', event => {
             console.log('drop')
-            this.append(this.elemDomString)
+            this.append(this.draggedElem)
         })
     }
     supportDomParser() { // Credits => gomakethings.com
@@ -38,7 +37,7 @@ export default class Iframe {
     append(elem) {
         if (this.supportDomParser()) {
             let parser = new DOMParser();
-            let doc = parser.parseFromString(elem, 'text/html');
+            let doc = parser.parseFromString(elem.content, 'text/html');
             this.mainContainer.appendChild(doc.body.firstChild)
         } else {
             console.log('Browser not supported')
