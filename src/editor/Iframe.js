@@ -1,21 +1,24 @@
+import debounce from 'lodash/debounce';
+
 export default class Iframe {
     constructor(id, container) {
         this.id = id
-        //context
         this.window = document.querySelector(id).contentWindow
         this.document = document.querySelector(id).contentDocument
         this.mainContainer = this.document.querySelector(container)
         this.elemDomString = Object
+        this.debouncedHandleDrag = debounce(this.handleDrag, 300, { maxWait: 500 })
     }
     bindEvents() {
-        this.document.body.addEventListener('dragenter', event => {
+        this.mainContainer.addEventListener('dragenter', event => {
             console.log('dragenter')
         })
-        this.document.body.addEventListener('dragover', event => {
+        this.mainContainer.addEventListener('dragover', (event) => {
             event.preventDefault()
-            console.log('dragover')
+            this.debouncedHandleDrag()
+            // this.debouncedHandleDrag.call(this, event)
         })
-        this.document.body.addEventListener('drop', event => {
+        this.mainContainer.addEventListener('drop', event => {
             console.log('drop')
             this.append(this.elemDomString)
         })
@@ -36,10 +39,12 @@ export default class Iframe {
         if (this.supportDomParser()) {
             let parser = new DOMParser();
             let doc = parser.parseFromString(elem, 'text/html');
-            console.log(doc.body)
             this.mainContainer.appendChild(doc.body.firstChild)
         } else {
             console.log('Browser not supported')
         }
+    }
+    handleDrag() {
+        console.log('handleDrag')
     }
 }
