@@ -6,12 +6,16 @@ export default class Iframe {
         this.window = document.querySelector(id).contentWindow
         this.document = document.querySelector(id).contentDocument
         this.mainContainer = this.document.querySelector(container)
-        this.draggedElem = Object
+        this.draggedElem = Object // Object coming from templates.js beind dragged
+        this.draggedEvent = Object // Event object from dragstart event in LeftPanel.vue
         this.debouncedHandleDrag = debounce(this.handleDrag, 300, { maxWait: 500 })
     }
     bindEvents() {
         this.mainContainer.addEventListener('dragenter', event => {
             console.log('dragenter')
+            console.log(this.draggedElem)
+            console.log(this.draggedEvent)
+            console.log(event.target)
         })
         this.mainContainer.addEventListener('dragover', (event) => {
             event.preventDefault()

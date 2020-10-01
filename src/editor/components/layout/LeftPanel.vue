@@ -27,7 +27,7 @@
           :key="template.id"
           class="elem"
           draggable="true"
-          @dragstart="emitDragging(template)"
+          @dragstart="emitDragging(template, $event)"
         >
           <i :class="template.icon" />
           <span class="elem-title">{{ template.title }}</span>
@@ -74,8 +74,8 @@ export default {
       animationEnd() {
         this.animating = false
       },
-      emitDragging(elem) {
-        this.$root.$emit('dragging-element', elem)
+      emitDragging(elem, event) {
+        this.$root.$emit('dragging-element', elem, event) //listened in MainPanel.vue
       }
     }
 }

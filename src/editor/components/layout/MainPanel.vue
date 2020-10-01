@@ -26,9 +26,10 @@ export default {
       }
     },
     mounted() {
-      this.$root.$on('dragging-element', (elem) => {
+      this.$root.$on('dragging-element', (elem, event) => {
         // this.currentElement = elem
         this.iframe.draggedElem = elem
+        this.iframe.draggedEvent = event
       })
     },
     methods: {
