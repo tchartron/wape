@@ -1,9 +1,9 @@
 <template>
   <iframe
-    id="content"
-    name="content"
+    id="iframe"
+    name="iframe"
     :src="iframeFilePath"
-    class="content"
+    class="iframe"
     @load="iframeLoaded"
   />
 </template>
@@ -34,7 +34,7 @@ export default {
     },
     methods: {
       iframeLoaded() {
-        this.iframe = new Iframe('#content', '#editor-content')
+        this.iframe = new Iframe('#iframe', '#editor-content')
         this.iframe.bindEvents()
       }
     }
@@ -42,7 +42,7 @@ export default {
 </script>
 
 <style scoped>
-  iframe.content {
+  iframe.iframe {
     display: block;
     border: 0px none;
     height: 100%;
