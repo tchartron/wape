@@ -1,53 +1,50 @@
-import debounce from 'lodash/debounce';
+// import debounce from 'lodash/debounce';
+// import Drag from 'Editor/Drag'
+// import Drop from 'Editor/Drop'
 
 export default class Iframe {
-    constructor(id, container) {
-        this.id = id
+    constructor(id) {
+        // this.id = id
         this.window = document.querySelector(id).contentWindow
         this.document = document.querySelector(id).contentDocument
-        this.mainContainer = this.document.querySelector(container)
-        this.draggedElem = Object // Object coming from templates.js beind dragged
-        this.draggedEvent = Object // Event object from dragstart event in LeftPanel.vue
-        this.debouncedHandleDrag = debounce(this.handleDrag, 300, { maxWait: 500 })
+        // this.drag = Object //Drag.js object instantiated in LeftMenu and passed through event bus to MainPanel
+        // this.drop = Object
     }
-    bindEvents() {
-        this.mainContainer.addEventListener('dragenter', event => {
-            console.log('dragenter')
-            console.log(this.draggedElem)
-            console.log(this.draggedEvent)
-            console.log(event.target)
-        })
-        this.mainContainer.addEventListener('dragover', (event) => {
-            event.preventDefault()
-            this.debouncedHandleDrag()
-        })
-        this.mainContainer.addEventListener('drop', event => {
-            console.log('drop')
-            this.append(this.draggedElem)
-        })
-    }
-    supportDomParser() { // Credits => gomakethings.com
-        if (!this.window.DOMParser) {
-            return false
-        }
-        let parser = new DOMParser();
-        try {
-            parser.parseFromString('x', 'text/html');
-        } catch(err) {
-            return false
-        }
-        return true
-    }
-    append(elem) {
-        if (this.supportDomParser()) {
-            let parser = new DOMParser();
-            let doc = parser.parseFromString(elem.content, 'text/html');
-            this.mainContainer.appendChild(doc.body.firstChild)
-        } else {
-            console.log('Browser not supported')
-        }
-    }
-    handleDrag() {
-        console.log('handleDrag')
-    }
+    // setDrag(drag) {
+    //     this.drag = drag
+    // }
+    // setDrop(drop) {
+    //     this.drop = drop
+    // }
+    // buildDomElement() { // Credits => gomakethings.com
+    //     if (!this.window.DOMParser) {
+    //         return false
+    //     }
+    //     let parser = new DOMParser();
+    //     try {
+    //         parser.parseFromString('x', 'text/html');
+    //     } catch(err) {
+    //         return false
+    //     }
+    //     return true
+    // }
+    // append(elem) {
+    //     if (this.buildDomElement()) {
+    //         let parser = new DOMParser();
+    //         let doc = parser.parseFromString(elem.content, 'text/html');
+    //         this.draggedDomElem = doc.body.firstChild
+    //         console.log(this.draggedDomElem)
+            // this.drop.append(elem)
+        // } else {
+        //     console.log('Browser not supported')
+        // }
+    // }
+    // handleDrag() {
+    //     this.renderDropPreview()
+    // }
+    // renderDropPreview() {
+    //     //Works but this.draggedDomElem needs to be defined before !!!!
+    //     let clone = this.draggedDomElem.cloneNode(true)
+    //     console.log(clone)
+    // }
 }
