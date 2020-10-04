@@ -22,12 +22,21 @@
         v-if="(showPanel('add')) && !animating"
         class="add-element"
       >
-        <div
+        <!-- <div
           v-for="template in templates"
           :key="template.id"
           class="elem"
           draggable="true"
-          @dragstart="emitDragging(template, $event)"
+          @dragstart="dragStart(template, $event)"
+        > -->
+
+        <!-- Needs to find a way to pass the template object corresponding to this node to Drag class -->
+        <div
+          v-for="template in templates"
+          :key="template.id"
+          class="elem draggable"
+          :data-key="template.id"
+          @mousedown="mouseDown(template, $event)"
         >
           <i :class="template.icon" />
           <span class="elem-title">{{ template.title }}</span>
@@ -73,9 +82,6 @@ export default {
       },
       animationEnd() {
         this.animating = false
-      },
-      emitDragging(elem, event) {
-        this.$root.$emit('dragging-element', elem, event) //listened in MainPanel.vue
       }
     }
 }
