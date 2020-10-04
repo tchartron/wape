@@ -8,5 +8,7 @@ const banner =
   ' */'
 
 module.exports = {
-    banner: banner
+    banner: banner,
+    maincss: 'src/app/styles/main.css',
+    fontawesome: 'https://kit.fontawesome.com/b71e068415.js',
 }
