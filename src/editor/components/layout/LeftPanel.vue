@@ -36,7 +36,6 @@
           :key="template.id"
           class="elem draggable"
           :data-key="template.id"
-          @mousedown="mouseDown(template, $event)"
         >
           <i :class="template.icon" />
           <span class="elem-title">{{ template.title }}</span>
