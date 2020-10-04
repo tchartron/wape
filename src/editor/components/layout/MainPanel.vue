@@ -10,14 +10,16 @@
 
 <script>
 import Iframe from 'Editor/Iframe'
+import Drag from 'Editor/DragDrop/Drag'
+import Drop from 'Editor/DragDrop/Drop'
 
 export default {
     name: 'MainPanel',
     data() {
       return {
-        // currentElement: false,
-        // content: '',
-        iframe: Object
+        iframe: Object,
+        drag: Object,
+        drop: Object
       }
     },
     computed: {
@@ -26,16 +28,26 @@ export default {
       }
     },
     mounted() {
-      this.$root.$on('dragging-element', (elem, event) => {
-        // this.currentElement = elem
-        this.iframe.draggedElem = elem
-        this.iframe.draggedEvent = event
-      })
     },
     methods: {
       iframeLoaded() {
-        this.iframe = new Iframe('#iframe', '#editor-content')
-        this.iframe.bindEvents()
+        this.iframe = new Iframe('#iframe')
+        this.drag = new Drag('.draggable')
+        this.drop = new Drop('#editor-content')
+
+        // this.$root.$on('dragging-element', (template, event) => {
+          // this.drag = new Drag(template, event.target)
+          // if(!this.dragEventsBinded) {
+            // this.drag.bindEvents()
+            // this.dragEventsBinded = true
+          // }
+          // this.drop = new Drop('#editor-content', this.drag)
+          // this.drop.setIframeContext(this.iframe)
+          // if(!this.dropEventsBinded) {
+            // this.drop.bindEvents()
+            // this.dropEventsBinded = true
+          // }
+        // })
       }
     }
 }
