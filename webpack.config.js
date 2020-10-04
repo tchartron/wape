@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack')
-const config = require('./src/app/config/build')
+const config = require('./src/app/config/config')
 const pkg = require('./package.json')
 const iframeConfig = require('./src/app/config/iframe')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
@@ -81,6 +81,8 @@ module.exports = {
         templateParameters: {
           'author': pkg.author,
           'desc': pkg.description,
+          'maincss': config.maincss,
+          'fontawesome': config.fontawesome,
         },
         inject: 'head',
         template: 'src/app/config/webpack-template.html'
@@ -90,7 +92,7 @@ module.exports = {
         filename: 'iframe.html',
         templateParameters: {
           'bulma': iframeConfig.bulma,
-          'css': iframeConfig.css
+          'iframecss': iframeConfig.iframecss
         },
         inject: false,
         template: 'src/app/config/webpack-iframe-template.html'
