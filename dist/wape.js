@@ -156,6 +156,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Editor_templates_templates__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Editor/templates/templates */ "./src/editor/templates/templates.js");
+/* harmony import */ var Editor_Drag__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Editor/Drag */ "./src/editor/Drag.js");
 //
 //
 //
@@ -208,13 +209,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'LeftPanel',
   data: function data() {
     return {
       currentPanel: 'add',
       animating: false,
-      templates: Editor_templates_templates__WEBPACK_IMPORTED_MODULE_0__["default"]
+      templates: Editor_templates_templates__WEBPACK_IMPORTED_MODULE_0__["default"] // drag: Object
+
     };
   },
   mounted: function mounted() {},
@@ -229,8 +232,11 @@ __webpack_require__.r(__webpack_exports__);
     animationEnd: function animationEnd() {
       this.animating = false;
     },
-    emitDragging: function emitDragging(elem) {
-      this.$root.$emit('dragging-element', elem);
+    dragStart: function dragStart(elem) {
+      console.log('dragstart from leftmenu'); // this.drag = new Drag(elem)
+
+      console.log(elem);
+      this.$root.$emit('dragging-element', elem); //listened in MainPanel.vue
     }
   }
 });
@@ -247,8 +253,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Editor_Iframe__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Editor/Iframe */ "./src/editor/Iframe.js");
-//
-//
+/* harmony import */ var lodash_isEmpty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/isEmpty */ "./node_modules/lodash/isEmpty.js");
+/* harmony import */ var lodash_isEmpty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -260,12 +266,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'MainPanel',
   data: function data() {
     return {
-      currentElement: false,
-      // content: '',
       iframe: Object
     };
   },
@@ -278,17 +283,18 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.$root.$on('dragging-element', function (elem) {
-      _this.currentElement = elem;
+      // this.iframe.draggedElem = elem
+      // this.iframe.draggedEvent = event
+      if (!lodash_isEmpty__WEBPACK_IMPORTED_MODULE_1___default()(_this.iframe)) {// let drag = new Drag(elem)
+        // let drop = new Drop('#editor-content')
+        // this.iframe.setDrag(drag)
+        // this.iframe.setDrop(drop)
+      }
     });
-    this.iframe = new Editor_Iframe__WEBPACK_IMPORTED_MODULE_0__["default"]('#content');
-    this.iframe.bindEvents();
   },
   methods: {
-    handleDrop: function handleDrop() {
-      // if(this.currentElement) {
-      //   this.content += this.currentElement.content
-      // }
-      console.log('dropped');
+    iframeLoaded: function iframeLoaded() {
+      this.iframe = new Editor_Iframe__WEBPACK_IMPORTED_MODULE_0__["default"]('#iframe'); // this.iframe.bindEvents()
     }
   }
 });
@@ -390,7 +396,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.wrapper[data-v-852525a2] {\n  display: flex;\n  height: calc(100vh - 3.5rem);\n}\ndiv.canvas[data-v-852525a2] {\n  width: 100%;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/Wape.vue"],"names":[],"mappings":";AAiCA;EACA,aAAA;EACA,4BAAA;AACA;AACA;EACA,WAAA;AACA","sourcesContent":["<template>\n  <div class=\"wape\">\n    <TopPanel />\n    <div class=\"wrapper\">\n      <LeftPanel />\n      <div class=\"canvas\">\n        <MainPanel />\n      </div>\n      <RightPanel />\n    </div>\n  </div>\n</template>\n\n<script>\nimport TopPanel from 'Components/layout/TopPanel.vue'\nimport LeftPanel from 'Components/layout/LeftPanel.vue'\nimport RightPanel from 'Components/layout/RightPanel.vue'\nimport MainPanel from 'Components/layout/MainPanel.vue'\n\nexport default {\n    name: 'Wape',\n    components: {\n        TopPanel,\n        LeftPanel,\n        RightPanel,\n        MainPanel\n    },\n    methods: {\n    }\n}\n</script>\n\n<style scoped>\n  div.wrapper {\n    display: flex;\n    height: calc(100vh - 3.5rem);\n  }\n  div.canvas {\n    width: 100%;\n  }\n</style>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.wrapper[data-v-852525a2] {\n  display: flex;\n  height: calc(100vh - 3.5rem);\n}\ndiv.canvas[data-v-852525a2] {\n  width: 100%;\n  height: 100%;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/Wape.vue"],"names":[],"mappings":";AAiCA;EACA,aAAA;EACA,4BAAA;AACA;AACA;EACA,WAAA;EACA,YAAA;AACA","sourcesContent":["<template>\n  <div class=\"wape\">\n    <TopPanel />\n    <div class=\"wrapper\">\n      <LeftPanel />\n      <div class=\"canvas\">\n        <MainPanel />\n      </div>\n      <RightPanel />\n    </div>\n  </div>\n</template>\n\n<script>\nimport TopPanel from 'Components/layout/TopPanel.vue'\nimport LeftPanel from 'Components/layout/LeftPanel.vue'\nimport RightPanel from 'Components/layout/RightPanel.vue'\nimport MainPanel from 'Components/layout/MainPanel.vue'\n\nexport default {\n    name: 'Wape',\n    components: {\n        TopPanel,\n        LeftPanel,\n        RightPanel,\n        MainPanel\n    },\n    methods: {\n    }\n}\n</script>\n\n<style scoped>\n  div.wrapper {\n    display: flex;\n    height: calc(100vh - 3.5rem);\n  }\n  div.canvas {\n    width: 100%;\n    height: 100%;\n  }\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -412,7 +418,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.left-panel[data-v-becf9070] {\n    background-color: #454545;\n    border-top: .5px solid #000;\n    width: 20rem;\n}\ndiv.left-panel > div.actions[data-v-becf9070] {\n  display: flex;\n  border-bottom: .5px solid #000;\n  margin-bottom: 1rem;\n}\ndiv.left-panel > div.actions > div[data-v-becf9070] {\n  padding: .5rem;\n  color: #fff;\n  font-size: 1.5rem;\n  cursor: pointer;\n}\ndiv.left-panel > div.actions > div.add[data-v-becf9070]\n{\n  border-right: .5px solid #000;\n}\ndiv.left-panel > div.actions > div.structure[data-v-becf9070]\n{\n  border-right: .5px solid #000;\n}\ndiv.left-panel > div.add-element[data-v-becf9070] {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  padding: 0 1rem;\n}\ndiv.left-panel > div.add-element > div.elem[data-v-becf9070] {\n  display: flex;\n  cursor: all-scroll;\n  justify-content: space-between;\n  flex-direction: column;\n  margin: 3% 2.5%;\n  width: 45%;\n  min-width: 45%;\n  box-sizing: border-box;\n  border: 1px solid #000;\n  padding: 1em;\n  border-radius: 5px;\n  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);\n  user-select: none;\n}\ndiv.left-panel > div.add-element > div.elem > i[data-v-becf9070] {\n  font-size: 3rem;\n  color: #fff;\n  text-align: center;\n}\ndiv.elem > span.elem-title[data-v-becf9070] {\n  text-align: center;\n  color: #fff;\n  font-weight: 300;\n  font-size: 0.9rem;\n  margin-top: .5rem;\n}\n/* Animations thanks animista.net */\n.fade-enter-active[data-v-becf9070] {\n  -webkit-animation: swing-in-top-fwd-data-v-becf9070 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n          animation: swing-in-top-fwd-data-v-becf9070 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n}\n.fade-leave-active[data-v-becf9070] {\n  -webkit-animation: swing-out-top-bck-data-v-becf9070 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n          animation: swing-out-top-bck-data-v-becf9070 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n}\n@-webkit-keyframes swing-in-top-fwd-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n}\n@keyframes swing-in-top-fwd-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n}\n@-webkit-keyframes swing-out-top-bck-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n}\n@keyframes swing-out-top-bck-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/LeftPanel.vue"],"names":[],"mappings":";AAoFA;IACA,yBAAA;IACA,2BAAA;IACA,YAAA;AACA;AACA;EACA,aAAA;EACA,8BAAA;EACA,mBAAA;AACA;AACA;EACA,cAAA;EACA,WAAA;EACA,iBAAA;EACA,eAAA;AACA;AACA;;EAEA,6BAAA;AACA;AACA;;EAEA,6BAAA;AACA;AACA;EACA,aAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AACA;AACA;EACA,aAAA;EACA,kBAAA;EACA,8BAAA;EACA,sBAAA;EACA,eAAA;EACA,UAAA;EACA,cAAA;EACA,sBAAA;EACA,sBAAA;EACA,YAAA;EACA,kBAAA;EACA,2CAAA;EACA,iBAAA;AACA;AACA;EACA,eAAA;EACA,WAAA;EACA,kBAAA;AACA;AACA;EACA,kBAAA;EACA,WAAA;EACA,gBAAA;EACA,iBAAA;EACA,iBAAA;AACA;AACA,mCAAA;AACA;EACA,sGAAA;UACA,8FAAA;AACA;AACA;EACA,wGAAA;UACA,gGAAA;AACA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AAEA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA","sourcesContent":["<template>\n  <div class=\"left-panel\">\n    <div class=\"actions\">\n      <div\n        class=\"add\"\n        @click=\"switchPanel('add')\"\n      >\n        <i class=\"fas fa-plus\" />\n      </div>\n      <div\n        class=\"structure\"\n        @click=\"switchPanel('structure')\"\n      >\n        <i class=\"fas fa-bars\" />\n      </div>\n    </div>\n    <transition\n      name=\"fade\"\n      @after-leave=\"animationEnd\"\n    >\n      <div\n        v-if=\"(showPanel('add')) && !animating\"\n        class=\"add-element\"\n      >\n        <div\n          v-for=\"template in templates\"\n          :key=\"template.id\"\n          class=\"elem\"\n          draggable=\"true\"\n          @dragstart=\"emitDragging(template)\"\n        >\n          <i :class=\"template.icon\" />\n          <span class=\"elem-title\">{{ template.title }}</span>\n        </div>\n      </div>\n    </transition>\n\n    <transition\n      name=\"fade\"\n      @after-leave=\"animationEnd\"\n    >\n      <div\n        v-if=\"(showPanel('structure') && !animating)\"\n        class=\"show-structure\"\n      >\n        <p>STRUCTURE</p>\n      </div>\n    </transition>\n  </div>\n</template>\n\n<script>\nimport templates from 'Editor/templates/templates'\n\nexport default {\n    name: 'LeftPanel',\n    data() {\n      return {\n        currentPanel: 'add',\n        animating: false,\n        templates\n      }\n    },\n    mounted() {\n    },\n    methods: {\n      switchPanel(panel) {\n        this.animating = true\n        this.currentPanel = panel\n      },\n      showPanel(panel) {\n        return (this.currentPanel === panel)\n      },\n      animationEnd() {\n        this.animating = false\n      },\n      emitDragging(elem) {\n        this.$root.$emit('dragging-element', elem)\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.left-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 20rem;\n  }\n  div.left-panel > div.actions {\n    display: flex;\n    border-bottom: .5px solid #000;\n    margin-bottom: 1rem;\n  }\n  div.left-panel > div.actions > div {\n    padding: .5rem;\n    color: #fff;\n    font-size: 1.5rem;\n    cursor: pointer;\n  }\n  div.left-panel > div.actions > div.add\n  {\n    border-right: .5px solid #000;\n  }\n  div.left-panel > div.actions > div.structure\n  {\n    border-right: .5px solid #000;\n  }\n  div.left-panel > div.add-element {\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: flex-start;\n    padding: 0 1rem;\n  }\n  div.left-panel > div.add-element > div.elem {\n    display: flex;\n    cursor: all-scroll;\n    justify-content: space-between;\n    flex-direction: column;\n    margin: 3% 2.5%;\n    width: 45%;\n    min-width: 45%;\n    box-sizing: border-box;\n    border: 1px solid #000;\n    padding: 1em;\n    border-radius: 5px;\n    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);\n    user-select: none;\n  }\n  div.left-panel > div.add-element > div.elem > i {\n    font-size: 3rem;\n    color: #fff;\n    text-align: center;\n  }\n  div.elem > span.elem-title {\n    text-align: center;\n    color: #fff;\n    font-weight: 300;\n    font-size: 0.9rem;\n    margin-top: .5rem;\n  }\n  /* Animations thanks animista.net */\n  .fade-enter-active {\n    -webkit-animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n            animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n  }\n  .fade-leave-active {\n    -webkit-animation: swing-out-top-bck 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n            animation: swing-out-top-bck 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n  }\n  @-webkit-keyframes swing-in-top-fwd {\n    0% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n  }\n  @keyframes swing-in-top-fwd {\n    0% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n  }\n\n  @-webkit-keyframes swing-out-top-bck {\n    0% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n    100% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n  }\n  @keyframes swing-out-top-bck {\n    0% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n    100% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n  }\n</style>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.left-panel[data-v-becf9070] {\n    background-color: #454545;\n    border-top: .5px solid #000;\n    width: 20rem;\n}\ndiv.left-panel > div.actions[data-v-becf9070] {\n  display: flex;\n  border-bottom: .5px solid #000;\n  margin-bottom: 1rem;\n}\ndiv.left-panel > div.actions > div[data-v-becf9070] {\n  padding: .5rem;\n  color: #fff;\n  font-size: 1.5rem;\n  cursor: pointer;\n}\ndiv.left-panel > div.actions > div.add[data-v-becf9070]\n{\n  border-right: .5px solid #000;\n}\ndiv.left-panel > div.actions > div.structure[data-v-becf9070]\n{\n  border-right: .5px solid #000;\n}\ndiv.left-panel > div.add-element[data-v-becf9070] {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  padding: 0 1rem;\n}\ndiv.left-panel > div.add-element > div.elem[data-v-becf9070] {\n  display: flex;\n  cursor: all-scroll;\n  justify-content: space-between;\n  flex-direction: column;\n  margin: 3% 2.5%;\n  width: 45%;\n  min-width: 45%;\n  box-sizing: border-box;\n  border: 1px solid #000;\n  padding: 1em;\n  border-radius: 5px;\n  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);\n  user-select: none;\n}\ndiv.left-panel > div.add-element > div.elem > i[data-v-becf9070] {\n  font-size: 3rem;\n  color: #fff;\n  text-align: center;\n}\ndiv.elem > span.elem-title[data-v-becf9070] {\n  text-align: center;\n  color: #fff;\n  font-weight: 300;\n  font-size: 0.9rem;\n  margin-top: .5rem;\n}\n/* Animations thanks animista.net */\n.fade-enter-active[data-v-becf9070] {\n  -webkit-animation: swing-in-top-fwd-data-v-becf9070 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n          animation: swing-in-top-fwd-data-v-becf9070 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n}\n.fade-leave-active[data-v-becf9070] {\n  -webkit-animation: swing-out-top-bck-data-v-becf9070 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n          animation: swing-out-top-bck-data-v-becf9070 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n}\n@-webkit-keyframes swing-in-top-fwd-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n}\n@keyframes swing-in-top-fwd-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n}\n@-webkit-keyframes swing-out-top-bck-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n}\n@keyframes swing-out-top-bck-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/LeftPanel.vue"],"names":[],"mappings":";AAyFA;IACA,yBAAA;IACA,2BAAA;IACA,YAAA;AACA;AACA;EACA,aAAA;EACA,8BAAA;EACA,mBAAA;AACA;AACA;EACA,cAAA;EACA,WAAA;EACA,iBAAA;EACA,eAAA;AACA;AACA;;EAEA,6BAAA;AACA;AACA;;EAEA,6BAAA;AACA;AACA;EACA,aAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AACA;AACA;EACA,aAAA;EACA,kBAAA;EACA,8BAAA;EACA,sBAAA;EACA,eAAA;EACA,UAAA;EACA,cAAA;EACA,sBAAA;EACA,sBAAA;EACA,YAAA;EACA,kBAAA;EACA,2CAAA;EACA,iBAAA;AACA;AACA;EACA,eAAA;EACA,WAAA;EACA,kBAAA;AACA;AACA;EACA,kBAAA;EACA,WAAA;EACA,gBAAA;EACA,iBAAA;EACA,iBAAA;AACA;AACA,mCAAA;AACA;EACA,sGAAA;UACA,8FAAA;AACA;AACA;EACA,wGAAA;UACA,gGAAA;AACA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AAEA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA","sourcesContent":["<template>\n  <div class=\"left-panel\">\n    <div class=\"actions\">\n      <div\n        class=\"add\"\n        @click=\"switchPanel('add')\"\n      >\n        <i class=\"fas fa-plus\" />\n      </div>\n      <div\n        class=\"structure\"\n        @click=\"switchPanel('structure')\"\n      >\n        <i class=\"fas fa-bars\" />\n      </div>\n    </div>\n    <transition\n      name=\"fade\"\n      @after-leave=\"animationEnd\"\n    >\n      <div\n        v-if=\"(showPanel('add')) && !animating\"\n        class=\"add-element\"\n      >\n        <div\n          v-for=\"template in templates\"\n          :key=\"template.id\"\n          class=\"elem\"\n          draggable=\"true\"\n          @dragstart=\"dragStart(template)\"\n        >\n          <i :class=\"template.icon\" />\n          <span class=\"elem-title\">{{ template.title }}</span>\n        </div>\n      </div>\n    </transition>\n\n    <transition\n      name=\"fade\"\n      @after-leave=\"animationEnd\"\n    >\n      <div\n        v-if=\"(showPanel('structure') && !animating)\"\n        class=\"show-structure\"\n      >\n        <p>STRUCTURE</p>\n      </div>\n    </transition>\n  </div>\n</template>\n\n<script>\nimport templates from 'Editor/templates/templates'\nimport Drag from 'Editor/Drag'\n\nexport default {\n    name: 'LeftPanel',\n    data() {\n      return {\n        currentPanel: 'add',\n        animating: false,\n        templates\n        // drag: Object\n      }\n    },\n    mounted() {\n    },\n    methods: {\n      switchPanel(panel) {\n        this.animating = true\n        this.currentPanel = panel\n      },\n      showPanel(panel) {\n        return (this.currentPanel === panel)\n      },\n      animationEnd() {\n        this.animating = false\n      },\n      dragStart(elem) {\n        console.log('dragstart from leftmenu')\n        // this.drag = new Drag(elem)\n        console.log(elem)\n        this.$root.$emit('dragging-element', elem) //listened in MainPanel.vue\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.left-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 20rem;\n  }\n  div.left-panel > div.actions {\n    display: flex;\n    border-bottom: .5px solid #000;\n    margin-bottom: 1rem;\n  }\n  div.left-panel > div.actions > div {\n    padding: .5rem;\n    color: #fff;\n    font-size: 1.5rem;\n    cursor: pointer;\n  }\n  div.left-panel > div.actions > div.add\n  {\n    border-right: .5px solid #000;\n  }\n  div.left-panel > div.actions > div.structure\n  {\n    border-right: .5px solid #000;\n  }\n  div.left-panel > div.add-element {\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: flex-start;\n    padding: 0 1rem;\n  }\n  div.left-panel > div.add-element > div.elem {\n    display: flex;\n    cursor: all-scroll;\n    justify-content: space-between;\n    flex-direction: column;\n    margin: 3% 2.5%;\n    width: 45%;\n    min-width: 45%;\n    box-sizing: border-box;\n    border: 1px solid #000;\n    padding: 1em;\n    border-radius: 5px;\n    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);\n    user-select: none;\n  }\n  div.left-panel > div.add-element > div.elem > i {\n    font-size: 3rem;\n    color: #fff;\n    text-align: center;\n  }\n  div.elem > span.elem-title {\n    text-align: center;\n    color: #fff;\n    font-weight: 300;\n    font-size: 0.9rem;\n    margin-top: .5rem;\n  }\n  /* Animations thanks animista.net */\n  .fade-enter-active {\n    -webkit-animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n            animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n  }\n  .fade-leave-active {\n    -webkit-animation: swing-out-top-bck 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n            animation: swing-out-top-bck 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n  }\n  @-webkit-keyframes swing-in-top-fwd {\n    0% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n  }\n  @keyframes swing-in-top-fwd {\n    0% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n  }\n\n  @-webkit-keyframes swing-out-top-bck {\n    0% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n    100% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n  }\n  @keyframes swing-out-top-bck {\n    0% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n    100% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n  }\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -434,7 +440,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.main-panel[data-v-754a1a56] {\n  width: 100%;\n  height: 100%;\n}\niframe.content[data-v-754a1a56] {\n  display: block;\n  border: 0px none;\n  height: 100%;\n  width: 100%;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/MainPanel.vue"],"names":[],"mappings":";AAgDA;EACA,WAAA;EACA,YAAA;AACA;AACA;EACA,cAAA;EACA,gBAAA;EACA,YAAA;EACA,WAAA;AACA","sourcesContent":["<template>\n  <!-- eslint-disable vue/no-v-html  -->\n  <div class=\"main-panel\">\n    <iframe\n      id=\"content\"\n      name=\"content\"\n      :src=\"iframeFilePath\"\n      class=\"content\"\n    />\n  </div>\n</template>\n\n<script>\nimport Iframe from 'Editor/Iframe'\n\nexport default {\n    name: 'MainPanel',\n    data() {\n      return {\n        currentElement: false,\n        // content: '',\n        iframe: Object\n      }\n    },\n    computed: {\n      iframeFilePath() {\n        return 'iframe.html'\n      }\n    },\n    mounted() {\n      this.$root.$on('dragging-element', (elem) => {\n        this.currentElement = elem\n      })\n      this.iframe = new Iframe('#content')\n      this.iframe.bindEvents()\n    },\n    methods: {\n      handleDrop() {\n        // if(this.currentElement) {\n        //   this.content += this.currentElement.content\n        // }\n        console.log('dropped')\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.main-panel {\n    width: 100%;\n    height: 100%;\n  }\n  iframe.content {\n    display: block;\n    border: 0px none;\n    height: 100%;\n    width: 100%;\n  }\n</style>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\niframe.iframe[data-v-754a1a56] {\n  display: block;\n  border: 0px none;\n  height: 100%;\n  width: 100%;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/MainPanel.vue"],"names":[],"mappings":";AAgDA;EACA,cAAA;EACA,gBAAA;EACA,YAAA;EACA,WAAA;AACA","sourcesContent":["<template>\n  <iframe\n    id=\"iframe\"\n    name=\"iframe\"\n    :src=\"iframeFilePath\"\n    class=\"iframe\"\n    @load=\"iframeLoaded\"\n  />\n</template>\n\n<script>\nimport Iframe from 'Editor/Iframe'\nimport isEmpty from 'lodash/isEmpty';\n\nexport default {\n    name: 'MainPanel',\n    data() {\n      return {\n        iframe: Object\n      }\n    },\n    computed: {\n      iframeFilePath() {\n        return 'iframe.html'\n      }\n    },\n    mounted() {\n      this.$root.$on('dragging-element', (elem) => {\n        // this.iframe.draggedElem = elem\n        // this.iframe.draggedEvent = event\n        if(!isEmpty(this.iframe)) {\n          // let drag = new Drag(elem)\n          // let drop = new Drop('#editor-content')\n          // this.iframe.setDrag(drag)\n          // this.iframe.setDrop(drop)\n        }\n      })\n    },\n    methods: {\n      iframeLoaded() {\n        this.iframe = new Iframe('#iframe')\n        // this.iframe.bindEvents()\n      }\n    }\n}\n</script>\n\n<style scoped>\n  iframe.iframe {\n    display: block;\n    border: 0px none;\n    height: 100%;\n    width: 100%;\n  }\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -610,6 +616,1676 @@ function toComment(sourceMap) {
   var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
   return "/*# ".concat(data, " */");
 }
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_DataView.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_DataView.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js"),
+    root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+/* Built-in method references that are verified to be native. */
+
+
+var DataView = getNative(root, 'DataView');
+module.exports = DataView;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Map.js":
+/*!*************************************!*\
+  !*** ./node_modules/lodash/_Map.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js"),
+    root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+/* Built-in method references that are verified to be native. */
+
+
+var Map = getNative(root, 'Map');
+module.exports = Map;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Promise.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_Promise.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js"),
+    root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+/* Built-in method references that are verified to be native. */
+
+
+var Promise = getNative(root, 'Promise');
+module.exports = Promise;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Set.js":
+/*!*************************************!*\
+  !*** ./node_modules/lodash/_Set.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js"),
+    root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+/* Built-in method references that are verified to be native. */
+
+
+var Set = getNative(root, 'Set');
+module.exports = Set;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_Symbol.js":
+/*!****************************************!*\
+  !*** ./node_modules/lodash/_Symbol.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+/** Built-in value references. */
+
+
+var _Symbol = root.Symbol;
+module.exports = _Symbol;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_WeakMap.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_WeakMap.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js"),
+    root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+/* Built-in method references that are verified to be native. */
+
+
+var WeakMap = getNative(root, 'WeakMap');
+module.exports = WeakMap;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseGetTag.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_baseGetTag.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js"),
+    getRawTag = __webpack_require__(/*! ./_getRawTag */ "./node_modules/lodash/_getRawTag.js"),
+    objectToString = __webpack_require__(/*! ./_objectToString */ "./node_modules/lodash/_objectToString.js");
+/** `Object#toString` result references. */
+
+
+var nullTag = '[object Null]',
+    undefinedTag = '[object Undefined]';
+/** Built-in value references. */
+
+var symToStringTag = _Symbol ? _Symbol.toStringTag : undefined;
+/**
+ * The base implementation of `getTag` without fallbacks for buggy environments.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+
+function baseGetTag(value) {
+  if (value == null) {
+    return value === undefined ? undefinedTag : nullTag;
+  }
+
+  return symToStringTag && symToStringTag in Object(value) ? getRawTag(value) : objectToString(value);
+}
+
+module.exports = baseGetTag;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIsArguments.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_baseIsArguments.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+/** `Object#toString` result references. */
+
+
+var argsTag = '[object Arguments]';
+/**
+ * The base implementation of `_.isArguments`.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ */
+
+function baseIsArguments(value) {
+  return isObjectLike(value) && baseGetTag(value) == argsTag;
+}
+
+module.exports = baseIsArguments;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIsNative.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/_baseIsNative.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isFunction = __webpack_require__(/*! ./isFunction */ "./node_modules/lodash/isFunction.js"),
+    isMasked = __webpack_require__(/*! ./_isMasked */ "./node_modules/lodash/_isMasked.js"),
+    isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
+    toSource = __webpack_require__(/*! ./_toSource */ "./node_modules/lodash/_toSource.js");
+/**
+ * Used to match `RegExp`
+ * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
+ */
+
+
+var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+/** Used to detect host constructors (Safari). */
+
+var reIsHostCtor = /^\[object .+?Constructor\]$/;
+/** Used for built-in method references. */
+
+var funcProto = Function.prototype,
+    objectProto = Object.prototype;
+/** Used to resolve the decompiled source of functions. */
+
+var funcToString = funcProto.toString;
+/** Used to check objects for own properties. */
+
+var hasOwnProperty = objectProto.hasOwnProperty;
+/** Used to detect if a method is native. */
+
+var reIsNative = RegExp('^' + funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&').replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
+/**
+ * The base implementation of `_.isNative` without bad shim checks.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a native function,
+ *  else `false`.
+ */
+
+function baseIsNative(value) {
+  if (!isObject(value) || isMasked(value)) {
+    return false;
+  }
+
+  var pattern = isFunction(value) ? reIsNative : reIsHostCtor;
+  return pattern.test(toSource(value));
+}
+
+module.exports = baseIsNative;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIsTypedArray.js":
+/*!**************************************************!*\
+  !*** ./node_modules/lodash/_baseIsTypedArray.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    isLength = __webpack_require__(/*! ./isLength */ "./node_modules/lodash/isLength.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+/** `Object#toString` result references. */
+
+
+var argsTag = '[object Arguments]',
+    arrayTag = '[object Array]',
+    boolTag = '[object Boolean]',
+    dateTag = '[object Date]',
+    errorTag = '[object Error]',
+    funcTag = '[object Function]',
+    mapTag = '[object Map]',
+    numberTag = '[object Number]',
+    objectTag = '[object Object]',
+    regexpTag = '[object RegExp]',
+    setTag = '[object Set]',
+    stringTag = '[object String]',
+    weakMapTag = '[object WeakMap]';
+var arrayBufferTag = '[object ArrayBuffer]',
+    dataViewTag = '[object DataView]',
+    float32Tag = '[object Float32Array]',
+    float64Tag = '[object Float64Array]',
+    int8Tag = '[object Int8Array]',
+    int16Tag = '[object Int16Array]',
+    int32Tag = '[object Int32Array]',
+    uint8Tag = '[object Uint8Array]',
+    uint8ClampedTag = '[object Uint8ClampedArray]',
+    uint16Tag = '[object Uint16Array]',
+    uint32Tag = '[object Uint32Array]';
+/** Used to identify `toStringTag` values of typed arrays. */
+
+var typedArrayTags = {};
+typedArrayTags[float32Tag] = typedArrayTags[float64Tag] = typedArrayTags[int8Tag] = typedArrayTags[int16Tag] = typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] = typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] = typedArrayTags[uint32Tag] = true;
+typedArrayTags[argsTag] = typedArrayTags[arrayTag] = typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] = typedArrayTags[dataViewTag] = typedArrayTags[dateTag] = typedArrayTags[errorTag] = typedArrayTags[funcTag] = typedArrayTags[mapTag] = typedArrayTags[numberTag] = typedArrayTags[objectTag] = typedArrayTags[regexpTag] = typedArrayTags[setTag] = typedArrayTags[stringTag] = typedArrayTags[weakMapTag] = false;
+/**
+ * The base implementation of `_.isTypedArray` without Node.js optimizations.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ */
+
+function baseIsTypedArray(value) {
+  return isObjectLike(value) && isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
+}
+
+module.exports = baseIsTypedArray;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseKeys.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_baseKeys.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isPrototype = __webpack_require__(/*! ./_isPrototype */ "./node_modules/lodash/_isPrototype.js"),
+    nativeKeys = __webpack_require__(/*! ./_nativeKeys */ "./node_modules/lodash/_nativeKeys.js");
+/** Used for built-in method references. */
+
+
+var objectProto = Object.prototype;
+/** Used to check objects for own properties. */
+
+var hasOwnProperty = objectProto.hasOwnProperty;
+/**
+ * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+
+function baseKeys(object) {
+  if (!isPrototype(object)) {
+    return nativeKeys(object);
+  }
+
+  var result = [];
+
+  for (var key in Object(object)) {
+    if (hasOwnProperty.call(object, key) && key != 'constructor') {
+      result.push(key);
+    }
+  }
+
+  return result;
+}
+
+module.exports = baseKeys;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseUnary.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_baseUnary.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * The base implementation of `_.unary` without support for storing metadata.
+ *
+ * @private
+ * @param {Function} func The function to cap arguments for.
+ * @returns {Function} Returns the new capped function.
+ */
+function baseUnary(func) {
+  return function (value) {
+    return func(value);
+  };
+}
+
+module.exports = baseUnary;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_coreJsData.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_coreJsData.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+/** Used to detect overreaching core-js shims. */
+
+
+var coreJsData = root['__core-js_shared__'];
+module.exports = coreJsData;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_freeGlobal.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_freeGlobal.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/** Detect free variable `global` from Node.js. */
+var freeGlobal = (typeof global === "undefined" ? "undefined" : _typeof(global)) == 'object' && global && global.Object === Object && global;
+module.exports = freeGlobal;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getNative.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_getNative.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIsNative = __webpack_require__(/*! ./_baseIsNative */ "./node_modules/lodash/_baseIsNative.js"),
+    getValue = __webpack_require__(/*! ./_getValue */ "./node_modules/lodash/_getValue.js");
+/**
+ * Gets the native function at `key` of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {string} key The key of the method to get.
+ * @returns {*} Returns the function if it's native, else `undefined`.
+ */
+
+
+function getNative(object, key) {
+  var value = getValue(object, key);
+  return baseIsNative(value) ? value : undefined;
+}
+
+module.exports = getNative;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getRawTag.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_getRawTag.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js");
+/** Used for built-in method references. */
+
+
+var objectProto = Object.prototype;
+/** Used to check objects for own properties. */
+
+var hasOwnProperty = objectProto.hasOwnProperty;
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+
+var nativeObjectToString = objectProto.toString;
+/** Built-in value references. */
+
+var symToStringTag = _Symbol ? _Symbol.toStringTag : undefined;
+/**
+ * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the raw `toStringTag`.
+ */
+
+function getRawTag(value) {
+  var isOwn = hasOwnProperty.call(value, symToStringTag),
+      tag = value[symToStringTag];
+
+  try {
+    value[symToStringTag] = undefined;
+    var unmasked = true;
+  } catch (e) {}
+
+  var result = nativeObjectToString.call(value);
+
+  if (unmasked) {
+    if (isOwn) {
+      value[symToStringTag] = tag;
+    } else {
+      delete value[symToStringTag];
+    }
+  }
+
+  return result;
+}
+
+module.exports = getRawTag;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getTag.js":
+/*!****************************************!*\
+  !*** ./node_modules/lodash/_getTag.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var DataView = __webpack_require__(/*! ./_DataView */ "./node_modules/lodash/_DataView.js"),
+    Map = __webpack_require__(/*! ./_Map */ "./node_modules/lodash/_Map.js"),
+    Promise = __webpack_require__(/*! ./_Promise */ "./node_modules/lodash/_Promise.js"),
+    Set = __webpack_require__(/*! ./_Set */ "./node_modules/lodash/_Set.js"),
+    WeakMap = __webpack_require__(/*! ./_WeakMap */ "./node_modules/lodash/_WeakMap.js"),
+    baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    toSource = __webpack_require__(/*! ./_toSource */ "./node_modules/lodash/_toSource.js");
+/** `Object#toString` result references. */
+
+
+var mapTag = '[object Map]',
+    objectTag = '[object Object]',
+    promiseTag = '[object Promise]',
+    setTag = '[object Set]',
+    weakMapTag = '[object WeakMap]';
+var dataViewTag = '[object DataView]';
+/** Used to detect maps, sets, and weakmaps. */
+
+var dataViewCtorString = toSource(DataView),
+    mapCtorString = toSource(Map),
+    promiseCtorString = toSource(Promise),
+    setCtorString = toSource(Set),
+    weakMapCtorString = toSource(WeakMap);
+/**
+ * Gets the `toStringTag` of `value`.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+
+var getTag = baseGetTag; // Fallback for data views, maps, sets, and weak maps in IE 11 and promises in Node.js < 6.
+
+if (DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag || Map && getTag(new Map()) != mapTag || Promise && getTag(Promise.resolve()) != promiseTag || Set && getTag(new Set()) != setTag || WeakMap && getTag(new WeakMap()) != weakMapTag) {
+  getTag = function getTag(value) {
+    var result = baseGetTag(value),
+        Ctor = result == objectTag ? value.constructor : undefined,
+        ctorString = Ctor ? toSource(Ctor) : '';
+
+    if (ctorString) {
+      switch (ctorString) {
+        case dataViewCtorString:
+          return dataViewTag;
+
+        case mapCtorString:
+          return mapTag;
+
+        case promiseCtorString:
+          return promiseTag;
+
+        case setCtorString:
+          return setTag;
+
+        case weakMapCtorString:
+          return weakMapTag;
+      }
+    }
+
+    return result;
+  };
+}
+
+module.exports = getTag;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_getValue.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_getValue.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Gets the value at `key` of `object`.
+ *
+ * @private
+ * @param {Object} [object] The object to query.
+ * @param {string} key The key of the property to get.
+ * @returns {*} Returns the property value.
+ */
+function getValue(object, key) {
+  return object == null ? undefined : object[key];
+}
+
+module.exports = getValue;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_isMasked.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_isMasked.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var coreJsData = __webpack_require__(/*! ./_coreJsData */ "./node_modules/lodash/_coreJsData.js");
+/** Used to detect methods masquerading as native. */
+
+
+var maskSrcKey = function () {
+  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+  return uid ? 'Symbol(src)_1.' + uid : '';
+}();
+/**
+ * Checks if `func` has its source masked.
+ *
+ * @private
+ * @param {Function} func The function to check.
+ * @returns {boolean} Returns `true` if `func` is masked, else `false`.
+ */
+
+
+function isMasked(func) {
+  return !!maskSrcKey && maskSrcKey in func;
+}
+
+module.exports = isMasked;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_isPrototype.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_isPrototype.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+/**
+ * Checks if `value` is likely a prototype object.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
+ */
+
+function isPrototype(value) {
+  var Ctor = value && value.constructor,
+      proto = typeof Ctor == 'function' && Ctor.prototype || objectProto;
+  return value === proto;
+}
+
+module.exports = isPrototype;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_nativeKeys.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_nativeKeys.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var overArg = __webpack_require__(/*! ./_overArg */ "./node_modules/lodash/_overArg.js");
+/* Built-in method references for those with the same name as other `lodash` methods. */
+
+
+var nativeKeys = overArg(Object.keys, Object);
+module.exports = nativeKeys;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_nodeUtil.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_nodeUtil.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ "./node_modules/lodash/_freeGlobal.js");
+/** Detect free variable `exports`. */
+
+
+var freeExports = ( false ? undefined : _typeof(exports)) == 'object' && exports && !exports.nodeType && exports;
+/** Detect free variable `module`. */
+
+var freeModule = freeExports && ( false ? undefined : _typeof(module)) == 'object' && module && !module.nodeType && module;
+/** Detect the popular CommonJS extension `module.exports`. */
+
+var moduleExports = freeModule && freeModule.exports === freeExports;
+/** Detect free variable `process` from Node.js. */
+
+var freeProcess = moduleExports && freeGlobal.process;
+/** Used to access faster Node.js helpers. */
+
+var nodeUtil = function () {
+  try {
+    // Use `util.types` for Node.js 10+.
+    var types = freeModule && freeModule.require && freeModule.require('util').types;
+
+    if (types) {
+      return types;
+    } // Legacy `process.binding('util')` for Node.js < 10.
+
+
+    return freeProcess && freeProcess.binding && freeProcess.binding('util');
+  } catch (e) {}
+}();
+
+module.exports = nodeUtil;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_objectToString.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_objectToString.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+
+var nativeObjectToString = objectProto.toString;
+/**
+ * Converts `value` to a string using `Object.prototype.toString`.
+ *
+ * @private
+ * @param {*} value The value to convert.
+ * @returns {string} Returns the converted string.
+ */
+
+function objectToString(value) {
+  return nativeObjectToString.call(value);
+}
+
+module.exports = objectToString;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_overArg.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_overArg.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Creates a unary function that invokes `func` with its argument transformed.
+ *
+ * @private
+ * @param {Function} func The function to wrap.
+ * @param {Function} transform The argument transform.
+ * @returns {Function} Returns the new function.
+ */
+function overArg(func, transform) {
+  return function (arg) {
+    return func(transform(arg));
+  };
+}
+
+module.exports = overArg;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_root.js":
+/*!**************************************!*\
+  !*** ./node_modules/lodash/_root.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ "./node_modules/lodash/_freeGlobal.js");
+/** Detect free variable `self`. */
+
+
+var freeSelf = (typeof self === "undefined" ? "undefined" : _typeof(self)) == 'object' && self && self.Object === Object && self;
+/** Used as a reference to the global object. */
+
+var root = freeGlobal || freeSelf || Function('return this')();
+module.exports = root;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_toSource.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_toSource.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used for built-in method references. */
+var funcProto = Function.prototype;
+/** Used to resolve the decompiled source of functions. */
+
+var funcToString = funcProto.toString;
+/**
+ * Converts `func` to its source code.
+ *
+ * @private
+ * @param {Function} func The function to convert.
+ * @returns {string} Returns the source code.
+ */
+
+function toSource(func) {
+  if (func != null) {
+    try {
+      return funcToString.call(func);
+    } catch (e) {}
+
+    try {
+      return func + '';
+    } catch (e) {}
+  }
+
+  return '';
+}
+
+module.exports = toSource;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/debounce.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/debounce.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
+    now = __webpack_require__(/*! ./now */ "./node_modules/lodash/now.js"),
+    toNumber = __webpack_require__(/*! ./toNumber */ "./node_modules/lodash/toNumber.js");
+/** Error message constants. */
+
+
+var FUNC_ERROR_TEXT = 'Expected a function';
+/* Built-in method references for those with the same name as other `lodash` methods. */
+
+var nativeMax = Math.max,
+    nativeMin = Math.min;
+/**
+ * Creates a debounced function that delays invoking `func` until after `wait`
+ * milliseconds have elapsed since the last time the debounced function was
+ * invoked. The debounced function comes with a `cancel` method to cancel
+ * delayed `func` invocations and a `flush` method to immediately invoke them.
+ * Provide `options` to indicate whether `func` should be invoked on the
+ * leading and/or trailing edge of the `wait` timeout. The `func` is invoked
+ * with the last arguments provided to the debounced function. Subsequent
+ * calls to the debounced function return the result of the last `func`
+ * invocation.
+ *
+ * **Note:** If `leading` and `trailing` options are `true`, `func` is
+ * invoked on the trailing edge of the timeout only if the debounced function
+ * is invoked more than once during the `wait` timeout.
+ *
+ * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+ * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+ *
+ * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+ * for details over the differences between `_.debounce` and `_.throttle`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Function
+ * @param {Function} func The function to debounce.
+ * @param {number} [wait=0] The number of milliseconds to delay.
+ * @param {Object} [options={}] The options object.
+ * @param {boolean} [options.leading=false]
+ *  Specify invoking on the leading edge of the timeout.
+ * @param {number} [options.maxWait]
+ *  The maximum time `func` is allowed to be delayed before it's invoked.
+ * @param {boolean} [options.trailing=true]
+ *  Specify invoking on the trailing edge of the timeout.
+ * @returns {Function} Returns the new debounced function.
+ * @example
+ *
+ * // Avoid costly calculations while the window size is in flux.
+ * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
+ *
+ * // Invoke `sendMail` when clicked, debouncing subsequent calls.
+ * jQuery(element).on('click', _.debounce(sendMail, 300, {
+ *   'leading': true,
+ *   'trailing': false
+ * }));
+ *
+ * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
+ * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
+ * var source = new EventSource('/stream');
+ * jQuery(source).on('message', debounced);
+ *
+ * // Cancel the trailing debounced invocation.
+ * jQuery(window).on('popstate', debounced.cancel);
+ */
+
+function debounce(func, wait, options) {
+  var lastArgs,
+      lastThis,
+      maxWait,
+      result,
+      timerId,
+      lastCallTime,
+      lastInvokeTime = 0,
+      leading = false,
+      maxing = false,
+      trailing = true;
+
+  if (typeof func != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+
+  wait = toNumber(wait) || 0;
+
+  if (isObject(options)) {
+    leading = !!options.leading;
+    maxing = 'maxWait' in options;
+    maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
+  }
+
+  function invokeFunc(time) {
+    var args = lastArgs,
+        thisArg = lastThis;
+    lastArgs = lastThis = undefined;
+    lastInvokeTime = time;
+    result = func.apply(thisArg, args);
+    return result;
+  }
+
+  function leadingEdge(time) {
+    // Reset any `maxWait` timer.
+    lastInvokeTime = time; // Start the timer for the trailing edge.
+
+    timerId = setTimeout(timerExpired, wait); // Invoke the leading edge.
+
+    return leading ? invokeFunc(time) : result;
+  }
+
+  function remainingWait(time) {
+    var timeSinceLastCall = time - lastCallTime,
+        timeSinceLastInvoke = time - lastInvokeTime,
+        timeWaiting = wait - timeSinceLastCall;
+    return maxing ? nativeMin(timeWaiting, maxWait - timeSinceLastInvoke) : timeWaiting;
+  }
+
+  function shouldInvoke(time) {
+    var timeSinceLastCall = time - lastCallTime,
+        timeSinceLastInvoke = time - lastInvokeTime; // Either this is the first call, activity has stopped and we're at the
+    // trailing edge, the system time has gone backwards and we're treating
+    // it as the trailing edge, or we've hit the `maxWait` limit.
+
+    return lastCallTime === undefined || timeSinceLastCall >= wait || timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
+  }
+
+  function timerExpired() {
+    var time = now();
+
+    if (shouldInvoke(time)) {
+      return trailingEdge(time);
+    } // Restart the timer.
+
+
+    timerId = setTimeout(timerExpired, remainingWait(time));
+  }
+
+  function trailingEdge(time) {
+    timerId = undefined; // Only invoke if we have `lastArgs` which means `func` has been
+    // debounced at least once.
+
+    if (trailing && lastArgs) {
+      return invokeFunc(time);
+    }
+
+    lastArgs = lastThis = undefined;
+    return result;
+  }
+
+  function cancel() {
+    if (timerId !== undefined) {
+      clearTimeout(timerId);
+    }
+
+    lastInvokeTime = 0;
+    lastArgs = lastCallTime = lastThis = timerId = undefined;
+  }
+
+  function flush() {
+    return timerId === undefined ? result : trailingEdge(now());
+  }
+
+  function debounced() {
+    var time = now(),
+        isInvoking = shouldInvoke(time);
+    lastArgs = arguments;
+    lastThis = this;
+    lastCallTime = time;
+
+    if (isInvoking) {
+      if (timerId === undefined) {
+        return leadingEdge(lastCallTime);
+      }
+
+      if (maxing) {
+        // Handle invocations in a tight loop.
+        clearTimeout(timerId);
+        timerId = setTimeout(timerExpired, wait);
+        return invokeFunc(lastCallTime);
+      }
+    }
+
+    if (timerId === undefined) {
+      timerId = setTimeout(timerExpired, wait);
+    }
+
+    return result;
+  }
+
+  debounced.cancel = cancel;
+  debounced.flush = flush;
+  return debounced;
+}
+
+module.exports = debounce;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isArguments.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/isArguments.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIsArguments = __webpack_require__(/*! ./_baseIsArguments */ "./node_modules/lodash/_baseIsArguments.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+/** Used for built-in method references. */
+
+
+var objectProto = Object.prototype;
+/** Used to check objects for own properties. */
+
+var hasOwnProperty = objectProto.hasOwnProperty;
+/** Built-in value references. */
+
+var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+/**
+ * Checks if `value` is likely an `arguments` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ *  else `false`.
+ * @example
+ *
+ * _.isArguments(function() { return arguments; }());
+ * // => true
+ *
+ * _.isArguments([1, 2, 3]);
+ * // => false
+ */
+
+var isArguments = baseIsArguments(function () {
+  return arguments;
+}()) ? baseIsArguments : function (value) {
+  return isObjectLike(value) && hasOwnProperty.call(value, 'callee') && !propertyIsEnumerable.call(value, 'callee');
+};
+module.exports = isArguments;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isArray.js":
+/*!****************************************!*\
+  !*** ./node_modules/lodash/isArray.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is classified as an `Array` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+ * @example
+ *
+ * _.isArray([1, 2, 3]);
+ * // => true
+ *
+ * _.isArray(document.body.children);
+ * // => false
+ *
+ * _.isArray('abc');
+ * // => false
+ *
+ * _.isArray(_.noop);
+ * // => false
+ */
+var isArray = Array.isArray;
+module.exports = isArray;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isArrayLike.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/isArrayLike.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isFunction = __webpack_require__(/*! ./isFunction */ "./node_modules/lodash/isFunction.js"),
+    isLength = __webpack_require__(/*! ./isLength */ "./node_modules/lodash/isLength.js");
+/**
+ * Checks if `value` is array-like. A value is considered array-like if it's
+ * not a function and has a `value.length` that's an integer greater than or
+ * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+ * @example
+ *
+ * _.isArrayLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLike(document.body.children);
+ * // => true
+ *
+ * _.isArrayLike('abc');
+ * // => true
+ *
+ * _.isArrayLike(_.noop);
+ * // => false
+ */
+
+
+function isArrayLike(value) {
+  return value != null && isLength(value.length) && !isFunction(value);
+}
+
+module.exports = isArrayLike;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isBuffer.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isBuffer.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js"),
+    stubFalse = __webpack_require__(/*! ./stubFalse */ "./node_modules/lodash/stubFalse.js");
+/** Detect free variable `exports`. */
+
+
+var freeExports = ( false ? undefined : _typeof(exports)) == 'object' && exports && !exports.nodeType && exports;
+/** Detect free variable `module`. */
+
+var freeModule = freeExports && ( false ? undefined : _typeof(module)) == 'object' && module && !module.nodeType && module;
+/** Detect the popular CommonJS extension `module.exports`. */
+
+var moduleExports = freeModule && freeModule.exports === freeExports;
+/** Built-in value references. */
+
+var Buffer = moduleExports ? root.Buffer : undefined;
+/* Built-in method references for those with the same name as other `lodash` methods. */
+
+var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined;
+/**
+ * Checks if `value` is a buffer.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.3.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
+ * @example
+ *
+ * _.isBuffer(new Buffer(2));
+ * // => true
+ *
+ * _.isBuffer(new Uint8Array(2));
+ * // => false
+ */
+
+var isBuffer = nativeIsBuffer || stubFalse;
+module.exports = isBuffer;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isEmpty.js":
+/*!****************************************!*\
+  !*** ./node_modules/lodash/isEmpty.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseKeys = __webpack_require__(/*! ./_baseKeys */ "./node_modules/lodash/_baseKeys.js"),
+    getTag = __webpack_require__(/*! ./_getTag */ "./node_modules/lodash/_getTag.js"),
+    isArguments = __webpack_require__(/*! ./isArguments */ "./node_modules/lodash/isArguments.js"),
+    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
+    isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js"),
+    isBuffer = __webpack_require__(/*! ./isBuffer */ "./node_modules/lodash/isBuffer.js"),
+    isPrototype = __webpack_require__(/*! ./_isPrototype */ "./node_modules/lodash/_isPrototype.js"),
+    isTypedArray = __webpack_require__(/*! ./isTypedArray */ "./node_modules/lodash/isTypedArray.js");
+/** `Object#toString` result references. */
+
+
+var mapTag = '[object Map]',
+    setTag = '[object Set]';
+/** Used for built-in method references. */
+
+var objectProto = Object.prototype;
+/** Used to check objects for own properties. */
+
+var hasOwnProperty = objectProto.hasOwnProperty;
+/**
+ * Checks if `value` is an empty object, collection, map, or set.
+ *
+ * Objects are considered empty if they have no own enumerable string keyed
+ * properties.
+ *
+ * Array-like values such as `arguments` objects, arrays, buffers, strings, or
+ * jQuery-like collections are considered empty if they have a `length` of `0`.
+ * Similarly, maps and sets are considered empty if they have a `size` of `0`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is empty, else `false`.
+ * @example
+ *
+ * _.isEmpty(null);
+ * // => true
+ *
+ * _.isEmpty(true);
+ * // => true
+ *
+ * _.isEmpty(1);
+ * // => true
+ *
+ * _.isEmpty([1, 2, 3]);
+ * // => false
+ *
+ * _.isEmpty({ 'a': 1 });
+ * // => false
+ */
+
+function isEmpty(value) {
+  if (value == null) {
+    return true;
+  }
+
+  if (isArrayLike(value) && (isArray(value) || typeof value == 'string' || typeof value.splice == 'function' || isBuffer(value) || isTypedArray(value) || isArguments(value))) {
+    return !value.length;
+  }
+
+  var tag = getTag(value);
+
+  if (tag == mapTag || tag == setTag) {
+    return !value.size;
+  }
+
+  if (isPrototype(value)) {
+    return !baseKeys(value).length;
+  }
+
+  for (var key in value) {
+    if (hasOwnProperty.call(value, key)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+module.exports = isEmpty;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isFunction.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/isFunction.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js");
+/** `Object#toString` result references. */
+
+
+var asyncTag = '[object AsyncFunction]',
+    funcTag = '[object Function]',
+    genTag = '[object GeneratorFunction]',
+    proxyTag = '[object Proxy]';
+/**
+ * Checks if `value` is classified as a `Function` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+ * @example
+ *
+ * _.isFunction(_);
+ * // => true
+ *
+ * _.isFunction(/abc/);
+ * // => false
+ */
+
+function isFunction(value) {
+  if (!isObject(value)) {
+    return false;
+  } // The use of `Object#toString` avoids issues with the `typeof` operator
+  // in Safari 9 which returns 'object' for typed arrays and other constructors.
+
+
+  var tag = baseGetTag(value);
+  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
+}
+
+module.exports = isFunction;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isLength.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isLength.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER = 9007199254740991;
+/**
+ * Checks if `value` is a valid array-like length.
+ *
+ * **Note:** This method is loosely based on
+ * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+ * @example
+ *
+ * _.isLength(3);
+ * // => true
+ *
+ * _.isLength(Number.MIN_VALUE);
+ * // => false
+ *
+ * _.isLength(Infinity);
+ * // => false
+ *
+ * _.isLength('3');
+ * // => false
+ */
+
+function isLength(value) {
+  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+}
+
+module.exports = isLength;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isObject.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isObject.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+function isObject(value) {
+  var type = _typeof(value);
+
+  return value != null && (type == 'object' || type == 'function');
+}
+
+module.exports = isObject;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isObjectLike.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/isObjectLike.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return value != null && _typeof(value) == 'object';
+}
+
+module.exports = isObjectLike;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isSymbol.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/isSymbol.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+/** `Object#toString` result references. */
+
+
+var symbolTag = '[object Symbol]';
+/**
+ * Checks if `value` is classified as a `Symbol` primitive or object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+ * @example
+ *
+ * _.isSymbol(Symbol.iterator);
+ * // => true
+ *
+ * _.isSymbol('abc');
+ * // => false
+ */
+
+function isSymbol(value) {
+  return _typeof(value) == 'symbol' || isObjectLike(value) && baseGetTag(value) == symbolTag;
+}
+
+module.exports = isSymbol;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isTypedArray.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/isTypedArray.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIsTypedArray = __webpack_require__(/*! ./_baseIsTypedArray */ "./node_modules/lodash/_baseIsTypedArray.js"),
+    baseUnary = __webpack_require__(/*! ./_baseUnary */ "./node_modules/lodash/_baseUnary.js"),
+    nodeUtil = __webpack_require__(/*! ./_nodeUtil */ "./node_modules/lodash/_nodeUtil.js");
+/* Node.js helper references. */
+
+
+var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
+/**
+ * Checks if `value` is classified as a typed array.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ * @example
+ *
+ * _.isTypedArray(new Uint8Array);
+ * // => true
+ *
+ * _.isTypedArray([]);
+ * // => false
+ */
+
+var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
+module.exports = isTypedArray;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/now.js":
+/*!************************************!*\
+  !*** ./node_modules/lodash/now.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
+/**
+ * Gets the timestamp of the number of milliseconds that have elapsed since
+ * the Unix epoch (1 January 1970 00:00:00 UTC).
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Date
+ * @returns {number} Returns the timestamp.
+ * @example
+ *
+ * _.defer(function(stamp) {
+ *   console.log(_.now() - stamp);
+ * }, _.now());
+ * // => Logs the number of milliseconds it took for the deferred invocation.
+ */
+
+
+var now = function now() {
+  return root.Date.now();
+};
+
+module.exports = now;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/stubFalse.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/stubFalse.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * This method returns `false`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.13.0
+ * @category Util
+ * @returns {boolean} Returns `false`.
+ * @example
+ *
+ * _.times(2, _.stubFalse);
+ * // => [false, false]
+ */
+function stubFalse() {
+  return false;
+}
+
+module.exports = stubFalse;
+
+/***/ }),
+
+/***/ "./node_modules/lodash/toNumber.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/toNumber.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
+    isSymbol = __webpack_require__(/*! ./isSymbol */ "./node_modules/lodash/isSymbol.js");
+/** Used as references for various `Number` constants. */
+
+
+var NAN = 0 / 0;
+/** Used to match leading and trailing whitespace. */
+
+var reTrim = /^\s+|\s+$/g;
+/** Used to detect bad signed hexadecimal string values. */
+
+var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+/** Used to detect binary string values. */
+
+var reIsBinary = /^0b[01]+$/i;
+/** Used to detect octal string values. */
+
+var reIsOctal = /^0o[0-7]+$/i;
+/** Built-in method references without a dependency on `root`. */
+
+var freeParseInt = parseInt;
+/**
+ * Converts `value` to a number.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to process.
+ * @returns {number} Returns the number.
+ * @example
+ *
+ * _.toNumber(3.2);
+ * // => 3.2
+ *
+ * _.toNumber(Number.MIN_VALUE);
+ * // => 5e-324
+ *
+ * _.toNumber(Infinity);
+ * // => Infinity
+ *
+ * _.toNumber('3.2');
+ * // => 3.2
+ */
+
+function toNumber(value) {
+  if (typeof value == 'number') {
+    return value;
+  }
+
+  if (isSymbol(value)) {
+    return NAN;
+  }
+
+  if (isObject(value)) {
+    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
+    value = isObject(other) ? other + '' : other;
+  }
+
+  if (typeof value != 'string') {
+    return value === 0 ? value : +value;
+  }
+
+  value = value.replace(reTrim, '');
+  var isBinary = reIsBinary.test(value);
+  return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
+}
+
+module.exports = toNumber;
 
 /***/ }),
 
@@ -1674,7 +3350,7 @@ var render = function() {
                       attrs: { draggable: "true" },
                       on: {
                         dragstart: function($event) {
-                          return _vm.emitDragging(template)
+                          return _vm.dragStart(template)
                         }
                       }
                     },
@@ -1730,12 +3406,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "main-panel" }, [
-    _c("iframe", {
-      staticClass: "content",
-      attrs: { id: "content", name: "content", src: _vm.iframeFilePath }
-    })
-  ])
+  return _c("iframe", {
+    staticClass: "iframe",
+    attrs: { id: "iframe", name: "iframe", src: _vm.iframeFilePath },
+    on: { load: _vm.iframeLoaded }
+  })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -10811,6 +12486,40 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "./node_modules/webpack/buildin/module.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/module.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function (module) {
+  if (!module.webpackPolyfill) {
+    module.deprecate = function () {};
+
+    module.paths = []; // module.parent = undefined by default
+
+    if (!module.children) module.children = [];
+    Object.defineProperty(module, "loaded", {
+      enumerable: true,
+      get: function get() {
+        return module.l;
+      }
+    });
+    Object.defineProperty(module, "id", {
+      enumerable: true,
+      get: function get() {
+        return module.i;
+      }
+    });
+    module.webpackPolyfill = 1;
+  }
+
+  return module;
+};
+
+/***/ }),
+
 /***/ "./src/app/Wape.js":
 /*!*************************!*\
   !*** ./src/app/Wape.js ***!
@@ -10894,6 +12603,143 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./src/editor/Drag.js":
+/*!****************************!*\
+  !*** ./src/editor/Drag.js ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Drag; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Drag = /*#__PURE__*/function () {
+  function Drag(elem) {
+    _classCallCheck(this, Drag);
+
+    this.element = elem, // Object coming from templates.js beind dragged
+    this.domElem = this.convertToDomElement(elem); // Dragged elem .content (html string) property converted to dom element with DomParser()
+    // this.event = Object, // Event object from dragstart event in LeftPanel.vue
+  }
+
+  _createClass(Drag, [{
+    key: "supportDomParser",
+    value: function supportDomParser() {
+      // Credits => gomakethings.com
+      if (!this.window.DOMParser) {
+        return false;
+      }
+
+      var parser = new DOMParser();
+
+      try {
+        parser.parseFromString('x', 'text/html');
+      } catch (err) {
+        return false;
+      }
+
+      return true;
+    }
+  }, {
+    key: "convertToDomElement",
+    value: function convertToDomElement(elem) {
+      var domElement = null;
+
+      if (this.supportDomParser()) {
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(elem.content, 'text/html'); // this.draggedDomElem = doc.body.firstChild
+        // console.log(this.draggedDomElem)
+        // this.dropZone.appendChild(doc.body.firstChild)
+
+        domElement = doc.body.firstChild;
+      } else {
+        console.log('Browser not supported');
+      }
+
+      return domElement;
+    }
+  }]);
+
+  return Drag;
+}();
+
+
+
+/***/ }),
+
+/***/ "./src/editor/Drop.js":
+/*!****************************!*\
+  !*** ./src/editor/Drop.js ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Drop; });
+/* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/debounce */ "./node_modules/lodash/debounce.js");
+/* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_debounce__WEBPACK_IMPORTED_MODULE_0__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+var Drop = /*#__PURE__*/function () {
+  function Drop(container) {
+    _classCallCheck(this, Drop);
+
+    // css selector representing dropzone id
+    this.container = document.querySelector(container); // this.domElem = Object // Dragged elem .content (html string) property converted to dom element with DomParser()
+
+    this.debouncedHandleDrag = lodash_debounce__WEBPACK_IMPORTED_MODULE_0___default()(this.handleDragOver, 300, {
+      maxWait: 500
+    });
+    this.bindEvents();
+  }
+
+  _createClass(Drop, [{
+    key: "bindEvents",
+    value: function bindEvents() {
+      var _this = this;
+
+      this.container.addEventListener('dragenter', function (event) {
+        console.log('dragenter');
+        console.log(_this.draggedElem);
+        console.log(_this.draggedEvent);
+        console.log(event.target);
+      });
+      this.container.addEventListener('dragover', function (event) {
+        event.preventDefault();
+
+        _this.debouncedHandleDrag();
+      });
+      this.container.addEventListener('drop', function (event) {
+        console.log('drop'); // this.append(this.draggedElem)
+      });
+    }
+  }, {
+    key: "handleDragOver",
+    value: function handleDragOver() {
+      console.log('handleDragOver');
+    }
+  }]);
+
+  return Drop;
+}();
+
+
+
+/***/ }),
+
 /***/ "./src/editor/Editor.js":
 /*!******************************!*\
   !*** ./src/editor/Editor.js ***!
@@ -10958,39 +12804,70 @@ var Editor = /*#__PURE__*/function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Iframe; });
+/* harmony import */ var Editor_Drop__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Editor/Drop */ "./src/editor/Drop.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+// import debounce from 'lodash/debounce';
+// import Drag from 'Editor/Drag'
+
+
 var Iframe = /*#__PURE__*/function () {
   function Iframe(id) {
     _classCallCheck(this, Iframe);
 
-    this.id = id; //context
-
+    // this.id = id
     this.window = document.querySelector(id).contentWindow;
-    this.document = document.querySelector(id).contentDocument; // console.log(this)
+    this.document = document.querySelector(id).contentDocument;
+    this.drag = Object; //Drag.js object instantiated in LeftMenu and passed through event bus to MainPanel
+
+    this.drop = Object;
   }
 
   _createClass(Iframe, [{
-    key: "bindEvents",
-    value: function bindEvents() {
-      this.document.addEventListener('DOMContentLoaded', function () {
-        console.log('iframe loaded');
-      });
-      console.log(this.document.body);
-      var elem = this.document.createElement('div');
-      elem.style.cssText = 'width:200px;height:200px;opacity:0.7;background-color:#000';
-      this.document.body.appendChild(elem);
-      this.document.body.addEventListener('dragenter', function (event) {
-        console.log('dragenter');
-      });
-      this.document.body.addEventListener('dragenter', function (event) {
-        console.log('dragover');
-      });
+    key: "setDrag",
+    value: function setDrag(drag) {
+      this.drag = drag;
     }
+  }, {
+    key: "setDrop",
+    value: function setDrop(drop) {
+      this.drop = drop;
+    } // buildDomElement() { // Credits => gomakethings.com
+    //     if (!this.window.DOMParser) {
+    //         return false
+    //     }
+    //     let parser = new DOMParser();
+    //     try {
+    //         parser.parseFromString('x', 'text/html');
+    //     } catch(err) {
+    //         return false
+    //     }
+    //     return true
+    // }
+    // append(elem) {
+    //     if (this.buildDomElement()) {
+    //         let parser = new DOMParser();
+    //         let doc = parser.parseFromString(elem.content, 'text/html');
+    //         this.draggedDomElem = doc.body.firstChild
+    //         console.log(this.draggedDomElem)
+    // this.drop.append(elem)
+    // } else {
+    //     console.log('Browser not supported')
+    // }
+    // }
+    // handleDrag() {
+    //     this.renderDropPreview()
+    // }
+    // renderDropPreview() {
+    //     //Works but this.draggedDomElem needs to be defined before !!!!
+    //     let clone = this.draggedDomElem.cloneNode(true)
+    //     console.log(clone)
+    // }
+
   }]);
 
   return Iframe;
@@ -11446,19 +13323,16 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ([{
   id: 1,
-  name: 'section',
   title: 'Section',
   icon: 'far fa-square',
-  content: "<div class=\"section\"></div>"
+  content: "<section class=\"section\">\n                <div class=\"container\">\n                  <h1 class=\"title\">Section</h1>\n                  <h2 class=\"subtitle\">\n                    A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading\n                  </h2>\n                </div>\n              </section>"
 }, {
   id: 2,
-  name: 'two-columns',
   title: 'Two Columns',
   icon: 'fas fa-columns',
   content: "<div class=\"two-columns\">\n            <div class=\"column\">\n            </div>\n            <div class=\"column\">\n            </div>\n        </div>"
 }, {
   id: 3,
-  name: 'three-columns',
   title: 'Three Columns',
   icon: 'fas fa-border-all',
   content: "<div class=\"three-columns\">\n            <div class=\"column\">\n            </div>\n            <div class=\"column\">\n            </div>\n            <div class=\"column\">\n            </div>\n        </div>"
