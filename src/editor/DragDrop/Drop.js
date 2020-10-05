@@ -1,11 +1,17 @@
+import { emitter } from 'Editor/DragDrop/Drag'
+
 export default class Drop {
     constructor(container) {
         this.container = container
-        this.droppable = document.querySelector(this.containerSelector)
-        this.iframe = null
+        this.droppable = document.querySelector(this.container)
+        this.iframe = Object
+        emitter.on('drop', (draggedElement) => this.append(draggedElement))
     }
-    setDocumentContext(iframe) {
+    setIframeContext(iframe) {
         this.iframe = iframe
-        this.container = this.iframe.document.querySelector(this.container)
+        this.droppable = this.iframe.document.querySelector(this.container)
+    }
+    append(element) {
+        this.droppable.appendChild(element)
     }
 }

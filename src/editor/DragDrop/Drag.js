@@ -1,14 +1,18 @@
+import mitt from 'mitt'
+export const emitter = mitt()
+
 export default class Drag {
-    constructor(containers) {
+    constructor(containers, templates = {}) {
         this.elements = document.querySelectorAll(containers)
         this.bindEvents()
         this.clone = null
-
         this.dragging = false
         this.width
         this.height
         this.releasedX
         this.releasedY
+        this.templates = templates
+        this.domElement = Object // the converted to dom element currently dragged
     }
     bindEvents() {
         if (this.elements instanceof NodeList || this.elements instanceof Array) {
@@ -25,6 +29,8 @@ export default class Drag {
         });
     }
     dragStart(event, elem) {
+        let template = this.getTemplateFromId(elem.dataset.id)
+        this.domElement = this.convertToDomElement(template)
         this.clone = elem.cloneNode(true)
         this.clone.classList.add('dragging')
         document.body.appendChild(this.clone)
@@ -65,5 +71,34 @@ export default class Drag {
         this.releasedY = event.clientY
         this.clone.remove()
         this.dragging = false;
+        emitter.emit('drop', this.domElement)
+    }
+    getTemplateFromId(id) {
+        return this.templates.find((template) => {
+            return (template.id == id)
+        })
+    }
+    supportDomParser() { // Credits => gomakethings.com
+        if (!window.DOMParser) {
+            return false
+        }
+        let parser = new DOMParser();
+        try {
+            parser.parseFromString('x', 'text/html');
+        } catch(err) {
+            return false
+        }
+        return true
+    }
+    convertToDomElement(template) {
+        let domElement = null
+        if (this.supportDomParser()) {
+            let parser = new DOMParser();
+            let doc = parser.parseFromString(template.content, 'text/html');
+            domElement = doc.body.firstChild
+        } else {
+            console.log('Browser not supported')
+        }
+        return domElement
     }
 }

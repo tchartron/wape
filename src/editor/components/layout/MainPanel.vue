@@ -10,7 +10,6 @@
 
 <script>
 import Iframe from 'Editor/Iframe'
-import Drag from 'Editor/DragDrop/Drag'
 import Drop from 'Editor/DragDrop/Drop'
 
 export default {
@@ -18,7 +17,6 @@ export default {
     data() {
       return {
         iframe: Object,
-        drag: Object,
         drop: Object
       }
     },
@@ -32,22 +30,8 @@ export default {
     methods: {
       iframeLoaded() {
         this.iframe = new Iframe('#iframe')
-        this.drag = new Drag('.draggable')
         this.drop = new Drop('#editor-content')
-
-        // this.$root.$on('dragging-element', (template, event) => {
-          // this.drag = new Drag(template, event.target)
-          // if(!this.dragEventsBinded) {
-            // this.drag.bindEvents()
-            // this.dragEventsBinded = true
-          // }
-          // this.drop = new Drop('#editor-content', this.drag)
-          // this.drop.setIframeContext(this.iframe)
-          // if(!this.dropEventsBinded) {
-            // this.drop.bindEvents()
-            // this.dropEventsBinded = true
-          // }
-        // })
+        this.drop.setIframeContext(this.iframe)
       }
     }
 }

@@ -22,20 +22,11 @@
         v-if="(showPanel('add')) && !animating"
         class="add-element"
       >
-        <!-- <div
-          v-for="template in templates"
-          :key="template.id"
-          class="elem"
-          draggable="true"
-          @dragstart="dragStart(template, $event)"
-        > -->
-
-        <!-- Needs to find a way to pass the template object corresponding to this node to Drag class -->
         <div
           v-for="template in templates"
           :key="template.id"
           class="elem draggable"
-          :data-key="template.id"
+          :data-id="template.id"
         >
           <i :class="template.icon" />
           <span class="elem-title">{{ template.title }}</span>
@@ -59,6 +50,7 @@
 
 <script>
 import templates from 'Editor/templates/templates'
+import Drag from 'Editor/DragDrop/Drag'
 
 export default {
     name: 'LeftPanel',
@@ -70,6 +62,7 @@ export default {
       }
     },
     mounted() {
+      new Drag('.draggable', this.templates)
     },
     methods: {
       switchPanel(panel) {
