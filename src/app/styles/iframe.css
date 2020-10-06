@@ -1,4 +1,7 @@
 body > div#editor-content {
-    height: 150px;
-    border-bottom: 1px dashed #000;
+    height: 300px;
+    border-bottom: 1px dotted #000;
+}
+div#editor-content .droppable {
+    border: 1px dashed #000;
 }
