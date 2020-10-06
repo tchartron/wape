@@ -82,7 +82,8 @@ module.exports = {
           'author': pkg.author,
           'desc': pkg.description,
           'maincss': config.maincss,
-          'fontawesome': config.fontawesome,
+          'fontawesomecss': config.fontawesomecss,
+          'fontawesomejs': config.fontawesomejs,
         },
         inject: 'head',
         template: 'src/app/config/webpack-template.html'

@@ -10,5 +10,6 @@ const banner =
 module.exports = {
     banner: banner,
     maincss: 'src/app/styles/main.css',
-    fontawesome: 'https://kit.fontawesome.com/b71e068415.js',
+    fontawesomecss: 'src/app/fontawesome/css/all.min.css',
+    fontawesomejs: 'src/app/fontawesome/js/all.min.js',
 }
