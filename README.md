@@ -4,7 +4,7 @@ Web Application Page Editor
 ## Roadmap
 - [X] Use Bulma in iframe
 - [X] Mitt event emmiter to remove $on
-- [ ] Don't rely on fontawesome cdn but serve it from here
+- [X] Don't rely on fontawesome cdn but serve it from here
 - [ ] Add support for custom CSS in editor
 - [ ] Do not use templates.js
 - [ ] Make editor components (containers, layouts (DROPPABLE TARGETS))
