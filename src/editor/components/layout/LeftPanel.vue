@@ -23,13 +23,13 @@
         class="add-element"
       >
         <div
-          v-for="template in templates"
-          :key="template.id"
+          v-for="layout in layouts"
+          :key="layout.id"
           class="elem draggable"
-          :data-id="template.id"
+          :data-id="layout.id"
         >
-          <i :class="template.icon" />
-          <span class="elem-title">{{ template.title }}</span>
+          <i :class="layout.icon" />
+          <span class="elem-title">{{ layout.title }}</span>
         </div>
       </div>
     </transition>
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import templates from 'Editor/templates/templates'
+import layouts from 'Editor/elements/layouts'
 import Drag from 'Editor/DragDrop/Drag'
 
 export default {
@@ -58,11 +58,11 @@ export default {
       return {
         currentPanel: 'add',
         animating: false,
-        templates
+        layouts
       }
     },
     mounted() {
-      new Drag('.draggable', this.templates)
+      new Drag('.draggable', this.layouts)
     },
     methods: {
       switchPanel(panel) {
@@ -125,10 +125,10 @@ export default {
     box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);
     user-select: none;
   }
-  div.left-panel > div.add-element > div.elem > i {
+  div.left-panel > div.add-element > div.elem > svg {
     font-size: 3rem;
     color: #fff;
-    text-align: center;
+    margin: auto;
   }
   div.elem > span.elem-title {
     text-align: center;
