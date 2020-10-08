@@ -2,7 +2,11 @@ body > div#editor-content {
     height: 300px;
     border-bottom: 1px dotted #000;
 }
-div#editor-content .droppable {
+div#editor-content .droppable.container {
+    border: 1px dashed #000;
+    min-height: 150px;
+}
+div#editor-content .droppable div {
     border: 1px dashed #000;
     min-height: 150px;
 }

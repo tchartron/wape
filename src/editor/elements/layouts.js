@@ -11,7 +11,7 @@ export default [
         title: 'Container',
         icon: 'far fa-square',
         droppable: true,
-        content: `<div class="container px-10 droppable"></div>`
+        content: `<div class="container mx-10 droppable"></div>`
     },
     {
         id: 3,
