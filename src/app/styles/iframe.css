@@ -1,5 +1,5 @@
 body > div#editor-content {
-    height: 300px;
+    min-height: 300px;
     border-bottom: 1px dotted #000;
 }
 div#editor-content .droppable.container {
