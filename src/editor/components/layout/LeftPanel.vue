@@ -31,6 +31,22 @@
           <i :class="layout.icon" />
           <span class="elem-title">{{ layout.title }}</span>
         </div>
+        <div
+          v-for="element in elements"
+          :key="element.id"
+          class="elem draggable"
+          :data-id="element.id"
+        >
+          <span>{{ element.title }}</span>
+          <div
+            v-for="elem in element.elements"
+            :key="elem.id"
+            class="elem draggable"
+          >
+            <i :class="elem.icon" />
+            <span class="elem-title">{{ elem.title }}</span>
+          </div>
+        </div>
       </div>
     </transition>
 
@@ -50,6 +66,7 @@
 
 <script>
 import layouts from 'Editor/elements/layouts'
+import elements from 'Editor/elements/elements'
 import Drag from 'Editor/DragDrop/Drag'
 
 export default {
@@ -58,7 +75,8 @@ export default {
       return {
         currentPanel: 'add',
         animating: false,
-        layouts
+        layouts,
+        elements
       }
     },
     mounted() {
