@@ -64,6 +64,12 @@ export default class Drag {
             }
             this.clone.style.left = `${this.currentX}px`
             this.clone.style.top = `${this.currentY}px`
+
+            // //Find droppable
+            // this.clone.hidden = true;
+            // let elemBelow = document.elementFromPoint(this.currentX, this.currentY);
+            // this.clone.hidden = false;
+            // let droppableBelow = elemBelow.closest('.droppable');
         }
     }
     dragEnd(event) {
