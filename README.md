@@ -10,7 +10,7 @@ Web Application Page Editor
 - [ ] Make editor components (containers, layouts (DROPPABLE TARGETS))
 - [ ] Make editor elements (html elements (no forms elements for now))
 - [ ] Have to define what is droppable in what
-- [ ] Change bulma for utility framework and extend it for the editor use
+- [X] Change bulma for utility framework and extend it for the editor use (tailwindcss)
 - [ ] Make the clone element visible and with an opacity of .5 place it where it would be dropped if mouse is released
 - [ ] Make settings customisation for components and elements (html attributes mostly (id / class / ...)) => Depends on component/element (img ≠ div)
 - [ ] Make style customisation for components and elements (css properties like display / borders / bg colors / text color / font size, weight, family / text alignment / line height, letter spacing, margin for blocks / padding for blocks / ...) => Depends on component/element (img ≠ div) maybe generate a combination of corresponding css classes to add to the element while customizing it (tailwind would be good for this)
