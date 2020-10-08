@@ -25,7 +25,7 @@
         <div
           v-for="layout in layouts"
           :key="layout.id"
-          class="elem draggable"
+          class="layout draggable"
           :data-id="layout.id"
         >
           <i :class="layout.icon" />
@@ -34,17 +34,24 @@
         <div
           v-for="element in elements"
           :key="element.id"
-          class="elem draggable"
+          class="element-wrapper"
           :data-id="element.id"
         >
-          <span>{{ element.title }}</span>
           <div
-            v-for="elem in element.elements"
-            :key="elem.id"
-            class="elem draggable"
+            class="element-category"
           >
-            <i :class="elem.icon" />
-            <span class="elem-title">{{ elem.title }}</span>
+            {{ element.title }}
+          </div>
+          <div class="elements">
+            <div
+              v-for="elem in element.elements"
+              :key="elem.id"
+              class="elem draggable"
+              :data-id="elem.id"
+            >
+              <i :class="elem.icon" />
+              <span class="elem-title">{{ elem.title }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -80,7 +87,8 @@ export default {
       }
     },
     mounted() {
-      new Drag('.draggable', this.layouts)
+      this.drag = new Drag('.draggable', [...this.layouts, ...this.elements[0].elements, ...this.elements[1].elements, ...this.elements[2].elements])
+      this.drag.bindEvents()
     },
     methods: {
       switchPanel(panel) {
@@ -92,6 +100,9 @@ export default {
       },
       animationEnd() {
         this.animating = false
+        if(this.currentPanel === 'add') {
+          this.drag.bindEvents()
+        }
       }
     }
 }
@@ -106,7 +117,7 @@ export default {
   div.left-panel > div.actions {
     display: flex;
     border-bottom: .5px solid #000;
-    margin-bottom: 1rem;
+    height: 2.6rem;
   }
   div.left-panel > div.actions > div {
     padding: .5rem;
@@ -127,8 +138,10 @@ export default {
     flex-wrap: wrap;
     justify-content: flex-start;
     padding: 0 1rem;
+    overflow-y: scroll;
+    height: calc(100% - 2.7rem);
   }
-  div.left-panel > div.add-element > div.elem {
+  div.left-panel > div.add-element > div.layout {
     display: flex;
     cursor: all-scroll;
     justify-content: space-between;
@@ -143,12 +156,60 @@ export default {
     box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);
     user-select: none;
   }
-  div.left-panel > div.add-element > div.elem > svg {
+  div.left-panel > div.add-element > div.layout > svg {
     font-size: 3rem;
     color: #fff;
     margin: auto;
   }
-  div.elem > span.elem-title {
+  div.layout > span.elem-title {
+    text-align: center;
+    color: #fff;
+    font-weight: 300;
+    font-size: 0.9rem;
+    margin-top: .5rem;
+  }
+  div.left-panel > div.add-element > div.element-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 3% 2.5%;
+    width: 95%;
+    min-width: 95%;
+    box-sizing: border-box;
+    user-select: none;
+  }
+  div.left-panel > div.add-element > div.element-wrapper > div.element-category {
+    color: #fff;
+    text-transform: capitalize;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #fff;
+    padding-bottom: .7rem;
+  }
+  div.left-panel > div.add-element > div.element-wrapper > div.elements {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  div.left-panel > div.add-element > div.element-wrapper > div.elements > div.elem {
+    display: flex;
+    cursor: all-scroll;
+    justify-content: space-between;
+    flex-direction: column;
+    margin: 3% 2.5%;
+    width: 45%;
+    min-width: 45%;
+    box-sizing: border-box;
+    border: 1px solid #000;
+    padding: 1em;
+    border-radius: 5px;
+    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);
+    user-select: none;
+  }
+  div.left-panel > div.add-element > div.element-wrapper > div.elements > div.elem > svg {
+    font-size: 2rem;
+    color: #fff;
+    margin: auto;
+  }
+  div.left-panel > div.add-element > div.element-wrapper > div.elements > div.elem > span {
     text-align: center;
     color: #fff;
     font-weight: 300;
