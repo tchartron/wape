@@ -1,5 +1,5 @@
 module.exports = {
     title: 'wape-content',
-    bulma: 'https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css',
+    cssframework: 'https://unpkg.com/tailwindcss@1.8.12/dist/tailwind.min.css',
     iframecss: 'src/app/styles/iframe.css'
 }
