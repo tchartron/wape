@@ -21,10 +21,10 @@ div.elem.dragging {
     box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);
     user-select: none;
 }
-div.elem.dragging > i {
+div.elem.dragging > svg {
     font-size: 3rem;
     color: #fff;
-    text-align: center;
+    margin: auto;
 }
 div.elem.dragging > span.elem-title {
     text-align: center;
