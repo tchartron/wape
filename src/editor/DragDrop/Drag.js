@@ -4,7 +4,6 @@ export const emitter = mitt()
 export default class Drag {
     constructor(containers, templates = {}) {
         this.elements = document.querySelectorAll(containers)
-        this.bindEvents()
         this.clone = null
         this.dragging = false
         this.width
