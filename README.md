@@ -5,10 +5,10 @@ Web Application Page Editor
 - [X] Use Bulma in iframe
 - [X] Mitt event emmiter to remove $on
 - [X] Don't rely on fontawesome cdn but serve it from here
-- [ ] Add support for custom CSS in editor
-- [ ] Do not use templates.js
-- [ ] Make editor components (containers, layouts (DROPPABLE TARGETS))
-- [ ] Make editor elements (html elements (no forms elements for now))
+- [ ] Add support for custom CSS in editor (allow adding classes to elements once custom css is loaded in iframe)
+- [X] Do not use templates.js
+- [X] Make editor layouts (containers, layouts (DROPPABLE TARGETS))
+- [X] Make editor elements (html elements (no forms elements for now))
 - [ ] Have to define what is droppable in what
 - [X] Change bulma for utility framework and extend it for the editor use (tailwindcss)
 - [ ] Make the clone element visible and with an opacity of .5 place it where it would be dropped if mouse is released
