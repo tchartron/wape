@@ -4,10 +4,14 @@ export const emitter = mitt()
 
 export default class Dragger {
     constructor(draggableContainer, options = {}) {
-        this.draggableContainer = draggableContainer
+        this.draggableContainer = draggableContainer //.draggable
         this.options = options
-        this.events()
         this.clone = Object
+        this.shiftX = Number
+        this.shiftY = Number
+        this.htmlTag = document.documentElement
+        this.moveFunc = Object
+        this.events()
     }
     events() {
         let events = [ // maybe load this from external file
@@ -38,10 +42,12 @@ export default class Dragger {
         ]
         // let draggable = this.getDraggables()
         // let doc = this.options.iframe.document.documentElement || document.documentElement
-        let doc = document.documentElement
+        // let doc = document.documentElement
         for(event of events) {
-            event = new Event(doc, event.type, event.func, this)
-            event.attach(false)
+            // event = new Event(this.htmlTag, event.type, event.func, this)
+            // event.attach(false)
+            let func = event.func.bind(this)
+            this.htmlTag.addEventListener(event.type, func, false)
         }
     }
     grab(event) {
@@ -51,22 +57,17 @@ export default class Dragger {
         }
     }
     move(event) {
-        console.log('move', event)
-        // this.width = this.clone.getBoundingClientRect().width
-        // this.height = this.clone.getBoundingClientRect().height
         let xPos, yPos = 0
-        // if (event.type === 'touchmove') {
-        //     xPos= event.touches[0].clientX - (this.width / 2)
-        //     yPos = event.touches[0].clientY - (this.height / 2)
-        // } else {
-            xPos = event.clientX - (this.clone.getBoundingClientRect().width / 2)
-            yPos = event.clientY - (this.clone.getBoundingClientRect().height / 2)
-        // }
+        xPos = event.clientX - this.shiftX
+        yPos = event.clientY - this.shiftY
         this.clone.style.left = `${xPos}px`
         this.clone.style.top = `${yPos}px`
     }
     drop(event) {
         console.log('drop', event)
+        // let mousemove = new Event(this.htmlTag, 'mousemove', this.move, this)
+        // mousemove.detach(false)
+        this.htmlTag.removeEventListener('mousemove', this.moveFunc, false)
     }
     getDraggable(element) {
         if(element.matches(this.draggableContainer)) {
@@ -80,21 +81,21 @@ export default class Dragger {
             }
         }
     }
-    createClone(element, event) {
-        this.clone = element.cloneNode(true)
+    createClone(grabbedElement, event) {
+        this.clone = grabbedElement.cloneNode(true)
         this.clone.classList.add('clone')
         document.body.appendChild(this.clone)
-        let mousemove = new Event(this.clone, 'mousemove', this.move, this)
-        mousemove.attach(false)
-        //Initial position
+        // let mousemove = new Event(this.htmlTag, 'mousemove', this.move, this)
+        // mousemove.attach(false)
+        this.moveFunc = this.move.bind(this) // store reference of new function created (by calling .bind(this)) to removeEventListener in drop function
+        this.htmlTag.addEventListener('mousemove', this.moveFunc, false)
+        this.shiftX = event.clientX - grabbedElement.getBoundingClientRect().left
+        this.shiftY = event.clientY - grabbedElement.getBoundingClientRect().top
+        this.clone.style.width = `${grabbedElement.getBoundingClientRect().width}px`
+        this.clone.style.height = `${grabbedElement.getBoundingClientRect().height}px`
         let xPos, yPos = 0
-        // if (event.type === 'touchmove') {
-        //     xPos= event.touches[0].clientX - (this.clone.getBoundingClientRect().width / 2)
-        //     yPos = event.touches[0].clientY - (this.clone.getBoundingClientRect().height / 2)
-        // } else {
-            xPos = event.clientX - (this.clone.getBoundingClientRect().width / 2)
-            yPos = event.clientY - (this.clone.getBoundingClientRect().height / 2)
-        // }
+        xPos = event.clientX - this.shiftX
+        yPos = event.clientY - this.shiftY
         this.clone.style.left = `${xPos}px`
         this.clone.style.top = `${yPos}px`
     }

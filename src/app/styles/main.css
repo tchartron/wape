@@ -3,18 +3,21 @@ body {
     margin: 0;
     font-family: 'Roboto Condensed', sans-serif;
 }
+iframe {
+    pointer-events: none;
+}
 div.layout.clone,
 div.elem.clone {
     position: absolute;
-    top: 0;
-    left: 0;
+/*    top: 0;
+    left: 0;*/
     background-color: #454545;
     display: flex;
     cursor: all-scroll;
     justify-content: space-between;
     flex-direction: column;
-    height: 130px;
-    width: 110px;
+/*    height: 130px;
+    width: 110px;*/
     box-sizing: border-box;
     border: 1px solid #000;
     padding: 1em;
@@ -22,9 +25,13 @@ div.elem.clone {
     box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);
     user-select: none;
 }
-div.layout.clone > svg,
-div.elem.clone > svg {
+div.layout.clone > svg {
     font-size: 3rem;
+    color: #fff;
+    margin: auto;
+}
+div.elem.clone > svg {
+    font-size: 2rem;
     color: #fff;
     margin: auto;
 }
