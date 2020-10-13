@@ -33,6 +33,7 @@ export default class Drag {
         this.clone = elem.cloneNode(true)
         this.clone.classList.add('dragging')
         document.body.appendChild(this.clone)
+        emitter.emit('dragstart', {domElement: this.domElement, clone: this.clone})
         this.clone.addEventListener('mousemove', (event) => this.drag(event), false)
         this.clone.addEventListener('touchmove', (event) => this.drag(event), false)
         this.clone.addEventListener('mouseup', (event) => this.dragEnd(event), false)
@@ -68,7 +69,9 @@ export default class Drag {
             // this.clone.hidden = true;
             // let elemBelow = document.elementFromPoint(this.currentX, this.currentY);
             // this.clone.hidden = false;
-            // let droppableBelow = elemBelow.closest('.droppable');
+            // console.log(elemBelow)
+            // let droppableBelow = elemBelow.closest('.droppable') || elemBelow.closest('#editor-content');
+            // console.log(droppableBelow)
         }
     }
     dragEnd(event) {

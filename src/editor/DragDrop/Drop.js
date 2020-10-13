@@ -5,6 +5,8 @@ export default class Drop {
         this.container = container
         this.droppable = document.querySelector(this.container)
         this.iframe = Object
+        this.clone = Object
+        emitter.on('dragstart', (args) => this.displayShadowElement(args.domElement, args.clone))
         emitter.on('drop', (draggedElement) => this.append(draggedElement))
     }
     setIframeContext(iframe) {
@@ -13,5 +15,15 @@ export default class Drop {
     }
     append(element) {
         this.droppable.appendChild(element)
+    }
+    displayShadowElement(element, clone) {
+        this.clone = clone
+        console.log(clone)
+        this.clone.hidden = true;
+        let elemBelow = document.elementFromPoint(this.currentX, this.currentY);
+        this.clone.hidden = false;
+        console.log(elemBelow)
+        let droppableBelow = elemBelow.closest('.droppable') || elemBelow.closest('#editor-content');
+        console.log(droppableBelow)
     }
 }
