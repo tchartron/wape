@@ -74,7 +74,7 @@
 <script>
 import layouts from 'Editor/elements/layouts'
 import elements from 'Editor/elements/elements'
-import Drag from 'Editor/DragDrop/Drag'
+// import Drag from 'Editor/DragDrop/Drag'
 
 export default {
     name: 'LeftPanel',
@@ -87,8 +87,8 @@ export default {
       }
     },
     mounted() {
-      this.drag = new Drag('.draggable', [...this.layouts, ...this.elements[0].elements, ...this.elements[1].elements, ...this.elements[2].elements])
-      this.drag.bindEvents()
+      // this.drag = new Drag('.draggable', [...this.layouts, ...this.elements[0].elements, ...this.elements[1].elements, ...this.elements[2].elements])
+      // this.drag.bindEvents()
     },
     methods: {
       switchPanel(panel) {
@@ -100,9 +100,6 @@ export default {
       },
       animationEnd() {
         this.animating = false
-        if(this.currentPanel === 'add') {
-          this.drag.bindEvents()
-        }
       }
     }
 }

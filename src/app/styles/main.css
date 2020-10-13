@@ -3,8 +3,8 @@ body {
     margin: 0;
     font-family: 'Roboto Condensed', sans-serif;
 }
-div.layout.dragging,
-div.elem.dragging {
+div.layout.clone,
+div.elem.clone {
     position: absolute;
     top: 0;
     left: 0;
@@ -22,14 +22,14 @@ div.elem.dragging {
     box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);
     user-select: none;
 }
-div.layout.dragging > svg,
-div.elem.dragging > svg {
+div.layout.clone > svg,
+div.elem.clone > svg {
     font-size: 3rem;
     color: #fff;
     margin: auto;
 }
-div.layout.dragging > span.elem-title,
-div.elem.dragging > span.elem-title {
+div.layout.clone > span.elem-title,
+div.elem.clone > span.elem-title {
     text-align: center;
     color: #fff;
     font-weight: 300;

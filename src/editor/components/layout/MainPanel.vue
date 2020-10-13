@@ -10,7 +10,8 @@
 
 <script>
 import Iframe from 'Editor/Iframe'
-import Drop from 'Editor/DragDrop/Drop'
+// import Drop from 'Editor/DragDrop/Drop'
+import Dragger from 'Editor/Dragger/Dragger'
 
 export default {
     name: 'MainPanel',
@@ -30,8 +31,11 @@ export default {
     methods: {
       iframeLoaded() {
         this.iframe = new Iframe('#iframe')
-        this.drop = new Drop('#editor-content')
-        this.drop.setIframeContext(this.iframe)
+        this.dragger = new Dragger('.draggable', {
+          iframe: this.iframe
+        })
+        // this.drop = new Drop('#editor-content')
+        // this.drop.setIframeContext(this.iframe)
       }
     }
 }
