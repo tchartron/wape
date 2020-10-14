@@ -3,8 +3,8 @@ import Event from './Event'
 export const emitter = mitt()
 
 export default class Dragger {
-    constructor(draggableContainer, options = {}) {
-        this.draggableContainer = draggableContainer //.draggable
+    constructor(draggableSelector, options = {}) {
+        this.draggableSelector = draggableSelector //.draggable
         this.options = options
         this.clone = Object
         this.shiftX = Number
@@ -70,10 +70,10 @@ export default class Dragger {
         this.htmlTag.removeEventListener('mousemove', this.moveFunc, false)
     }
     getDraggable(element) {
-        if(element.matches(this.draggableContainer)) {
+        if(element.matches(this.draggableSelector)) {
             return element
         } else {
-            let tryToFindElem = element.closest(this.draggableContainer)
+            let tryToFindElem = element.closest(this.draggableSelector)
             if(tryToFindElem !== null) {
                 return tryToFindElem
             } else {
