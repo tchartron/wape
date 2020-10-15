@@ -16,7 +16,6 @@ export default class Dragger {
         this.currentElementBehindCursor = null
         this.currentElementBeingDragged = null
         this.containerHovered = null
-        // this.droppableDocument = this.options.iframe.window.document || document
         this.droppableDocument = document
         this.events()
     }
@@ -72,8 +71,6 @@ export default class Dragger {
             this.containerHovered.classList.remove('container-hovered')
             this.containerHovered = null
         }
-        // this.currentElementBehindCursor.appendChild(this.shadowElement)
-        // this.shadowElement = null
     }
     getDraggable(element) {
         if(element.matches(this.draggableSelector)) {
@@ -106,61 +103,15 @@ export default class Dragger {
         this.clone.style.top = `${yPos}px`
         this.currentTemplateObject = this.getTemplateFromId(this.clone.dataset.id)
         this.currentElementBeingDragged = this.convertToDomElement(this.currentTemplateObject.content)
-        // this.currentElementBeingDragged.classList.add('shadow-elem')
     }
     renderShadowElement(event) {
-        // console.log(this.clone)
-        // let elementBehindCursor = this.droppableDocument.elementsFromPoint(event.clientX, event.clientY)
         let elementsBehindCursor = this.droppableDocument.elementsFromPoint(event.clientX, event.clientY)
-        // this.clone.hidden = false
-        // if(this.isDroppable(elementBehindCursor)) {
-        //     if(this.shadowElement === null) {
-        //         console.log("1")
-        //         // console.log(elementBehindCursor)
-        //         // console.log(this.currentElementBehindCursor)
-        //         this.currentElementBehindCursor = elementBehindCursor
-        //         this.shadowElement = this.currentElementBeingDragged
-        //         this.currentElementBehindCursor.appendChild(this.shadowElement)
-        //     } else {
-        //         console.log("2")
-        //         // console.log(elementBehindCursor)
-        //         // console.log(this.currentElementBehindCursor)
-        //         if(this.currentElementBehindCursor !== elementBehindCursor && elementBehindCursor !== this.shadowElement) {
-        //         console.log("3")
-        //         // console.log(elementBehindCursor)
-        //         // console.log(this.currentElementBehindCursor)
-        //             // this.currentElementBehindCursor.removeChild(templateConvertedToDomElem)
-        //             this.shadowElement.remove()
-        //             this.shadowElement = null
-        //             this.currentElementBehindCursor = elementBehindCursor
-        //             this.currentElementBehindCursor.appendChild(templateConvertedToDomElem)
-        //         }
-        //     }
-        // } else {
-        //         console.log("4")
-        //     if(this.shadowElement === null) {
-        //         console.log("5")
-        //         // this.currentElementBehindCursor.removeChild(templateConvertedToDomElem)
-        //         this.shadowElement.remove()
-        //         this.shadowElement = null
-        //     }
-        // }
-        // console.log(this.currentElementBeingDragged)
-        // console.log(event)
-        // console.log(elementBehindCursor)
-        // console.log(this.currentElementBehindCursor)
-        // console.log(elementBehindCursor)
-        // console.log(this.isDroppable(elementBehindCursor))
-        // console.log(this.hasIframe(elementBehindCursor))
         if(this.overIframe(elementsBehindCursor)) { // dragging over iframe
-            // let iframeDocument = this.options.iframe.document
             let elementBehindCursorInIframe = this.options.iframe.document.elementFromPoint(event.clientX, event.clientY)
             if(this.isLayout(this.currentTemplateObject)) { // dragging layout
                 this.currentElementBeingDragged.classList.add('shadow-elem', 'layout')
                 this.options.iframe.document.body.appendChild(this.currentElementBeingDragged)
             } else { //dragging element
-                // console.log(elementBehindCursorInIframe)
-                // console.log(this.overContainer(elementBehindCursorInIframe))
                 if(this.isContainer(elementBehindCursorInIframe)) {
                     this.containerHovered = elementBehindCursorInIframe
                     this.containerHovered.classList.add('container-hovered')
@@ -173,19 +124,7 @@ export default class Dragger {
                         this.containerHovered = null
                     }
                 }
-                // console.log('element over layout')
-                // let iframeBody = iframeDocument.body
-                // console.log(this.currentElementBeingDragged)
-                // this.currentElementBeingDragged.classList.add('shadow-elem', 'layout')
-                // iframeBody.appendChild(this.currentElementBeingDragged)
             }
-            // console.log(elementBehindCursorInIframe)
-            // if(this.isDroppable(elementBehindCursorInIframe)) {
-            //     console.log('entered')
-            //     this.currentElementBehindCursor = elementBehindCursorInIframe
-            //     this.currentElementBehindCursor.appendChild(this.currentElementBeingDragged)
-            //     // this.shadowElement = this.currentElementBeingDragged
-            // }
         } else {
             if(this.isLayout(this.currentTemplateObject)) {
                 if(this.options.iframe.document.body.contains(this.currentElementBeingDragged)) {
@@ -194,8 +133,6 @@ export default class Dragger {
                 }
             }
         }
-
-
     }
     getTemplateFromId(id) {
         return this.options.templates.find((template) => {
@@ -226,12 +163,6 @@ export default class Dragger {
         return domElement
     }
     isDroppable(element) {
-        // if(elements === null) {
-        //     return false
-        // }
-        // return elements.some((elem) => {
-        //     return (elem.matches(this.droppableSelector))
-        // })
         return (element.matches(this.droppableSelector))
     }
     overIframe(elements) {
