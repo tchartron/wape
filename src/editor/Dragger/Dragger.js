@@ -60,7 +60,6 @@ export default class Dragger {
         this.renderShadowElement(event)
     }
     drop(event) {
-        console.log('drop', event)
         // let mousemove = new Event(this.htmlTag, 'mousemove', this.move, this)
         // mousemove.detach(false)
         this.htmlTag.removeEventListener('mousemove', this.moveFunc, false)
@@ -177,7 +176,6 @@ export default class Dragger {
         return (element.type === 'layout')
     }
     removeElementFromContainer(container, element) {
-        console.log(container)
         container.removeChild(element)
     }
 
