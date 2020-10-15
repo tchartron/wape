@@ -3,9 +3,9 @@ body {
     margin: 0;
     font-family: 'Roboto Condensed', sans-serif;
 }
-iframe {
+/*iframe {
     pointer-events: none;
-}
+}*/
 div.layout.clone,
 div.elem.clone {
     position: absolute;

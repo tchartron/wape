@@ -3,28 +3,30 @@ export default [
         id: 1,
         title: 'Section',
         icon: 'far fa-square',
-        droppable: true,
-        content: `<div class="container droppable"></div>`
+        type: 'layout',
+        content: `<div class="container"></div>`
     },
     {
         id: 2,
         title: 'Container',
         icon: 'far fa-square',
-        droppable: true,
-        content: `<div class="container mx-10 droppable"></div>`
+        type: 'layout',
+        content: `<div class="container px-10"></div>`
     },
     {
         id: 3,
         title: 'Columns',
         icon: 'fas fa-columns',
-        droppable: true,
-        content: `<div class="grid grid-cols-2 gap-2 droppable"><div></div><div></div></div>`
+        type: 'layout',
+        content: `<div class="grid grid-cols-2 gap-2"><div class=""></div><div class=""></div></div>`
     },
     {
         id: 4,
         title: 'Grid',
         icon: 'fas fa-border-all',
-        droppable: true,
-        content: `<div class="grid grid-cols-2 gap-2 droppable"><div></div><div></div><div></div><div></div></div>`
+        type: 'layout',
+        content: `<div class="grid grid-cols-2 gap-2"><div class=""></div><div class=""></div><div class=""
+class=""></div><div class=""
+class=""></div></div>`
     },
 ]
