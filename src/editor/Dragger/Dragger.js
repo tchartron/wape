@@ -114,9 +114,8 @@ export default class Dragger {
     }
     renderShadowElement(event) {
         let elementsBehindCursor = document.elementsFromPoint(event.clientX, event.clientY)
-        console.log(elementsBehindCursor)
         if(this.overIframe(elementsBehindCursor)) { // dragging over iframe
-            let elementBehindCursorInIframe = this.options.iframe.document.elementFromPoint(event.clientX, event.clientY)
+            let elementBehindCursorInIframe = this.options.iframe.document.elementFromPoint(event.layerX, event.layerY)
             if(this.isLayout(this.currentTemplateObject)) { // dragging layout
                 this.currentElementBeingDragged.classList.add('shadow-elem', 'layout')
                 this.options.iframe.document.body.appendChild(this.currentElementBeingDragged)
