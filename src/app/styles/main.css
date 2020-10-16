@@ -43,3 +43,9 @@ div.elem.clone > span.elem-title {
     font-size: 0.9rem;
     margin-top: .5rem;
 }
+div.canvas > div.overlay {
+    position: fixed;
+    z-index: +999;
+    width: 100%;
+    height: 100%;
+}

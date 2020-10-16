@@ -3,7 +3,10 @@
     <TopPanel />
     <div class="wrapper">
       <LeftPanel />
-      <div class="canvas">
+      <div
+        id="canvas"
+        class="canvas"
+      >
         <MainPanel />
       </div>
       <RightPanel />

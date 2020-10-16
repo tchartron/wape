@@ -12,11 +12,12 @@ export default class Dragger {
         this.innerY = Number
         this.htmlTag = document.documentElement
         this.moveFunc = Object
-        this.currentTemplateObject
+        this.currentTemplateObject = null
         this.currentElementBehindCursor = null
         this.currentElementBeingDragged = null
         this.containerHovered = null
-        this.droppableDocument = document
+        this.overlay = null
+        // this.droppableDocument = document
         this.events()
     }
     events() {
@@ -46,9 +47,13 @@ export default class Dragger {
         }
     }
     grab(event) {
-        let elementBeingDragged = this.getDraggable(event.target)
-        if(elementBeingDragged !== null) {
-            this.createClone(elementBeingDragged, event)
+        let grabbedElement = this.getDraggable(event.target)
+        if(grabbedElement !== null) {
+            this.createClone(grabbedElement, event)
+            //Append overlay with z-index over iframe to prevent mousemove not beeing fired
+            this.overlay = document.createElement('div')
+            this.overlay.classList.add('overlay')
+            document.getElementById('canvas').prepend(this.overlay)
         }
     }
     move(event) {
@@ -69,6 +74,10 @@ export default class Dragger {
         if(this.containerHovered !== null) {
             this.containerHovered.classList.remove('container-hovered')
             this.containerHovered = null
+        }
+        if(this.overlay !== null) {
+            this.overlay.remove()
+            this.overlay = null
         }
     }
     getDraggable(element) {
@@ -104,7 +113,8 @@ export default class Dragger {
         this.currentElementBeingDragged = this.convertToDomElement(this.currentTemplateObject.content)
     }
     renderShadowElement(event) {
-        let elementsBehindCursor = this.droppableDocument.elementsFromPoint(event.clientX, event.clientY)
+        let elementsBehindCursor = document.elementsFromPoint(event.clientX, event.clientY)
+        console.log(elementsBehindCursor)
         if(this.overIframe(elementsBehindCursor)) { // dragging over iframe
             let elementBehindCursorInIframe = this.options.iframe.document.elementFromPoint(event.clientX, event.clientY)
             if(this.isLayout(this.currentTemplateObject)) { // dragging layout
@@ -161,22 +171,28 @@ export default class Dragger {
         }
         return domElement
     }
-    isDroppable(element) {
-        return (element.matches(this.droppableSelector))
-    }
+    // isDroppable(element) {
+    //     return (element.matches(this.droppableSelector))
+    // }
     overIframe(elements) {
         return elements.some((elem) => {
             return (elem.matches('#iframe'))
         })
     }
     isContainer(element) {
-         return (element.matches('.layout'))
+        if(element === null) {
+            return false
+        }
+        return (element.matches('.layout'))
     }
     isLayout(element) {
         return (element.type === 'layout')
     }
     removeElementFromContainer(container, element) {
         container.removeChild(element)
+    }
+    elementExists(idSelector) {
+        return !!document.getElementById(idSelector)
     }
 
 }
