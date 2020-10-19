@@ -1,11 +1,14 @@
 body {
-    min-height: 400px;
+    min-height: 500px;
     border-bottom: 1px dotted #000;
 }
 body > div.layout {
-    min-height: 100px;
+    min-height: 200px;
     border: 1px dashed #000;
 }
+/*body > div.grid.layout > div {
+    border: .5px dashed #000;
+}*/
 .shadow-elem {
     opacity: .5;
 }
