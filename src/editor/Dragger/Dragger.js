@@ -10,13 +10,13 @@ export default class Dragger {
         this.clone = Object
         this.innerX = Number
         this.innerY = Number
-        this.htmlTag = document.documentElement
-        this.moveFunc = Object
-        this.currentTemplateObject = null
-        this.currentElementBehindCursor = null
-        this.currentElementBeingDragged = null
-        this.containerHovered = null
-        this.overlay = null
+        this.htmlTag = document.documentElement // main html tag
+        this.moveFunc = Object //Used to save the reference to move function with 'this' context (class) binded
+        this.currentTemplateObject = null //Object from element.js or layout.js being dragged
+        this.currentElementBeingDragged = null //.content key of this.currentTemplateObject transformed to dom element
+        this.currentElementBehindCursor = null //Element behind cursor while dragging
+        this.containerHovered = null //container behind cursor while dragging an element
+        this.overlay = null //Used to be appended over iframe to preserve the mousemove event
         // this.droppableDocument = document
         this.events()
     }
