@@ -115,13 +115,16 @@ export default class Dragger {
     renderShadowElement(event) {
         let elementsBehindCursor = document.elementsFromPoint(event.clientX, event.clientY)
         if(this.overIframe(elementsBehindCursor)) { // dragging over iframe
-            let elementBehindCursorInIframe = this.options.iframe.document.elementFromPoint(event.layerX, event.layerY)
-            if(this.isLayout(this.currentTemplateObject)) { // dragging layout
+            if(this.objectIsLayout(this.currentTemplateObject)) { // dragging layout
                 this.currentElementBeingDragged.classList.add('shadow-elem', 'layout')
                 this.options.iframe.document.body.appendChild(this.currentElementBeingDragged)
             } else { //dragging element
-                if(this.isContainer(elementBehindCursorInIframe)) {
-                    this.containerHovered = elementBehindCursorInIframe
+                let elementsBehindCursorInIframe = this.options.iframe.document.elementsFromPoint(event.layerX, event.layerY)
+                if(this.overContainer(elementsBehindCursorInIframe)) {
+                    if(this.containerHovered !== null) {
+                        this.containerHovered.classList.remove('container-hovered')
+                    }
+                    this.containerHovered = this.findContainer(elementsBehindCursorInIframe)
                     this.containerHovered.classList.add('container-hovered')
                     this.currentElementBeingDragged.classList.add('shadow-elem')
                     this.containerHovered.appendChild(this.currentElementBeingDragged)
@@ -134,7 +137,7 @@ export default class Dragger {
                 }
             }
         } else {
-            if(this.isLayout(this.currentTemplateObject)) {
+            if(this.objectIsLayout(this.currentTemplateObject)) {
                 if(this.options.iframe.document.body.contains(this.currentElementBeingDragged)) {
                     this.currentElementBeingDragged.classList.remove('shadow-elem', 'layout')
                     this.options.iframe.document.body.removeChild(this.currentElementBeingDragged)
@@ -178,13 +181,17 @@ export default class Dragger {
             return (elem.matches('#iframe'))
         })
     }
-    isContainer(element) {
-        if(element === null) {
-            return false
-        }
-        return (element.matches('.layout'))
+    overContainer(elements) {
+        return elements.some((elem) => {
+            return (elem.matches('.layout'))
+        })
     }
-    isLayout(element) {
+    findContainer(elements) {
+        return elements.find((elem) => {
+            return (elem.matches('.layout'))
+        })
+    }
+    objectIsLayout(element) {
         return (element.type === 'layout')
     }
     removeElementFromContainer(container, element) {
