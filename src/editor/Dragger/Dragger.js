@@ -3,9 +3,10 @@ import Event from './Event'
 export const emitter = mitt()
 
 export default class Dragger {
-    constructor(draggableSelector, droppableSelector, options = {}) {
+    // constructor(draggableSelector, droppableSelector, options = {}) {
+    constructor(draggableSelector, options = {}) {
         this.draggableSelector = draggableSelector //.draggable
-        this.droppableSelector = droppableSelector //#editor-content
+        // this.droppableSelector = droppableSelector //#editor-content
         this.options = options
         this.clone = Object
         this.innerX = Number

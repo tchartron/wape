@@ -38,7 +38,7 @@ export default {
         }
         let templates = [...layouts, ...elemArray]
         this.iframe = new Iframe('#iframe')
-        this.dragger = new Dragger('.draggable', '.droppable', {
+        this.dragger = new Dragger('.draggable', {
           iframe: this.iframe,
           templates: templates
         })
