@@ -18,15 +18,13 @@ export default [
         title: 'Columns',
         icon: 'fas fa-columns',
         type: 'layout',
-        content: `<div class="grid grid-cols-2 gap-2"><div class=""></div><div class=""></div></div>`
+        content: `<div class="grid grid-cols-2 gap-2"></div>`
     },
     {
         id: 4,
         title: 'Grid',
         icon: 'fas fa-border-all',
         type: 'layout',
-        content: `<div class="grid grid-cols-2 gap-2"><div class=""></div><div class=""></div><div class=""
-class=""></div><div class=""
-class=""></div></div>`
+        content: `<div class="grid grid-cols-2 grid-rows-2 gap-2"></div>`
     },
 ]
