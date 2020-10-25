@@ -9,6 +9,9 @@ body > div.layout {
 /*body > div.grid.layout > div {
     border: .5px dashed #000;
 }*/
+div.grid.layout > div.grid-placeholder {
+    border: .5px dashed #000;
+}
 .shadow-elem {
     opacity: .5;
 }
