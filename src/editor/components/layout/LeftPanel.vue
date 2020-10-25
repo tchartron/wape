@@ -109,7 +109,7 @@ export default {
   div.left-panel {
       background-color: #454545;
       border-top: .5px solid #000;
-      width: 20rem;
+      width: 250px;
   }
   div.left-panel > div.actions {
     display: flex;

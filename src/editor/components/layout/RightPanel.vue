@@ -25,7 +25,7 @@ export default {
     div.right-panel {
       background-color: #454545;
       border-top: .5px solid #000;
-      width: 15rem;
+      width: 250px;
     }
     div.right-panel > div.actions {
       display: flex;
