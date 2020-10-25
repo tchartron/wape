@@ -4,13 +4,22 @@
       <i class="fab fa-weebly" />
     </div>
     <div class="devices">
-      <div class="desktop">
+      <div
+        class="desktop"
+        @click="changeDevice('desktop')"
+      >
         <i class="fas fa-desktop" />
       </div>
-      <div class="tablet">
+      <div
+        class="tablet"
+        @click="changeDevice('tablet')"
+      >
         <i class="fas fa-tablet-alt" />
       </div>
-      <div class="mobile">
+      <div
+        class="mobile"
+        @click="changeDevice('mobile')"
+      >
         <i class="fas fa-mobile-alt" />
       </div>
     </div>
@@ -32,11 +41,17 @@
 </template>
 
 <script>
+import { medias } from 'App/config/editor'
+import { emitter } from 'App/Wape'
+
 export default {
     name: 'TopPanel',
     mounted() {
     },
     methods: {
+      changeDevice(deviceName) {
+        emitter.emit('device-change', { width: medias[deviceName].width })
+      }
     }
 }
 </script>
