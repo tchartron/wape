@@ -1,4 +1,6 @@
 import Editor from 'Editor/Editor'
+import mitt from 'mitt'
+export const emitter = mitt()
 
 export default class Wape {
     constructor(options) {
