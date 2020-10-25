@@ -1,26 +1,32 @@
 <template>
-  <iframe
-    id="iframe"
-    name="iframe"
-    :src="iframeFilePath"
-    class="iframe"
-    @load="iframeLoaded"
-  />
+  <div
+    id="canvas"
+    class="canvas"
+    :style="{ width: canvasWidth }"
+  >
+    <iframe
+      id="iframe"
+      name="iframe"
+      :src="iframeFilePath"
+      class="iframe"
+      @load="iframeLoaded"
+    />
+  </div>
 </template>
 
 <script>
 import Iframe from 'Editor/Iframe'
-// import Drop from 'Editor/DragDrop/Drop'
 import layouts from 'Editor/elements/layouts'
 import elements from 'Editor/elements/elements'
 import Dragger from 'Editor/Dragger/Dragger'
+import { emitter } from 'App/Wape'
 
 export default {
     name: 'MainPanel',
     data() {
       return {
         iframe: Object,
-        drop: Object
+        canvasWidth: 'calc(100vw - 500px)'
       }
     },
     computed: {
@@ -29,6 +35,9 @@ export default {
       }
     },
     mounted() {
+      emitter.on('device-change', (args) => {
+        this.canvasWidth = args.width
+      })
     },
     methods: {
       iframeLoaded() {
@@ -42,14 +51,18 @@ export default {
           iframe: this.iframe,
           templates: templates
         })
-        // this.drop = new Drop('#editor-content')
-        // this.drop.setIframeContext(this.iframe)
       }
     }
 }
 </script>
 
 <style scoped>
+  div.canvas {
+    width: calc(100vw - 500px);
+    height: 100%;
+    background-color: #fff;
+    transition: width 0.5s ease 0s;
+  }
   iframe.iframe {
     display: block;
     border: 0px none;
