@@ -1,4 +1,4 @@
-export default class Element {
+export default class Container {
     constructor(id, title, icon, droppable, content) {
         this._id = id //int unique
         this._title = title //title shown in leftmenu
