@@ -18,6 +18,9 @@ div.grid.layout > div.grid-placeholder {
 .layout.container-hovered {
     border: 2px solid blue;
 }
+.layout.container-selected {
+    border: 2px solid blue;
+}
 /*div#editor-content .droppable.container {
     border: 1px dashed #000;
     min-height: 150px;

@@ -19,6 +19,7 @@ import Iframe from 'Editor/Iframe'
 import layouts from 'Editor/elements/layouts'
 import elements from 'Editor/elements/elements'
 import Dragger from 'Editor/Dragger/Dragger'
+import Container from 'Editor/Container'
 import { emitter } from 'App/Wape'
 
 export default {
@@ -51,6 +52,16 @@ export default {
           iframe: this.iframe,
           templates: templates
         })
+        this.iframe.document.documentElement.addEventListener('click', this.iframeClick, false)
+      },
+      iframeClick(event) {
+        let elements = this.iframe.document.elementsFromPoint(event.clientX, event.clientY)
+        let layout = elements.find((elem) => {
+            return (elem.matches('.layout'))
+        })
+        if(typeof layout !== 'undefined') {
+          layout.classList.add('container-selected')
+        }
       }
     }
 }
