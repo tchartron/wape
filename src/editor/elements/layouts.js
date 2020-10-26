@@ -4,14 +4,14 @@ export default [
         title: 'Section',
         icon: 'far fa-square',
         type: 'layout',
-        content: `<div class="container"></div>`
+        content: `<div class="container mx-auto"></div>`
     },
     {
         id: 2,
         title: 'Container',
         icon: 'far fa-square',
         type: 'layout',
-        content: `<div class="container px-10"></div>`
+        content: `<div class="container px-10 mx-auto"></div>`
     },
     {
         id: 3,
