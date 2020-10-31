@@ -20,6 +20,8 @@ import layouts from 'Editor/elements/layouts'
 import elements from 'Editor/elements/elements'
 import Dragger from 'Editor/Dragger/Dragger'
 import Container from 'Editor/Container'
+import Element from 'Editor/Element'
+import isEmpty from 'lodash/isEmpty'
 import { emitter } from 'App/Wape'
 
 export default {
@@ -27,7 +29,10 @@ export default {
     data() {
       return {
         iframe: Object,
-        canvasWidth: 'calc(100vw - 500px)'
+        canvasWidth: 'calc(100vw - 500px)',
+        selectedContainer: Object,
+        elementHovered: Object,
+        selectedElement: Object
       }
     },
     computed: {
@@ -53,6 +58,20 @@ export default {
           templates: templates
         })
         this.iframe.document.documentElement.addEventListener('click', this.iframeClick, false)
+        this.iframe.document.documentElement.addEventListener('mousemove', this.iframeMouseMove, false)
+      },
+      iframeMouseMove(event) {
+        let element = event.target
+        let dontHighlightTags = ['HTML', 'BODY']
+        if(!dontHighlightTags.includes(element.tagName)) {
+          if(this.elementHovered !== element) {
+            if(!isEmpty(this.elementHovered)) {
+              this.elementHovered.removeClass('element-hovered')
+            }
+            this.elementHovered = new Element(element)
+            this.elementHovered.addClass('element-hovered')
+          }
+        }
       },
       iframeClick(event) {
         let elements = this.iframe.document.elementsFromPoint(event.clientX, event.clientY)
@@ -60,7 +79,17 @@ export default {
             return (elem.matches('.layout'))
         })
         if(typeof layout !== 'undefined') {
-          layout.classList.add('container-selected')
+          if(this.selectedContainer.element !== layout) { //if we selected another container than the current one
+            if(!isEmpty(this.selectedContainer)) {
+              this.selectedContainer.removeClass('container-selected')
+            }
+            this.selectedContainer = new Container(layout)
+            this.selectedContainer.addClass('container-selected')
+            // let children = this.selectedContainer.getChildren()
+          }
+        }
+        if(!isEmpty(this.elementHovered)) {
+          this.selectedElement = this.elementHovered
         }
       }
     }
