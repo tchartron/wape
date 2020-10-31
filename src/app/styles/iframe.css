@@ -15,11 +15,14 @@ div.grid.layout > div.grid-placeholder {
 .shadow-elem {
     opacity: .5;
 }
-.layout.container-hovered {
+/*.layout.container-hovered {
     border: 2px solid blue;
-}
+}*/
 .layout.container-selected {
-    border: 2px solid blue;
+    border: 2px solid green;
+}
+.element-hovered {
+    border: 2px solid blue !important;
 }
 /*div#editor-content .droppable.container {
     border: 1px dashed #000;
