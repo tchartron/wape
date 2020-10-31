@@ -1,40 +1,22 @@
 export default class Container {
-    constructor(id, title, icon, droppable, content) {
-        this._id = id //int unique
-        this._title = title //title shown in leftmenu
-        this._icon = icon //icon shown in leftmenu
-        this._droppable = droppable //bool droppable or not (containers are droppable, elements are not)
-        this._content = content //string html content
+    constructor(element) {
+        this.element = element // html element
     }
-    get id() {
-        return this._id
-    }
-    get title() {
-        return this._title
-    }
-    get icon() {
-        return this._icon
-    }
-    get droppable() {
-        return this._droppable
-    }
-    get content() {
-        return this._content
-    }
+    // get element() {
+    //     return this.element
+    // }
 
-    set id(id) {
-        this._id = id
+    // set element(element) {
+    //     this.element = element
+    // }
+
+    addClass(cssClass) {
+        this.element.classList.add(cssClass)
     }
-    set title(title) {
-        this._title = title
+    removeClass(cssClass) {
+        this.element.classList.remove(cssClass)
     }
-    set icon(icon) {
-        this._icon = icon
-    }
-    set droppable(droppable) {
-        this._droppable = droppable
-    }
-    set content(content) {
-        this._content = content
+    getChildren() {
+        return this.element.children
     }
 }
