@@ -22,14 +22,21 @@
         v-if="(showPanel('add')) && !animating"
         class="add-element"
       >
-        <div
-          v-for="layout in layouts"
-          :key="layout.id"
-          class="layout draggable"
-          :data-id="layout.id"
-        >
-          <i :class="layout.icon" />
-          <span class="elem-title">{{ layout.title }}</span>
+        <div class="layout-wrapper">
+          <div class="layout-category">
+            Layouts
+          </div>
+          <div class="layouts">
+            <div
+              v-for="layout in layouts"
+              :key="layout.id"
+              class="layout draggable"
+              :data-id="layout.id"
+            >
+              <i :class="layout.icon" />
+              <span class="elem-title">{{ layout.title }}</span>
+            </div>
+          </div>
         </div>
         <div
           v-for="element in elements"
@@ -37,9 +44,7 @@
           class="element-wrapper"
           :data-id="element.id"
         >
-          <div
-            class="element-category"
-          >
+          <div class="element-category">
             {{ element.title }}
           </div>
           <div class="elements">
@@ -138,7 +143,7 @@ export default {
     overflow-y: scroll;
     height: calc(100% - 2.7rem);
   }
-  div.left-panel > div.add-element > div.layout {
+  /*div.left-panel > div.add-element > div.layout {
     display: flex;
     cursor: all-scroll;
     justify-content: space-between;
@@ -152,20 +157,21 @@ export default {
     border-radius: 5px;
     box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);
     user-select: none;
-  }
-  div.left-panel > div.add-element > div.layout > svg {
+  }*/
+ /* div.left-panel > div.add-element > div.layout > svg {
     font-size: 3rem;
     color: #fff;
     margin: auto;
-  }
-  div.layout > span.elem-title {
+  }*/
+  /*div.layout > span.elem-title {
     text-align: center;
     color: #fff;
     font-weight: 300;
     font-size: 0.9rem;
     margin-top: .5rem;
-  }
-  div.left-panel > div.add-element > div.element-wrapper {
+  }*/
+  div.left-panel > div.add-element > div.element-wrapper,
+  div.left-panel > div.add-element > div.layout-wrapper {
     display: flex;
     flex-direction: column;
     margin: 3% 2.5%;
@@ -174,19 +180,22 @@ export default {
     box-sizing: border-box;
     user-select: none;
   }
-  div.left-panel > div.add-element > div.element-wrapper > div.element-category {
+  div.left-panel > div.add-element > div.element-wrapper > div.element-category,
+  div.left-panel > div.add-element > div.layout-wrapper > div.layout-category {
     color: #fff;
     text-transform: capitalize;
     font-size: 1.2rem;
     border-bottom: 1px solid #fff;
     padding-bottom: .7rem;
   }
-  div.left-panel > div.add-element > div.element-wrapper > div.elements {
+  div.left-panel > div.add-element > div.element-wrapper > div.elements,
+  div.left-panel > div.add-element > div.layout-wrapper > div.layouts {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
   }
-  div.left-panel > div.add-element > div.element-wrapper > div.elements > div.elem {
+  div.left-panel > div.add-element > div.element-wrapper > div.elements > div.elem,
+  div.left-panel > div.add-element > div.layout-wrapper > div.layouts > div.layout {
     display: flex;
     cursor: all-scroll;
     justify-content: space-between;
@@ -201,12 +210,14 @@ export default {
     box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);
     user-select: none;
   }
-  div.left-panel > div.add-element > div.element-wrapper > div.elements > div.elem > svg {
+  div.left-panel > div.add-element > div.element-wrapper > div.elements > div.elem > svg,
+  div.left-panel > div.add-element > div.layout-wrapper > div.layouts > div.layout > svg {
     font-size: 2rem;
     color: #fff;
     margin: auto;
   }
-  div.left-panel > div.add-element > div.element-wrapper > div.elements > div.elem > span {
+  div.left-panel > div.add-element > div.element-wrapper > div.elements > div.elem > span,
+  div.left-panel > div.add-element > div.layout-wrapper > div.layouts > div.layout > span {
     text-align: center;
     color: #fff;
     font-weight: 300;
