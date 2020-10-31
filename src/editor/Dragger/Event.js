@@ -1,3 +1,5 @@
+//UNUSED NEEDS TO BE DELETED
+
 export default class Event {
     constructor(element, type, func, bindThis = null) {
         this.element = element
