@@ -1,6 +1,6 @@
 import mitt from 'mitt'
 import Event from './Event'
-export const emitter = mitt()
+// export const emitter = mitt()
 
 export default class Dragger {
     constructor(draggableSelector, options = {}) {
