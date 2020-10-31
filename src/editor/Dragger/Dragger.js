@@ -17,7 +17,8 @@ export default class Dragger {
         this.containerHovered = null //container behind cursor while dragging an element
         this.overlay = null //Used to be appended over iframe to preserve the mousemove event
         this.currentAppendIndex = 0
-        this.gridIsFilled = false
+        // this.gridIsFilled = false
+        this.containers = []
         this.gridLayout = Object
         this.events()
     }
@@ -71,9 +72,15 @@ export default class Dragger {
             return false
         }
         this.clone.remove()
-        if(this.isGrid(this.elementDragged)) {
-            let totalChilds = ((this.gridLayout.cols !== 0) ? this.gridLayout.cols : 1) * ((this.gridLayout.rows !== 0) ? this.gridLayout.rows : 1)
-            this.createElementAndAppend('div', this.elementDragged, totalChilds, 'grid-placeholder')
+        if(this.elementExistsInContainer(this.options.iframe.document.body, this.elementDragged)) {
+            if(this.isGrid(this.elementDragged)) {
+                let totalChilds = ((this.gridLayout.cols !== 0) ? this.gridLayout.cols : 1) * ((this.gridLayout.rows !== 0) ? this.gridLayout.rows : 1)
+                this.createElementAndAppend('div', this.elementDragged, totalChilds, 'grid-placeholder')
+            }
+            if(this.isLayout(this.objectDragged)) {
+                //Store new container in global containers list
+                this.containers.push(this.elementDragged)
+            }
         }
         this.objectDragged = null
         this.elementDragged.classList.remove('shadow-elem')
@@ -81,13 +88,6 @@ export default class Dragger {
         if(this.containerHovered !== null) {
             this.containerHovered.classList.remove('container-hovered')
             this.currentAppendIndex++
-            if(this.isGrid(this.containerHovered)) {
-                if(this.gridIsFull(this.containerHovered)) {
-                    this.gridIsFilled = true
-                } else {
-                    this.gridIsFilled = false
-                }
-            }
             this.containerHovered = null
         }
         if(this.overlay !== null) {
@@ -128,7 +128,12 @@ export default class Dragger {
         if(this.overIframe(elementsBehindCursor)) { // dragging over iframe
             if(this.isLayout(this.objectDragged)) { // dragging layout
                 this.elementDragged.classList.add('shadow-elem', 'layout')
-                this.options.iframe.document.body.appendChild(this.elementDragged)
+                let closestContainer = this.firstDescendantContainer(event.layerY, this.containers)
+                if(typeof closestContainer !== 'undefined') {
+                    this.options.iframe.document.body.insertBefore(this.elementDragged, closestContainer)
+                } else {
+                    this.options.iframe.document.body.appendChild(this.elementDragged)
+                }
             } else { //dragging element
                 let elementsBehindCursorInIframe = this.options.iframe.document.elementsFromPoint(event.layerX, event.layerY)
                 if(this.overContainer(elementsBehindCursorInIframe)) {
@@ -206,7 +211,24 @@ export default class Dragger {
                     this.elementDragged.classList.remove('shadow-elem')
                     this.elementDragged.remove()
                 }
+                if(this.containers.length > 0) { //OPTIMIZE THIS
+                    this.containers.forEach((container) => {
+                        this.gridLayout = {
+                                cols: this.countGridCols(container),
+                                rows: this.countGridRows(container),
+                                isFull: this.gridIsFull(container),
+                                appendIndex: this.getAppendIndex(container)
+                            }
+                            let totalPlacesInGrid = ((this.gridLayout.cols !== 0) ? this.gridLayout.cols : 1) * ((this.gridLayout.rows !== 0) ? this.gridLayout.rows : 1)
+                            let elementsInGrid = this.countElementsInGrid(container)
+                            let numberOfPlaceholdersToAppend = totalPlacesInGrid - elementsInGrid
+                            if (numberOfPlaceholdersToAppend > 0) {
+                                this.createElementAndAppend('div', container, numberOfPlaceholdersToAppend, 'grid-placeholder')
+                            }
+                    })
+                }
             }
+            this.containerHovered = null // reset this guy we juste got out of iframe
         }
     }
     getTemplateFromId(id) {
@@ -325,5 +347,15 @@ export default class Dragger {
     }
     countElementsInGrid(container) {
         return container.children.length
+    }
+    firstDescendantContainer(y, containers) {
+        if(containers.length > 0) {
+            return containers.find((container) => {
+                return (container.getBoundingClientRect().bottom >= y)
+            })
+        }
+    }
+    elementExistsInContainer(container, element) {
+        return container.contains(element)
     }
 }
