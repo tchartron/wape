@@ -1,6 +1,6 @@
 body {
-    min-height: 500px;
-    border-bottom: 1px dotted #000;
+    /*min-height: 500px;*/
+    /*border-bottom: 1px dotted #000;*/
 }
 body > div.layout {
     min-height: 120px;
