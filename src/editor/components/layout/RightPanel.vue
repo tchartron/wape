@@ -41,15 +41,26 @@
 </template>
 
 <script>
+import { emitter } from 'App/Wape'
+import isEmpty from 'lodash/isEmpty'
+
 export default {
     name: 'RightPanel',
     data() {
       return {
         currentPanel: 'container',
         animating: false,
+        selectedContainer: Object,
+        selectedElement: Object
       }
     },
     mounted() {
+      emitter.on('iframe-click', (args) => { //Fired from MainPanel.vue
+        this.selectedContainer = args.container
+        this.selectedElement = args.element
+        console.log(this.selectedContainer)
+        console.log(this.selectedElement)
+      })
     },
     methods: {
       switchPanel(panel) {

@@ -30,8 +30,8 @@ export default {
       return {
         iframe: Object,
         canvasWidth: 'calc(100vw - 500px)',
-        selectedContainer: Object,
         elementHovered: Object,
+        selectedContainer: Object,
         selectedElement: Object
       }
     },
@@ -41,7 +41,7 @@ export default {
       }
     },
     mounted() {
-      emitter.on('device-change', (args) => {
+      emitter.on('device-change', (args) => { //Fired from TopPanel.vue
         this.canvasWidth = args.width
       })
     },
@@ -91,8 +91,7 @@ export default {
         if(!isEmpty(this.elementHovered)) {
           this.selectedElement = this.elementHovered
         }
-        console.log(this.selectedContainer)
-        console.log(this.selectedElement)
+        emitter.emit('iframe-click', { container: this.selectedContainer, element: this.selectedElement })
       }
     }
 }
