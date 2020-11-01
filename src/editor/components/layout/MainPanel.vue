@@ -91,6 +91,8 @@ export default {
         if(!isEmpty(this.elementHovered)) {
           this.selectedElement = this.elementHovered
         }
+        console.log(this.selectedContainer)
+        console.log(this.selectedElement)
       }
     }
 }
