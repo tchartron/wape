@@ -211,21 +211,19 @@ export default class Dragger {
                     this.elementDragged.classList.remove('shadow-elem')
                     this.elementDragged.remove()
                 }
-                if(this.containers.length > 0) { //OPTIMIZE THIS
-                    this.containers.forEach((container) => {
-                        this.gridLayout = {
-                                cols: this.countGridCols(container),
-                                rows: this.countGridRows(container),
-                                isFull: this.gridIsFull(container),
-                                appendIndex: this.getAppendIndex(container)
-                            }
-                            let totalPlacesInGrid = ((this.gridLayout.cols !== 0) ? this.gridLayout.cols : 1) * ((this.gridLayout.rows !== 0) ? this.gridLayout.rows : 1)
-                            let elementsInGrid = this.countElementsInGrid(container)
-                            let numberOfPlaceholdersToAppend = totalPlacesInGrid - elementsInGrid
-                            if (numberOfPlaceholdersToAppend > 0) {
-                                this.createElementAndAppend('div', container, numberOfPlaceholdersToAppend, 'grid-placeholder')
-                            }
-                    })
+                if(this.containerHovered !== null) { // Re-add grid placeholders if we were hovering a grid and got out of iframe
+                    this.gridLayout = {
+                        cols: this.countGridCols(this.containerHovered),
+                        rows: this.countGridRows(this.containerHovered),
+                        isFull: this.gridIsFull(this.containerHovered),
+                        appendIndex: this.getAppendIndex(this.containerHovered)
+                    }
+                    let totalPlacesInGrid = ((this.gridLayout.cols !== 0) ? this.gridLayout.cols : 1) * ((this.gridLayout.rows !== 0) ? this.gridLayout.rows : 1)
+                    let elementsInGrid = this.countElementsInGrid(this.containerHovered)
+                    let numberOfPlaceholdersToAppend = totalPlacesInGrid - elementsInGrid
+                    if (numberOfPlaceholdersToAppend > 0) {
+                        this.createElementAndAppend('div', this.containerHovered, numberOfPlaceholdersToAppend, 'grid-placeholder')
+                    }
                 }
             }
             this.containerHovered = null // reset this guy we juste got out of iframe
