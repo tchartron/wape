@@ -1,6 +1,6 @@
 /*!
  * /*
- *  * Wape version 0.0.1
+ *  * Wape version 0.1.2
  *  * Thomas Chartron
  *  * Released under the MIT License.
  *  * /
@@ -127,8 +127,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -155,8 +153,35 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var Editor_templates_templates__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Editor/templates/templates */ "./src/editor/templates/templates.js");
-/* harmony import */ var Editor_Drag__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Editor/Drag */ "./src/editor/Drag.js");
+/* harmony import */ var Editor_elements_layouts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Editor/elements/layouts */ "./src/editor/elements/layouts.js");
+/* harmony import */ var Editor_elements_elements__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Editor/elements/elements */ "./src/editor/elements/elements.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -209,6 +234,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+ // import Drag from 'Editor/DragDrop/Drag'
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'LeftPanel',
@@ -216,11 +242,13 @@ __webpack_require__.r(__webpack_exports__);
     return {
       currentPanel: 'add',
       animating: false,
-      templates: Editor_templates_templates__WEBPACK_IMPORTED_MODULE_0__["default"] // drag: Object
-
+      layouts: Editor_elements_layouts__WEBPACK_IMPORTED_MODULE_0__["default"],
+      elements: Editor_elements_elements__WEBPACK_IMPORTED_MODULE_1__["default"]
     };
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {// this.drag = new Drag('.draggable', [...this.layouts, ...this.elements[0].elements, ...this.elements[1].elements, ...this.elements[2].elements])
+    // this.drag.bindEvents()
+  },
   methods: {
     switchPanel: function switchPanel(panel) {
       this.animating = true;
@@ -231,12 +259,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     animationEnd: function animationEnd() {
       this.animating = false;
-    },
-    dragStart: function dragStart(elem) {
-      console.log('dragstart from leftmenu'); // this.drag = new Drag(elem)
-
-      console.log(elem);
-      this.$root.$emit('dragging-element', elem); //listened in MainPanel.vue
     }
   }
 });
@@ -253,8 +275,28 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Editor_Iframe__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Editor/Iframe */ "./src/editor/Iframe.js");
-/* harmony import */ var lodash_isEmpty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/isEmpty */ "./node_modules/lodash/isEmpty.js");
-/* harmony import */ var lodash_isEmpty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var Editor_elements_layouts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Editor/elements/layouts */ "./src/editor/elements/layouts.js");
+/* harmony import */ var Editor_elements_elements__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Editor/elements/elements */ "./src/editor/elements/elements.js");
+/* harmony import */ var Editor_Dragger_Dragger__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Editor/Dragger/Dragger */ "./src/editor/Dragger/Dragger.js");
+/* harmony import */ var Editor_Container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Editor/Container */ "./src/editor/Container.js");
+/* harmony import */ var Editor_Element__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Editor/Element */ "./src/editor/Element.js");
+/* harmony import */ var lodash_isEmpty__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash/isEmpty */ "./node_modules/lodash/isEmpty.js");
+/* harmony import */ var lodash_isEmpty__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var App_Wape__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! App/Wape */ "./src/app/Wape.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 //
 //
 //
@@ -265,13 +307,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'MainPanel',
   data: function data() {
     return {
-      iframe: Object
+      iframe: Object,
+      canvasWidth: 'calc(100vw - 500px)',
+      elementHovered: Object,
+      selectedContainer: Object,
+      selectedElement: Object
     };
   },
   computed: {
@@ -282,19 +340,79 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    this.$root.$on('dragging-element', function (elem) {
-      // this.iframe.draggedElem = elem
-      // this.iframe.draggedEvent = event
-      if (!lodash_isEmpty__WEBPACK_IMPORTED_MODULE_1___default()(_this.iframe)) {// let drag = new Drag(elem)
-        // let drop = new Drop('#editor-content')
-        // this.iframe.setDrag(drag)
-        // this.iframe.setDrop(drop)
-      }
+    App_Wape__WEBPACK_IMPORTED_MODULE_7__["emitter"].on('device-change', function (args) {
+      //Fired from TopPanel.vue
+      _this.canvasWidth = args.width;
     });
   },
   methods: {
     iframeLoaded: function iframeLoaded() {
-      this.iframe = new Editor_Iframe__WEBPACK_IMPORTED_MODULE_0__["default"]('#iframe'); // this.iframe.bindEvents()
+      var elemArray = [];
+
+      var _iterator = _createForOfIteratorHelper(Editor_elements_elements__WEBPACK_IMPORTED_MODULE_2__["default"]),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var elem = _step.value;
+          elemArray.push.apply(elemArray, _toConsumableArray(elem.elements));
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      var templates = [].concat(_toConsumableArray(Editor_elements_layouts__WEBPACK_IMPORTED_MODULE_1__["default"]), elemArray);
+      this.iframe = new Editor_Iframe__WEBPACK_IMPORTED_MODULE_0__["default"]('#iframe');
+      this.dragger = new Editor_Dragger_Dragger__WEBPACK_IMPORTED_MODULE_3__["default"]('.draggable', {
+        iframe: this.iframe,
+        templates: templates
+      });
+      this.iframe.document.documentElement.addEventListener('click', this.iframeClick, false);
+      this.iframe.document.documentElement.addEventListener('mousemove', this.iframeMouseMove, false);
+    },
+    iframeMouseMove: function iframeMouseMove(event) {
+      var element = event.target;
+      var dontHighlightTags = ['HTML', 'BODY'];
+
+      if (!dontHighlightTags.includes(element.tagName)) {
+        if (this.elementHovered !== element) {
+          if (!lodash_isEmpty__WEBPACK_IMPORTED_MODULE_6___default()(this.elementHovered)) {
+            this.elementHovered.removeClass('element-hovered');
+          }
+
+          this.elementHovered = new Editor_Element__WEBPACK_IMPORTED_MODULE_5__["default"](element);
+          this.elementHovered.addClass('element-hovered');
+        }
+      }
+    },
+    iframeClick: function iframeClick(event) {
+      var elements = this.iframe.document.elementsFromPoint(event.clientX, event.clientY);
+      var layout = elements.find(function (elem) {
+        return elem.matches('.layout');
+      });
+
+      if (typeof layout !== 'undefined') {
+        if (this.selectedContainer.element !== layout) {
+          //if we selected another container than the current one
+          if (!lodash_isEmpty__WEBPACK_IMPORTED_MODULE_6___default()(this.selectedContainer)) {
+            this.selectedContainer.removeClass('container-selected');
+          }
+
+          this.selectedContainer = new Editor_Container__WEBPACK_IMPORTED_MODULE_4__["default"](layout);
+          this.selectedContainer.addClass('container-selected'); // let children = this.selectedContainer.getChildren()
+        }
+      }
+
+      if (!lodash_isEmpty__WEBPACK_IMPORTED_MODULE_6___default()(this.elementHovered)) {
+        this.selectedElement = this.elementHovered;
+      }
+
+      App_Wape__WEBPACK_IMPORTED_MODULE_7__["emitter"].emit('iframe-click', {
+        container: this.selectedContainer,
+        element: this.selectedElement
+      });
     }
   }
 });
@@ -310,6 +428,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var App_Wape__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! App/Wape */ "./src/app/Wape.js");
+/* harmony import */ var lodash_isEmpty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/isEmpty */ "./node_modules/lodash/isEmpty.js");
+/* harmony import */ var lodash_isEmpty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_isEmpty__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -323,10 +444,70 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'RightPanel',
-  mounted: function mounted() {},
-  methods: {}
+  data: function data() {
+    return {
+      currentPanel: 'container',
+      animating: false,
+      selectedContainer: Object,
+      selectedElement: Object
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    App_Wape__WEBPACK_IMPORTED_MODULE_0__["emitter"].on('iframe-click', function (args) {
+      //Fired from MainPanel.vue
+      _this.selectedContainer = args.container;
+      _this.selectedElement = args.element;
+      console.log(_this.selectedContainer);
+      console.log(_this.selectedElement);
+    });
+  },
+  methods: {
+    switchPanel: function switchPanel(panel) {
+      this.animating = true;
+      this.currentPanel = panel;
+    },
+    showPanel: function showPanel(panel) {
+      return this.currentPanel === panel;
+    },
+    animationEnd: function animationEnd() {
+      this.animating = false;
+    }
+  }
 });
 
 /***/ }),
@@ -340,6 +521,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var App_config_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! App/config/editor */ "./src/app/config/editor.js");
+/* harmony import */ var App_Wape__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! App/Wape */ "./src/app/Wape.js");
 //
 //
 //
@@ -373,10 +556,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'TopPanel',
   mounted: function mounted() {},
-  methods: {}
+  methods: {
+    changeDevice: function changeDevice(deviceName) {
+      App_Wape__WEBPACK_IMPORTED_MODULE_1__["emitter"].emit('device-change', {
+        width: App_config_editor__WEBPACK_IMPORTED_MODULE_0__["medias"][deviceName].width
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -396,7 +596,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.wrapper[data-v-852525a2] {\n  display: flex;\n  height: calc(100vh - 3.5rem);\n}\ndiv.canvas[data-v-852525a2] {\n  width: 100%;\n  height: 100%;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/Wape.vue"],"names":[],"mappings":";AAiCA;EACA,aAAA;EACA,4BAAA;AACA;AACA;EACA,WAAA;EACA,YAAA;AACA","sourcesContent":["<template>\n  <div class=\"wape\">\n    <TopPanel />\n    <div class=\"wrapper\">\n      <LeftPanel />\n      <div class=\"canvas\">\n        <MainPanel />\n      </div>\n      <RightPanel />\n    </div>\n  </div>\n</template>\n\n<script>\nimport TopPanel from 'Components/layout/TopPanel.vue'\nimport LeftPanel from 'Components/layout/LeftPanel.vue'\nimport RightPanel from 'Components/layout/RightPanel.vue'\nimport MainPanel from 'Components/layout/MainPanel.vue'\n\nexport default {\n    name: 'Wape',\n    components: {\n        TopPanel,\n        LeftPanel,\n        RightPanel,\n        MainPanel\n    },\n    methods: {\n    }\n}\n</script>\n\n<style scoped>\n  div.wrapper {\n    display: flex;\n    height: calc(100vh - 3.5rem);\n  }\n  div.canvas {\n    width: 100%;\n    height: 100%;\n  }\n</style>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.wrapper[data-v-852525a2] {\n  display: flex;\n  height: calc(100vh - 3.5rem);\n  justify-content: space-between;\n  background-color: #7f7f7f;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/Wape.vue"],"names":[],"mappings":";AA+BA;EACA,aAAA;EACA,4BAAA;EACA,8BAAA;EACA,yBAAA;AACA","sourcesContent":["<template>\n  <div class=\"wape\">\n    <TopPanel />\n    <div class=\"wrapper\">\n      <LeftPanel />\n      <MainPanel />\n      <RightPanel />\n    </div>\n  </div>\n</template>\n\n<script>\nimport TopPanel from 'Components/layout/TopPanel.vue'\nimport LeftPanel from 'Components/layout/LeftPanel.vue'\nimport RightPanel from 'Components/layout/RightPanel.vue'\nimport MainPanel from 'Components/layout/MainPanel.vue'\n\nexport default {\n    name: 'Wape',\n    components: {\n        TopPanel,\n        LeftPanel,\n        RightPanel,\n        MainPanel\n    },\n    methods: {\n    }\n}\n</script>\n\n<style scoped>\n  div.wrapper {\n    display: flex;\n    height: calc(100vh - 3.5rem);\n    justify-content: space-between;\n    background-color: #7f7f7f;\n  }\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -418,7 +618,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.left-panel[data-v-becf9070] {\n    background-color: #454545;\n    border-top: .5px solid #000;\n    width: 20rem;\n}\ndiv.left-panel > div.actions[data-v-becf9070] {\n  display: flex;\n  border-bottom: .5px solid #000;\n  margin-bottom: 1rem;\n}\ndiv.left-panel > div.actions > div[data-v-becf9070] {\n  padding: .5rem;\n  color: #fff;\n  font-size: 1.5rem;\n  cursor: pointer;\n}\ndiv.left-panel > div.actions > div.add[data-v-becf9070]\n{\n  border-right: .5px solid #000;\n}\ndiv.left-panel > div.actions > div.structure[data-v-becf9070]\n{\n  border-right: .5px solid #000;\n}\ndiv.left-panel > div.add-element[data-v-becf9070] {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  padding: 0 1rem;\n}\ndiv.left-panel > div.add-element > div.elem[data-v-becf9070] {\n  display: flex;\n  cursor: all-scroll;\n  justify-content: space-between;\n  flex-direction: column;\n  margin: 3% 2.5%;\n  width: 45%;\n  min-width: 45%;\n  box-sizing: border-box;\n  border: 1px solid #000;\n  padding: 1em;\n  border-radius: 5px;\n  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);\n  user-select: none;\n}\ndiv.left-panel > div.add-element > div.elem > i[data-v-becf9070] {\n  font-size: 3rem;\n  color: #fff;\n  text-align: center;\n}\ndiv.elem > span.elem-title[data-v-becf9070] {\n  text-align: center;\n  color: #fff;\n  font-weight: 300;\n  font-size: 0.9rem;\n  margin-top: .5rem;\n}\n/* Animations thanks animista.net */\n.fade-enter-active[data-v-becf9070] {\n  -webkit-animation: swing-in-top-fwd-data-v-becf9070 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n          animation: swing-in-top-fwd-data-v-becf9070 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n}\n.fade-leave-active[data-v-becf9070] {\n  -webkit-animation: swing-out-top-bck-data-v-becf9070 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n          animation: swing-out-top-bck-data-v-becf9070 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n}\n@-webkit-keyframes swing-in-top-fwd-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n}\n@keyframes swing-in-top-fwd-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n100% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n}\n@-webkit-keyframes swing-out-top-bck-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n}\n@keyframes swing-out-top-bck-data-v-becf9070 {\n0% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 1;\n}\n100% {\n    -webkit-transform: rotateX(-100deg);\n            transform: rotateX(-100deg);\n    -webkit-transform-origin: top;\n            transform-origin: top;\n    opacity: 0;\n}\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/LeftPanel.vue"],"names":[],"mappings":";AAyFA;IACA,yBAAA;IACA,2BAAA;IACA,YAAA;AACA;AACA;EACA,aAAA;EACA,8BAAA;EACA,mBAAA;AACA;AACA;EACA,cAAA;EACA,WAAA;EACA,iBAAA;EACA,eAAA;AACA;AACA;;EAEA,6BAAA;AACA;AACA;;EAEA,6BAAA;AACA;AACA;EACA,aAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AACA;AACA;EACA,aAAA;EACA,kBAAA;EACA,8BAAA;EACA,sBAAA;EACA,eAAA;EACA,UAAA;EACA,cAAA;EACA,sBAAA;EACA,sBAAA;EACA,YAAA;EACA,kBAAA;EACA,2CAAA;EACA,iBAAA;AACA;AACA;EACA,eAAA;EACA,WAAA;EACA,kBAAA;AACA;AACA;EACA,kBAAA;EACA,WAAA;EACA,gBAAA;EACA,iBAAA;EACA,iBAAA;AACA;AACA,mCAAA;AACA;EACA,sGAAA;UACA,8FAAA;AACA;AACA;EACA,wGAAA;UACA,gGAAA;AACA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AAEA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;AACA;AACA;IACA,gCAAA;YACA,wBAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA;IACA,mCAAA;YACA,2BAAA;IACA,6BAAA;YACA,qBAAA;IACA,UAAA;AACA;AACA","sourcesContent":["<template>\n  <div class=\"left-panel\">\n    <div class=\"actions\">\n      <div\n        class=\"add\"\n        @click=\"switchPanel('add')\"\n      >\n        <i class=\"fas fa-plus\" />\n      </div>\n      <div\n        class=\"structure\"\n        @click=\"switchPanel('structure')\"\n      >\n        <i class=\"fas fa-bars\" />\n      </div>\n    </div>\n    <transition\n      name=\"fade\"\n      @after-leave=\"animationEnd\"\n    >\n      <div\n        v-if=\"(showPanel('add')) && !animating\"\n        class=\"add-element\"\n      >\n        <div\n          v-for=\"template in templates\"\n          :key=\"template.id\"\n          class=\"elem\"\n          draggable=\"true\"\n          @dragstart=\"dragStart(template)\"\n        >\n          <i :class=\"template.icon\" />\n          <span class=\"elem-title\">{{ template.title }}</span>\n        </div>\n      </div>\n    </transition>\n\n    <transition\n      name=\"fade\"\n      @after-leave=\"animationEnd\"\n    >\n      <div\n        v-if=\"(showPanel('structure') && !animating)\"\n        class=\"show-structure\"\n      >\n        <p>STRUCTURE</p>\n      </div>\n    </transition>\n  </div>\n</template>\n\n<script>\nimport templates from 'Editor/templates/templates'\nimport Drag from 'Editor/Drag'\n\nexport default {\n    name: 'LeftPanel',\n    data() {\n      return {\n        currentPanel: 'add',\n        animating: false,\n        templates\n        // drag: Object\n      }\n    },\n    mounted() {\n    },\n    methods: {\n      switchPanel(panel) {\n        this.animating = true\n        this.currentPanel = panel\n      },\n      showPanel(panel) {\n        return (this.currentPanel === panel)\n      },\n      animationEnd() {\n        this.animating = false\n      },\n      dragStart(elem) {\n        console.log('dragstart from leftmenu')\n        // this.drag = new Drag(elem)\n        console.log(elem)\n        this.$root.$emit('dragging-element', elem) //listened in MainPanel.vue\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.left-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 20rem;\n  }\n  div.left-panel > div.actions {\n    display: flex;\n    border-bottom: .5px solid #000;\n    margin-bottom: 1rem;\n  }\n  div.left-panel > div.actions > div {\n    padding: .5rem;\n    color: #fff;\n    font-size: 1.5rem;\n    cursor: pointer;\n  }\n  div.left-panel > div.actions > div.add\n  {\n    border-right: .5px solid #000;\n  }\n  div.left-panel > div.actions > div.structure\n  {\n    border-right: .5px solid #000;\n  }\n  div.left-panel > div.add-element {\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: flex-start;\n    padding: 0 1rem;\n  }\n  div.left-panel > div.add-element > div.elem {\n    display: flex;\n    cursor: all-scroll;\n    justify-content: space-between;\n    flex-direction: column;\n    margin: 3% 2.5%;\n    width: 45%;\n    min-width: 45%;\n    box-sizing: border-box;\n    border: 1px solid #000;\n    padding: 1em;\n    border-radius: 5px;\n    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);\n    user-select: none;\n  }\n  div.left-panel > div.add-element > div.elem > i {\n    font-size: 3rem;\n    color: #fff;\n    text-align: center;\n  }\n  div.elem > span.elem-title {\n    text-align: center;\n    color: #fff;\n    font-weight: 300;\n    font-size: 0.9rem;\n    margin-top: .5rem;\n  }\n  /* Animations thanks animista.net */\n  .fade-enter-active {\n    -webkit-animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n            animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n  }\n  .fade-leave-active {\n    -webkit-animation: swing-out-top-bck 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n            animation: swing-out-top-bck 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n  }\n  @-webkit-keyframes swing-in-top-fwd {\n    0% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n  }\n  @keyframes swing-in-top-fwd {\n    0% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n  }\n\n  @-webkit-keyframes swing-out-top-bck {\n    0% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n    100% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n  }\n  @keyframes swing-out-top-bck {\n    0% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n    100% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n  }\n</style>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.left-panel[data-v-becf9070] {\n     background-color: #454545;\n     border-top: .5px solid #000;\n     width: 250px;\n}\ndiv.left-panel > div.actions[data-v-becf9070] {\n   display: flex;\n   border-bottom: .5px solid #000;\n   height: 2.6rem;\n}\ndiv.left-panel > div.actions > div[data-v-becf9070] {\n   padding: .5rem;\n   color: #fff;\n   font-size: 1.5rem;\n   cursor: pointer;\n}\ndiv.left-panel > div.actions > div.add[data-v-becf9070]\n {\n   border-right: .5px solid #000;\n}\ndiv.left-panel > div.actions > div.structure[data-v-becf9070]\n {\n   border-right: .5px solid #000;\n}\ndiv.left-panel > div.add-element[data-v-becf9070] {\n   display: flex;\n   flex-wrap: wrap;\n   justify-content: flex-start;\n   padding: 0 1rem;\n   overflow-y: scroll;\n   height: calc(100% - 2.7rem);\n}\n /*div.left-panel > div.add-element > div.layout {\n   display: flex;\n   cursor: all-scroll;\n   justify-content: space-between;\n   flex-direction: column;\n   margin: 3% 2.5%;\n   width: 45%;\n   min-width: 45%;\n   box-sizing: border-box;\n   border: 1px solid #000;\n   padding: 1em;\n   border-radius: 5px;\n   box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);\n   user-select: none;\n }*/\n/* div.left-panel > div.add-element > div.layout > svg {\n   font-size: 3rem;\n   color: #fff;\n   margin: auto;\n }*/\n /*div.layout > span.elem-title {\n   text-align: center;\n   color: #fff;\n   font-weight: 300;\n   font-size: 0.9rem;\n   margin-top: .5rem;\n }*/\ndiv.left-panel > div.add-element > div.element-wrapper[data-v-becf9070],\n div.left-panel > div.add-element > div.layout-wrapper[data-v-becf9070] {\n   display: flex;\n   flex-direction: column;\n   margin: 3% 2.5%;\n   width: 95%;\n   min-width: 95%;\n   box-sizing: border-box;\n   user-select: none;\n}\ndiv.left-panel > div.add-element > div.element-wrapper > div.element-category[data-v-becf9070],\n div.left-panel > div.add-element > div.layout-wrapper > div.layout-category[data-v-becf9070] {\n   color: #fff;\n   text-transform: capitalize;\n   font-size: 1.2rem;\n   border-bottom: 1px solid #fff;\n   padding-bottom: .7rem;\n}\ndiv.left-panel > div.add-element > div.element-wrapper > div.elements[data-v-becf9070],\n div.left-panel > div.add-element > div.layout-wrapper > div.layouts[data-v-becf9070] {\n   display: flex;\n   flex-direction: row;\n   flex-wrap: wrap;\n}\ndiv.left-panel > div.add-element > div.element-wrapper > div.elements > div.elem[data-v-becf9070],\n div.left-panel > div.add-element > div.layout-wrapper > div.layouts > div.layout[data-v-becf9070] {\n   display: flex;\n   cursor: all-scroll;\n   justify-content: space-between;\n   flex-direction: column;\n   margin: 3% 2.5%;\n   width: 45%;\n   min-width: 45%;\n   box-sizing: border-box;\n   border: 1px solid #000;\n   padding: 1em;\n   border-radius: 5px;\n   box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);\n   user-select: none;\n}\ndiv.left-panel > div.add-element > div.element-wrapper > div.elements > div.elem > svg[data-v-becf9070],\n div.left-panel > div.add-element > div.layout-wrapper > div.layouts > div.layout > svg[data-v-becf9070] {\n   font-size: 2rem;\n   color: #fff;\n   margin: auto;\n}\ndiv.left-panel > div.add-element > div.element-wrapper > div.elements > div.elem > span[data-v-becf9070],\n div.left-panel > div.add-element > div.layout-wrapper > div.layouts > div.layout > span[data-v-becf9070] {\n   text-align: center;\n   color: #fff;\n   font-weight: 300;\n   font-size: 0.9rem;\n   margin-top: .5rem;\n}\n /* Animations thanks animista.net */\n.fade-enter-active[data-v-becf9070] {\n   -webkit-animation: swing-in-top-fwd-data-v-becf9070 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n           animation: swing-in-top-fwd-data-v-becf9070 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n}\n.fade-leave-active[data-v-becf9070] {\n   -webkit-animation: swing-out-top-bck-data-v-becf9070 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n           animation: swing-out-top-bck-data-v-becf9070 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n}\n@-webkit-keyframes swing-in-top-fwd-data-v-becf9070 {\n0% {\n     -webkit-transform: rotateX(-100deg);\n             transform: rotateX(-100deg);\n     -webkit-transform-origin: top;\n             transform-origin: top;\n     opacity: 0;\n}\n100% {\n     -webkit-transform: rotateX(0deg);\n             transform: rotateX(0deg);\n     -webkit-transform-origin: top;\n             transform-origin: top;\n     opacity: 1;\n}\n}\n@keyframes swing-in-top-fwd-data-v-becf9070 {\n0% {\n     -webkit-transform: rotateX(-100deg);\n             transform: rotateX(-100deg);\n     -webkit-transform-origin: top;\n             transform-origin: top;\n     opacity: 0;\n}\n100% {\n     -webkit-transform: rotateX(0deg);\n             transform: rotateX(0deg);\n     -webkit-transform-origin: top;\n             transform-origin: top;\n     opacity: 1;\n}\n}\n@-webkit-keyframes swing-out-top-bck-data-v-becf9070 {\n0% {\n     -webkit-transform: rotateX(0deg);\n             transform: rotateX(0deg);\n     -webkit-transform-origin: top;\n             transform-origin: top;\n     opacity: 1;\n}\n100% {\n     -webkit-transform: rotateX(-100deg);\n             transform: rotateX(-100deg);\n     -webkit-transform-origin: top;\n             transform-origin: top;\n     opacity: 0;\n}\n}\n@keyframes swing-out-top-bck-data-v-becf9070 {\n0% {\n     -webkit-transform: rotateX(0deg);\n             transform: rotateX(0deg);\n     -webkit-transform-origin: top;\n             transform-origin: top;\n     opacity: 1;\n}\n100% {\n     -webkit-transform: rotateX(-100deg);\n             transform: rotateX(-100deg);\n     -webkit-transform-origin: top;\n             transform-origin: top;\n     opacity: 0;\n}\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/LeftPanel.vue"],"names":[],"mappings":";AAiHA;KACA,yBAAA;KACA,2BAAA;KACA,YAAA;AACA;AACA;GACA,aAAA;GACA,8BAAA;GACA,cAAA;AACA;AACA;GACA,cAAA;GACA,WAAA;GACA,iBAAA;GACA,eAAA;AACA;AACA;;GAEA,6BAAA;AACA;AACA;;GAEA,6BAAA;AACA;AACA;GACA,aAAA;GACA,eAAA;GACA,2BAAA;GACA,eAAA;GACA,kBAAA;GACA,2BAAA;AACA;CACA;;;;;;;;;;;;;;GAcA;AACA;;;;GAIA;CACA;;;;;;GAMA;AACA;;GAEA,aAAA;GACA,sBAAA;GACA,eAAA;GACA,UAAA;GACA,cAAA;GACA,sBAAA;GACA,iBAAA;AACA;AACA;;GAEA,WAAA;GACA,0BAAA;GACA,iBAAA;GACA,6BAAA;GACA,qBAAA;AACA;AACA;;GAEA,aAAA;GACA,mBAAA;GACA,eAAA;AACA;AACA;;GAEA,aAAA;GACA,kBAAA;GACA,8BAAA;GACA,sBAAA;GACA,eAAA;GACA,UAAA;GACA,cAAA;GACA,sBAAA;GACA,sBAAA;GACA,YAAA;GACA,kBAAA;GACA,2CAAA;GACA,iBAAA;AACA;AACA;;GAEA,eAAA;GACA,WAAA;GACA,YAAA;AACA;AACA;;GAEA,kBAAA;GACA,WAAA;GACA,gBAAA;GACA,iBAAA;GACA,iBAAA;AACA;CACA,mCAAA;AACA;GACA,sGAAA;WACA,8FAAA;AACA;AACA;GACA,wGAAA;WACA,gGAAA;AACA;AACA;AACA;KACA,mCAAA;aACA,2BAAA;KACA,6BAAA;aACA,qBAAA;KACA,UAAA;AACA;AACA;KACA,gCAAA;aACA,wBAAA;KACA,6BAAA;aACA,qBAAA;KACA,UAAA;AACA;AACA;AACA;AACA;KACA,mCAAA;aACA,2BAAA;KACA,6BAAA;aACA,qBAAA;KACA,UAAA;AACA;AACA;KACA,gCAAA;aACA,wBAAA;KACA,6BAAA;aACA,qBAAA;KACA,UAAA;AACA;AACA;AAEA;AACA;KACA,gCAAA;aACA,wBAAA;KACA,6BAAA;aACA,qBAAA;KACA,UAAA;AACA;AACA;KACA,mCAAA;aACA,2BAAA;KACA,6BAAA;aACA,qBAAA;KACA,UAAA;AACA;AACA;AACA;AACA;KACA,gCAAA;aACA,wBAAA;KACA,6BAAA;aACA,qBAAA;KACA,UAAA;AACA;AACA;KACA,mCAAA;aACA,2BAAA;KACA,6BAAA;aACA,qBAAA;KACA,UAAA;AACA;AACA","sourcesContent":["<template>\n  <div class=\"left-panel\">\n    <div class=\"actions\">\n      <div\n        class=\"add\"\n        @click=\"switchPanel('add')\"\n      >\n        <i class=\"fas fa-plus\" />\n      </div>\n      <div\n        class=\"structure\"\n        @click=\"switchPanel('structure')\"\n      >\n        <i class=\"fas fa-bars\" />\n      </div>\n    </div>\n    <transition\n      name=\"fade\"\n      @after-leave=\"animationEnd\"\n    >\n      <div\n        v-if=\"(showPanel('add')) && !animating\"\n        class=\"add-element\"\n      >\n        <div class=\"layout-wrapper\">\n          <div class=\"layout-category\">\n            Layouts\n          </div>\n          <div class=\"layouts\">\n            <div\n              v-for=\"layout in layouts\"\n              :key=\"layout.id\"\n              class=\"layout draggable\"\n              :data-id=\"layout.id\"\n            >\n              <i :class=\"layout.icon\" />\n              <span class=\"elem-title\">{{ layout.title }}</span>\n            </div>\n          </div>\n        </div>\n        <div\n          v-for=\"element in elements\"\n          :key=\"element.id\"\n          class=\"element-wrapper\"\n          :data-id=\"element.id\"\n        >\n          <div class=\"element-category\">\n            {{ element.title }}\n          </div>\n          <div class=\"elements\">\n            <div\n              v-for=\"elem in element.elements\"\n              :key=\"elem.id\"\n              class=\"elem draggable\"\n              :data-id=\"elem.id\"\n            >\n              <i :class=\"elem.icon\" />\n              <span class=\"elem-title\">{{ elem.title }}</span>\n            </div>\n          </div>\n        </div>\n      </div>\n    </transition>\n\n    <transition\n      name=\"fade\"\n      @after-leave=\"animationEnd\"\n    >\n      <div\n        v-if=\"(showPanel('structure') && !animating)\"\n        class=\"show-structure\"\n      >\n        <p>STRUCTURE</p>\n      </div>\n    </transition>\n  </div>\n</template>\n\n<script>\nimport layouts from 'Editor/elements/layouts'\nimport elements from 'Editor/elements/elements'\n// import Drag from 'Editor/DragDrop/Drag'\n\nexport default {\n    name: 'LeftPanel',\n    data() {\n      return {\n        currentPanel: 'add',\n        animating: false,\n        layouts,\n        elements\n      }\n    },\n    mounted() {\n      // this.drag = new Drag('.draggable', [...this.layouts, ...this.elements[0].elements, ...this.elements[1].elements, ...this.elements[2].elements])\n      // this.drag.bindEvents()\n    },\n    methods: {\n      switchPanel(panel) {\n        this.animating = true\n        this.currentPanel = panel\n      },\n      showPanel(panel) {\n        return (this.currentPanel === panel)\n      },\n      animationEnd() {\n        this.animating = false\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.left-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n  }\n  div.left-panel > div.actions {\n    display: flex;\n    border-bottom: .5px solid #000;\n    height: 2.6rem;\n  }\n  div.left-panel > div.actions > div {\n    padding: .5rem;\n    color: #fff;\n    font-size: 1.5rem;\n    cursor: pointer;\n  }\n  div.left-panel > div.actions > div.add\n  {\n    border-right: .5px solid #000;\n  }\n  div.left-panel > div.actions > div.structure\n  {\n    border-right: .5px solid #000;\n  }\n  div.left-panel > div.add-element {\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: flex-start;\n    padding: 0 1rem;\n    overflow-y: scroll;\n    height: calc(100% - 2.7rem);\n  }\n  /*div.left-panel > div.add-element > div.layout {\n    display: flex;\n    cursor: all-scroll;\n    justify-content: space-between;\n    flex-direction: column;\n    margin: 3% 2.5%;\n    width: 45%;\n    min-width: 45%;\n    box-sizing: border-box;\n    border: 1px solid #000;\n    padding: 1em;\n    border-radius: 5px;\n    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);\n    user-select: none;\n  }*/\n /* div.left-panel > div.add-element > div.layout > svg {\n    font-size: 3rem;\n    color: #fff;\n    margin: auto;\n  }*/\n  /*div.layout > span.elem-title {\n    text-align: center;\n    color: #fff;\n    font-weight: 300;\n    font-size: 0.9rem;\n    margin-top: .5rem;\n  }*/\n  div.left-panel > div.add-element > div.element-wrapper,\n  div.left-panel > div.add-element > div.layout-wrapper {\n    display: flex;\n    flex-direction: column;\n    margin: 3% 2.5%;\n    width: 95%;\n    min-width: 95%;\n    box-sizing: border-box;\n    user-select: none;\n  }\n  div.left-panel > div.add-element > div.element-wrapper > div.element-category,\n  div.left-panel > div.add-element > div.layout-wrapper > div.layout-category {\n    color: #fff;\n    text-transform: capitalize;\n    font-size: 1.2rem;\n    border-bottom: 1px solid #fff;\n    padding-bottom: .7rem;\n  }\n  div.left-panel > div.add-element > div.element-wrapper > div.elements,\n  div.left-panel > div.add-element > div.layout-wrapper > div.layouts {\n    display: flex;\n    flex-direction: row;\n    flex-wrap: wrap;\n  }\n  div.left-panel > div.add-element > div.element-wrapper > div.elements > div.elem,\n  div.left-panel > div.add-element > div.layout-wrapper > div.layouts > div.layout {\n    display: flex;\n    cursor: all-scroll;\n    justify-content: space-between;\n    flex-direction: column;\n    margin: 3% 2.5%;\n    width: 45%;\n    min-width: 45%;\n    box-sizing: border-box;\n    border: 1px solid #000;\n    padding: 1em;\n    border-radius: 5px;\n    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);\n    user-select: none;\n  }\n  div.left-panel > div.add-element > div.element-wrapper > div.elements > div.elem > svg,\n  div.left-panel > div.add-element > div.layout-wrapper > div.layouts > div.layout > svg {\n    font-size: 2rem;\n    color: #fff;\n    margin: auto;\n  }\n  div.left-panel > div.add-element > div.element-wrapper > div.elements > div.elem > span,\n  div.left-panel > div.add-element > div.layout-wrapper > div.layouts > div.layout > span {\n    text-align: center;\n    color: #fff;\n    font-weight: 300;\n    font-size: 0.9rem;\n    margin-top: .5rem;\n  }\n  /* Animations thanks animista.net */\n  .fade-enter-active {\n    -webkit-animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n            animation: swing-in-top-fwd 0.7s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;\n  }\n  .fade-leave-active {\n    -webkit-animation: swing-out-top-bck 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n            animation: swing-out-top-bck 0.7s cubic-bezier(0.600, -0.280, 0.735, 0.045) both;\n  }\n  @-webkit-keyframes swing-in-top-fwd {\n    0% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n  }\n  @keyframes swing-in-top-fwd {\n    0% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n  }\n\n  @-webkit-keyframes swing-out-top-bck {\n    0% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n    100% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n  }\n  @keyframes swing-out-top-bck {\n    0% {\n      -webkit-transform: rotateX(0deg);\n              transform: rotateX(0deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 1;\n    }\n    100% {\n      -webkit-transform: rotateX(-100deg);\n              transform: rotateX(-100deg);\n      -webkit-transform-origin: top;\n              transform-origin: top;\n      opacity: 0;\n    }\n  }\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -440,7 +640,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\niframe.iframe[data-v-754a1a56] {\n  display: block;\n  border: 0px none;\n  height: 100%;\n  width: 100%;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/MainPanel.vue"],"names":[],"mappings":";AAgDA;EACA,cAAA;EACA,gBAAA;EACA,YAAA;EACA,WAAA;AACA","sourcesContent":["<template>\n  <iframe\n    id=\"iframe\"\n    name=\"iframe\"\n    :src=\"iframeFilePath\"\n    class=\"iframe\"\n    @load=\"iframeLoaded\"\n  />\n</template>\n\n<script>\nimport Iframe from 'Editor/Iframe'\nimport isEmpty from 'lodash/isEmpty';\n\nexport default {\n    name: 'MainPanel',\n    data() {\n      return {\n        iframe: Object\n      }\n    },\n    computed: {\n      iframeFilePath() {\n        return 'iframe.html'\n      }\n    },\n    mounted() {\n      this.$root.$on('dragging-element', (elem) => {\n        // this.iframe.draggedElem = elem\n        // this.iframe.draggedEvent = event\n        if(!isEmpty(this.iframe)) {\n          // let drag = new Drag(elem)\n          // let drop = new Drop('#editor-content')\n          // this.iframe.setDrag(drag)\n          // this.iframe.setDrop(drop)\n        }\n      })\n    },\n    methods: {\n      iframeLoaded() {\n        this.iframe = new Iframe('#iframe')\n        // this.iframe.bindEvents()\n      }\n    }\n}\n</script>\n\n<style scoped>\n  iframe.iframe {\n    display: block;\n    border: 0px none;\n    height: 100%;\n    width: 100%;\n  }\n</style>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.canvas[data-v-754a1a56] {\n  width: calc(100vw - 500px);\n  height: 100%;\n  background-color: #fff;\n  transition: width 0.5s ease 0s;\n}\niframe.iframe[data-v-754a1a56] {\n  display: block;\n  border: 0px none;\n  height: 100%;\n  width: 100%;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/MainPanel.vue"],"names":[],"mappings":";AAoGA;EACA,0BAAA;EACA,YAAA;EACA,sBAAA;EACA,8BAAA;AACA;AACA;EACA,cAAA;EACA,gBAAA;EACA,YAAA;EACA,WAAA;AACA","sourcesContent":["<template>\n  <div\n    id=\"canvas\"\n    class=\"canvas\"\n    :style=\"{ width: canvasWidth }\"\n  >\n    <iframe\n      id=\"iframe\"\n      name=\"iframe\"\n      :src=\"iframeFilePath\"\n      class=\"iframe\"\n      @load=\"iframeLoaded\"\n    />\n  </div>\n</template>\n\n<script>\nimport Iframe from 'Editor/Iframe'\nimport layouts from 'Editor/elements/layouts'\nimport elements from 'Editor/elements/elements'\nimport Dragger from 'Editor/Dragger/Dragger'\nimport Container from 'Editor/Container'\nimport Element from 'Editor/Element'\nimport isEmpty from 'lodash/isEmpty'\nimport { emitter } from 'App/Wape'\n\nexport default {\n    name: 'MainPanel',\n    data() {\n      return {\n        iframe: Object,\n        canvasWidth: 'calc(100vw - 500px)',\n        elementHovered: Object,\n        selectedContainer: Object,\n        selectedElement: Object\n      }\n    },\n    computed: {\n      iframeFilePath() {\n        return 'iframe.html'\n      }\n    },\n    mounted() {\n      emitter.on('device-change', (args) => { //Fired from TopPanel.vue\n        this.canvasWidth = args.width\n      })\n    },\n    methods: {\n      iframeLoaded() {\n        let elemArray = []\n        for(let elem of elements) {\n          elemArray.push(...elem.elements)\n        }\n        let templates = [...layouts, ...elemArray]\n        this.iframe = new Iframe('#iframe')\n        this.dragger = new Dragger('.draggable', {\n          iframe: this.iframe,\n          templates: templates\n        })\n        this.iframe.document.documentElement.addEventListener('click', this.iframeClick, false)\n        this.iframe.document.documentElement.addEventListener('mousemove', this.iframeMouseMove, false)\n      },\n      iframeMouseMove(event) {\n        let element = event.target\n        let dontHighlightTags = ['HTML', 'BODY']\n        if(!dontHighlightTags.includes(element.tagName)) {\n          if(this.elementHovered !== element) {\n            if(!isEmpty(this.elementHovered)) {\n              this.elementHovered.removeClass('element-hovered')\n            }\n            this.elementHovered = new Element(element)\n            this.elementHovered.addClass('element-hovered')\n          }\n        }\n      },\n      iframeClick(event) {\n        let elements = this.iframe.document.elementsFromPoint(event.clientX, event.clientY)\n        let layout = elements.find((elem) => {\n            return (elem.matches('.layout'))\n        })\n        if(typeof layout !== 'undefined') {\n          if(this.selectedContainer.element !== layout) { //if we selected another container than the current one\n            if(!isEmpty(this.selectedContainer)) {\n              this.selectedContainer.removeClass('container-selected')\n            }\n            this.selectedContainer = new Container(layout)\n            this.selectedContainer.addClass('container-selected')\n            // let children = this.selectedContainer.getChildren()\n          }\n        }\n        if(!isEmpty(this.elementHovered)) {\n          this.selectedElement = this.elementHovered\n        }\n        emitter.emit('iframe-click', { container: this.selectedContainer, element: this.selectedElement })\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.canvas {\n    width: calc(100vw - 500px);\n    height: 100%;\n    background-color: #fff;\n    transition: width 0.5s ease 0s;\n  }\n  iframe.iframe {\n    display: block;\n    border: 0px none;\n    height: 100%;\n    width: 100%;\n  }\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -462,7 +662,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.right-panel[data-v-d9217e66] {\n  background-color: #454545;\n  border-top: .5px solid #000;\n  width: 15rem;\n}\ndiv.right-panel > div.actions[data-v-d9217e66] {\n  display: flex;\n  border-bottom: .5px solid #000;\n}\ndiv.right-panel > div.actions > div[data-v-d9217e66] {\n  padding: .5rem;\n  color: #fff;\n  font-size: 1.5rem;\n  cursor: pointer;\n}\ndiv.right-panel > div.actions > div.style[data-v-d9217e66]\n{\n  border-right: .5px solid #000;\n}\ndiv.right-panel > div.actions > div.setting[data-v-d9217e66]\n{\n  border-right: .5px solid #000;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/RightPanel.vue"],"names":[],"mappings":";AAwBA;EACA,yBAAA;EACA,2BAAA;EACA,YAAA;AACA;AACA;EACA,aAAA;EACA,8BAAA;AACA;AACA;EACA,cAAA;EACA,WAAA;EACA,iBAAA;EACA,eAAA;AACA;AACA;;EAEA,6BAAA;AACA;AACA;;EAEA,6BAAA;AACA","sourcesContent":["<template>\n  <div class=\"right-panel\">\n    <div class=\"actions\">\n      <div class=\"style\">\n        <i class=\"fas fa-paint-brush\" />\n      </div>\n      <div class=\"settings\">\n        <i class=\"fas fa-cog\" />\n      </div>\n    </div>\n  </div>\n</template>\n\n<script>\nexport default {\n    name: 'RightPanel',\n    mounted() {\n    },\n    methods: {\n    }\n}\n</script>\n\n<style scoped>\n    div.right-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 15rem;\n    }\n    div.right-panel > div.actions {\n      display: flex;\n      border-bottom: .5px solid #000;\n    }\n    div.right-panel > div.actions > div {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n    }\n    div.right-panel > div.actions > div.style\n    {\n      border-right: .5px solid #000;\n    }\n    div.right-panel > div.actions > div.setting\n    {\n      border-right: .5px solid #000;\n    }\n</style>\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.right-panel[data-v-d9217e66] {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n}\ndiv.right-panel > div.actions[data-v-d9217e66] {\n      display: flex;\n      border-bottom: .5px solid #000;\n}\ndiv.right-panel > div.actions > div[data-v-d9217e66] {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n}\ndiv.right-panel > div.actions > div.container[data-v-d9217e66]\n    {\n      border-right: .5px solid #000;\n}\ndiv.right-panel > div.actions > div.element[data-v-d9217e66]\n    {\n      border-right: .5px solid #000;\n}\n\n    /* Animations thanks animista.net */\n.left-enter-active[data-v-d9217e66] {\n    -webkit-animation: slide-in-left-data-v-d9217e66 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left-data-v-d9217e66 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n.right-enter-active[data-v-d9217e66] {\n  -webkit-animation: slide-in-right-data-v-d9217e66 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right-data-v-d9217e66 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n@-webkit-keyframes slide-in-left-data-v-d9217e66 {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-left-data-v-d9217e66 {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@-webkit-keyframes slide-in-right-data-v-d9217e66 {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-right-data-v-d9217e66 {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/RightPanel.vue"],"names":[],"mappings":";AAgFA;MACA,yBAAA;MACA,2BAAA;MACA,YAAA;MACA,gBAAA;AACA;AACA;MACA,aAAA;MACA,8BAAA;AACA;AACA;MACA,cAAA;MACA,WAAA;MACA,iBAAA;MACA,eAAA;AACA;AACA;;MAEA,6BAAA;AACA;AACA;;MAEA,6BAAA;AACA;;IAEA,mCAAA;AACA;IACA,mGAAA;UACA,2FAAA;AACA;AACA;;;IAGA;AACA;EACA,oGAAA;UACA,4FAAA;AACA;CACA;;;IAGA;EACA,mCAAA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA","sourcesContent":["<template>\n  <div class=\"right-panel\">\n    <div class=\"actions\">\n      <div\n        class=\"container\"\n        @click=\"switchPanel('container')\"\n      >\n        <i class=\"far fa-square\" />\n      </div>\n      <div\n        class=\"element\"\n        @click=\"switchPanel('element')\"\n      >\n        <i class=\"fas fa-square\" />\n      </div>\n    </div>\n    <transition\n      name=\"left\"\n      @after-leave=\"animationEnd\"\n    >\n      <div\n        v-if=\"(showPanel('container')) && !animating\"\n        class=\"container-settings\"\n      >\n        CONTAINER\n      </div>\n    </transition>\n\n    <transition\n      name=\"right\"\n      @after-leave=\"animationEnd\"\n    >\n      <div\n        v-if=\"(showPanel('element')) && !animating\"\n        class=\"element-settings\"\n      >\n        ELEMENT\n      </div>\n    </transition>\n  </div>\n</template>\n\n<script>\nimport { emitter } from 'App/Wape'\nimport isEmpty from 'lodash/isEmpty'\n\nexport default {\n    name: 'RightPanel',\n    data() {\n      return {\n        currentPanel: 'container',\n        animating: false,\n        selectedContainer: Object,\n        selectedElement: Object\n      }\n    },\n    mounted() {\n      emitter.on('iframe-click', (args) => { //Fired from MainPanel.vue\n        this.selectedContainer = args.container\n        this.selectedElement = args.element\n        console.log(this.selectedContainer)\n        console.log(this.selectedElement)\n      })\n    },\n    methods: {\n      switchPanel(panel) {\n        this.animating = true\n        this.currentPanel = panel\n      },\n      showPanel(panel) {\n        return (this.currentPanel === panel)\n      },\n      animationEnd() {\n        this.animating = false\n      }\n    }\n}\n</script>\n\n<style scoped>\n    div.right-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n    }\n    div.right-panel > div.actions {\n      display: flex;\n      border-bottom: .5px solid #000;\n    }\n    div.right-panel > div.actions > div {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n    }\n    div.right-panel > div.actions > div.container\n    {\n      border-right: .5px solid #000;\n    }\n    div.right-panel > div.actions > div.element\n    {\n      border-right: .5px solid #000;\n    }\n\n    /* Animations thanks animista.net */\n  .left-enter-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  .right-enter-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n  @-webkit-keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @-webkit-keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -484,30 +684,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.top-panel[data-v-19eda8f4] {\n    align-items: center;\n    background: #454545;\n    display: flex;\n    height: 3.5rem;\n}\ndiv.top-panel > div.logo[data-v-19eda8f4] {\n  align-items: center;\n  border-right: 0.7px solid #000;\n  color: #fff;\n  display: flex;\n  font-size: 2rem;\n  padding: 0 .5rem;\n  height: 100%;\n}\ndiv.top-panel > div.devices[data-v-19eda8f4] {\n  display: flex;\n  flex-grow: 1;\n  justify-content: center;\n  height: 100%;\n}\ndiv.top-panel > div.actions[data-v-19eda8f4] {\n  display: flex;\n  justify-content: center;\n  height: 100%;\n}\ndiv.top-panel > div.devices > div[data-v-19eda8f4],\ndiv.top-panel > div.actions > div[data-v-19eda8f4] {\n  align-items: center;\n  color: #fff;\n  cursor: pointer;\n  display: flex;\n  justify-content: center;\n  font-size: 1.5rem;\n  width: 3rem;\n}\ndiv.top-panel > div.devices > div.desktop[data-v-19eda8f4],\ndiv.top-panel > div.actions > div.undo[data-v-19eda8f4]\n{\n  border-left: .5px solid #000;\n}\ndiv.top-panel > div.devices > div.tablet[data-v-19eda8f4],\ndiv.top-panel > div.actions > div.redo[data-v-19eda8f4]\n{\n  border-left: .5px solid #000;\n  border-right: .5px solid #000;\n}\ndiv.top-panel > div.devices > div.mobile[data-v-19eda8f4],\ndiv.top-panel > div.actions > div.code[data-v-19eda8f4]\n{\n  border-right: .5px solid #000;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/TopPanel.vue"],"names":[],"mappings":";AA4CA;IACA,mBAAA;IACA,mBAAA;IACA,aAAA;IACA,cAAA;AACA;AACA;EACA,mBAAA;EACA,8BAAA;EACA,WAAA;EACA,aAAA;EACA,eAAA;EACA,gBAAA;EACA,YAAA;AACA;AACA;EACA,aAAA;EACA,YAAA;EACA,uBAAA;EACA,YAAA;AACA;AACA;EACA,aAAA;EACA,uBAAA;EACA,YAAA;AACA;AACA;;EAEA,mBAAA;EACA,WAAA;EACA,eAAA;EACA,aAAA;EACA,uBAAA;EACA,iBAAA;EACA,WAAA;AACA;AACA;;;EAGA,4BAAA;AACA;AACA;;;EAGA,4BAAA;EACA,6BAAA;AACA;AACA;;;EAGA,6BAAA;AACA","sourcesContent":["<template>\n  <div class=\"top-panel\">\n    <div class=\"logo\">\n      <i class=\"fab fa-weebly\" />\n    </div>\n    <div class=\"devices\">\n      <div class=\"desktop\">\n        <i class=\"fas fa-desktop\" />\n      </div>\n      <div class=\"tablet\">\n        <i class=\"fas fa-tablet-alt\" />\n      </div>\n      <div class=\"mobile\">\n        <i class=\"fas fa-mobile-alt\" />\n      </div>\n    </div>\n    <div class=\"actions\">\n      <div class=\"undo\">\n        <i class=\"fas fa-undo\" />\n      </div>\n      <div class=\"redo\">\n        <i class=\"fas fa-redo\" />\n      </div>\n      <div class=\"code\">\n        <i class=\"fas fa-code\" />\n      </div>\n      <div class=\"save\">\n        <i class=\"far fa-save\" />\n      </div>\n    </div>\n  </div>\n</template>\n\n<script>\nexport default {\n    name: 'TopPanel',\n    mounted() {\n    },\n    methods: {\n    }\n}\n</script>\n\n<style scoped>\n    div.top-panel {\n        align-items: center;\n        background: #454545;\n        display: flex;\n        height: 3.5rem;\n    }\n    div.top-panel > div.logo {\n      align-items: center;\n      border-right: 0.7px solid #000;\n      color: #fff;\n      display: flex;\n      font-size: 2rem;\n      padding: 0 .5rem;\n      height: 100%;\n    }\n    div.top-panel > div.devices {\n      display: flex;\n      flex-grow: 1;\n      justify-content: center;\n      height: 100%;\n    }\n    div.top-panel > div.actions {\n      display: flex;\n      justify-content: center;\n      height: 100%;\n    }\n    div.top-panel > div.devices > div,\n    div.top-panel > div.actions > div {\n      align-items: center;\n      color: #fff;\n      cursor: pointer;\n      display: flex;\n      justify-content: center;\n      font-size: 1.5rem;\n      width: 3rem;\n    }\n    div.top-panel > div.devices > div.desktop,\n    div.top-panel > div.actions > div.undo\n    {\n      border-left: .5px solid #000;\n    }\n    div.top-panel > div.devices > div.tablet,\n    div.top-panel > div.actions > div.redo\n    {\n      border-left: .5px solid #000;\n      border-right: .5px solid #000;\n    }\n    div.top-panel > div.devices > div.mobile,\n    div.top-panel > div.actions > div.code\n    {\n      border-right: .5px solid #000;\n    }\n</style>\n"],"sourceRoot":""}]);
-// Exports
-/* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js!./src/app/styles/main.css":
-/*!***********************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./src/app/styles/main.css ***!
-  \***********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-// Imports
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(true);
-___CSS_LOADER_EXPORT___.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300&display=swap);"]);
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, " body {\n    margin: 0;\n    font-family: 'Roboto Condensed', sans-serif;\n}\n", "",{"version":3,"sources":["webpack://src/app/styles/main.css"],"names":[],"mappings":"CACA;IACI,SAAS;IACT,2CAA2C;AAC/C","sourcesContent":[" @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300&display=swap');\nbody {\n    margin: 0;\n    font-family: 'Roboto Condensed', sans-serif;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.i, "\ndiv.top-panel[data-v-19eda8f4] {\n    align-items: center;\n    background: #454545;\n    display: flex;\n    height: 3.5rem;\n}\ndiv.top-panel > div.logo[data-v-19eda8f4] {\n  align-items: center;\n  border-right: 0.7px solid #000;\n  color: #fff;\n  display: flex;\n  font-size: 2rem;\n  padding: 0 .5rem;\n  height: 100%;\n}\ndiv.top-panel > div.devices[data-v-19eda8f4] {\n  display: flex;\n  flex-grow: 1;\n  justify-content: center;\n  height: 100%;\n}\ndiv.top-panel > div.actions[data-v-19eda8f4] {\n  display: flex;\n  justify-content: center;\n  height: 100%;\n}\ndiv.top-panel > div.devices > div[data-v-19eda8f4],\ndiv.top-panel > div.actions > div[data-v-19eda8f4] {\n  align-items: center;\n  color: #fff;\n  cursor: pointer;\n  display: flex;\n  justify-content: center;\n  font-size: 1.5rem;\n  width: 3rem;\n}\ndiv.top-panel > div.devices > div.desktop[data-v-19eda8f4],\ndiv.top-panel > div.actions > div.undo[data-v-19eda8f4]\n{\n  border-left: .5px solid #000;\n}\ndiv.top-panel > div.devices > div.tablet[data-v-19eda8f4],\ndiv.top-panel > div.actions > div.redo[data-v-19eda8f4]\n{\n  border-left: .5px solid #000;\n  border-right: .5px solid #000;\n}\ndiv.top-panel > div.devices > div.mobile[data-v-19eda8f4],\ndiv.top-panel > div.actions > div.code[data-v-19eda8f4]\n{\n  border-right: .5px solid #000;\n}\n", "",{"version":3,"sources":["webpack://src/editor/components/layout/TopPanel.vue"],"names":[],"mappings":";AA2DA;IACA,mBAAA;IACA,mBAAA;IACA,aAAA;IACA,cAAA;AACA;AACA;EACA,mBAAA;EACA,8BAAA;EACA,WAAA;EACA,aAAA;EACA,eAAA;EACA,gBAAA;EACA,YAAA;AACA;AACA;EACA,aAAA;EACA,YAAA;EACA,uBAAA;EACA,YAAA;AACA;AACA;EACA,aAAA;EACA,uBAAA;EACA,YAAA;AACA;AACA;;EAEA,mBAAA;EACA,WAAA;EACA,eAAA;EACA,aAAA;EACA,uBAAA;EACA,iBAAA;EACA,WAAA;AACA;AACA;;;EAGA,4BAAA;AACA;AACA;;;EAGA,4BAAA;EACA,6BAAA;AACA;AACA;;;EAGA,6BAAA;AACA","sourcesContent":["<template>\n  <div class=\"top-panel\">\n    <div class=\"logo\">\n      <i class=\"fab fa-weebly\" />\n    </div>\n    <div class=\"devices\">\n      <div\n        class=\"desktop\"\n        @click=\"changeDevice('desktop')\"\n      >\n        <i class=\"fas fa-desktop\" />\n      </div>\n      <div\n        class=\"tablet\"\n        @click=\"changeDevice('tablet')\"\n      >\n        <i class=\"fas fa-tablet-alt\" />\n      </div>\n      <div\n        class=\"mobile\"\n        @click=\"changeDevice('mobile')\"\n      >\n        <i class=\"fas fa-mobile-alt\" />\n      </div>\n    </div>\n    <div class=\"actions\">\n      <div class=\"undo\">\n        <i class=\"fas fa-undo\" />\n      </div>\n      <div class=\"redo\">\n        <i class=\"fas fa-redo\" />\n      </div>\n      <div class=\"code\">\n        <i class=\"fas fa-code\" />\n      </div>\n      <div class=\"save\">\n        <i class=\"far fa-save\" />\n      </div>\n    </div>\n  </div>\n</template>\n\n<script>\nimport { medias } from 'App/config/editor'\nimport { emitter } from 'App/Wape'\n\nexport default {\n    name: 'TopPanel',\n    mounted() {\n    },\n    methods: {\n      changeDevice(deviceName) {\n        emitter.emit('device-change', { width: medias[deviceName].width })\n      }\n    }\n}\n</script>\n\n<style scoped>\n    div.top-panel {\n        align-items: center;\n        background: #454545;\n        display: flex;\n        height: 3.5rem;\n    }\n    div.top-panel > div.logo {\n      align-items: center;\n      border-right: 0.7px solid #000;\n      color: #fff;\n      display: flex;\n      font-size: 2rem;\n      padding: 0 .5rem;\n      height: 100%;\n    }\n    div.top-panel > div.devices {\n      display: flex;\n      flex-grow: 1;\n      justify-content: center;\n      height: 100%;\n    }\n    div.top-panel > div.actions {\n      display: flex;\n      justify-content: center;\n      height: 100%;\n    }\n    div.top-panel > div.devices > div,\n    div.top-panel > div.actions > div {\n      align-items: center;\n      color: #fff;\n      cursor: pointer;\n      display: flex;\n      justify-content: center;\n      font-size: 1.5rem;\n      width: 3rem;\n    }\n    div.top-panel > div.devices > div.desktop,\n    div.top-panel > div.actions > div.undo\n    {\n      border-left: .5px solid #000;\n    }\n    div.top-panel > div.devices > div.tablet,\n    div.top-panel > div.actions > div.redo\n    {\n      border-left: .5px solid #000;\n      border-right: .5px solid #000;\n    }\n    div.top-panel > div.devices > div.mobile,\n    div.top-panel > div.actions > div.code\n    {\n      border-right: .5px solid #000;\n    }\n</style>\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -1419,210 +1596,6 @@ module.exports = toSource;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/debounce.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/debounce.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
-    now = __webpack_require__(/*! ./now */ "./node_modules/lodash/now.js"),
-    toNumber = __webpack_require__(/*! ./toNumber */ "./node_modules/lodash/toNumber.js");
-/** Error message constants. */
-
-
-var FUNC_ERROR_TEXT = 'Expected a function';
-/* Built-in method references for those with the same name as other `lodash` methods. */
-
-var nativeMax = Math.max,
-    nativeMin = Math.min;
-/**
- * Creates a debounced function that delays invoking `func` until after `wait`
- * milliseconds have elapsed since the last time the debounced function was
- * invoked. The debounced function comes with a `cancel` method to cancel
- * delayed `func` invocations and a `flush` method to immediately invoke them.
- * Provide `options` to indicate whether `func` should be invoked on the
- * leading and/or trailing edge of the `wait` timeout. The `func` is invoked
- * with the last arguments provided to the debounced function. Subsequent
- * calls to the debounced function return the result of the last `func`
- * invocation.
- *
- * **Note:** If `leading` and `trailing` options are `true`, `func` is
- * invoked on the trailing edge of the timeout only if the debounced function
- * is invoked more than once during the `wait` timeout.
- *
- * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
- * until to the next tick, similar to `setTimeout` with a timeout of `0`.
- *
- * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
- * for details over the differences between `_.debounce` and `_.throttle`.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Function
- * @param {Function} func The function to debounce.
- * @param {number} [wait=0] The number of milliseconds to delay.
- * @param {Object} [options={}] The options object.
- * @param {boolean} [options.leading=false]
- *  Specify invoking on the leading edge of the timeout.
- * @param {number} [options.maxWait]
- *  The maximum time `func` is allowed to be delayed before it's invoked.
- * @param {boolean} [options.trailing=true]
- *  Specify invoking on the trailing edge of the timeout.
- * @returns {Function} Returns the new debounced function.
- * @example
- *
- * // Avoid costly calculations while the window size is in flux.
- * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
- *
- * // Invoke `sendMail` when clicked, debouncing subsequent calls.
- * jQuery(element).on('click', _.debounce(sendMail, 300, {
- *   'leading': true,
- *   'trailing': false
- * }));
- *
- * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
- * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
- * var source = new EventSource('/stream');
- * jQuery(source).on('message', debounced);
- *
- * // Cancel the trailing debounced invocation.
- * jQuery(window).on('popstate', debounced.cancel);
- */
-
-function debounce(func, wait, options) {
-  var lastArgs,
-      lastThis,
-      maxWait,
-      result,
-      timerId,
-      lastCallTime,
-      lastInvokeTime = 0,
-      leading = false,
-      maxing = false,
-      trailing = true;
-
-  if (typeof func != 'function') {
-    throw new TypeError(FUNC_ERROR_TEXT);
-  }
-
-  wait = toNumber(wait) || 0;
-
-  if (isObject(options)) {
-    leading = !!options.leading;
-    maxing = 'maxWait' in options;
-    maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
-    trailing = 'trailing' in options ? !!options.trailing : trailing;
-  }
-
-  function invokeFunc(time) {
-    var args = lastArgs,
-        thisArg = lastThis;
-    lastArgs = lastThis = undefined;
-    lastInvokeTime = time;
-    result = func.apply(thisArg, args);
-    return result;
-  }
-
-  function leadingEdge(time) {
-    // Reset any `maxWait` timer.
-    lastInvokeTime = time; // Start the timer for the trailing edge.
-
-    timerId = setTimeout(timerExpired, wait); // Invoke the leading edge.
-
-    return leading ? invokeFunc(time) : result;
-  }
-
-  function remainingWait(time) {
-    var timeSinceLastCall = time - lastCallTime,
-        timeSinceLastInvoke = time - lastInvokeTime,
-        timeWaiting = wait - timeSinceLastCall;
-    return maxing ? nativeMin(timeWaiting, maxWait - timeSinceLastInvoke) : timeWaiting;
-  }
-
-  function shouldInvoke(time) {
-    var timeSinceLastCall = time - lastCallTime,
-        timeSinceLastInvoke = time - lastInvokeTime; // Either this is the first call, activity has stopped and we're at the
-    // trailing edge, the system time has gone backwards and we're treating
-    // it as the trailing edge, or we've hit the `maxWait` limit.
-
-    return lastCallTime === undefined || timeSinceLastCall >= wait || timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
-  }
-
-  function timerExpired() {
-    var time = now();
-
-    if (shouldInvoke(time)) {
-      return trailingEdge(time);
-    } // Restart the timer.
-
-
-    timerId = setTimeout(timerExpired, remainingWait(time));
-  }
-
-  function trailingEdge(time) {
-    timerId = undefined; // Only invoke if we have `lastArgs` which means `func` has been
-    // debounced at least once.
-
-    if (trailing && lastArgs) {
-      return invokeFunc(time);
-    }
-
-    lastArgs = lastThis = undefined;
-    return result;
-  }
-
-  function cancel() {
-    if (timerId !== undefined) {
-      clearTimeout(timerId);
-    }
-
-    lastInvokeTime = 0;
-    lastArgs = lastCallTime = lastThis = timerId = undefined;
-  }
-
-  function flush() {
-    return timerId === undefined ? result : trailingEdge(now());
-  }
-
-  function debounced() {
-    var time = now(),
-        isInvoking = shouldInvoke(time);
-    lastArgs = arguments;
-    lastThis = this;
-    lastCallTime = time;
-
-    if (isInvoking) {
-      if (timerId === undefined) {
-        return leadingEdge(lastCallTime);
-      }
-
-      if (maxing) {
-        // Handle invocations in a tight loop.
-        clearTimeout(timerId);
-        timerId = setTimeout(timerExpired, wait);
-        return invokeFunc(lastCallTime);
-      }
-    }
-
-    if (timerId === undefined) {
-      timerId = setTimeout(timerExpired, wait);
-    }
-
-    return result;
-  }
-
-  debounced.cancel = cancel;
-  debounced.flush = flush;
-  return debounced;
-}
-
-module.exports = debounce;
-
-/***/ }),
-
 /***/ "./node_modules/lodash/isArguments.js":
 /*!********************************************!*\
   !*** ./node_modules/lodash/isArguments.js ***!
@@ -2070,47 +2043,6 @@ module.exports = isObjectLike;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/isSymbol.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/isSymbol.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
-    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
-/** `Object#toString` result references. */
-
-
-var symbolTag = '[object Symbol]';
-/**
- * Checks if `value` is classified as a `Symbol` primitive or object.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
- * @example
- *
- * _.isSymbol(Symbol.iterator);
- * // => true
- *
- * _.isSymbol('abc');
- * // => false
- */
-
-function isSymbol(value) {
-  return _typeof(value) == 'symbol' || isObjectLike(value) && baseGetTag(value) == symbolTag;
-}
-
-module.exports = isSymbol;
-
-/***/ }),
-
 /***/ "./node_modules/lodash/isTypedArray.js":
 /*!*********************************************!*\
   !*** ./node_modules/lodash/isTypedArray.js ***!
@@ -2148,40 +2080,6 @@ module.exports = isTypedArray;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/now.js":
-/*!************************************!*\
-  !*** ./node_modules/lodash/now.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
-/**
- * Gets the timestamp of the number of milliseconds that have elapsed since
- * the Unix epoch (1 January 1970 00:00:00 UTC).
- *
- * @static
- * @memberOf _
- * @since 2.4.0
- * @category Date
- * @returns {number} Returns the timestamp.
- * @example
- *
- * _.defer(function(stamp) {
- *   console.log(_.now() - stamp);
- * }, _.now());
- * // => Logs the number of milliseconds it took for the deferred invocation.
- */
-
-
-var now = function now() {
-  return root.Date.now();
-};
-
-module.exports = now;
-
-/***/ }),
-
 /***/ "./node_modules/lodash/stubFalse.js":
 /*!******************************************!*\
   !*** ./node_modules/lodash/stubFalse.js ***!
@@ -2210,82 +2108,35 @@ module.exports = stubFalse;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/toNumber.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/toNumber.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/mitt/dist/mitt.es.js":
+/*!*******************************************!*\
+  !*** ./node_modules/mitt/dist/mitt.es.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
-    isSymbol = __webpack_require__(/*! ./isSymbol */ "./node_modules/lodash/isSymbol.js");
-/** Used as references for various `Number` constants. */
-
-
-var NAN = 0 / 0;
-/** Used to match leading and trailing whitespace. */
-
-var reTrim = /^\s+|\s+$/g;
-/** Used to detect bad signed hexadecimal string values. */
-
-var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
-/** Used to detect binary string values. */
-
-var reIsBinary = /^0b[01]+$/i;
-/** Used to detect octal string values. */
-
-var reIsOctal = /^0o[0-7]+$/i;
-/** Built-in method references without a dependency on `root`. */
-
-var freeParseInt = parseInt;
-/**
- * Converts `value` to a number.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to process.
- * @returns {number} Returns the number.
- * @example
- *
- * _.toNumber(3.2);
- * // => 3.2
- *
- * _.toNumber(Number.MIN_VALUE);
- * // => 5e-324
- *
- * _.toNumber(Infinity);
- * // => Infinity
- *
- * _.toNumber('3.2');
- * // => 3.2
- */
-
-function toNumber(value) {
-  if (typeof value == 'number') {
-    return value;
-  }
-
-  if (isSymbol(value)) {
-    return NAN;
-  }
-
-  if (isObject(value)) {
-    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
-    value = isObject(other) ? other + '' : other;
-  }
-
-  if (typeof value != 'string') {
-    return value === 0 ? value : +value;
-  }
-
-  value = value.replace(reTrim, '');
-  var isBinary = reIsBinary.test(value);
-  return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
-}
-
-module.exports = toNumber;
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (function (n) {
+  return {
+    all: n = n || new Map(),
+    on: function on(t, e) {
+      var i = n.get(t);
+      i && i.push(e) || n.set(t, [e]);
+    },
+    off: function off(t, e) {
+      var i = n.get(t);
+      i && i.splice(i.indexOf(e) >>> 0, 1);
+    },
+    emit: function emit(t, e) {
+      (n.get(t) || []).slice().map(function (n) {
+        n(e);
+      }), (n.get("*") || []).slice().map(function (n) {
+        n(t, e);
+      });
+    }
+  };
+});
 
 /***/ }),
 
@@ -2864,35 +2715,6 @@ module.exports = content.locals || {};
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./src/app/styles/main.css":
-/*!***************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./src/app/styles/main.css ***!
-  \***************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var api = __webpack_require__(/*! ../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
-            var content = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js!./main.css */ "./node_modules/css-loader/dist/cjs.js!./src/app/styles/main.css");
-
-            content = content.__esModule ? content.default : content;
-
-            if (typeof content === 'string') {
-              content = [[module.i, content, '']];
-            }
-
-var options = {};
-
-options.insert = "head";
-options.singleton = false;
-
-var update = api(content, options);
-
-
-
-module.exports = content.locals || {};
-
-/***/ }),
-
 /***/ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
 /*!****************************************************************************!*\
   !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
@@ -3269,7 +3091,7 @@ var render = function() {
         [
           _c("LeftPanel"),
           _vm._v(" "),
-          _c("div", { staticClass: "canvas" }, [_c("MainPanel")], 1),
+          _c("MainPanel"),
           _vm._v(" "),
           _c("RightPanel")
         ],
@@ -3341,29 +3163,80 @@ var render = function() {
             ? _c(
                 "div",
                 { staticClass: "add-element" },
-                _vm._l(_vm.templates, function(template) {
-                  return _c(
-                    "div",
-                    {
-                      key: template.id,
-                      staticClass: "elem",
-                      attrs: { draggable: "true" },
-                      on: {
-                        dragstart: function($event) {
-                          return _vm.dragStart(template)
-                        }
-                      }
-                    },
-                    [
-                      _c("i", { class: template.icon }),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "elem-title" }, [
-                        _vm._v(_vm._s(template.title))
-                      ])
-                    ]
-                  )
-                }),
-                0
+                [
+                  _c("div", { staticClass: "layout-wrapper" }, [
+                    _c("div", { staticClass: "layout-category" }, [
+                      _vm._v("\n          Layouts\n        ")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "layouts" },
+                      _vm._l(_vm.layouts, function(layout) {
+                        return _c(
+                          "div",
+                          {
+                            key: layout.id,
+                            staticClass: "layout draggable",
+                            attrs: { "data-id": layout.id }
+                          },
+                          [
+                            _c("i", { class: layout.icon }),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "elem-title" }, [
+                              _vm._v(_vm._s(layout.title))
+                            ])
+                          ]
+                        )
+                      }),
+                      0
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.elements, function(element) {
+                    return _c(
+                      "div",
+                      {
+                        key: element.id,
+                        staticClass: "element-wrapper",
+                        attrs: { "data-id": element.id }
+                      },
+                      [
+                        _c("div", { staticClass: "element-category" }, [
+                          _vm._v(
+                            "\n          " +
+                              _vm._s(element.title) +
+                              "\n        "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "elements" },
+                          _vm._l(element.elements, function(elem) {
+                            return _c(
+                              "div",
+                              {
+                                key: elem.id,
+                                staticClass: "elem draggable",
+                                attrs: { "data-id": elem.id }
+                              },
+                              [
+                                _c("i", { class: elem.icon }),
+                                _vm._v(" "),
+                                _c("span", { staticClass: "elem-title" }, [
+                                  _vm._v(_vm._s(elem.title))
+                                ])
+                              ]
+                            )
+                          }),
+                          0
+                        )
+                      ]
+                    )
+                  })
+                ],
+                2
               )
             : _vm._e()
         ]
@@ -3406,11 +3279,21 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("iframe", {
-    staticClass: "iframe",
-    attrs: { id: "iframe", name: "iframe", src: _vm.iframeFilePath },
-    on: { load: _vm.iframeLoaded }
-  })
+  return _c(
+    "div",
+    {
+      staticClass: "canvas",
+      style: { width: _vm.canvasWidth },
+      attrs: { id: "canvas" }
+    },
+    [
+      _c("iframe", {
+        staticClass: "iframe",
+        attrs: { id: "iframe", name: "iframe", src: _vm.iframeFilePath },
+        on: { load: _vm.iframeLoaded }
+      })
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -3434,26 +3317,66 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "right-panel" }, [
+  return _c(
+    "div",
+    { staticClass: "right-panel" },
+    [
       _c("div", { staticClass: "actions" }, [
-        _c("div", { staticClass: "style" }, [
-          _c("i", { staticClass: "fas fa-paint-brush" })
-        ]),
+        _c(
+          "div",
+          {
+            staticClass: "container",
+            on: {
+              click: function($event) {
+                return _vm.switchPanel("container")
+              }
+            }
+          },
+          [_c("i", { staticClass: "far fa-square" })]
+        ),
         _vm._v(" "),
-        _c("div", { staticClass: "settings" }, [
-          _c("i", { staticClass: "fas fa-cog" })
-        ])
-      ])
-    ])
-  }
-]
+        _c(
+          "div",
+          {
+            staticClass: "element",
+            on: {
+              click: function($event) {
+                return _vm.switchPanel("element")
+              }
+            }
+          },
+          [_c("i", { staticClass: "fas fa-square" })]
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "transition",
+        { attrs: { name: "left" }, on: { "after-leave": _vm.animationEnd } },
+        [
+          _vm.showPanel("container") && !_vm.animating
+            ? _c("div", { staticClass: "container-settings" }, [
+                _vm._v("\n      CONTAINER\n    ")
+              ])
+            : _vm._e()
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "transition",
+        { attrs: { name: "right" }, on: { "after-leave": _vm.animationEnd } },
+        [
+          _vm.showPanel("element") && !_vm.animating
+            ? _c("div", { staticClass: "element-settings" }, [
+                _vm._v("\n      ELEMENT\n    ")
+              ])
+            : _vm._e()
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -3475,48 +3398,81 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "top-panel" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "devices" }, [
+      _c(
+        "div",
+        {
+          staticClass: "desktop",
+          on: {
+            click: function($event) {
+              return _vm.changeDevice("desktop")
+            }
+          }
+        },
+        [_c("i", { staticClass: "fas fa-desktop" })]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "tablet",
+          on: {
+            click: function($event) {
+              return _vm.changeDevice("tablet")
+            }
+          }
+        },
+        [_c("i", { staticClass: "fas fa-tablet-alt" })]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "mobile",
+          on: {
+            click: function($event) {
+              return _vm.changeDevice("mobile")
+            }
+          }
+        },
+        [_c("i", { staticClass: "fas fa-mobile-alt" })]
+      )
+    ]),
+    _vm._v(" "),
+    _vm._m(1)
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "top-panel" }, [
-      _c("div", { staticClass: "logo" }, [
-        _c("i", { staticClass: "fab fa-weebly" })
+    return _c("div", { staticClass: "logo" }, [
+      _c("i", { staticClass: "fab fa-weebly" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "actions" }, [
+      _c("div", { staticClass: "undo" }, [
+        _c("i", { staticClass: "fas fa-undo" })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "devices" }, [
-        _c("div", { staticClass: "desktop" }, [
-          _c("i", { staticClass: "fas fa-desktop" })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "tablet" }, [
-          _c("i", { staticClass: "fas fa-tablet-alt" })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "mobile" }, [
-          _c("i", { staticClass: "fas fa-mobile-alt" })
-        ])
+      _c("div", { staticClass: "redo" }, [
+        _c("i", { staticClass: "fas fa-redo" })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "actions" }, [
-        _c("div", { staticClass: "undo" }, [
-          _c("i", { staticClass: "fas fa-undo" })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "redo" }, [
-          _c("i", { staticClass: "fas fa-redo" })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "code" }, [
-          _c("i", { staticClass: "fas fa-code" })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "save" }, [
-          _c("i", { staticClass: "far fa-save" })
-        ])
+      _c("div", { staticClass: "code" }, [
+        _c("i", { staticClass: "fas fa-code" })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "save" }, [
+        _c("i", { staticClass: "far fa-save" })
       ])
     ])
   }
@@ -12524,13 +12480,15 @@ module.exports = function (module) {
 /*!*************************!*\
   !*** ./src/app/Wape.js ***!
   \*************************/
-/*! exports provided: default */
+/*! exports provided: emitter, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emitter", function() { return emitter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Wape; });
 /* harmony import */ var Editor_Editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Editor/Editor */ "./src/editor/Editor.js");
+/* harmony import */ var mitt__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! mitt */ "./node_modules/mitt/dist/mitt.es.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -12538,6 +12496,8 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 
+
+var emitter = Object(mitt__WEBPACK_IMPORTED_MODULE_1__["default"])();
 
 var Wape = /*#__PURE__*/function () {
   function Wape(options) {
@@ -12561,6 +12521,31 @@ var Wape = /*#__PURE__*/function () {
 
 /***/ }),
 
+/***/ "./src/app/config/editor.js":
+/*!**********************************!*\
+  !*** ./src/app/config/editor.js ***!
+  \**********************************/
+/*! exports provided: medias */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "medias", function() { return medias; });
+var medias = {
+  desktop: {
+    width: 'calc(100vw - 500px)'
+  },
+  tablet: {
+    width: '768px'
+  },
+  mobile: {
+    width: '375px'
+  }
+};
+
+
+/***/ }),
+
 /***/ "./src/app/index.js":
 /*!**************************!*\
   !*** ./src/app/index.js ***!
@@ -12571,10 +12556,8 @@ var Wape = /*#__PURE__*/function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Wape__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Wape */ "./src/app/Wape.js");
-/* harmony import */ var _styles_main_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles/main.css */ "./src/app/styles/main.css");
-/* harmony import */ var _styles_main_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_styles_main_css__WEBPACK_IMPORTED_MODULE_1__);
-
- // function wape(options) {
+ // import './styles/main.css'
+// function wape(options) {
 //     editor.init(options)
 // }
 
@@ -12582,57 +12565,402 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/app/styles/main.css":
+/***/ "./src/editor/Container.js":
 /*!*********************************!*\
-  !*** ./src/app/styles/main.css ***!
+  !*** ./src/editor/Container.js ***!
   \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(/*! !../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js!./main.css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./src/app/styles/main.css");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__(/*! ../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
-var update = add("779a5066", content, false, {});
-// Hot Module Replacement
-if(false) {}
-
-/***/ }),
-
-/***/ "./src/editor/Drag.js":
-/*!****************************!*\
-  !*** ./src/editor/Drag.js ***!
-  \****************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Drag; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Container; });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Drag = /*#__PURE__*/function () {
-  function Drag(elem) {
-    _classCallCheck(this, Drag);
+var Container = /*#__PURE__*/function () {
+  function Container(element) {
+    _classCallCheck(this, Container);
 
-    this.element = elem, // Object coming from templates.js beind dragged
-    this.domElem = this.convertToDomElement(elem); // Dragged elem .content (html string) property converted to dom element with DomParser()
-    // this.event = Object, // Event object from dragstart event in LeftPanel.vue
+    this.element = element; // html element
+  } // get element() {
+  //     return this.element
+  // }
+  // set element(element) {
+  //     this.element = element
+  // }
+
+
+  _createClass(Container, [{
+    key: "addClass",
+    value: function addClass(cssClass) {
+      this.element.classList.add(cssClass);
+    }
+  }, {
+    key: "removeClass",
+    value: function removeClass(cssClass) {
+      this.element.classList.remove(cssClass);
+    }
+  }, {
+    key: "getChildren",
+    value: function getChildren() {
+      return this.element.children;
+    }
+  }]);
+
+  return Container;
+}();
+
+
+
+/***/ }),
+
+/***/ "./src/editor/Dragger/Dragger.js":
+/*!***************************************!*\
+  !*** ./src/editor/Dragger/Dragger.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Dragger; });
+/* harmony import */ var mitt__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mitt */ "./node_modules/mitt/dist/mitt.es.js");
+/* harmony import */ var _Event__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Event */ "./src/editor/Dragger/Event.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+ // export const emitter = mitt()
+
+var Dragger = /*#__PURE__*/function () {
+  function Dragger(draggableSelector) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    _classCallCheck(this, Dragger);
+
+    this.draggableSelector = draggableSelector; //.draggable
+
+    this.options = options;
+    this.clone = Object;
+    this.innerX = Number;
+    this.innerY = Number;
+    this.htmlTag = document.documentElement; // main html tag
+
+    this.moveFunc = Object; //Used to save the reference to move function with 'this' context (class) binded
+
+    this.objectDragged = null; //Object from element.js or layout.js being dragged
+
+    this.elementDragged = null; //.content key of this.objectDragged transformed to dom element
+
+    this.currentElementBehindCursor = null; //Element behind cursor while dragging
+
+    this.containerHovered = null; //container behind cursor while dragging an element
+
+    this.overlay = null; //Used to be appended over iframe to preserve the mousemove event
+
+    this.currentAppendIndex = 0; // this.gridIsFilled = false
+
+    this.containers = [];
+    this.gridLayout = Object;
+    this.events();
   }
 
-  _createClass(Drag, [{
+  _createClass(Dragger, [{
+    key: "events",
+    value: function events() {
+      var events = [// maybe load this from external file
+      {
+        type: 'mousedown',
+        func: this.grab
+      }, {
+        type: 'mouseup',
+        func: this.drop
+      }];
+
+      for (var _i = 0, _events = events; _i < _events.length; _i++) {
+        event = _events[_i];
+        var func = event.func.bind(this);
+        this.htmlTag.addEventListener(event.type, func, false);
+      }
+    }
+  }, {
+    key: "grab",
+    value: function grab(event) {
+      var grabbedElement = this.getDraggable(event.target, this.draggableSelector);
+
+      if (grabbedElement !== null) {
+        //Append overlay with z-index over iframe to prevent mousemove not beeing fired
+        this.overlay = document.createElement('div');
+        this.overlay.classList.add('overlay');
+        document.getElementById('canvas').prepend(this.overlay);
+        this.objectDragged = this.getTemplateFromId(grabbedElement.dataset.id);
+        this.elementDragged = this.convertToDomElement(this.objectDragged.content);
+
+        if (this.isGrid(this.elementDragged)) {
+          this.gridLayout = {
+            cols: this.countGridCols(this.elementDragged),
+            rows: this.countGridRows(this.elementDragged),
+            isFull: false,
+            appendIndex: this.getAppendIndex(this.elementDragged)
+          };
+        }
+
+        this.createClone(grabbedElement, event);
+      }
+    }
+  }, {
+    key: "move",
+    value: function move(event) {
+      var xPos,
+          yPos = 0;
+      xPos = event.clientX - this.innerX;
+      yPos = event.clientY - this.innerY;
+      this.clone.style.left = "".concat(xPos, "px");
+      this.clone.style.top = "".concat(yPos, "px");
+      this.renderShadowElement(event);
+    }
+  }, {
+    key: "drop",
+    value: function drop(event) {
+      this.htmlTag.removeEventListener('mousemove', this.moveFunc, false);
+
+      if (this.elementDragged === null) {
+        return false;
+      }
+
+      this.clone.remove();
+
+      if (this.elementExistsInContainer(this.options.iframe.document.body, this.elementDragged)) {
+        if (this.isGrid(this.elementDragged)) {
+          var totalChilds = (this.gridLayout.cols !== 0 ? this.gridLayout.cols : 1) * (this.gridLayout.rows !== 0 ? this.gridLayout.rows : 1);
+          this.createElementAndAppend('div', this.elementDragged, totalChilds, 'grid-placeholder');
+        }
+
+        if (this.isLayout(this.objectDragged)) {
+          //Store new container in global containers list
+          this.containers.push(this.elementDragged);
+        }
+      }
+
+      this.objectDragged = null;
+      this.elementDragged.classList.remove('shadow-elem');
+      this.elementDragged = null;
+
+      if (this.containerHovered !== null) {
+        this.containerHovered.classList.remove('container-hovered');
+        this.currentAppendIndex++;
+        this.containerHovered = null;
+      }
+
+      if (this.overlay !== null) {
+        this.overlay.remove();
+        this.overlay = null;
+      }
+    }
+  }, {
+    key: "getDraggable",
+    value: function getDraggable(element, draggableSelector) {
+      if (element.matches(draggableSelector)) {
+        return element;
+      } else {
+        var tryToFindElem = element.closest(draggableSelector);
+
+        if (tryToFindElem !== null) {
+          return tryToFindElem;
+        } else {
+          return null;
+        }
+      }
+    }
+  }, {
+    key: "createClone",
+    value: function createClone(grabbedElem, event) {
+      this.clone = grabbedElem.cloneNode(true);
+      this.clone.classList.add('clone');
+      document.body.appendChild(this.clone);
+      this.innerX = event.clientX - grabbedElem.getBoundingClientRect().left;
+      this.innerY = event.clientY - grabbedElem.getBoundingClientRect().top;
+      this.clone.style.width = "".concat(grabbedElem.getBoundingClientRect().width, "px");
+      this.clone.style.height = "".concat(grabbedElem.getBoundingClientRect().height, "px");
+      var xPos,
+          yPos = 0;
+      xPos = event.clientX - this.innerX;
+      yPos = event.clientY - this.innerY;
+      this.clone.style.left = "".concat(xPos, "px");
+      this.clone.style.top = "".concat(yPos, "px");
+      this.moveFunc = this.move.bind(this); // store reference of new function created (by calling .bind(this)) to removeEventListener in drop function
+
+      this.htmlTag.addEventListener('mousemove', this.moveFunc, false);
+    }
+  }, {
+    key: "renderShadowElement",
+    value: function renderShadowElement(event) {
+      var elementsBehindCursor = document.elementsFromPoint(event.clientX, event.clientY);
+
+      if (this.overIframe(elementsBehindCursor)) {
+        // dragging over iframe
+        if (this.isLayout(this.objectDragged)) {
+          // dragging layout
+          this.elementDragged.classList.add('shadow-elem', 'layout');
+          var closestContainer = this.firstDescendantContainer(event.layerY, this.containers);
+
+          if (typeof closestContainer !== 'undefined') {
+            this.options.iframe.document.body.insertBefore(this.elementDragged, closestContainer);
+          } else {
+            this.options.iframe.document.body.appendChild(this.elementDragged);
+          }
+        } else {
+          //dragging element
+          var elementsBehindCursorInIframe = this.options.iframe.document.elementsFromPoint(event.layerX, event.layerY);
+
+          if (this.overContainer(elementsBehindCursorInIframe)) {
+            if (this.containerHovered !== this.findContainer(elementsBehindCursorInIframe)) {
+              //if shadow elem for this container has not already been rendered (ie: we changed container)
+              if (this.containerHovered !== null) {
+                this.containerHovered.classList.remove('container-hovered'); // remove previous container blue border
+
+                this.removeElementFromContainer(this.containerHovered, this.elementDragged);
+
+                if (this.isGrid(this.containerHovered)) {
+                  //Previous grid hovered
+                  //container we just left was a grid container we need to reappend the placeholder div
+                  this.gridLayout = {
+                    cols: this.countGridCols(this.containerHovered),
+                    rows: this.countGridRows(this.containerHovered),
+                    isFull: this.gridIsFull(this.containerHovered),
+                    appendIndex: this.getAppendIndex(this.containerHovered)
+                  };
+                  console.log(this.gridLayout);
+                  var totalPlacesInGrid = (this.gridLayout.cols !== 0 ? this.gridLayout.cols : 1) * (this.gridLayout.rows !== 0 ? this.gridLayout.rows : 1);
+                  var elementsInGrid = this.countElementsInGrid(this.containerHovered);
+                  var numberOfPlaceholdersToAppend = totalPlacesInGrid - elementsInGrid;
+
+                  if (numberOfPlaceholdersToAppend > 0) {
+                    this.createElementAndAppend('div', this.containerHovered, numberOfPlaceholdersToAppend, 'grid-placeholder');
+                  }
+                }
+              }
+
+              this.containerHovered = this.findContainer(elementsBehindCursorInIframe);
+              this.containerHovered.classList.add('container-hovered');
+              this.elementDragged.classList.add('shadow-elem');
+
+              if (this.isGrid(this.containerHovered)) {
+                this.gridLayout = {
+                  cols: this.countGridCols(this.containerHovered),
+                  rows: this.countGridRows(this.containerHovered),
+                  isFull: this.gridIsFull(this.containerHovered),
+                  appendIndex: this.getAppendIndex(this.containerHovered)
+                };
+
+                if (!this.gridLayout.isFull) {
+                  this.removeGridFirstChildMatching(this.containerHovered, '.grid-placeholder');
+                  this.containerHovered.insertBefore(this.elementDragged, this.containerHovered.children[this.gridLayout.appendIndex]);
+                }
+              } else {
+                this.containerHovered.insertBefore(this.elementDragged, this.containerHovered.children[this.currentAppendIndex]);
+              }
+            }
+          } else {
+            // over iframe but not over container
+            if (this.containerHovered !== null) {
+              console.log('here1');
+              this.containerHovered.classList.remove('container-hovered');
+              this.removeElementFromContainer(this.containerHovered, this.elementDragged);
+
+              if (this.isGrid(this.containerHovered)) {
+                console.log('here2');
+                this.gridLayout = {
+                  cols: this.countGridCols(this.containerHovered),
+                  rows: this.countGridRows(this.containerHovered),
+                  isFull: this.gridIsFull(this.containerHovered),
+                  appendIndex: this.getAppendIndex(this.containerHovered)
+                };
+
+                var _totalPlacesInGrid = (this.gridLayout.cols !== 0 ? this.gridLayout.cols : 1) * (this.gridLayout.rows !== 0 ? this.gridLayout.rows : 1);
+
+                var _elementsInGrid = this.countElementsInGrid(this.containerHovered);
+
+                var _numberOfPlaceholdersToAppend = _totalPlacesInGrid - _elementsInGrid;
+
+                if (_numberOfPlaceholdersToAppend > 0) {
+                  this.createElementAndAppend('div', this.containerHovered, _numberOfPlaceholdersToAppend, 'grid-placeholder');
+                }
+              }
+
+              this.containerHovered = null;
+            }
+          }
+        }
+      } else {
+        //Gets out of iframe
+        if (this.isLayout(this.objectDragged)) {
+          if (this.options.iframe.document.body.contains(this.elementDragged)) {
+            this.elementDragged.classList.remove('shadow-elem', 'layout');
+            this.options.iframe.document.body.removeChild(this.elementDragged);
+          }
+        } else {
+          //Is dragging element
+          if (this.options.iframe.document.body.contains(this.elementDragged)) {
+            this.elementDragged.classList.remove('shadow-elem');
+            this.elementDragged.remove();
+          }
+
+          if (this.containerHovered !== null) {
+            // Re-add grid placeholders if we were hovering a grid and got out of iframe
+            this.gridLayout = {
+              cols: this.countGridCols(this.containerHovered),
+              rows: this.countGridRows(this.containerHovered),
+              isFull: this.gridIsFull(this.containerHovered),
+              appendIndex: this.getAppendIndex(this.containerHovered)
+            };
+
+            var _totalPlacesInGrid2 = (this.gridLayout.cols !== 0 ? this.gridLayout.cols : 1) * (this.gridLayout.rows !== 0 ? this.gridLayout.rows : 1);
+
+            var _elementsInGrid2 = this.countElementsInGrid(this.containerHovered);
+
+            var _numberOfPlaceholdersToAppend2 = _totalPlacesInGrid2 - _elementsInGrid2;
+
+            if (_numberOfPlaceholdersToAppend2 > 0) {
+              this.createElementAndAppend('div', this.containerHovered, _numberOfPlaceholdersToAppend2, 'grid-placeholder');
+            }
+          }
+        }
+
+        this.containerHovered = null; // reset this guy we juste got out of iframe
+      }
+    }
+  }, {
+    key: "getTemplateFromId",
+    value: function getTemplateFromId(id) {
+      return this.options.templates.find(function (template) {
+        return template.id == id;
+      });
+    }
+  }, {
     key: "supportDomParser",
     value: function supportDomParser() {
       // Credits => gomakethings.com
-      if (!this.window.DOMParser) {
+      if (!window.DOMParser) {
         return false;
       }
 
@@ -12648,15 +12976,12 @@ var Drag = /*#__PURE__*/function () {
     }
   }, {
     key: "convertToDomElement",
-    value: function convertToDomElement(elem) {
+    value: function convertToDomElement(htmlString) {
       var domElement = null;
 
       if (this.supportDomParser()) {
         var parser = new DOMParser();
-        var doc = parser.parseFromString(elem.content, 'text/html'); // this.draggedDomElem = doc.body.firstChild
-        // console.log(this.draggedDomElem)
-        // this.dropZone.appendChild(doc.body.firstChild)
-
+        var doc = parser.parseFromString(htmlString, 'text/html');
         domElement = doc.body.firstChild;
       } else {
         console.log('Browser not supported');
@@ -12664,76 +12989,217 @@ var Drag = /*#__PURE__*/function () {
 
       return domElement;
     }
+  }, {
+    key: "overIframe",
+    value: function overIframe(elements) {
+      return elements.some(function (elem) {
+        return elem.matches('#iframe');
+      });
+    }
+  }, {
+    key: "overContainer",
+    value: function overContainer(elements) {
+      return elements.some(function (elem) {
+        return elem.matches('.layout');
+      });
+    }
+  }, {
+    key: "findContainer",
+    value: function findContainer(elements) {
+      return elements.find(function (elem) {
+        return elem.matches('.layout');
+      });
+    }
+  }, {
+    key: "isLayout",
+    value: function isLayout(element) {
+      return element.type === 'layout';
+    }
+  }, {
+    key: "isGrid",
+    value: function isGrid(element) {
+      return element.matches('.grid');
+    }
+  }, {
+    key: "removeElementFromContainer",
+    value: function removeElementFromContainer(container, element) {
+      if (element.parentNode == container) {
+        container.removeChild(element);
+      }
+    }
+  }, {
+    key: "elementExists",
+    value: function elementExists(idSelector) {
+      return !!document.getElementById(idSelector);
+    }
+  }, {
+    key: "countGridRows",
+    value: function countGridRows(element) {
+      var classList = element.className.split(' ');
+      var rowsAmount = 0;
+
+      if (classList.includes('grid')) {
+        var rowsClass = classList.find(function (elem) {
+          return elem.match(/grid-rows-([0-9])/) !== null;
+        });
+
+        if (typeof rowsClass !== 'undefined') {
+          var matchRows = rowsClass.match(/grid-rows-([0-9])/);
+
+          if (matchRows !== null) {
+            rowsAmount = matchRows[1];
+          }
+        }
+      }
+
+      return rowsAmount;
+    }
+  }, {
+    key: "countGridCols",
+    value: function countGridCols(element) {
+      var classList = element.className.split(' ');
+      var colsAmount = 0;
+
+      if (classList.includes('grid')) {
+        var colsClass = classList.find(function (elem) {
+          return elem.match(/grid-cols-([0-9])/) !== null;
+        });
+
+        if (typeof colsClass !== 'undefined') {
+          var matchCols = colsClass.match(/grid-cols-([0-9])/);
+
+          if (matchCols !== null) {
+            colsAmount = matchCols[1];
+          }
+        }
+      }
+
+      return colsAmount;
+    }
+  }, {
+    key: "createElementAndAppend",
+    value: function createElementAndAppend(elementType, container, numberToAppend) {
+      var classToAdd = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
+
+      for (var i = 0; i < numberToAppend; i++) {
+        var div = document.createElement(elementType);
+
+        if (classToAdd !== '') {
+          div.classList.add(classToAdd);
+        }
+
+        container.appendChild(div);
+      }
+    }
+  }, {
+    key: "removeGridFirstChildMatching",
+    value: function removeGridFirstChildMatching(container, cssClass) {
+      var firstChildPlaceholder = container.querySelector(cssClass);
+
+      if (firstChildPlaceholder !== null) {
+        container.removeChild(firstChildPlaceholder);
+      }
+    }
+  }, {
+    key: "gridIsFull",
+    value: function gridIsFull(container) {
+      return container.querySelector('.grid-placeholder') === null;
+    }
+  }, {
+    key: "getAppendIndex",
+    value: function getAppendIndex(container) {
+      var firstChildMatching = container.querySelector('.grid-placeholder');
+
+      if (firstChildMatching === null) {
+        return null;
+      }
+
+      return _toConsumableArray(firstChildMatching.parentNode.children).indexOf(firstChildMatching);
+    }
+  }, {
+    key: "countElementsInGrid",
+    value: function countElementsInGrid(container) {
+      return container.children.length;
+    }
+  }, {
+    key: "firstDescendantContainer",
+    value: function firstDescendantContainer(y, containers) {
+      if (containers.length > 0) {
+        return containers.find(function (container) {
+          return container.getBoundingClientRect().bottom >= y;
+        });
+      }
+    }
+  }, {
+    key: "elementExistsInContainer",
+    value: function elementExistsInContainer(container, element) {
+      return container.contains(element);
+    }
   }]);
 
-  return Drag;
+  return Dragger;
 }();
 
 
 
 /***/ }),
 
-/***/ "./src/editor/Drop.js":
-/*!****************************!*\
-  !*** ./src/editor/Drop.js ***!
-  \****************************/
+/***/ "./src/editor/Dragger/Event.js":
+/*!*************************************!*\
+  !*** ./src/editor/Dragger/Event.js ***!
+  \*************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Drop; });
-/* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/debounce */ "./node_modules/lodash/debounce.js");
-/* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_debounce__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Event; });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+//UNUSED NEEDS TO BE DELETED
+var Event = /*#__PURE__*/function () {
+  function Event(element, type, func) {
+    var bindThis = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
+    _classCallCheck(this, Event);
 
-var Drop = /*#__PURE__*/function () {
-  function Drop(container) {
-    _classCallCheck(this, Drop);
+    this.element = element;
+    this.type = type;
 
-    // css selector representing dropzone id
-    this.container = document.querySelector(container); // this.domElem = Object // Dragged elem .content (html string) property converted to dom element with DomParser()
-
-    this.debouncedHandleDrag = lodash_debounce__WEBPACK_IMPORTED_MODULE_0___default()(this.handleDragOver, 300, {
-      maxWait: 500
-    });
-    this.bindEvents();
+    if (bindThis !== null) {
+      this.func = func.bind(bindThis);
+    } else {
+      this.func = func;
+    }
   }
 
-  _createClass(Drop, [{
-    key: "bindEvents",
-    value: function bindEvents() {
+  _createClass(Event, [{
+    key: "attach",
+    value: function attach() {
       var _this = this;
 
-      this.container.addEventListener('dragenter', function (event) {
-        console.log('dragenter');
-        console.log(_this.draggedElem);
-        console.log(_this.draggedEvent);
-        console.log(event.target);
-      });
-      this.container.addEventListener('dragover', function (event) {
-        event.preventDefault();
-
-        _this.debouncedHandleDrag();
-      });
-      this.container.addEventListener('drop', function (event) {
-        console.log('drop'); // this.append(this.draggedElem)
-      });
+      var useCapture = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      this.element.addEventListener(this.type, function (e) {
+        return _this.func(e);
+      }, useCapture);
     }
   }, {
-    key: "handleDragOver",
-    value: function handleDragOver() {
-      console.log('handleDragOver');
+    key: "detach",
+    value: function detach() {
+      var _this2 = this;
+
+      var useCapture = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      this.element.removeEventListener(this.type, function (e) {
+        return _this2.func(e);
+      }, useCapture);
     }
   }]);
 
-  return Drop;
+  return Event;
 }();
 
 
@@ -12794,6 +13260,54 @@ var Editor = /*#__PURE__*/function () {
 
 /***/ }),
 
+/***/ "./src/editor/Element.js":
+/*!*******************************!*\
+  !*** ./src/editor/Element.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Element; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Element = /*#__PURE__*/function () {
+  function Element(element) {
+    _classCallCheck(this, Element);
+
+    this.element = element; // html element
+  } // get element() {
+  //     return this.element
+  // }
+  // set element(element) {
+  //     this.element = element
+  // }
+
+
+  _createClass(Element, [{
+    key: "addClass",
+    value: function addClass(cssClass) {
+      this.element.classList.add(cssClass);
+    }
+  }, {
+    key: "removeClass",
+    value: function removeClass(cssClass) {
+      this.element.classList.remove(cssClass);
+    }
+  }]);
+
+  return Element;
+}();
+
+
+
+/***/ }),
+
 /***/ "./src/editor/Iframe.js":
 /*!******************************!*\
   !*** ./src/editor/Iframe.js ***!
@@ -12804,74 +13318,56 @@ var Editor = /*#__PURE__*/function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Iframe; });
-/* harmony import */ var Editor_Drop__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Editor/Drop */ "./src/editor/Drop.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 // import debounce from 'lodash/debounce';
 // import Drag from 'Editor/Drag'
+// import Drop from 'Editor/Drop'
+var Iframe = function Iframe(id) {
+  _classCallCheck(this, Iframe);
 
-
-var Iframe = /*#__PURE__*/function () {
-  function Iframe(id) {
-    _classCallCheck(this, Iframe);
-
-    // this.id = id
-    this.window = document.querySelector(id).contentWindow;
-    this.document = document.querySelector(id).contentDocument;
-    this.drag = Object; //Drag.js object instantiated in LeftMenu and passed through event bus to MainPanel
-
-    this.drop = Object;
-  }
-
-  _createClass(Iframe, [{
-    key: "setDrag",
-    value: function setDrag(drag) {
-      this.drag = drag;
-    }
-  }, {
-    key: "setDrop",
-    value: function setDrop(drop) {
-      this.drop = drop;
-    } // buildDomElement() { // Credits => gomakethings.com
-    //     if (!this.window.DOMParser) {
-    //         return false
-    //     }
-    //     let parser = new DOMParser();
-    //     try {
-    //         parser.parseFromString('x', 'text/html');
-    //     } catch(err) {
-    //         return false
-    //     }
-    //     return true
-    // }
-    // append(elem) {
-    //     if (this.buildDomElement()) {
-    //         let parser = new DOMParser();
-    //         let doc = parser.parseFromString(elem.content, 'text/html');
-    //         this.draggedDomElem = doc.body.firstChild
-    //         console.log(this.draggedDomElem)
-    // this.drop.append(elem)
-    // } else {
-    //     console.log('Browser not supported')
-    // }
-    // }
-    // handleDrag() {
-    //     this.renderDropPreview()
-    // }
-    // renderDropPreview() {
-    //     //Works but this.draggedDomElem needs to be defined before !!!!
-    //     let clone = this.draggedDomElem.cloneNode(true)
-    //     console.log(clone)
-    // }
-
-  }]);
-
-  return Iframe;
-}();
+  // this.id = id
+  this.window = document.querySelector(id).contentWindow;
+  this.document = document.querySelector(id).contentDocument; // this.drag = Object //Drag.js object instantiated in LeftMenu and passed through event bus to MainPanel
+  // this.drop = Object
+} // setDrag(drag) {
+//     this.drag = drag
+// }
+// setDrop(drop) {
+//     this.drop = drop
+// }
+// buildDomElement() { // Credits => gomakethings.com
+//     if (!this.window.DOMParser) {
+//         return false
+//     }
+//     let parser = new DOMParser();
+//     try {
+//         parser.parseFromString('x', 'text/html');
+//     } catch(err) {
+//         return false
+//     }
+//     return true
+// }
+// append(elem) {
+//     if (this.buildDomElement()) {
+//         let parser = new DOMParser();
+//         let doc = parser.parseFromString(elem.content, 'text/html');
+//         this.draggedDomElem = doc.body.firstChild
+//         console.log(this.draggedDomElem)
+// this.drop.append(elem)
+// } else {
+//     console.log('Browser not supported')
+// }
+// }
+// handleDrag() {
+//     this.renderDropPreview()
+// }
+// renderDropPreview() {
+//     //Works but this.draggedDomElem needs to be defined before !!!!
+//     let clone = this.draggedDomElem.cloneNode(true)
+//     console.log(clone)
+// }
+;
 
 
 
@@ -13312,10 +13808,77 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/editor/templates/templates.js":
-/*!*******************************************!*\
-  !*** ./src/editor/templates/templates.js ***!
-  \*******************************************/
+/***/ "./src/editor/elements/elements.js":
+/*!*****************************************!*\
+  !*** ./src/editor/elements/elements.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ([{
+  title: 'typography',
+  elements: [{
+    id: 5,
+    title: 'Heading',
+    icon: 'fas fa-heading',
+    content: "<h1 class=\"\">Title H1</h1>"
+  }, {
+    id: 6,
+    title: 'Paragraph',
+    icon: 'fas fa-align-left',
+    content: "<p class=\"\">Paragraph</p>"
+  }, {
+    id: 7,
+    title: 'Text Block',
+    icon: 'fas fa-align-justify',
+    content: "<div class=\"\">This is some text you should replace</div>"
+  }, {
+    id: 8,
+    title: 'Text Link',
+    icon: 'fas fa-link',
+    content: "<a href=\"#\" class=\"\">This is a link</a>"
+  }, {
+    id: 9,
+    title: 'Block quote',
+    icon: 'fas fa-quote-right',
+    content: "<blockquote class=\"\">This is a link</blockquote>"
+  }]
+}, {
+  title: 'media',
+  elements: [{
+    id: 10,
+    title: 'Image',
+    icon: 'far fa-image',
+    content: "<img src=\"\" class=\"title is-1\" />"
+  }, {
+    id: 11,
+    title: 'Video',
+    icon: 'fas fa-video',
+    content: "<video src=\"\"></video>"
+  }]
+}, {
+  title: 'social',
+  elements: [{
+    id: 12,
+    title: 'Facebook',
+    icon: 'fab fa-facebook-f',
+    content: "<a href=\"#\" class=\"\">Facebook</a>"
+  }, {
+    id: 13,
+    title: 'Twitter',
+    icon: 'fab fa-twitter',
+    content: "<a href=\"#\" class=\"\">Twitter</a>"
+  }]
+}]);
+
+/***/ }),
+
+/***/ "./src/editor/elements/layouts.js":
+/*!****************************************!*\
+  !*** ./src/editor/elements/layouts.js ***!
+  \****************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -13325,17 +13888,26 @@ __webpack_require__.r(__webpack_exports__);
   id: 1,
   title: 'Section',
   icon: 'far fa-square',
-  content: "<section class=\"section\">\n                <div class=\"container\">\n                  <h1 class=\"title\">Section</h1>\n                  <h2 class=\"subtitle\">\n                    A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading\n                  </h2>\n                </div>\n              </section>"
+  type: 'layout',
+  content: "<div class=\"container mx-auto\"></div>"
 }, {
   id: 2,
-  title: 'Two Columns',
-  icon: 'fas fa-columns',
-  content: "<div class=\"two-columns\">\n            <div class=\"column\">\n            </div>\n            <div class=\"column\">\n            </div>\n        </div>"
+  title: 'Container',
+  icon: 'far fa-square',
+  type: 'layout',
+  content: "<div class=\"container px-10 mx-auto\"></div>"
 }, {
   id: 3,
-  title: 'Three Columns',
+  title: 'Columns',
+  icon: 'fas fa-columns',
+  type: 'layout',
+  content: "<div class=\"grid grid-cols-2 gap-2\"></div>"
+}, {
+  id: 4,
+  title: 'Grid',
   icon: 'fas fa-border-all',
-  content: "<div class=\"three-columns\">\n            <div class=\"column\">\n            </div>\n            <div class=\"column\">\n            </div>\n            <div class=\"column\">\n            </div>\n        </div>"
+  type: 'layout',
+  content: "<div class=\"grid grid-cols-2 grid-rows-2 gap-2\"></div>"
 }]);
 
 /***/ })
