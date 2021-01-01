@@ -1,7 +1,7 @@
 # Wape
 Web Application Page Editor  
 
-Work in progress project  
+:construction: Work in progress project  
 Build website without coding, drag and drop elements and layouts on the page, responsive pages, different devices preview while building, export page as html/css or save content and provide access to it with an hosted api.  
 Offers different layouts and html predefined blocks.  
 Save portions of the page to re-use it in other pages (personnal block library)  
