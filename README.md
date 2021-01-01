@@ -8,7 +8,7 @@ Save portions of the page to re-use it in other pages (personnal block library)
 Edit content, images, links, social buttons, ....  
 Add custom blocks and CSS styles  
 
-![wape preview](readme/wape.png | width=700)
+<img src="readme/wape.png" width="700px" aly="wape preview"/>
 
 ## Usage
 ```html
