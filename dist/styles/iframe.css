@@ -1,0 +1,34 @@
+body {
+    /*min-height: 500px;*/
+    /*border-bottom: 1px dotted #000;*/
+}
+body > div.layout {
+    min-height: 120px;
+    border: 1px dashed #000;
+}
+/*body > div.grid.layout > div {
+    border: .5px dashed #000;
+}*/
+div.grid.layout > div.grid-placeholder {
+    border: .5px dashed #000;
+}
+.shadow-elem {
+    opacity: .5;
+}
+/*.layout.container-hovered {
+    border: 2px solid blue;
+}*/
+.layout.container-selected {
+    border: 2px solid green;
+}
+.element-hovered {
+    border: 2px solid blue !important;
+}
+/*div#editor-content .droppable.container {
+    border: 1px dashed #000;
+    min-height: 150px;
+}*/
+/*div#editor-content div.droppable {
+    border: 1px dashed #000;
+    min-height: 150px;
+}*/
