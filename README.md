@@ -43,10 +43,13 @@ Back after a long break on the project
 - [X] @rollup/plugin-commonjs to resolve commonjs exported modules (like lodash/isEmpty is using module.exports = isEmpty;)
 - [X] @rollup/plugin-replace to fix process is not defined error (replaces 'process.env.NODE_ENV' with 'development')
 - [X] rollup-plugin-postcss to import css in js and extract it to a file in /dist folder
-- [ ] @rollup/plugin-html TO BE COMPLETED
+- [X] rollup-plugin-copy to copy fontawesome folder to dist
 - [ ] Find solution for iframe.css
 - [ ] Minify css files
 - [ ] Fix JS errors
+- [ ] Upgrade tailwind inside iframe to last version and make it a config
+- [X] Remove Rollup Html Plugin and Rollup Postcss plugin it's not doing what i want
+- [ ] Add postcss directly and handle css /dist output and minification in npm scripts
 - [ ] Upgrade tailwind inside iframe to last version and make it a config
 
 - [ ] Add support for custom CSS in editor (allow adding classes to elements once custom css is loaded in iframe)
