@@ -44,13 +44,12 @@ Back after a long break on the project
 - [X] @rollup/plugin-replace to fix process is not defined error (replaces 'process.env.NODE_ENV' with 'development')
 - [X] rollup-plugin-postcss to import css in js and extract it to a file in /dist folder
 - [X] rollup-plugin-copy to copy fontawesome folder to dist
-- [ ] Find solution for iframe.css
-- [ ] Minify css files
-- [ ] Fix JS errors
-- [ ] Upgrade tailwind inside iframe to last version and make it a config
 - [X] Remove Rollup Html Plugin and Rollup Postcss plugin it's not doing what i want
+- [X] Find solution for iframe.css / using rollup-plugin-copy for now
+- [X] Fix JS errors
 - [ ] Add postcss directly and handle css /dist output and minification in npm scripts
 - [ ] Upgrade tailwind inside iframe to last version and make it a config
+- [ ] Clean the place : src/app/config folder if not used / old config files / webpack.config.js file / editor DragDrop, DragDropApi, DragDrop if not used / Js classes not used
 
 - [ ] Add support for custom CSS in editor (allow adding classes to elements once custom css is loaded in iframe)
 - [ ] Make settings customisation for components and elements (html attributes mostly (id / class / ...)) => Depends on component/element
