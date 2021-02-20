@@ -31,6 +31,24 @@ Add custom blocks and CSS styles
 - [X] Change bulma for utility framework and extend it for the editor use (tailwindcss)
 - [X] Make the cloned element visible and with an opacity of .5 place it where it would be dropped if mouse is released
 - [X] Make responsive previews
+
+Back after a long break on the project  
+
+- [X] Migrate from webpack to rollup
+- [X] @rollup/plugin-alias for import path aliases and config
+- [X] rollup-plugin-vue for Vuejs SFC compilation
+- [X] rollup-plugin-terser and condition to minify bundle for production builds
+- [X] rollup-plugin-serve and condition to serve when using rollup watch
+- [X] @rollup/plugin-node-resolve to resolve node_modules depencies such as Vue, Lodash, Mitt, ...
+- [X] @rollup/plugin-commonjs to resolve commonjs exported modules (like lodash/isEmpty is using module.exports = isEmpty;)
+- [X] @rollup/plugin-replace to fix process is not defined error (replaces 'process.env.NODE_ENV' with 'development')
+- [X] rollup-plugin-postcss to import css in js and extract it to a file in /dist folder
+- [ ] @rollup/plugin-html TO BE COMPLETED
+- [ ] Find solution for iframe.css
+- [ ] Minify css files
+- [ ] Fix JS errors
+- [ ] Upgrade tailwind inside iframe to last version and make it a config
+
 - [ ] Add support for custom CSS in editor (allow adding classes to elements once custom css is loaded in iframe)
 - [ ] Make settings customisation for components and elements (html attributes mostly (id / class / ...)) => Depends on component/element
 - [ ] Refactor a lot dragger class and especially RenderShadowElement function which is a big mess (+100 lines)
