@@ -1,5 +1,5 @@
-import mitt from 'mitt'
-import Event from './Event'
+// import mitt from 'mitt'
+// import Event from './Event'
 // export const emitter = mitt()
 
 export default class Dragger {
@@ -13,7 +13,7 @@ export default class Dragger {
         this.moveFunc = Object //Used to save the reference to move function with 'this' context (class) binded
         this.objectDragged = null //Object from element.js or layout.js being dragged
         this.elementDragged = null //.content key of this.objectDragged transformed to dom element
-        this.currentElementBehindCursor = null //Element behind cursor while dragging
+        // this.currentElementBehindCursor = null //Element behind cursor while dragging
         this.containerHovered = null //container behind cursor while dragging an element
         this.overlay = null //Used to be appended over iframe to preserve the mousemove event
         this.currentAppendIndex = 0
@@ -283,9 +283,9 @@ export default class Dragger {
             container.removeChild(element)
         }
     }
-    elementExists(idSelector) {
-        return !!document.getElementById(idSelector)
-    }
+    // elementExists(idSelector) {
+    //     return !!document.getElementById(idSelector)
+    // }
     countGridRows(element) {
         let classList = element.className.split(' ')
         let rowsAmount = 0
