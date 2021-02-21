@@ -10,7 +10,7 @@
     "css:watch": "NODE_ENV=development postcss src/app/styles/*.css --dir dist/styles --watch --verbose",
     "build:dev": "rollup --config --environment BUILD:development && npm run css:dev",
     "build:prod": "rollup --config --environment BUILD:production && npm run css:prod",
-    "build:watch": "rollup --config --watch --environment BUILD:production",
+    "build:watch": "rollup --config --watch --environment BUILD:development",
     "serve": "http-server dist -p 8787",
     "live": "run-p serve build:watch css:watch"
   },
