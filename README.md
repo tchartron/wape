@@ -49,7 +49,7 @@ Back after a long break on the project
 - [X] Fix JS errors
 - [X] Add postcss directly and handle css /dist output and minification in npm scripts
 - [X] Make postcss / http-server / rollup build work together with npm scripts and npm-run-all
-- [ ] Upgrade tailwind to last version and use npm package with postcss install
+- [X] Upgrade tailwind to last version and use npm package with postcss install
 - [ ] Clean the place : src/app/config folder if not used / old config files / webpack.config.js file / editor DragDrop, DragDropApi, DragDrop if not used / Js classes not used
 
 - [ ] Add support for custom CSS in editor (allow adding classes to elements once custom css is loaded in iframe)
