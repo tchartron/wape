@@ -2,7 +2,7 @@
 // import Event from './Event'
 // export const emitter = mitt()
 
-export default class Dragger {
+export class Dragger {
     constructor(draggableSelector, options = {}) {
         this.draggableSelector = draggableSelector //.draggable
         this.options = options
@@ -49,8 +49,8 @@ export default class Dragger {
             this.elementDragged = this.convertToDomElement(this.objectDragged.content)
             if(this.isGrid(this.elementDragged)) {
                 this.gridLayout = {
-                    cols: this.countGridCols(this.elementDragged),
-                    rows: this.countGridRows(this.elementDragged),
+                    cols: countCols(this.elementDragged),
+                    rows: countRows(this.elementDragged),
                     isFull: false,
                     appendIndex: this.getAppendIndex(this.elementDragged)
                 }
@@ -144,8 +144,8 @@ export default class Dragger {
                              if(this.isGrid(this.containerHovered)) { //Previous grid hovered
                                 //container we just left was a grid container we need to reappend the placeholder div
                                 this.gridLayout = {
-                                    cols: this.countGridCols(this.containerHovered),
-                                    rows: this.countGridRows(this.containerHovered),
+                                    cols: countCols(this.containerHovered),
+                                    rows: countRows(this.containerHovered),
                                     isFull: this.gridIsFull(this.containerHovered),
                                     appendIndex: this.getAppendIndex(this.containerHovered)
                                 }
@@ -163,8 +163,8 @@ export default class Dragger {
                         this.elementDragged.classList.add('shadow-elem')
                         if(this.isGrid(this.containerHovered)) {
                             this.gridLayout = {
-                                cols: this.countGridCols(this.containerHovered),
-                                rows: this.countGridRows(this.containerHovered),
+                                cols: countCols(this.containerHovered),
+                                rows: countRows(this.containerHovered),
                                 isFull: this.gridIsFull(this.containerHovered),
                                 appendIndex: this.getAppendIndex(this.containerHovered)
                             }
@@ -184,8 +184,8 @@ export default class Dragger {
                         if(this.isGrid(this.containerHovered)) {
                             console.log('here2')
                             this.gridLayout = {
-                                cols: this.countGridCols(this.containerHovered),
-                                rows: this.countGridRows(this.containerHovered),
+                                cols: countCols(this.containerHovered),
+                                rows: countRows(this.containerHovered),
                                 isFull: this.gridIsFull(this.containerHovered),
                                 appendIndex: this.getAppendIndex(this.containerHovered)
                             }
@@ -213,8 +213,8 @@ export default class Dragger {
                 }
                 if(this.containerHovered !== null) { // Re-add grid placeholders if we were hovering a grid and got out of iframe
                     this.gridLayout = {
-                        cols: this.countGridCols(this.containerHovered),
-                        rows: this.countGridRows(this.containerHovered),
+                        cols: countCols(this.containerHovered),
+                        rows: countRows(this.containerHovered),
                         isFull: this.gridIsFull(this.containerHovered),
                         appendIndex: this.getAppendIndex(this.containerHovered)
                     }
@@ -286,38 +286,6 @@ export default class Dragger {
     // elementExists(idSelector) {
     //     return !!document.getElementById(idSelector)
     // }
-    countGridRows(element) {
-        let classList = element.className.split(' ')
-        let rowsAmount = 0
-        if(classList.includes('grid')) {
-            let rowsClass = classList.find((elem) => {
-                return (elem.match(/grid-rows-([0-9])/) !== null)
-            })
-            if(typeof rowsClass !== 'undefined') {
-                let matchRows = rowsClass.match(/grid-rows-([0-9])/)
-                if(matchRows !== null) {
-                    rowsAmount = matchRows[1]
-                }
-            }
-        }
-        return rowsAmount
-    }
-    countGridCols(element) {
-        let classList = element.className.split(' ')
-        let colsAmount = 0
-        if(classList.includes('grid')) {
-            let colsClass = classList.find((elem) => {
-                return (elem.match(/grid-cols-([0-9])/) !== null)
-            })
-            if(typeof colsClass !== 'undefined') {
-                let matchCols = colsClass.match(/grid-cols-([0-9])/)
-                if(matchCols !== null) {
-                    colsAmount = matchCols[1]
-                }
-            }
-        }
-        return colsAmount
-    }
     createElementAndAppend(elementType, container, numberToAppend, classToAdd = '') {
         for(let i = 0; i < numberToAppend; i++) {
             let div = document.createElement(elementType);
@@ -356,4 +324,37 @@ export default class Dragger {
     elementExistsInContainer(container, element) {
         return container.contains(element)
     }
+}
+
+export function countRows(element) {
+    let classList = element.className.split(' ')
+    let rowsAmount = 0
+    if(classList.includes('grid')) {
+        let rowsClass = classList.find((elem) => {
+            return (elem.match(/grid-rows-([0-9])/) !== null)
+        })
+        if(typeof rowsClass !== 'undefined') {
+            let matchRows = rowsClass.match(/grid-rows-([0-9])/)
+            if(matchRows !== null) {
+                rowsAmount = matchRows[1]
+            }
+        }
+    }
+    return parseInt(rowsAmount)
+}
+export function countCols(element) {
+    let classList = element.className.split(' ')
+    let colsAmount = 0
+    if(classList.includes('grid')) {
+        let colsClass = classList.find((elem) => {
+            return (elem.match(/grid-cols-([0-9])/) !== null)
+        })
+        if(typeof colsClass !== 'undefined') {
+            let matchCols = colsClass.match(/grid-cols-([0-9])/)
+            if(matchCols !== null) {
+                colsAmount = matchCols[1]
+            }
+        }
+    }
+    return parseInt(colsAmount)
 }
