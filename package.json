@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "css:dev": "NODE_ENV=development postcss dist/styles/*.css --replace",
     "css:prod": "NODE_ENV=production postcss dist/styles/*.css --replace",
-    "css:watch": "NODE_ENV=development postcss src/app/styles/*.css --dir dist/styles --watch",
+    "css:watch": "NODE_ENV=development postcss src/app/styles/*.css --dir dist/styles --watch --verbose",
     "build:dev": "rollup --config --environment BUILD:development && npm run css:dev",
     "build:prod": "rollup --config --environment BUILD:production && npm run css:prod",
     "build:watch": "rollup --config --watch --environment BUILD:production",
