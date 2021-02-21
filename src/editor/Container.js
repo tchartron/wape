@@ -1,6 +1,10 @@
+import { countRows, countCols } from 'Editor/Dragger/Dragger'
+
 export default class Container {
     constructor(element) {
         this.element = element // html element
+        this.rows = countRows(element)
+        this.cols = countCols(element)
     }
     // get element() {
     //     return this.element
