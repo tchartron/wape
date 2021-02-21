@@ -18,7 +18,7 @@
 import Iframe from 'Editor/Iframe'
 import layouts from 'Editor/elements/layouts'
 import elements from 'Editor/elements/elements'
-import Dragger from 'Editor/Dragger/Dragger'
+import { Dragger } from 'Editor/Dragger/Dragger'
 import Container from 'Editor/Container'
 import Element from 'Editor/Element'
 import isEmpty from 'lodash/isEmpty'
