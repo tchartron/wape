@@ -18,6 +18,12 @@ export default {
         format: 'iife',
         name: pkg.name
     },
+    watch: {
+        exclude: [
+            'node_modules/**',
+            'src/app/styles/**'
+        ]
+    },
     plugins: [
         alias({
             entries: [
@@ -36,7 +42,8 @@ export default {
                 { src: 'src/app/styles', dest: 'dist' },
                 { src: 'src/app/templates/index.html', dest: 'dist' },
                 { src: 'src/app/templates/iframe.html', dest: 'dist' }
-            ]
+            ],
+            copyOnce: true //do not copy on each watch change triggered to avoid copying non processed css
         }),
         vuePlugin(),
         nodeResolve(),
