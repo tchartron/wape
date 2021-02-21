@@ -47,8 +47,9 @@ Back after a long break on the project
 - [X] Remove Rollup Html Plugin and Rollup Postcss plugin it's not doing what i want
 - [X] Find solution for iframe.css / using rollup-plugin-copy for now
 - [X] Fix JS errors
-- [ ] Add postcss directly and handle css /dist output and minification in npm scripts
-- [ ] Upgrade tailwind inside iframe to last version and make it a config
+- [X] Add postcss directly and handle css /dist output and minification in npm scripts
+- [X] Make postcss / http-server / rollup build work together with npm scripts and npm-run-all
+- [ ] Upgrade tailwind to last version and use npm package with postcss install
 - [ ] Clean the place : src/app/config folder if not used / old config files / webpack.config.js file / editor DragDrop, DragDropApi, DragDrop if not used / Js classes not used
 
 - [ ] Add support for custom CSS in editor (allow adding classes to elements once custom css is loaded in iframe)
