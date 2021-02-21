@@ -31182,7 +31182,7 @@ body {
 }
 
 body > div.layout {
-  min-height: 120px;
+  min-height: 120px !important;
   border: 1px dashed #000;
 }
 
