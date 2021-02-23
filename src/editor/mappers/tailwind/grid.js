@@ -1,4 +1,4 @@
-const grid = {
+const grid_mapper = {
     gap: {
         rows_gap: [
             { id: 1, text: '0', value: 'gap-y-0' },
@@ -73,10 +73,10 @@ const grid = {
             { id: 34, text: '96', value: 'gap-x-96'},
         ],
         regex_patterns: [
-            rows_gap: 'gap-y-\\d+',
-            cols_gap: 'gap-x-\\d+'
+            { rows_gap: 'gap-y-\\d+' },
+            { cols_gap: 'gap-x-\\d+' },
         ]
     }
 };
 
-export { grid }
+export { grid_mapper }
