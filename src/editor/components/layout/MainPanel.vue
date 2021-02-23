@@ -6,8 +6,8 @@
 
 <script>
 import Iframe from 'Editor/Iframe'
-import layouts from 'Editor/elements/layouts'
-import elements from 'Editor/elements/elements'
+import layouts from 'Editor/blocks/layouts'
+import elements from 'Editor/blocks/elements'
 import { Dragger } from 'Editor/Dragger/Dragger'
 import Container from 'Editor/Container'
 import Element from 'Editor/Element'

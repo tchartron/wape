@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import layouts from 'Editor/elements/layouts'
-import elements from 'Editor/elements/elements'
+import layouts from 'Editor/blocks/layouts'
+import elements from 'Editor/blocks/elements'
 // import Drag from 'Editor/DragDrop/Drag'
 
 export default {
