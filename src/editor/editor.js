@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Wape from './components/Wape.vue'
 
-//Vue config file elsewhere ?
+//process.env may not be defined check npm scripts
 Vue.config.silent = (process.env.NODE_ENV === 'production') ? true : false
 Vue.config.performance =  (process.env.NODE_ENV === 'production') ? false : true
 Vue.config.devtools =  (process.env.NODE_ENV === 'production') ? false : true
