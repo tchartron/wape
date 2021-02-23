@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { medias } from 'App/config/editor'
+import { medias }  from 'Editor/config/editor'
 import { emitter } from 'App/Wape'
 
 export default {
