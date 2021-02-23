@@ -1,59 +1,32 @@
 <template>
   <div class="left-panel">
     <div class="actions">
-      <div
-        class="add"
-        @click="switchPanel('add')"
-      >
+      <div class="add" @click="switchPanel('add')">
         <i class="fas fa-plus" />
       </div>
-      <div
-        class="structure"
-        @click="switchPanel('structure')"
-      >
+      <div class="structure" @click="switchPanel('structure')">
         <i class="fas fa-bars" />
       </div>
     </div>
-    <transition
-      name="fade"
-      @after-leave="animationEnd"
-    >
-      <div
-        v-if="(showPanel('add')) && !animating"
-        class="add-element"
-      >
+    <transition name="fade" @after-leave="animationEnd">
+      <div v-if="(showPanel('add')) && !animating" class="add-element">
         <div class="layout-wrapper">
           <div class="layout-category">
             Layouts
           </div>
           <div class="layouts">
-            <div
-              v-for="layout in layouts"
-              :key="layout.id"
-              class="layout draggable"
-              :data-id="layout.id"
-            >
+            <div v-for="layout in layouts" :key="layout.id" class="layout draggable" :data-id="layout.id">
               <i :class="layout.icon" />
               <span class="elem-title">{{ layout.title }}</span>
             </div>
           </div>
         </div>
-        <div
-          v-for="element in elements"
-          :key="element.id"
-          class="element-wrapper"
-          :data-id="element.id"
-        >
+        <div v-for="element in elements" :key="element.id" class="element-wrapper" :data-id="element.id">
           <div class="element-category">
             {{ element.title }}
           </div>
           <div class="elements">
-            <div
-              v-for="elem in element.elements"
-              :key="elem.id"
-              class="elem draggable"
-              :data-id="elem.id"
-            >
+            <div v-for="elem in element.elements" :key="elem.id" class="elem draggable" :data-id="elem.id">
               <i :class="elem.icon" />
               <span class="elem-title">{{ elem.title }}</span>
             </div>
@@ -62,14 +35,8 @@
       </div>
     </transition>
 
-    <transition
-      name="fade"
-      @after-leave="animationEnd"
-    >
-      <div
-        v-if="(showPanel('structure') && !animating)"
-        class="show-structure"
-      >
+    <transition name="fade" @after-leave="animationEnd">
+      <div v-if="(showPanel('structure') && !animating)" class="show-structure">
         <p>STRUCTURE</p>
       </div>
     </transition>
