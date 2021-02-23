@@ -1,16 +1,6 @@
 <template>
-  <div
-    id="canvas"
-    class="canvas"
-    :style="{ width: canvasWidth }"
-  >
-    <iframe
-      id="iframe"
-      name="iframe"
-      :src="iframeFilePath"
-      class="iframe"
-      @load="iframeLoaded"
-    />
+  <div id="canvas" class="canvas" :style="{ width: canvasWidth }">
+    <iframe id="iframe" name="iframe" :src="iframeFilePath" class="iframe" @load="iframeLoaded" />
   </div>
 </template>
 
