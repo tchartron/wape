@@ -52,7 +52,7 @@ export default {
     name: 'LeftPanel',
     data() {
       return {
-        currentPanel: 'add',
+        current_panel: 'add',
         animating: false,
         layouts,
         elements
@@ -65,10 +65,10 @@ export default {
     methods: {
       switchPanel(panel) {
         this.animating = true
-        this.currentPanel = panel
+        this.current_panel = panel
       },
       showPanel(panel) {
-        return (this.currentPanel === panel)
+        return (this.current_panel === panel)
       },
       animationEnd() {
         this.animating = false
