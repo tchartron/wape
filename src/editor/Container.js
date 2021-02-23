@@ -1,4 +1,4 @@
-import { countRows, countCols } from 'Editor/Dragger/Dragger'
+import { countRows, countCols } from 'Editor/utilities/grid'
 
 export default class Container {
     constructor(element) {
