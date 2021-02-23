@@ -1,5 +1,5 @@
 <template>
-  <div id="canvas" class="canvas" :style="{ width: canvasWidth }">
+  <div id="canvas" class="canvas" :style="{ width: canvas_width }">
     <iframe id="iframe" name="iframe" :src="iframeFilePath" class="iframe" @load="iframeLoaded" />
   </div>
 </template>
@@ -19,10 +19,10 @@ export default {
     data() {
       return {
         iframe: Object,
-        canvasWidth: 'calc(100vw - 500px)',
-        elementHovered: Object,
-        selectedContainer: Object,
-        selectedElement: Object
+        canvas_width: 'calc(100vw - 500px)',
+        element_hovered: Object,
+        selected_container: Object,
+        selected_element: Object
       }
     },
     computed: {
@@ -32,7 +32,7 @@ export default {
     },
     mounted() {
       emitter.on('device-change', (args) => { //Fired from TopPanel.vue
-        this.canvasWidth = args.width
+        this.canvas_width = args.width
       })
     },
     methods: {
@@ -54,12 +54,12 @@ export default {
         let element = event.target
         let dontHighlightTags = ['HTML', 'BODY']
         if(!dontHighlightTags.includes(element.tagName)) {
-          if(this.elementHovered !== element) {
-            if(!isEmpty(this.elementHovered)) {
-              this.elementHovered.removeClass('element-hovered')
+          if(this.element_hovered !== element) {
+            if(!isEmpty(this.element_hovered)) {
+              this.element_hovered.removeClass('element-hovered')
             }
-            this.elementHovered = new Element(element)
-            this.elementHovered.addClass('element-hovered')
+            this.element_hovered = new Element(element)
+            this.element_hovered.addClass('element-hovered')
           }
         }
       },
@@ -69,19 +69,19 @@ export default {
             return (elem.matches('.layout'))
         })
         if(typeof layout !== 'undefined') {
-          if(this.selectedContainer.element !== layout) { //if we selected another container than the current one
-            if(!isEmpty(this.selectedContainer)) {
-              this.selectedContainer.removeClass('container-selected')
+          if(this.selected_container.element !== layout) { //if we selected another container than the current one
+            if(!isEmpty(this.selected_container)) {
+              this.selected_container.removeClass('container-selected')
             }
-            this.selectedContainer = new Container(layout)
-            this.selectedContainer.addClass('container-selected')
-            // let children = this.selectedContainer.getChildren()
+            this.selected_container = new Container(layout)
+            this.selected_container.addClass('container-selected')
+            // let children = this.selected_container.getChildren()
           }
         }
-        if(!isEmpty(this.elementHovered)) {
-          this.selectedElement = this.elementHovered
+        if(!isEmpty(this.element_hovered)) {
+          this.selected_element = this.element_hovered
         }
-        emitter.emit('iframe-click', { container: this.selectedContainer, element: this.selectedElement })
+        emitter.emit('iframe-click', { container: this.selected_container, element: this.selected_element })
       }
     }
 }
