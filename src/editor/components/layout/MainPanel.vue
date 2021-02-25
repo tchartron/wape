@@ -20,9 +20,9 @@ export default {
       return {
         iframe: Object,
         canvas_width: 'calc(100vw - 500px)',
-        element_hovered: Object,
-        selected_container: Object,
-        selected_element: Object
+        element_hovered: null,
+        selected_container: null,
+        selected_element: null
       }
     },
     computed: {
@@ -53,14 +53,20 @@ export default {
       iframeMouseMove(event) {
         let element = event.target
         let dontHighlightTags = ['HTML', 'BODY']
-        if(!dontHighlightTags.includes(element.tagName)) {
-          if(this.element_hovered !== element) {
-            if(!isEmpty(this.element_hovered)) {
-              this.element_hovered.removeClass('element-hovered')
+        if (!dontHighlightTags.includes(element.tagName)) {
+          if (this.element_hovered !== element) {
+            if (this.element_hovered !== null) {
+              this.element_hovered.classList.remove('element-hovered')
             }
-            this.element_hovered = new Element(element)
-            this.element_hovered.addClass('element-hovered')
+            // this.element_hovered = new Element(element)
+            this.element_hovered = element
+            this.element_hovered.classList.add('element-hovered')
           }
+        } else {
+          if (this.element_hovered !== null) {
+            this.element_hovered.classList.remove('element-hovered')
+          }
+          this.element_hovered = null
         }
       },
       iframeClick(event) {
@@ -68,18 +74,32 @@ export default {
         let layout = elements.find((elem) => {
             return (elem.matches('.layout'))
         })
-        if(typeof layout !== 'undefined') {
-          if(this.selected_container.element !== layout) { //if we selected another container than the current one
-            if(!isEmpty(this.selected_container)) {
+        if (typeof layout !== 'undefined') {
+          if (this.selected_container === null || this.selected_container.element !== layout) { //if we selected another container than the current one
+            if (this.selected_container !== null) {
               this.selected_container.removeClass('container-selected')
             }
             this.selected_container = new Container(layout)
             this.selected_container.addClass('container-selected')
             // let children = this.selected_container.getChildren()
           }
+        } else {
+          this.selected_container = null
         }
-        if(!isEmpty(this.element_hovered)) {
-          this.selected_element = this.element_hovered
+        let element = elements.find((elem) => {
+            return (elem.matches('.element-hovered'))
+        })
+        if (typeof layout !== 'undefined') {
+          if (this.selected_element === null || this.selected_element !== element) {
+            if (this.selected_element !== null) {
+              this.selected_element.removeClass('element-selected')
+            }
+            this.selected_element = new Element(element)
+            this.selected_element.addClass('element-selected')
+            // let children = this.selected_container.getChildren()
+            }
+          } else {
+            this.selected_element = null
         }
         emitter.emit('iframe-click', { container: this.selected_container, element: this.selected_element })
       }
