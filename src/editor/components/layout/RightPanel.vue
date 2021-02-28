@@ -1,39 +1,38 @@
 <template>
   <div class="right-panel">
     <div class="actions">
-      <div
-        class="container"
-        @click="switchPanel('container')"
-      >
+      <div class="container" @click="switchPanel('container')">
         <i class="far fa-square" />
       </div>
-      <div
-        class="element"
-        @click="switchPanel('element')"
-      >
+      <div class="element" @click="switchPanel('element')">
         <i class="fas fa-square" />
       </div>
     </div>
-    <transition
-      name="left"
-      @after-leave="animationEnd"
-    >
-      <div
-        v-if="(showPanel('container')) && !animating"
-        class="container-settings"
-      >
-        CONTAINER
+    <transition name="left" @after-leave="animationEnd">
+      <div v-if="(showPanel('container')) && !animating" class="container-settings">
+          <div class="options">
+            <div class="grid" v-if="isGrid(selected_container)">
+              <div class="gap">
+                <div class="select">
+                  <label for="rows-gap">Rows gap</label>
+                  <select id="rows-gap" name="rows-gap" @change="replaceClass(selected_container, selected_row_gap.value, mappers.grid_mapper.gap.regex_patterns.rows_gap)" v-model="selected_row_gap">
+                    <option v-for='(row_gap, index) in mappers.grid_mapper.gap.rows_gap' :key="index" :value="row_gap">{{ row_gap.text }}</option>
+                  </select>
+                </div>
+                <div class="select">
+                  <label for="cols-gap">Cols gap</label>
+                  <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_container, selected_col_gap.value, mappers.grid_mapper.gap.regex_patterns.cols_gap)" v-model="selected_col_gap">
+                    <option v-for='(col_gap, index) in mappers.grid_mapper.gap.cols_gap' :key="index" :value="col_gap">{{ col_gap.text }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+        </div>
       </div>
     </transition>
 
-    <transition
-      name="right"
-      @after-leave="animationEnd"
-    >
-      <div
-        v-if="(showPanel('element')) && !animating"
-        class="element-settings"
-      >
+    <transition name="right" @after-leave="animationEnd">
+      <div v-if="(showPanel('element')) && !animating" class="element-settings">
         ELEMENT
       </div>
     </transition>
@@ -43,36 +42,72 @@
 <script>
 import { emitter } from 'App/Wape'
 import isEmpty from 'lodash/isEmpty'
+import { grid_mapper } from 'Editor/mappers/tailwind/grid'
 
 export default {
     name: 'RightPanel',
     data() {
       return {
-        currentPanel: 'container',
+        current_panel: 'container',
         animating: false,
-        selectedContainer: Object,
-        selectedElement: Object
+        selected_container: null,
+        selected_element: null,
+        // displayed_options: {
+        //   container: [],
+        //   elements: []
+        // },
+        mappers: {
+          grid_mapper
+        },
+        container_options: [],
+        element_options: [],
+        selected_col_gap: Object,
+        selected_row_gap: Object
       }
     },
     mounted() {
       emitter.on('iframe-click', (args) => { //Fired from MainPanel.vue
-        this.selectedContainer = args.container
-        this.selectedElement = args.element
-        console.log(this.selectedContainer)
-        console.log(this.selectedElement)
+        this.selected_container = args.container
+        this.selected_element = args.element
+        // if (this.selected_container !== null) {
+        //   this.showContainerOptions(this.selected_container)
+        // }
+        // if  (this.selected_container !== null) {
+        //   this.showElementOptions(this.selected_element)
+        // }
       })
     },
     methods: {
       switchPanel(panel) {
         this.animating = true
-        this.currentPanel = panel
+        this.current_panel = panel
       },
       showPanel(panel) {
-        return (this.currentPanel === panel)
+        return (this.current_panel === panel)
       },
       animationEnd() {
         this.animating = false
+      },
+      isGrid(container) {
+        if (container === null) {
+          return false
+        } else {
+          return container.type === 'grid'
+        }
+      },
+      replaceClass(element, new_class, pattern) {
+        if (pattern !== null) {
+          let regex = new RegExp(pattern, 'g')
+          let match = element.element.className.match(regex)
+          if (match !== null) {
+            element.removeClass(match[0])
+          }
+        }
+        element.addClass(new_class)
       }
+      // findClassPattern(mapper, option_name) {
+      //   return mapper[option_name].regex_patterns.find(item => (item.key === replace_pattern_key))
+      // }
     }
 }
 </script>
