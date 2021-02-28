@@ -34,21 +34,21 @@ export class Dragger {
                 func: this.drop
             }
         ]
-        for(event of events) {
+        for (event of events) {
             let func = event.func.bind(this)
             this.htmlTag.addEventListener(event.type, func, false)
         }
     }
     grab(event) {
         let grabbedElement = this.getDraggable(event.target, this.draggableSelector)
-        if(grabbedElement !== null) {
+        if (grabbedElement !== null) {
             //Append overlay with z-index over iframe to prevent mousemove not beeing fired
             this.overlay = document.createElement('div')
             this.overlay.classList.add('overlay')
             document.getElementById('canvas').prepend(this.overlay)
             this.objectDragged = this.getTemplateFromId(grabbedElement.dataset.id)
             this.elementDragged = this.convertToDomElement(this.objectDragged.content)
-            if(this.isGrid(this.elementDragged)) {
+            if (this.isGrid(this.elementDragged)) {
                 this.gridLayout = {
                     cols: countCols(this.elementDragged),
                     rows: countRows(this.elementDragged),
@@ -69,16 +69,16 @@ export class Dragger {
     }
     drop(event) {
         this.htmlTag.removeEventListener('mousemove', this.moveFunc, false)
-        if(this.elementDragged === null) {
+        if (this.elementDragged === null) {
             return false
         }
         this.clone.remove()
-        if(this.elementExistsInContainer(this.options.iframe.document.body, this.elementDragged)) {
-            if(this.isGrid(this.elementDragged)) {
+        if (this.elementExistsInContainer(this.options.iframe.document.body, this.elementDragged)) {
+            if (this.isGrid(this.elementDragged)) {
                 let totalChilds = ((this.gridLayout.cols !== 0) ? this.gridLayout.cols : 1) * ((this.gridLayout.rows !== 0) ? this.gridLayout.rows : 1)
                 this.createElementAndAppend('div', this.elementDragged, totalChilds, 'grid-placeholder')
             }
-            if(this.isLayout(this.objectDragged)) {
+            if (this.isLayout(this.objectDragged)) {
                 //Store new container in global containers list
                 this.containers.push(this.elementDragged)
             }
@@ -86,7 +86,7 @@ export class Dragger {
         this.objectDragged = null
         this.elementDragged.classList.remove('shadow-elem')
         this.elementDragged = null
-        if(this.containerHovered !== null) {
+        if (this.containerHovered !== null) {
             this.containerHovered.classList.remove('container-hovered')
             this.currentAppendIndex++
             this.containerHovered = null
@@ -97,11 +97,11 @@ export class Dragger {
         }
     }
     getDraggable(element, draggableSelector) {
-        if(element.matches(draggableSelector)) {
+        if (element.matches(draggableSelector)) {
             return element
         } else {
             let tryToFindElem = element.closest(draggableSelector)
-            if(tryToFindElem !== null) {
+            if (tryToFindElem !== null) {
                 return tryToFindElem
             } else {
                 return null
@@ -126,23 +126,23 @@ export class Dragger {
     }
     renderShadowElement(event) {
         let elementsBehindCursor = document.elementsFromPoint(event.clientX, event.clientY)
-        if(this.overIframe(elementsBehindCursor)) { // dragging over iframe
-            if(this.isLayout(this.objectDragged)) { // dragging layout
+        if (this.overIframe(elementsBehindCursor)) { // dragging over iframe
+            if (this.isLayout(this.objectDragged)) { // dragging layout
                 this.elementDragged.classList.add('shadow-elem', 'layout')
                 let closestContainer = this.firstDescendantContainer(event.layerY, this.containers)
-                if(typeof closestContainer !== 'undefined') {
+                if (typeof closestContainer !== 'undefined') {
                     this.options.iframe.document.body.insertBefore(this.elementDragged, closestContainer)
                 } else {
                     this.options.iframe.document.body.appendChild(this.elementDragged)
                 }
             } else { //dragging element
                 let elementsBehindCursorInIframe = this.options.iframe.document.elementsFromPoint(event.layerX, event.layerY)
-                if(this.overContainer(elementsBehindCursorInIframe)) {
-                    if(this.containerHovered !== this.findContainer(elementsBehindCursorInIframe)) { //if shadow elem for this container has not already been rendered (ie: we changed container)
-                        if(this.containerHovered !== null) {
+                if (this.overContainer(elementsBehindCursorInIframe)) {
+                    if (this.containerHovered !== this.findContainer(elementsBehindCursorInIframe)) { //if shadow elem for this container has not already been rendered (ie: we changed container)
+                        if (this.containerHovered !== null) {
                             this.containerHovered.classList.remove('container-hovered') // remove previous container blue border
                             this.removeElementFromContainer(this.containerHovered, this.elementDragged)
-                             if(this.isGrid(this.containerHovered)) { //Previous grid hovered
+                             if (this.isGrid(this.containerHovered)) { //Previous grid hovered
                                 //container we just left was a grid container we need to reappend the placeholder div
                                 this.gridLayout = {
                                     cols: countCols(this.containerHovered),
@@ -162,14 +162,14 @@ export class Dragger {
                         this.containerHovered = this.findContainer(elementsBehindCursorInIframe)
                         this.containerHovered.classList.add('container-hovered')
                         this.elementDragged.classList.add('shadow-elem')
-                        if(this.isGrid(this.containerHovered)) {
+                        if (this.isGrid(this.containerHovered)) {
                             this.gridLayout = {
                                 cols: countCols(this.containerHovered),
                                 rows: countRows(this.containerHovered),
                                 isFull: this.gridIsFull(this.containerHovered),
                                 appendIndex: this.getAppendIndex(this.containerHovered)
                             }
-                            if(!this.gridLayout.isFull) {
+                            if (!this.gridLayout.isFull) {
                                 this.removeGridFirstChildMatching(this.containerHovered, '.grid-placeholder')
                                 this.containerHovered.insertBefore(this.elementDragged, this.containerHovered.children[this.gridLayout.appendIndex])
                             }
@@ -178,11 +178,11 @@ export class Dragger {
                         }
                     }
                 } else { // over iframe but not over container
-                    if(this.containerHovered !== null) {
+                    if (this.containerHovered !== null) {
                         console.log('here1')
                         this.containerHovered.classList.remove('container-hovered')
                         this.removeElementFromContainer(this.containerHovered, this.elementDragged)
-                        if(this.isGrid(this.containerHovered)) {
+                        if (this.isGrid(this.containerHovered)) {
                             console.log('here2')
                             this.gridLayout = {
                                 cols: countCols(this.containerHovered),
@@ -202,17 +202,17 @@ export class Dragger {
                 }
             }
         } else { //Gets out of iframe
-            if(this.isLayout(this.objectDragged)) {
-                if(this.options.iframe.document.body.contains(this.elementDragged)) {
+            if (this.isLayout(this.objectDragged)) {
+                if (this.options.iframe.document.body.contains(this.elementDragged)) {
                     this.elementDragged.classList.remove('shadow-elem', 'layout')
                     this.options.iframe.document.body.removeChild(this.elementDragged)
                 }
             } else { //Is dragging element
-                if(this.options.iframe.document.body.contains(this.elementDragged)) {
+                if (this.options.iframe.document.body.contains(this.elementDragged)) {
                     this.elementDragged.classList.remove('shadow-elem')
                     this.elementDragged.remove()
                 }
-                if(this.containerHovered !== null) { // Re-add grid placeholders if we were hovering a grid and got out of iframe
+                if (this.containerHovered !== null) { // Re-add grid placeholders if we were hovering a grid and got out of iframe
                     this.gridLayout = {
                         cols: countCols(this.containerHovered),
                         rows: countRows(this.containerHovered),
@@ -288,9 +288,9 @@ export class Dragger {
     //     return !!document.getElementById(idSelector)
     // }
     createElementAndAppend(elementType, container, numberToAppend, classToAdd = '') {
-        for(let i = 0; i < numberToAppend; i++) {
+        for (let i = 0; i < numberToAppend; i++) {
             let div = document.createElement(elementType);
-            if(classToAdd !== '') {
+            if (classToAdd !== '') {
                 div.classList.add(classToAdd)
             }
             container.appendChild(div)
@@ -298,7 +298,7 @@ export class Dragger {
     }
     removeGridFirstChildMatching(container, cssClass) {
         let firstChildPlaceholder = container.querySelector(cssClass)
-        if(firstChildPlaceholder !== null) {
+        if (firstChildPlaceholder !== null) {
             container.removeChild(firstChildPlaceholder)
         }
     }
@@ -307,7 +307,7 @@ export class Dragger {
     }
     getAppendIndex(container) {
         let firstChildMatching = container.querySelector('.grid-placeholder')
-        if(firstChildMatching === null) {
+        if (firstChildMatching === null) {
             return null
         }
         return [...firstChildMatching.parentNode.children].indexOf(firstChildMatching)
@@ -316,7 +316,7 @@ export class Dragger {
         return container.children.length
     }
     firstDescendantContainer(y, containers) {
-        if(containers.length > 0) {
+        if (containers.length > 0) {
             return containers.find((container) => {
                 return (container.getBoundingClientRect().bottom >= y)
             })
