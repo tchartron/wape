@@ -1,51 +1,61 @@
- @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300&display=swap');
+
 body {
-    margin: 0;
-    font-family: 'Roboto Condensed', sans-serif;
+  margin: 0;
+  font-family: 'Roboto Condensed', sans-serif;
 }
+
 /*iframe {
     pointer-events: none;
 }*/
+
 div.layout.clone,
 div.elem.clone {
-    position: absolute;
-/*    top: 0;
+  position: absolute;
+  /*    top: 0;
     left: 0;*/
-    background-color: #454545;
-    display: flex;
-    cursor: all-scroll;
-    justify-content: space-between;
-    flex-direction: column;
-/*    height: 130px;
+  background-color: #454545;
+  display: flex;
+  cursor: all-scroll;
+  justify-content: space-between;
+  flex-direction: column;
+  /*    height: 130px;
     width: 110px;*/
-    box-sizing: border-box;
-    border: 1px solid #000;
-    padding: 1em;
-    border-radius: 5px;
-    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);
-    user-select: none;
+  box-sizing: border-box;
+  border: 1px solid #000;
+  padding: 1em;
+  border-radius: 5px;
+  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.7);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
+
 div.layout.clone > svg {
-    font-size: 2rem;
-    color: #fff;
-    margin: auto;
+  font-size: 2rem;
+  color: #fff;
+  margin: auto;
 }
+
 div.elem.clone > svg {
-    font-size: 2rem;
-    color: #fff;
-    margin: auto;
+  font-size: 2rem;
+  color: #fff;
+  margin: auto;
 }
+
 div.layout.clone > span.elem-title,
 div.elem.clone > span.elem-title {
-    text-align: center;
-    color: #fff;
-    font-weight: 300;
-    font-size: 0.9rem;
-    margin-top: .5rem;
+  text-align: center;
+  color: #fff;
+  font-weight: 300;
+  font-size: 0.9rem;
+  margin-top: .5rem;
 }
+
 div.canvas > div.overlay {
-    position: fixed;
-    z-index: +999;
-    width: 100%;
-    height: 100%;
+  position: fixed;
+  z-index: +999;
+  width: 100%;
+  height: 100%;
 }
