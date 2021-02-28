@@ -79,4 +79,48 @@ const grid_mapper = {
     }
 };
 
-export { grid_mapper }
+const flex_mapper = {
+    gap: {
+        cols_gap: [
+            { id: 1, text: '0', value: 'gap-x-0' },
+            { id: 2, text: '0.5', value: 'gap-x-0.5'},
+            { id: 3, text: '1', value: 'gap-x-1'},
+            { id: 4, text: '1.5', value: 'gap-x-1.5'},
+            { id: 5, text: '2', value: 'gap-x-2'},
+            { id: 6, text: '2.5', value: 'gap-x-2.5'},
+            { id: 7, text: '3', value: 'gap-x-3'},
+            { id: 8, text: '3.5', value: 'gap-x-3.5'},
+            { id: 9, text: '4', value: 'gap-x-4'},
+            { id: 10, text: '5', value: 'gap-x-5'},
+            { id: 11, text: '6', value: 'gap-x-6'},
+            { id: 12, text: '7', value: 'gap-x-7'},
+            { id: 13, text: '8', value: 'gap-x-8'},
+            { id: 14, text: '9', value: 'gap-x-9'},
+            { id: 15, text: '10', value: 'gap-x-10'},
+            { id: 16, text: '11', value: 'gap-x-11'},
+            { id: 17, text: '12', value: 'gap-x-12'},
+            { id: 18, text: '14', value: 'gap-x-14'},
+            { id: 19, text: '16', value: 'gap-x-16'},
+            { id: 20, text: '20', value: 'gap-x-20'},
+            { id: 21, text: '24', value: 'gap-x-24'},
+            { id: 22, text: '28', value: 'gap-x-28'},
+            { id: 23, text: '32', value: 'gap-x-32'},
+            { id: 24, text: '36', value: 'gap-x-36'},
+            { id: 25, text: '40', value: 'gap-x-40'},
+            { id: 26, text: '44', value: 'gap-x-44'},
+            { id: 27, text: '48', value: 'gap-x-48'},
+            { id: 28, text: '52', value: 'gap-x-52'},
+            { id: 29, text: '56', value: 'gap-x-56'},
+            { id: 30, text: '60', value: 'gap-x-60'},
+            { id: 31, text: '64', value: 'gap-x-64'},
+            { id: 32, text: '72', value: 'gap-x-72'},
+            { id: 33, text: '80', value: 'gap-x-80'},
+            { id: 34, text: '96', value: 'gap-x-96'},
+        ],
+        regex_patterns: {
+            cols_gap: 'gap-(x-)?[0-9]+(\.[0-9])?',
+        }
+    }
+};
+
+export { grid_mapper, flex_mapper }
