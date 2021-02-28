@@ -72,10 +72,10 @@ const grid_mapper = {
             { id: 33, text: '80', value: 'gap-x-80'},
             { id: 34, text: '96', value: 'gap-x-96'},
         ],
-        regex_patterns: [
-            { rows_gap: 'gap-y-\\d+' },
-            { cols_gap: 'gap-x-\\d+' },
-        ]
+        regex_patterns: {
+            rows_gap: 'gap-(y-)?[0-9]+(\.[0-9])?',
+            cols_gap: 'gap-(x-)?[0-9]+(\.[0-9])?',
+        }
     }
 };
 
