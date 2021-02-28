@@ -52,10 +52,6 @@ export default {
         animating: false,
         selected_container: null,
         selected_element: null,
-        // displayed_options: {
-        //   container: [],
-        //   elements: []
-        // },
         mappers: {
           grid_mapper
         },
@@ -69,12 +65,6 @@ export default {
       emitter.on('iframe-click', (args) => { //Fired from MainPanel.vue
         this.selected_container = args.container
         this.selected_element = args.element
-        // if (this.selected_container !== null) {
-        //   this.showContainerOptions(this.selected_container)
-        // }
-        // if  (this.selected_container !== null) {
-        //   this.showElementOptions(this.selected_element)
-        // }
       })
     },
     methods: {
@@ -105,9 +95,6 @@ export default {
         }
         element.addClass(new_class)
       }
-      // findClassPattern(mapper, option_name) {
-      //   return mapper[option_name].regex_patterns.find(item => (item.key === replace_pattern_key))
-      // }
     }
 }
 </script>
