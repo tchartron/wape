@@ -87,7 +87,7 @@ export class Dragger {
         this.elementDragged.classList.remove('shadow-elem')
         this.elementDragged = null
         if (this.containerHovered !== null) {
-            this.containerHovered.classList.remove('container-hovered')
+            // this.containerHovered.classList.remove('container-hovered')
             this.currentAppendIndex++
             this.containerHovered = null
         }
@@ -128,7 +128,14 @@ export class Dragger {
         let elementsBehindCursor = document.elementsFromPoint(event.clientX, event.clientY)
         if (this.overIframe(elementsBehindCursor)) { // dragging over iframe
             if (this.isLayout(this.objectDragged)) { // dragging layout
-                this.elementDragged.classList.add('shadow-elem', 'layout')
+                if (this.isFlex(this.elementDragged)) { // if container is flex add layout to it's children (ie : it's columns)
+                    let htmlCollectionToArray = [...this.elementDragged.children]
+                    htmlCollectionToArray.forEach(element => {
+                        element.classList.add('layout')
+                    })
+                } else {
+                    this.elementDragged.classList.add('shadow-elem', 'layout')
+                }
                 let closestContainer = this.firstDescendantContainer(event.layerY, this.containers)
                 if (typeof closestContainer !== 'undefined') {
                     this.options.iframe.document.body.insertBefore(this.elementDragged, closestContainer)
@@ -140,7 +147,7 @@ export class Dragger {
                 if (this.overContainer(elementsBehindCursorInIframe)) {
                     if (this.containerHovered !== this.findContainer(elementsBehindCursorInIframe)) { //if shadow elem for this container has not already been rendered (ie: we changed container)
                         if (this.containerHovered !== null) {
-                            this.containerHovered.classList.remove('container-hovered') // remove previous container blue border
+                            // this.containerHovered.classList.remove('container-hovered') // remove previous container blue border
                             this.removeElementFromContainer(this.containerHovered, this.elementDragged)
                              if (this.isGrid(this.containerHovered)) { //Previous grid hovered
                                 //container we just left was a grid container we need to reappend the placeholder div
@@ -160,7 +167,7 @@ export class Dragger {
                              }
                         }
                         this.containerHovered = this.findContainer(elementsBehindCursorInIframe)
-                        this.containerHovered.classList.add('container-hovered')
+                        // this.containerHovered.classList.add('container-hovered')
                         this.elementDragged.classList.add('shadow-elem')
                         if (this.isGrid(this.containerHovered)) {
                             this.gridLayout = {
@@ -174,13 +181,16 @@ export class Dragger {
                                 this.containerHovered.insertBefore(this.elementDragged, this.containerHovered.children[this.gridLayout.appendIndex])
                             }
                         } else {
+                            console.log(this.containerHovered)
+                            console.log(this.currentAppendIndex)
+                            console.log(this.containerHovered.children)
                             this.containerHovered.insertBefore(this.elementDragged, this.containerHovered.children[this.currentAppendIndex])
                         }
                     }
                 } else { // over iframe but not over container
                     if (this.containerHovered !== null) {
                         console.log('here1')
-                        this.containerHovered.classList.remove('container-hovered')
+                        // this.containerHovered.classList.remove('container-hovered')
                         this.removeElementFromContainer(this.containerHovered, this.elementDragged)
                         if (this.isGrid(this.containerHovered)) {
                             console.log('here2')
@@ -278,6 +288,9 @@ export class Dragger {
     }
     isGrid(element) {
         return (element.matches('.grid'))
+    }
+    isFlex(element) {
+        return (element.matches('.flex'))
     }
     removeElementFromContainer(container, element) {
         if (element.parentNode == container) {

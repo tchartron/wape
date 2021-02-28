@@ -31181,7 +31181,7 @@ body {
   /*border-bottom: 1px dotted #000;*/
 }
 
-body > div.layout {
+div.layout {
   min-height: 120px !important;
   border: 1px dashed #000;
 }

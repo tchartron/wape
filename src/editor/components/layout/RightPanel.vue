@@ -27,6 +27,16 @@
                 </div>
               </div>
             </div>
+            <div class="flex" v-if="isFlex(selected_container)">
+              <div class="gap">
+                <div class="select">
+                  <label for="cols-gap">Cols gap</label>
+                  <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_container, selected_col_gap.value, mappers.flex_mapper.gap.regex_patterns.cols_gap)" v-model="selected_col_gap">
+                    <option v-for='(col_gap, index) in mappers.flex_mapper.gap.cols_gap' :key="index" :value="col_gap">{{ col_gap.text }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
         </div>
       </div>
     </transition>
@@ -42,7 +52,7 @@
 <script>
 import { emitter } from 'App/Wape'
 import isEmpty from 'lodash/isEmpty'
-import { grid_mapper } from 'Editor/mappers/tailwind/grid'
+import { grid_mapper, flex_mapper } from 'Editor/mappers/tailwind'
 
 export default {
     name: 'RightPanel',
@@ -53,7 +63,8 @@ export default {
         selected_container: null,
         selected_element: null,
         mappers: {
-          grid_mapper
+          grid_mapper,
+          flex_mapper,
         },
         container_options: [],
         element_options: [],
@@ -83,6 +94,13 @@ export default {
           return false
         } else {
           return container.type === 'grid'
+        }
+      },
+      isFlex(container) {
+        if (container === null) {
+          return false
+        } else {
+          return container.type === 'flex'
         }
       },
       replaceClass(element, new_class, pattern) {

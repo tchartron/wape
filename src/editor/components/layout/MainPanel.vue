@@ -71,8 +71,8 @@ export default {
       },
       iframeClick(event) {
         let elements = this.iframe.document.elementsFromPoint(event.clientX, event.clientY)
-        let layout = elements.find((elem) => {
-            return (elem.matches('.layout'))
+        let layout = elements.reverse().find((elem) => { // reverse elements to place flex containers before their columns (we need flex columns to have the layout class to handle dropping elements inside in dragger.js)
+            return (elem.matches('.flex')) || (elem.matches('.layout')) //If you find .flex first take this as main layout not the columns inside it
         })
         if (typeof layout !== 'undefined') {
           if (this.selected_container === null || this.selected_container.element !== layout) { //if we selected another container than the current one
@@ -80,6 +80,7 @@ export default {
               this.selected_container.removeClass('container-selected')
             }
             this.selected_container = new Container(layout)
+            console.log(this.selected_container)
             this.selected_container.addClass('container-selected')
             // let children = this.selected_container.getChildren()
           }

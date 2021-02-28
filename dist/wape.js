@@ -8714,7 +8714,10 @@ var wape = (function () {
           title: 'Columns',
           icon: 'fas fa-columns',
           type: 'layout',
-          content: `<div class="flex flex-row flex-wrap"></div>`
+          content: `<div class="flex flex-row flex-wrap">
+                    <div class="flex-1"></div>
+                    <div class="flex-1"></div>
+                </div>`
       },
       {
           id: 4,
@@ -9637,6 +9640,50 @@ var wape = (function () {
       }
   };
 
+  const flex_mapper = {
+      gap: {
+          cols_gap: [
+              { id: 1, text: '0', value: 'gap-x-0' },
+              { id: 2, text: '0.5', value: 'gap-x-0.5'},
+              { id: 3, text: '1', value: 'gap-x-1'},
+              { id: 4, text: '1.5', value: 'gap-x-1.5'},
+              { id: 5, text: '2', value: 'gap-x-2'},
+              { id: 6, text: '2.5', value: 'gap-x-2.5'},
+              { id: 7, text: '3', value: 'gap-x-3'},
+              { id: 8, text: '3.5', value: 'gap-x-3.5'},
+              { id: 9, text: '4', value: 'gap-x-4'},
+              { id: 10, text: '5', value: 'gap-x-5'},
+              { id: 11, text: '6', value: 'gap-x-6'},
+              { id: 12, text: '7', value: 'gap-x-7'},
+              { id: 13, text: '8', value: 'gap-x-8'},
+              { id: 14, text: '9', value: 'gap-x-9'},
+              { id: 15, text: '10', value: 'gap-x-10'},
+              { id: 16, text: '11', value: 'gap-x-11'},
+              { id: 17, text: '12', value: 'gap-x-12'},
+              { id: 18, text: '14', value: 'gap-x-14'},
+              { id: 19, text: '16', value: 'gap-x-16'},
+              { id: 20, text: '20', value: 'gap-x-20'},
+              { id: 21, text: '24', value: 'gap-x-24'},
+              { id: 22, text: '28', value: 'gap-x-28'},
+              { id: 23, text: '32', value: 'gap-x-32'},
+              { id: 24, text: '36', value: 'gap-x-36'},
+              { id: 25, text: '40', value: 'gap-x-40'},
+              { id: 26, text: '44', value: 'gap-x-44'},
+              { id: 27, text: '48', value: 'gap-x-48'},
+              { id: 28, text: '52', value: 'gap-x-52'},
+              { id: 29, text: '56', value: 'gap-x-56'},
+              { id: 30, text: '60', value: 'gap-x-60'},
+              { id: 31, text: '64', value: 'gap-x-64'},
+              { id: 32, text: '72', value: 'gap-x-72'},
+              { id: 33, text: '80', value: 'gap-x-80'},
+              { id: 34, text: '96', value: 'gap-x-96'},
+          ],
+          regex_patterns: {
+              cols_gap: 'gap-(x-)?[0-9]+(\.[0-9])?',
+          }
+      }
+  };
+
   //
 
   var script$2 = {
@@ -9647,12 +9694,9 @@ var wape = (function () {
           animating: false,
           selected_container: null,
           selected_element: null,
-          // displayed_options: {
-          //   container: [],
-          //   elements: []
-          // },
           mappers: {
-            grid_mapper
+            grid_mapper,
+            flex_mapper,
           },
           container_options: [],
           element_options: [],
@@ -9664,12 +9708,6 @@ var wape = (function () {
         emitter.on('iframe-click', (args) => { //Fired from MainPanel.vue
           this.selected_container = args.container;
           this.selected_element = args.element;
-          // if (this.selected_container !== null) {
-          //   this.showContainerOptions(this.selected_container)
-          // }
-          // if  (this.selected_container !== null) {
-          //   this.showElementOptions(this.selected_element)
-          // }
         });
       },
       methods: {
@@ -9690,6 +9728,13 @@ var wape = (function () {
             return container.type === 'grid'
           }
         },
+        isFlex(container) {
+          if (container === null) {
+            return false
+          } else {
+            return container.type === 'flex'
+          }
+        },
         replaceClass(element, new_class, pattern) {
           if (pattern !== null) {
             let regex = new RegExp(pattern, 'g');
@@ -9700,9 +9745,6 @@ var wape = (function () {
           }
           element.addClass(new_class);
         }
-        // findClassPattern(mapper, option_name) {
-        //   return mapper[option_name].regex_patterns.find(item => (item.key === replace_pattern_key))
-        // }
       }
   };
 
@@ -9885,6 +9927,76 @@ var wape = (function () {
                             ])
                           ])
                         ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.isFlex(_vm.selected_container)
+                      ? _c("div", { staticClass: "flex" }, [
+                          _c("div", { staticClass: "gap" }, [
+                            _c("div", { staticClass: "select" }, [
+                              _c("label", { attrs: { for: "cols-gap" } }, [
+                                _vm._v("Cols gap")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.selected_col_gap,
+                                      expression: "selected_col_gap"
+                                    }
+                                  ],
+                                  attrs: { id: "cols-gap", name: "cols-gap" },
+                                  on: {
+                                    change: [
+                                      function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value;
+                                            return val
+                                          });
+                                        _vm.selected_col_gap = $event.target
+                                          .multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0];
+                                      },
+                                      function($event) {
+                                        return _vm.replaceClass(
+                                          _vm.selected_container,
+                                          _vm.selected_col_gap.value,
+                                          _vm.mappers.flex_mapper.gap
+                                            .regex_patterns.cols_gap
+                                        )
+                                      }
+                                    ]
+                                  }
+                                },
+                                _vm._l(
+                                  _vm.mappers.flex_mapper.gap.cols_gap,
+                                  function(col_gap, index) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: index,
+                                        domProps: { value: col_gap }
+                                      },
+                                      [_vm._v(_vm._s(col_gap.text))]
+                                    )
+                                  }
+                                ),
+                                0
+                              )
+                            ])
+                          ])
+                        ])
                       : _vm._e()
                   ])
                 ])
@@ -9913,11 +10025,11 @@ var wape = (function () {
     /* style */
     const __vue_inject_styles__$2 = function (inject) {
       if (!inject) return
-      inject("data-v-5b33cfaa_0", { source: "\ndiv.right-panel[data-v-5b33cfaa] {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n}\ndiv.right-panel > div.actions[data-v-5b33cfaa] {\n      display: flex;\n      border-bottom: .5px solid #000;\n}\ndiv.right-panel > div.actions > div[data-v-5b33cfaa] {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n}\ndiv.right-panel > div.actions > div.container[data-v-5b33cfaa]\n    {\n      border-right: .5px solid #000;\n}\ndiv.right-panel > div.actions > div.element[data-v-5b33cfaa]\n    {\n      border-right: .5px solid #000;\n}\n\n    /* Animations thanks animista.net */\n.left-enter-active[data-v-5b33cfaa] {\n    -webkit-animation: slide-in-left-data-v-5b33cfaa 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left-data-v-5b33cfaa 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n.right-enter-active[data-v-5b33cfaa] {\n  -webkit-animation: slide-in-right-data-v-5b33cfaa 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right-data-v-5b33cfaa 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n@-webkit-keyframes slide-in-left-data-v-5b33cfaa {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-left-data-v-5b33cfaa {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@-webkit-keyframes slide-in-right-data-v-5b33cfaa {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-right-data-v-5b33cfaa {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n\n", map: {"version":3,"sources":["/Users/thomas/Developer/perso/wape/src/editor/components/layout/RightPanel.vue"],"names":[],"mappings":";AAmHA;MACA,yBAAA;MACA,2BAAA;MACA,YAAA;MACA,gBAAA;AACA;AACA;MACA,aAAA;MACA,8BAAA;AACA;AACA;MACA,cAAA;MACA,WAAA;MACA,iBAAA;MACA,eAAA;AACA;AACA;;MAEA,6BAAA;AACA;AACA;;MAEA,6BAAA;AACA;;IAEA,mCAAA;AACA;IACA,mGAAA;UACA,2FAAA;AACA;AACA;;;IAGA;AACA;EACA,oGAAA;UACA,4FAAA;AACA;CACA;;;IAGA;EACA,mCAAA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA","file":"RightPanel.vue","sourcesContent":["<template>\n  <div class=\"right-panel\">\n    <div class=\"actions\">\n      <div class=\"container\" @click=\"switchPanel('container')\">\n        <i class=\"far fa-square\" />\n      </div>\n      <div class=\"element\" @click=\"switchPanel('element')\">\n        <i class=\"fas fa-square\" />\n      </div>\n    </div>\n    <transition name=\"left\" @after-leave=\"animationEnd\">\n      <div v-if=\"(showPanel('container')) && !animating\" class=\"container-settings\">\n          <div class=\"options\">\n            <div class=\"grid\" v-if=\"isGrid(selected_container)\">\n              <div class=\"gap\">\n                <div class=\"select\">\n                  <label for=\"rows-gap\">Rows gap</label>\n                  <select id=\"rows-gap\" name=\"rows-gap\" @change=\"replaceClass(selected_container, selected_row_gap.value, mappers.grid_mapper.gap.regex_patterns.rows_gap)\" v-model=\"selected_row_gap\">\n                    <option v-for='(row_gap, index) in mappers.grid_mapper.gap.rows_gap' :key=\"index\" :value=\"row_gap\">{{ row_gap.text }}</option>\n                  </select>\n                </div>\n                <div class=\"select\">\n                  <label for=\"cols-gap\">Cols gap</label>\n                  <select id=\"cols-gap\" name=\"cols-gap\" @change=\"replaceClass(selected_container, selected_col_gap.value, mappers.grid_mapper.gap.regex_patterns.cols_gap)\" v-model=\"selected_col_gap\">\n                    <option v-for='(col_gap, index) in mappers.grid_mapper.gap.cols_gap' :key=\"index\" :value=\"col_gap\">{{ col_gap.text }}</option>\n                  </select>\n                </div>\n              </div>\n            </div>\n        </div>\n      </div>\n    </transition>\n\n    <transition name=\"right\" @after-leave=\"animationEnd\">\n      <div v-if=\"(showPanel('element')) && !animating\" class=\"element-settings\">\n        ELEMENT\n      </div>\n    </transition>\n  </div>\n</template>\n\n<script>\nimport { emitter } from 'App/Wape'\nimport isEmpty from 'lodash/isEmpty'\nimport { grid_mapper } from 'Editor/mappers/tailwind/grid'\n\nexport default {\n    name: 'RightPanel',\n    data() {\n      return {\n        current_panel: 'container',\n        animating: false,\n        selected_container: null,\n        selected_element: null,\n        // displayed_options: {\n        //   container: [],\n        //   elements: []\n        // },\n        mappers: {\n          grid_mapper\n        },\n        container_options: [],\n        element_options: [],\n        selected_col_gap: Object,\n        selected_row_gap: Object\n      }\n    },\n    mounted() {\n      emitter.on('iframe-click', (args) => { //Fired from MainPanel.vue\n        this.selected_container = args.container\n        this.selected_element = args.element\n        // if (this.selected_container !== null) {\n        //   this.showContainerOptions(this.selected_container)\n        // }\n        // if  (this.selected_container !== null) {\n        //   this.showElementOptions(this.selected_element)\n        // }\n      })\n    },\n    methods: {\n      switchPanel(panel) {\n        this.animating = true\n        this.current_panel = panel\n      },\n      showPanel(panel) {\n        return (this.current_panel === panel)\n      },\n      animationEnd() {\n        this.animating = false\n      },\n      isGrid(container) {\n        if (container === null) {\n          return false\n        } else {\n          return container.type === 'grid'\n        }\n      },\n      replaceClass(element, new_class, pattern) {\n        if (pattern !== null) {\n          let regex = new RegExp(pattern, 'g')\n          let match = element.element.className.match(regex)\n          if (match !== null) {\n            element.removeClass(match[0])\n          }\n        }\n        element.addClass(new_class)\n      }\n      // findClassPattern(mapper, option_name) {\n      //   return mapper[option_name].regex_patterns.find(item => (item.key === replace_pattern_key))\n      // }\n    }\n}\n</script>\n\n<style scoped>\n    div.right-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n    }\n    div.right-panel > div.actions {\n      display: flex;\n      border-bottom: .5px solid #000;\n    }\n    div.right-panel > div.actions > div {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n    }\n    div.right-panel > div.actions > div.container\n    {\n      border-right: .5px solid #000;\n    }\n    div.right-panel > div.actions > div.element\n    {\n      border-right: .5px solid #000;\n    }\n\n    /* Animations thanks animista.net */\n  .left-enter-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  .right-enter-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n  @-webkit-keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @-webkit-keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n\n</style>\n"]}, media: undefined });
+      inject("data-v-32ba4999_0", { source: "\ndiv.right-panel[data-v-32ba4999] {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n}\ndiv.right-panel > div.actions[data-v-32ba4999] {\n      display: flex;\n      border-bottom: .5px solid #000;\n}\ndiv.right-panel > div.actions > div[data-v-32ba4999] {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n}\ndiv.right-panel > div.actions > div.container[data-v-32ba4999]\n    {\n      border-right: .5px solid #000;\n}\ndiv.right-panel > div.actions > div.element[data-v-32ba4999]\n    {\n      border-right: .5px solid #000;\n}\n\n    /* Animations thanks animista.net */\n.left-enter-active[data-v-32ba4999] {\n    -webkit-animation: slide-in-left-data-v-32ba4999 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left-data-v-32ba4999 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n.right-enter-active[data-v-32ba4999] {\n  -webkit-animation: slide-in-right-data-v-32ba4999 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right-data-v-32ba4999 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n@-webkit-keyframes slide-in-left-data-v-32ba4999 {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-left-data-v-32ba4999 {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@-webkit-keyframes slide-in-right-data-v-32ba4999 {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-right-data-v-32ba4999 {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n\n", map: {"version":3,"sources":["/Users/thomas/Developer/perso/wape/src/editor/components/layout/RightPanel.vue"],"names":[],"mappings":";AAwHA;MACA,yBAAA;MACA,2BAAA;MACA,YAAA;MACA,gBAAA;AACA;AACA;MACA,aAAA;MACA,8BAAA;AACA;AACA;MACA,cAAA;MACA,WAAA;MACA,iBAAA;MACA,eAAA;AACA;AACA;;MAEA,6BAAA;AACA;AACA;;MAEA,6BAAA;AACA;;IAEA,mCAAA;AACA;IACA,mGAAA;UACA,2FAAA;AACA;AACA;;;IAGA;AACA;EACA,oGAAA;UACA,4FAAA;AACA;CACA;;;IAGA;EACA,mCAAA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA","file":"RightPanel.vue","sourcesContent":["<template>\n  <div class=\"right-panel\">\n    <div class=\"actions\">\n      <div class=\"container\" @click=\"switchPanel('container')\">\n        <i class=\"far fa-square\" />\n      </div>\n      <div class=\"element\" @click=\"switchPanel('element')\">\n        <i class=\"fas fa-square\" />\n      </div>\n    </div>\n    <transition name=\"left\" @after-leave=\"animationEnd\">\n      <div v-if=\"(showPanel('container')) && !animating\" class=\"container-settings\">\n          <div class=\"options\">\n            <div class=\"grid\" v-if=\"isGrid(selected_container)\">\n              <div class=\"gap\">\n                <div class=\"select\">\n                  <label for=\"rows-gap\">Rows gap</label>\n                  <select id=\"rows-gap\" name=\"rows-gap\" @change=\"replaceClass(selected_container, selected_row_gap.value, mappers.grid_mapper.gap.regex_patterns.rows_gap)\" v-model=\"selected_row_gap\">\n                    <option v-for='(row_gap, index) in mappers.grid_mapper.gap.rows_gap' :key=\"index\" :value=\"row_gap\">{{ row_gap.text }}</option>\n                  </select>\n                </div>\n                <div class=\"select\">\n                  <label for=\"cols-gap\">Cols gap</label>\n                  <select id=\"cols-gap\" name=\"cols-gap\" @change=\"replaceClass(selected_container, selected_col_gap.value, mappers.grid_mapper.gap.regex_patterns.cols_gap)\" v-model=\"selected_col_gap\">\n                    <option v-for='(col_gap, index) in mappers.grid_mapper.gap.cols_gap' :key=\"index\" :value=\"col_gap\">{{ col_gap.text }}</option>\n                  </select>\n                </div>\n              </div>\n            </div>\n            <div class=\"flex\" v-if=\"isFlex(selected_container)\">\n              <div class=\"gap\">\n                <div class=\"select\">\n                  <label for=\"cols-gap\">Cols gap</label>\n                  <select id=\"cols-gap\" name=\"cols-gap\" @change=\"replaceClass(selected_container, selected_col_gap.value, mappers.flex_mapper.gap.regex_patterns.cols_gap)\" v-model=\"selected_col_gap\">\n                    <option v-for='(col_gap, index) in mappers.flex_mapper.gap.cols_gap' :key=\"index\" :value=\"col_gap\">{{ col_gap.text }}</option>\n                  </select>\n                </div>\n              </div>\n            </div>\n        </div>\n      </div>\n    </transition>\n\n    <transition name=\"right\" @after-leave=\"animationEnd\">\n      <div v-if=\"(showPanel('element')) && !animating\" class=\"element-settings\">\n        ELEMENT\n      </div>\n    </transition>\n  </div>\n</template>\n\n<script>\nimport { emitter } from 'App/Wape'\nimport isEmpty from 'lodash/isEmpty'\nimport { grid_mapper, flex_mapper } from 'Editor/mappers/tailwind'\n\nexport default {\n    name: 'RightPanel',\n    data() {\n      return {\n        current_panel: 'container',\n        animating: false,\n        selected_container: null,\n        selected_element: null,\n        mappers: {\n          grid_mapper,\n          flex_mapper,\n        },\n        container_options: [],\n        element_options: [],\n        selected_col_gap: Object,\n        selected_row_gap: Object\n      }\n    },\n    mounted() {\n      emitter.on('iframe-click', (args) => { //Fired from MainPanel.vue\n        this.selected_container = args.container\n        this.selected_element = args.element\n      })\n    },\n    methods: {\n      switchPanel(panel) {\n        this.animating = true\n        this.current_panel = panel\n      },\n      showPanel(panel) {\n        return (this.current_panel === panel)\n      },\n      animationEnd() {\n        this.animating = false\n      },\n      isGrid(container) {\n        if (container === null) {\n          return false\n        } else {\n          return container.type === 'grid'\n        }\n      },\n      isFlex(container) {\n        if (container === null) {\n          return false\n        } else {\n          return container.type === 'flex'\n        }\n      },\n      replaceClass(element, new_class, pattern) {\n        if (pattern !== null) {\n          let regex = new RegExp(pattern, 'g')\n          let match = element.element.className.match(regex)\n          if (match !== null) {\n            element.removeClass(match[0])\n          }\n        }\n        element.addClass(new_class)\n      }\n    }\n}\n</script>\n\n<style scoped>\n    div.right-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n    }\n    div.right-panel > div.actions {\n      display: flex;\n      border-bottom: .5px solid #000;\n    }\n    div.right-panel > div.actions > div {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n    }\n    div.right-panel > div.actions > div.container\n    {\n      border-right: .5px solid #000;\n    }\n    div.right-panel > div.actions > div.element\n    {\n      border-right: .5px solid #000;\n    }\n\n    /* Animations thanks animista.net */\n  .left-enter-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  .right-enter-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n  @-webkit-keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @-webkit-keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n\n</style>\n"]}, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__$2 = "data-v-5b33cfaa";
+    const __vue_scope_id__$2 = "data-v-32ba4999";
     /* module identifier */
     const __vue_module_identifier__$2 = undefined;
     /* functional template */
@@ -10058,21 +10170,21 @@ var wape = (function () {
                   func: this.drop
               }
           ];
-          for(event of events) {
+          for (event of events) {
               let func = event.func.bind(this);
               this.htmlTag.addEventListener(event.type, func, false);
           }
       }
       grab(event) {
           let grabbedElement = this.getDraggable(event.target, this.draggableSelector);
-          if(grabbedElement !== null) {
+          if (grabbedElement !== null) {
               //Append overlay with z-index over iframe to prevent mousemove not beeing fired
               this.overlay = document.createElement('div');
               this.overlay.classList.add('overlay');
               document.getElementById('canvas').prepend(this.overlay);
               this.objectDragged = this.getTemplateFromId(grabbedElement.dataset.id);
               this.elementDragged = this.convertToDomElement(this.objectDragged.content);
-              if(this.isGrid(this.elementDragged)) {
+              if (this.isGrid(this.elementDragged)) {
                   this.gridLayout = {
                       cols: countCols(this.elementDragged),
                       rows: countRows(this.elementDragged),
@@ -10093,16 +10205,16 @@ var wape = (function () {
       }
       drop(event) {
           this.htmlTag.removeEventListener('mousemove', this.moveFunc, false);
-          if(this.elementDragged === null) {
+          if (this.elementDragged === null) {
               return false
           }
           this.clone.remove();
-          if(this.elementExistsInContainer(this.options.iframe.document.body, this.elementDragged)) {
-              if(this.isGrid(this.elementDragged)) {
+          if (this.elementExistsInContainer(this.options.iframe.document.body, this.elementDragged)) {
+              if (this.isGrid(this.elementDragged)) {
                   let totalChilds = ((this.gridLayout.cols !== 0) ? this.gridLayout.cols : 1) * ((this.gridLayout.rows !== 0) ? this.gridLayout.rows : 1);
                   this.createElementAndAppend('div', this.elementDragged, totalChilds, 'grid-placeholder');
               }
-              if(this.isLayout(this.objectDragged)) {
+              if (this.isLayout(this.objectDragged)) {
                   //Store new container in global containers list
                   this.containers.push(this.elementDragged);
               }
@@ -10110,8 +10222,8 @@ var wape = (function () {
           this.objectDragged = null;
           this.elementDragged.classList.remove('shadow-elem');
           this.elementDragged = null;
-          if(this.containerHovered !== null) {
-              this.containerHovered.classList.remove('container-hovered');
+          if (this.containerHovered !== null) {
+              // this.containerHovered.classList.remove('container-hovered')
               this.currentAppendIndex++;
               this.containerHovered = null;
           }
@@ -10121,11 +10233,11 @@ var wape = (function () {
           }
       }
       getDraggable(element, draggableSelector) {
-          if(element.matches(draggableSelector)) {
+          if (element.matches(draggableSelector)) {
               return element
           } else {
               let tryToFindElem = element.closest(draggableSelector);
-              if(tryToFindElem !== null) {
+              if (tryToFindElem !== null) {
                   return tryToFindElem
               } else {
                   return null
@@ -10150,23 +10262,30 @@ var wape = (function () {
       }
       renderShadowElement(event) {
           let elementsBehindCursor = document.elementsFromPoint(event.clientX, event.clientY);
-          if(this.overIframe(elementsBehindCursor)) { // dragging over iframe
-              if(this.isLayout(this.objectDragged)) { // dragging layout
-                  this.elementDragged.classList.add('shadow-elem', 'layout');
+          if (this.overIframe(elementsBehindCursor)) { // dragging over iframe
+              if (this.isLayout(this.objectDragged)) { // dragging layout
+                  if (this.isFlex(this.elementDragged)) { // if container is flex add layout to it's children (ie : it's columns)
+                      let htmlCollectionToArray = [...this.elementDragged.children];
+                      htmlCollectionToArray.forEach(element => {
+                          element.classList.add('layout');
+                      });
+                  } else {
+                      this.elementDragged.classList.add('shadow-elem', 'layout');
+                  }
                   let closestContainer = this.firstDescendantContainer(event.layerY, this.containers);
-                  if(typeof closestContainer !== 'undefined') {
+                  if (typeof closestContainer !== 'undefined') {
                       this.options.iframe.document.body.insertBefore(this.elementDragged, closestContainer);
                   } else {
                       this.options.iframe.document.body.appendChild(this.elementDragged);
                   }
               } else { //dragging element
                   let elementsBehindCursorInIframe = this.options.iframe.document.elementsFromPoint(event.layerX, event.layerY);
-                  if(this.overContainer(elementsBehindCursorInIframe)) {
-                      if(this.containerHovered !== this.findContainer(elementsBehindCursorInIframe)) { //if shadow elem for this container has not already been rendered (ie: we changed container)
-                          if(this.containerHovered !== null) {
-                              this.containerHovered.classList.remove('container-hovered'); // remove previous container blue border
+                  if (this.overContainer(elementsBehindCursorInIframe)) {
+                      if (this.containerHovered !== this.findContainer(elementsBehindCursorInIframe)) { //if shadow elem for this container has not already been rendered (ie: we changed container)
+                          if (this.containerHovered !== null) {
+                              // this.containerHovered.classList.remove('container-hovered') // remove previous container blue border
                               this.removeElementFromContainer(this.containerHovered, this.elementDragged);
-                               if(this.isGrid(this.containerHovered)) { //Previous grid hovered
+                               if (this.isGrid(this.containerHovered)) { //Previous grid hovered
                                   //container we just left was a grid container we need to reappend the placeholder div
                                   this.gridLayout = {
                                       cols: countCols(this.containerHovered),
@@ -10184,29 +10303,32 @@ var wape = (function () {
                                }
                           }
                           this.containerHovered = this.findContainer(elementsBehindCursorInIframe);
-                          this.containerHovered.classList.add('container-hovered');
+                          // this.containerHovered.classList.add('container-hovered')
                           this.elementDragged.classList.add('shadow-elem');
-                          if(this.isGrid(this.containerHovered)) {
+                          if (this.isGrid(this.containerHovered)) {
                               this.gridLayout = {
                                   cols: countCols(this.containerHovered),
                                   rows: countRows(this.containerHovered),
                                   isFull: this.gridIsFull(this.containerHovered),
                                   appendIndex: this.getAppendIndex(this.containerHovered)
                               };
-                              if(!this.gridLayout.isFull) {
+                              if (!this.gridLayout.isFull) {
                                   this.removeGridFirstChildMatching(this.containerHovered, '.grid-placeholder');
                                   this.containerHovered.insertBefore(this.elementDragged, this.containerHovered.children[this.gridLayout.appendIndex]);
                               }
                           } else {
+                              console.log(this.containerHovered);
+                              console.log(this.currentAppendIndex);
+                              console.log(this.containerHovered.children);
                               this.containerHovered.insertBefore(this.elementDragged, this.containerHovered.children[this.currentAppendIndex]);
                           }
                       }
                   } else { // over iframe but not over container
-                      if(this.containerHovered !== null) {
+                      if (this.containerHovered !== null) {
                           console.log('here1');
-                          this.containerHovered.classList.remove('container-hovered');
+                          // this.containerHovered.classList.remove('container-hovered')
                           this.removeElementFromContainer(this.containerHovered, this.elementDragged);
-                          if(this.isGrid(this.containerHovered)) {
+                          if (this.isGrid(this.containerHovered)) {
                               console.log('here2');
                               this.gridLayout = {
                                   cols: countCols(this.containerHovered),
@@ -10226,17 +10348,17 @@ var wape = (function () {
                   }
               }
           } else { //Gets out of iframe
-              if(this.isLayout(this.objectDragged)) {
-                  if(this.options.iframe.document.body.contains(this.elementDragged)) {
+              if (this.isLayout(this.objectDragged)) {
+                  if (this.options.iframe.document.body.contains(this.elementDragged)) {
                       this.elementDragged.classList.remove('shadow-elem', 'layout');
                       this.options.iframe.document.body.removeChild(this.elementDragged);
                   }
               } else { //Is dragging element
-                  if(this.options.iframe.document.body.contains(this.elementDragged)) {
+                  if (this.options.iframe.document.body.contains(this.elementDragged)) {
                       this.elementDragged.classList.remove('shadow-elem');
                       this.elementDragged.remove();
                   }
-                  if(this.containerHovered !== null) { // Re-add grid placeholders if we were hovering a grid and got out of iframe
+                  if (this.containerHovered !== null) { // Re-add grid placeholders if we were hovering a grid and got out of iframe
                       this.gridLayout = {
                           cols: countCols(this.containerHovered),
                           rows: countRows(this.containerHovered),
@@ -10303,6 +10425,9 @@ var wape = (function () {
       isGrid(element) {
           return (element.matches('.grid'))
       }
+      isFlex(element) {
+          return (element.matches('.flex'))
+      }
       removeElementFromContainer(container, element) {
           if (element.parentNode == container) {
               container.removeChild(element);
@@ -10312,9 +10437,9 @@ var wape = (function () {
       //     return !!document.getElementById(idSelector)
       // }
       createElementAndAppend(elementType, container, numberToAppend, classToAdd = '') {
-          for(let i = 0; i < numberToAppend; i++) {
+          for (let i = 0; i < numberToAppend; i++) {
               let div = document.createElement(elementType);
-              if(classToAdd !== '') {
+              if (classToAdd !== '') {
                   div.classList.add(classToAdd);
               }
               container.appendChild(div);
@@ -10322,7 +10447,7 @@ var wape = (function () {
       }
       removeGridFirstChildMatching(container, cssClass) {
           let firstChildPlaceholder = container.querySelector(cssClass);
-          if(firstChildPlaceholder !== null) {
+          if (firstChildPlaceholder !== null) {
               container.removeChild(firstChildPlaceholder);
           }
       }
@@ -10331,7 +10456,7 @@ var wape = (function () {
       }
       getAppendIndex(container) {
           let firstChildMatching = container.querySelector('.grid-placeholder');
-          if(firstChildMatching === null) {
+          if (firstChildMatching === null) {
               return null
           }
           return [...firstChildMatching.parentNode.children].indexOf(firstChildMatching)
@@ -10340,7 +10465,7 @@ var wape = (function () {
           return container.children.length
       }
       firstDescendantContainer(y, containers) {
-          if(containers.length > 0) {
+          if (containers.length > 0) {
               return containers.find((container) => {
                   return (container.getBoundingClientRect().bottom >= y)
               })
@@ -10365,8 +10490,14 @@ var wape = (function () {
       // set element(element) {
       //     this.element = element
       // }
-      containerType(element) { //Determine wether it's a grid or a simple container to allow responsive options display
-          return (element.matches('.grid')) ? 'grid' : 'container'
+      containerType(element) {
+          if (element.matches('.grid')) {
+              return 'grid'
+          }
+          if (element.matches('.flex')) {
+              return 'flex'
+          }
+          return 'container'
       }
       addClass(cssClass) {
           this.element.classList.add(cssClass);
@@ -10458,8 +10589,8 @@ var wape = (function () {
         },
         iframeClick(event) {
           let elements = this.iframe.document.elementsFromPoint(event.clientX, event.clientY);
-          let layout = elements.find((elem) => {
-              return (elem.matches('.layout'))
+          let layout = elements.reverse().find((elem) => { // reverse elements to place flex containers before their columns (we need flex columns to have the layout class to handle dropping elements inside in dragger.js)
+              return (elem.matches('.flex')) || (elem.matches('.layout')) //If you find .flex first take this as main layout not the columns inside it
           });
           if (typeof layout !== 'undefined') {
             if (this.selected_container === null || this.selected_container.element !== layout) { //if we selected another container than the current one
@@ -10467,6 +10598,7 @@ var wape = (function () {
                 this.selected_container.removeClass('container-selected');
               }
               this.selected_container = new Container(layout);
+              console.log(this.selected_container);
               this.selected_container.addClass('container-selected');
               // let children = this.selected_container.getChildren()
             }
@@ -10523,11 +10655,11 @@ var wape = (function () {
     /* style */
     const __vue_inject_styles__$3 = function (inject) {
       if (!inject) return
-      inject("data-v-c6d863ea_0", { source: "\ndiv.canvas[data-v-c6d863ea] {\n  width: calc(100vw - 500px);\n  height: 100%;\n  background-color: #fff;\n  transition: width 0.5s ease 0s;\n}\niframe.iframe[data-v-c6d863ea] {\n  display: block;\n  border: 0px none;\n  height: 100%;\n  width: 100%;\n}\n", map: {"version":3,"sources":["/Users/thomas/Developer/perso/wape/src/editor/components/layout/MainPanel.vue"],"names":[],"mappings":";AA8GA;EACA,0BAAA;EACA,YAAA;EACA,sBAAA;EACA,8BAAA;AACA;AACA;EACA,cAAA;EACA,gBAAA;EACA,YAAA;EACA,WAAA;AACA","file":"MainPanel.vue","sourcesContent":["<template>\n  <div id=\"canvas\" class=\"canvas\" :style=\"{ width: canvas_width }\">\n    <iframe id=\"iframe\" name=\"iframe\" :src=\"iframeFilePath\" class=\"iframe\" @load=\"iframeLoaded\" />\n  </div>\n</template>\n\n<script>\nimport Iframe from 'Editor/Iframe'\nimport layouts from 'Editor/blocks/layouts'\nimport elements from 'Editor/blocks/elements'\nimport { Dragger } from 'Editor/Dragger/Dragger'\nimport Container from 'Editor/elements/Container'\nimport Element from 'Editor/elements/Element'\nimport isEmpty from 'lodash/isEmpty'\nimport { emitter } from 'App/Wape'\n\nexport default {\n    name: 'MainPanel',\n    data() {\n      return {\n        iframe: Object,\n        canvas_width: 'calc(100vw - 500px)',\n        element_hovered: null,\n        selected_container: null,\n        selected_element: null\n      }\n    },\n    computed: {\n      iframeFilePath() {\n        return 'iframe.html'\n      }\n    },\n    mounted() {\n      emitter.on('device-change', (args) => { //Fired from TopPanel.vue\n        this.canvas_width = args.width\n      })\n    },\n    methods: {\n      iframeLoaded() {\n        let elemArray = []\n        for(let elem of elements) {\n          elemArray.push(...elem.elements)\n        }\n        let templates = [...layouts, ...elemArray]\n        this.iframe = new Iframe('#iframe')\n        this.dragger = new Dragger('.draggable', {\n          iframe: this.iframe,\n          templates: templates\n        })\n        this.iframe.document.documentElement.addEventListener('click', this.iframeClick, false)\n        this.iframe.document.documentElement.addEventListener('mousemove', this.iframeMouseMove, false)\n      },\n      iframeMouseMove(event) {\n        let element = event.target\n        let dontHighlightTags = ['HTML', 'BODY']\n        if (!dontHighlightTags.includes(element.tagName)) {\n          if (this.element_hovered !== element) {\n            if (this.element_hovered !== null) {\n              this.element_hovered.classList.remove('element-hovered')\n            }\n            // this.element_hovered = new Element(element)\n            this.element_hovered = element\n            this.element_hovered.classList.add('element-hovered')\n          }\n        } else {\n          if (this.element_hovered !== null) {\n            this.element_hovered.classList.remove('element-hovered')\n          }\n          this.element_hovered = null\n        }\n      },\n      iframeClick(event) {\n        let elements = this.iframe.document.elementsFromPoint(event.clientX, event.clientY)\n        let layout = elements.find((elem) => {\n            return (elem.matches('.layout'))\n        })\n        if (typeof layout !== 'undefined') {\n          if (this.selected_container === null || this.selected_container.element !== layout) { //if we selected another container than the current one\n            if (this.selected_container !== null) {\n              this.selected_container.removeClass('container-selected')\n            }\n            this.selected_container = new Container(layout)\n            this.selected_container.addClass('container-selected')\n            // let children = this.selected_container.getChildren()\n          }\n        } else {\n          this.selected_container = null\n        }\n        let element = elements.find((elem) => {\n            return (elem.matches('.element-hovered'))\n        })\n        if (typeof layout !== 'undefined') {\n          if (this.selected_element === null || this.selected_element !== element) {\n            if (this.selected_element !== null) {\n              this.selected_element.removeClass('element-selected')\n            }\n            this.selected_element = new Element(element)\n            this.selected_element.addClass('element-selected')\n            // let children = this.selected_container.getChildren()\n            }\n          } else {\n            this.selected_element = null\n        }\n        emitter.emit('iframe-click', { container: this.selected_container, element: this.selected_element })\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.canvas {\n    width: calc(100vw - 500px);\n    height: 100%;\n    background-color: #fff;\n    transition: width 0.5s ease 0s;\n  }\n  iframe.iframe {\n    display: block;\n    border: 0px none;\n    height: 100%;\n    width: 100%;\n  }\n</style>\n"]}, media: undefined });
+      inject("data-v-7a60e5e4_0", { source: "\ndiv.canvas[data-v-7a60e5e4] {\n  width: calc(100vw - 500px);\n  height: 100%;\n  background-color: #fff;\n  transition: width 0.5s ease 0s;\n}\niframe.iframe[data-v-7a60e5e4] {\n  display: block;\n  border: 0px none;\n  height: 100%;\n  width: 100%;\n}\n", map: {"version":3,"sources":["/Users/thomas/Developer/perso/wape/src/editor/components/layout/MainPanel.vue"],"names":[],"mappings":";AA+GA;EACA,0BAAA;EACA,YAAA;EACA,sBAAA;EACA,8BAAA;AACA;AACA;EACA,cAAA;EACA,gBAAA;EACA,YAAA;EACA,WAAA;AACA","file":"MainPanel.vue","sourcesContent":["<template>\n  <div id=\"canvas\" class=\"canvas\" :style=\"{ width: canvas_width }\">\n    <iframe id=\"iframe\" name=\"iframe\" :src=\"iframeFilePath\" class=\"iframe\" @load=\"iframeLoaded\" />\n  </div>\n</template>\n\n<script>\nimport Iframe from 'Editor/Iframe'\nimport layouts from 'Editor/blocks/layouts'\nimport elements from 'Editor/blocks/elements'\nimport { Dragger } from 'Editor/Dragger/Dragger'\nimport Container from 'Editor/elements/Container'\nimport Element from 'Editor/elements/Element'\nimport isEmpty from 'lodash/isEmpty'\nimport { emitter } from 'App/Wape'\n\nexport default {\n    name: 'MainPanel',\n    data() {\n      return {\n        iframe: Object,\n        canvas_width: 'calc(100vw - 500px)',\n        element_hovered: null,\n        selected_container: null,\n        selected_element: null\n      }\n    },\n    computed: {\n      iframeFilePath() {\n        return 'iframe.html'\n      }\n    },\n    mounted() {\n      emitter.on('device-change', (args) => { //Fired from TopPanel.vue\n        this.canvas_width = args.width\n      })\n    },\n    methods: {\n      iframeLoaded() {\n        let elemArray = []\n        for(let elem of elements) {\n          elemArray.push(...elem.elements)\n        }\n        let templates = [...layouts, ...elemArray]\n        this.iframe = new Iframe('#iframe')\n        this.dragger = new Dragger('.draggable', {\n          iframe: this.iframe,\n          templates: templates\n        })\n        this.iframe.document.documentElement.addEventListener('click', this.iframeClick, false)\n        this.iframe.document.documentElement.addEventListener('mousemove', this.iframeMouseMove, false)\n      },\n      iframeMouseMove(event) {\n        let element = event.target\n        let dontHighlightTags = ['HTML', 'BODY']\n        if (!dontHighlightTags.includes(element.tagName)) {\n          if (this.element_hovered !== element) {\n            if (this.element_hovered !== null) {\n              this.element_hovered.classList.remove('element-hovered')\n            }\n            // this.element_hovered = new Element(element)\n            this.element_hovered = element\n            this.element_hovered.classList.add('element-hovered')\n          }\n        } else {\n          if (this.element_hovered !== null) {\n            this.element_hovered.classList.remove('element-hovered')\n          }\n          this.element_hovered = null\n        }\n      },\n      iframeClick(event) {\n        let elements = this.iframe.document.elementsFromPoint(event.clientX, event.clientY)\n        let layout = elements.reverse().find((elem) => { // reverse elements to place flex containers before their columns (we need flex columns to have the layout class to handle dropping elements inside in dragger.js)\n            return (elem.matches('.flex')) || (elem.matches('.layout')) //If you find .flex first take this as main layout not the columns inside it\n        })\n        if (typeof layout !== 'undefined') {\n          if (this.selected_container === null || this.selected_container.element !== layout) { //if we selected another container than the current one\n            if (this.selected_container !== null) {\n              this.selected_container.removeClass('container-selected')\n            }\n            this.selected_container = new Container(layout)\n            console.log(this.selected_container)\n            this.selected_container.addClass('container-selected')\n            // let children = this.selected_container.getChildren()\n          }\n        } else {\n          this.selected_container = null\n        }\n        let element = elements.find((elem) => {\n            return (elem.matches('.element-hovered'))\n        })\n        if (typeof layout !== 'undefined') {\n          if (this.selected_element === null || this.selected_element !== element) {\n            if (this.selected_element !== null) {\n              this.selected_element.removeClass('element-selected')\n            }\n            this.selected_element = new Element(element)\n            this.selected_element.addClass('element-selected')\n            // let children = this.selected_container.getChildren()\n            }\n          } else {\n            this.selected_element = null\n        }\n        emitter.emit('iframe-click', { container: this.selected_container, element: this.selected_element })\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.canvas {\n    width: calc(100vw - 500px);\n    height: 100%;\n    background-color: #fff;\n    transition: width 0.5s ease 0s;\n  }\n  iframe.iframe {\n    display: block;\n    border: 0px none;\n    height: 100%;\n    width: 100%;\n  }\n</style>\n"]}, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__$3 = "data-v-c6d863ea";
+    const __vue_scope_id__$3 = "data-v-7a60e5e4";
     /* module identifier */
     const __vue_module_identifier__$3 = undefined;
     /* functional template */
