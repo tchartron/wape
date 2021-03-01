@@ -22,8 +22,11 @@ div.grid.layout > div.grid-placeholder {
 /*.layout.container-hovered {
     border: 2px solid blue;
 }*/
-.layout.container-selected {
-    border: 2px solid green;
+.container-selected {
+    border: 2px solid green !important;
+}
+.element-selected {
+    border: 2px solid red !important;
 }
 .element-hovered {
     border: 2px solid blue !important;

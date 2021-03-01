@@ -31202,8 +31202,12 @@ div.grid.layout > div.grid-placeholder {
     border: 2px solid blue;
 }*/
 
-.layout.container-selected {
-  border: 2px solid green;
+.container-selected {
+  border: 2px solid green !important;
+}
+
+.element-selected {
+  border: 2px solid red !important;
 }
 
 .element-hovered {
