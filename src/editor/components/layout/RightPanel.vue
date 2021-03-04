@@ -12,14 +12,43 @@
       <div v-if="(showPanel('container')) && !animating" class="container-settings">
           <div class="grid" v-if="isGrid(selected_container)">
             <div class="setting-label">Grid settings</div>
-            <div class="gap">
-              <div class="select">
+            <div class="setting-content">
+              <div class="setting-subtitle">Rows</div>
+              <div class="setting-wrapper">
+                <div class="action">
+                  <div class="add-item">
+                    <i class="fas fa-plus"></i>
+                  </div>
+                </div>
+                <div class="rows">
+                  <div class="row" v-for="(row, index) in selected_container.rows" :key="index">
+                    Row {{ row }}
+                  </div>
+                </div>
+              </div>
+              <div class="setting-subtitle">Columns</div>
+              <div class="setting-wrapper">
+                <div class="action">
+                  <div class="add-item">
+                    <i class="fas fa-plus"></i>
+                  </div>
+                </div>
+                <div class="rows">
+                  <div class="row" v-for="(col, index) in selected_container.cols" :key="index">
+                    Column {{ col }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="setting-content">
+              <div class="setting-subtitle">Gap</div>
+              <div class="setting">
                 <label for="rows-gap">Rows gap</label>
                 <select id="rows-gap" name="rows-gap" @change="replaceClass(selected_container, selected_row_gap.value, mappers.grid_mapper.gap.regex_patterns.rows_gap)" v-model="selected_row_gap">
-                  <option v-for='(row_gap, index) in mappers.grid_mapper.gap.rows_gap' :key="index" :value="row_gap">{{ row_gap.text }}</option>
+                  <option v-for="(row_gap, index) in mappers.grid_mapper.gap.rows_gap" :key="index" :value="row_gap">{{ row_gap.text }}</option>
                 </select>
               </div>
-              <div class="select">
+              <div class="setting">
                 <label for="cols-gap">Cols gap</label>
                 <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_container, selected_col_gap.value, mappers.grid_mapper.gap.regex_patterns.cols_gap)" v-model="selected_col_gap">
                   <option v-for='(col_gap, index) in mappers.grid_mapper.gap.cols_gap' :key="index" :value="col_gap">{{ col_gap.text }}</option>
@@ -28,8 +57,10 @@
             </div>
           </div>
           <div class="flex" v-if="isFlex(selected_container)">
-            <div class="gap">
-              <div class="select">
+            <div class="setting-label">Columns settings</div>
+            <div class="setting-content">
+              <div class="setting-subtitle">Gap</div>
+              <div class="setting">
                 <label for="cols-gap">Cols gap</label>
                 <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_container, selected_col_gap.value, mappers.flex_mapper.gap.regex_patterns.cols_gap)" v-model="selected_col_gap">
                   <option v-for='(col_gap, index) in mappers.flex_mapper.gap.cols_gap' :key="index" :value="col_gap">{{ col_gap.text }}</option>
@@ -224,5 +255,54 @@ export default {
     min-width: 95%;
     box-sizing: border-box;
     user-select: none;
+  }
+
+  div.setting-subtitle {
+    color: #fff;
+    font-size: 1.1rem;
+    margin: 0.7rem 0.2rem;
+  }
+
+  div.setting-content {
+    margin: 0.5rem;
+    color: #d3d3d3;
+    border-bottom: 1px dashed #fff;
+    padding-bottom: 0.7rem;
+  }
+
+  div.setting {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    line-height: 1.7rem;
+  }
+
+  div.action {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 5px;
+  }
+  div.action > div.add-item {
+    padding: .5rem;
+    border: 1px solid #000;
+    cursor: pointer;
+    color: #fff;
+  }
+  div.action > div.add-item:hover {
+    padding: .5rem;
+    border: 1px solid #000;
+    background-color: #707070;
+    cursor: pointer;
+  }
+  div.setting-wrapper > div.rows > div.row:first-child {
+    line-height: 2rem;
+    border-top: 1px dotted #fff;
+    border-bottom: 1px dotted #fff;
+    cursor: pointer;
+  }
+  div.setting-wrapper > div.rows > div.row {
+    line-height: 2rem;
+    border-bottom: 1px dotted #fff;
+    cursor: pointer;
   }
 </style>
