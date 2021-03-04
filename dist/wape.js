@@ -9794,211 +9794,198 @@ var wape = (function () {
           [
             _vm.showPanel("container") && !_vm.animating
               ? _c("div", { staticClass: "container-settings" }, [
-                  _c("div", { staticClass: "options" }, [
-                    _vm.isGrid(_vm.selected_container)
-                      ? _c("div", { staticClass: "grid" }, [
-                          _c("div", { staticClass: "gap" }, [
-                            _c("div", { staticClass: "select" }, [
-                              _c("label", { attrs: { for: "rows-gap" } }, [
-                                _vm._v("Rows gap")
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "select",
-                                {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.selected_row_gap,
-                                      expression: "selected_row_gap"
-                                    }
-                                  ],
-                                  attrs: { id: "rows-gap", name: "rows-gap" },
-                                  on: {
-                                    change: [
-                                      function($event) {
-                                        var $$selectedVal = Array.prototype.filter
-                                          .call($event.target.options, function(
-                                            o
-                                          ) {
-                                            return o.selected
-                                          })
-                                          .map(function(o) {
-                                            var val =
-                                              "_value" in o ? o._value : o.value;
-                                            return val
-                                          });
-                                        _vm.selected_row_gap = $event.target
-                                          .multiple
-                                          ? $$selectedVal
-                                          : $$selectedVal[0];
-                                      },
-                                      function($event) {
-                                        return _vm.replaceClass(
-                                          _vm.selected_container,
-                                          _vm.selected_row_gap.value,
-                                          _vm.mappers.grid_mapper.gap
-                                            .regex_patterns.rows_gap
-                                        )
-                                      }
-                                    ]
-                                  }
-                                },
-                                _vm._l(
-                                  _vm.mappers.grid_mapper.gap.rows_gap,
-                                  function(row_gap, index) {
-                                    return _c(
-                                      "option",
-                                      {
-                                        key: index,
-                                        domProps: { value: row_gap }
-                                      },
-                                      [_vm._v(_vm._s(row_gap.text))]
-                                    )
-                                  }
-                                ),
-                                0
-                              )
+                  _vm.isGrid(_vm.selected_container)
+                    ? _c("div", { staticClass: "grid" }, [
+                        _c("div", { staticClass: "setting-label" }, [
+                          _vm._v("Grid settings")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "gap" }, [
+                          _c("div", { staticClass: "select" }, [
+                            _c("label", { attrs: { for: "rows-gap" } }, [
+                              _vm._v("Rows gap")
                             ]),
                             _vm._v(" "),
-                            _c("div", { staticClass: "select" }, [
-                              _c("label", { attrs: { for: "cols-gap" } }, [
-                                _vm._v("Cols gap")
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "select",
-                                {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.selected_col_gap,
-                                      expression: "selected_col_gap"
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_row_gap,
+                                    expression: "selected_row_gap"
+                                  }
+                                ],
+                                attrs: { id: "rows-gap", name: "rows-gap" },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_row_gap = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_container,
+                                        _vm.selected_row_gap.value,
+                                        _vm.mappers.grid_mapper.gap.regex_patterns
+                                          .rows_gap
+                                      )
                                     }
-                                  ],
-                                  attrs: { id: "cols-gap", name: "cols-gap" },
-                                  on: {
-                                    change: [
-                                      function($event) {
-                                        var $$selectedVal = Array.prototype.filter
-                                          .call($event.target.options, function(
-                                            o
-                                          ) {
-                                            return o.selected
-                                          })
-                                          .map(function(o) {
-                                            var val =
-                                              "_value" in o ? o._value : o.value;
-                                            return val
-                                          });
-                                        _vm.selected_col_gap = $event.target
-                                          .multiple
-                                          ? $$selectedVal
-                                          : $$selectedVal[0];
-                                      },
-                                      function($event) {
-                                        return _vm.replaceClass(
-                                          _vm.selected_container,
-                                          _vm.selected_col_gap.value,
-                                          _vm.mappers.grid_mapper.gap
-                                            .regex_patterns.cols_gap
-                                        )
-                                      }
-                                    ]
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.grid_mapper.gap.rows_gap,
+                                function(row_gap, index) {
+                                  return _c(
+                                    "option",
+                                    { key: index, domProps: { value: row_gap } },
+                                    [_vm._v(_vm._s(row_gap.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "select" }, [
+                            _c("label", { attrs: { for: "cols-gap" } }, [
+                              _vm._v("Cols gap")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_col_gap,
+                                    expression: "selected_col_gap"
                                   }
-                                },
-                                _vm._l(
-                                  _vm.mappers.grid_mapper.gap.cols_gap,
-                                  function(col_gap, index) {
-                                    return _c(
-                                      "option",
-                                      {
-                                        key: index,
-                                        domProps: { value: col_gap }
-                                      },
-                                      [_vm._v(_vm._s(col_gap.text))]
-                                    )
-                                  }
-                                ),
-                                0
-                              )
-                            ])
+                                ],
+                                attrs: { id: "cols-gap", name: "cols-gap" },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_col_gap = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_container,
+                                        _vm.selected_col_gap.value,
+                                        _vm.mappers.grid_mapper.gap.regex_patterns
+                                          .cols_gap
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.grid_mapper.gap.cols_gap,
+                                function(col_gap, index) {
+                                  return _c(
+                                    "option",
+                                    { key: index, domProps: { value: col_gap } },
+                                    [_vm._v(_vm._s(col_gap.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
                           ])
                         ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.isFlex(_vm.selected_container)
-                      ? _c("div", { staticClass: "flex" }, [
-                          _c("div", { staticClass: "gap" }, [
-                            _c("div", { staticClass: "select" }, [
-                              _c("label", { attrs: { for: "cols-gap" } }, [
-                                _vm._v("Cols gap")
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "select",
-                                {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.selected_col_gap,
-                                      expression: "selected_col_gap"
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.isFlex(_vm.selected_container)
+                    ? _c("div", { staticClass: "flex" }, [
+                        _c("div", { staticClass: "gap" }, [
+                          _c("div", { staticClass: "select" }, [
+                            _c("label", { attrs: { for: "cols-gap" } }, [
+                              _vm._v("Cols gap")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_col_gap,
+                                    expression: "selected_col_gap"
+                                  }
+                                ],
+                                attrs: { id: "cols-gap", name: "cols-gap" },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_col_gap = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_container,
+                                        _vm.selected_col_gap.value,
+                                        _vm.mappers.flex_mapper.gap.regex_patterns
+                                          .cols_gap
+                                      )
                                     }
-                                  ],
-                                  attrs: { id: "cols-gap", name: "cols-gap" },
-                                  on: {
-                                    change: [
-                                      function($event) {
-                                        var $$selectedVal = Array.prototype.filter
-                                          .call($event.target.options, function(
-                                            o
-                                          ) {
-                                            return o.selected
-                                          })
-                                          .map(function(o) {
-                                            var val =
-                                              "_value" in o ? o._value : o.value;
-                                            return val
-                                          });
-                                        _vm.selected_col_gap = $event.target
-                                          .multiple
-                                          ? $$selectedVal
-                                          : $$selectedVal[0];
-                                      },
-                                      function($event) {
-                                        return _vm.replaceClass(
-                                          _vm.selected_container,
-                                          _vm.selected_col_gap.value,
-                                          _vm.mappers.flex_mapper.gap
-                                            .regex_patterns.cols_gap
-                                        )
-                                      }
-                                    ]
-                                  }
-                                },
-                                _vm._l(
-                                  _vm.mappers.flex_mapper.gap.cols_gap,
-                                  function(col_gap, index) {
-                                    return _c(
-                                      "option",
-                                      {
-                                        key: index,
-                                        domProps: { value: col_gap }
-                                      },
-                                      [_vm._v(_vm._s(col_gap.text))]
-                                    )
-                                  }
-                                ),
-                                0
-                              )
-                            ])
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.flex_mapper.gap.cols_gap,
+                                function(col_gap, index) {
+                                  return _c(
+                                    "option",
+                                    { key: index, domProps: { value: col_gap } },
+                                    [_vm._v(_vm._s(col_gap.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
                           ])
                         ])
-                      : _vm._e()
-                  ])
+                      ])
+                    : _vm._e()
                 ])
               : _vm._e()
           ]
@@ -10025,11 +10012,11 @@ var wape = (function () {
     /* style */
     const __vue_inject_styles__$2 = function (inject) {
       if (!inject) return
-      inject("data-v-32ba4999_0", { source: "\ndiv.right-panel[data-v-32ba4999] {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n}\ndiv.right-panel > div.actions[data-v-32ba4999] {\n      display: flex;\n      border-bottom: .5px solid #000;\n}\ndiv.right-panel > div.actions > div[data-v-32ba4999] {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n}\ndiv.right-panel > div.actions > div.container[data-v-32ba4999]\n    {\n      border-right: .5px solid #000;\n}\ndiv.right-panel > div.actions > div.element[data-v-32ba4999]\n    {\n      border-right: .5px solid #000;\n}\n\n    /* Animations thanks animista.net */\n.left-enter-active[data-v-32ba4999] {\n    -webkit-animation: slide-in-left-data-v-32ba4999 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left-data-v-32ba4999 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n.right-enter-active[data-v-32ba4999] {\n  -webkit-animation: slide-in-right-data-v-32ba4999 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right-data-v-32ba4999 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n@-webkit-keyframes slide-in-left-data-v-32ba4999 {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-left-data-v-32ba4999 {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@-webkit-keyframes slide-in-right-data-v-32ba4999 {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-right-data-v-32ba4999 {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n\n", map: {"version":3,"sources":["/Users/thomas/Developer/perso/wape/src/editor/components/layout/RightPanel.vue"],"names":[],"mappings":";AAwHA;MACA,yBAAA;MACA,2BAAA;MACA,YAAA;MACA,gBAAA;AACA;AACA;MACA,aAAA;MACA,8BAAA;AACA;AACA;MACA,cAAA;MACA,WAAA;MACA,iBAAA;MACA,eAAA;AACA;AACA;;MAEA,6BAAA;AACA;AACA;;MAEA,6BAAA;AACA;;IAEA,mCAAA;AACA;IACA,mGAAA;UACA,2FAAA;AACA;AACA;;;IAGA;AACA;EACA,oGAAA;UACA,4FAAA;AACA;CACA;;;IAGA;EACA,mCAAA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA","file":"RightPanel.vue","sourcesContent":["<template>\n  <div class=\"right-panel\">\n    <div class=\"actions\">\n      <div class=\"container\" @click=\"switchPanel('container')\">\n        <i class=\"far fa-square\" />\n      </div>\n      <div class=\"element\" @click=\"switchPanel('element')\">\n        <i class=\"fas fa-square\" />\n      </div>\n    </div>\n    <transition name=\"left\" @after-leave=\"animationEnd\">\n      <div v-if=\"(showPanel('container')) && !animating\" class=\"container-settings\">\n          <div class=\"options\">\n            <div class=\"grid\" v-if=\"isGrid(selected_container)\">\n              <div class=\"gap\">\n                <div class=\"select\">\n                  <label for=\"rows-gap\">Rows gap</label>\n                  <select id=\"rows-gap\" name=\"rows-gap\" @change=\"replaceClass(selected_container, selected_row_gap.value, mappers.grid_mapper.gap.regex_patterns.rows_gap)\" v-model=\"selected_row_gap\">\n                    <option v-for='(row_gap, index) in mappers.grid_mapper.gap.rows_gap' :key=\"index\" :value=\"row_gap\">{{ row_gap.text }}</option>\n                  </select>\n                </div>\n                <div class=\"select\">\n                  <label for=\"cols-gap\">Cols gap</label>\n                  <select id=\"cols-gap\" name=\"cols-gap\" @change=\"replaceClass(selected_container, selected_col_gap.value, mappers.grid_mapper.gap.regex_patterns.cols_gap)\" v-model=\"selected_col_gap\">\n                    <option v-for='(col_gap, index) in mappers.grid_mapper.gap.cols_gap' :key=\"index\" :value=\"col_gap\">{{ col_gap.text }}</option>\n                  </select>\n                </div>\n              </div>\n            </div>\n            <div class=\"flex\" v-if=\"isFlex(selected_container)\">\n              <div class=\"gap\">\n                <div class=\"select\">\n                  <label for=\"cols-gap\">Cols gap</label>\n                  <select id=\"cols-gap\" name=\"cols-gap\" @change=\"replaceClass(selected_container, selected_col_gap.value, mappers.flex_mapper.gap.regex_patterns.cols_gap)\" v-model=\"selected_col_gap\">\n                    <option v-for='(col_gap, index) in mappers.flex_mapper.gap.cols_gap' :key=\"index\" :value=\"col_gap\">{{ col_gap.text }}</option>\n                  </select>\n                </div>\n              </div>\n            </div>\n        </div>\n      </div>\n    </transition>\n\n    <transition name=\"right\" @after-leave=\"animationEnd\">\n      <div v-if=\"(showPanel('element')) && !animating\" class=\"element-settings\">\n        ELEMENT\n      </div>\n    </transition>\n  </div>\n</template>\n\n<script>\nimport { emitter } from 'App/Wape'\nimport isEmpty from 'lodash/isEmpty'\nimport { grid_mapper, flex_mapper } from 'Editor/mappers/tailwind'\n\nexport default {\n    name: 'RightPanel',\n    data() {\n      return {\n        current_panel: 'container',\n        animating: false,\n        selected_container: null,\n        selected_element: null,\n        mappers: {\n          grid_mapper,\n          flex_mapper,\n        },\n        container_options: [],\n        element_options: [],\n        selected_col_gap: Object,\n        selected_row_gap: Object\n      }\n    },\n    mounted() {\n      emitter.on('iframe-click', (args) => { //Fired from MainPanel.vue\n        this.selected_container = args.container\n        this.selected_element = args.element\n      })\n    },\n    methods: {\n      switchPanel(panel) {\n        this.animating = true\n        this.current_panel = panel\n      },\n      showPanel(panel) {\n        return (this.current_panel === panel)\n      },\n      animationEnd() {\n        this.animating = false\n      },\n      isGrid(container) {\n        if (container === null) {\n          return false\n        } else {\n          return container.type === 'grid'\n        }\n      },\n      isFlex(container) {\n        if (container === null) {\n          return false\n        } else {\n          return container.type === 'flex'\n        }\n      },\n      replaceClass(element, new_class, pattern) {\n        if (pattern !== null) {\n          let regex = new RegExp(pattern, 'g')\n          let match = element.element.className.match(regex)\n          if (match !== null) {\n            element.removeClass(match[0])\n          }\n        }\n        element.addClass(new_class)\n      }\n    }\n}\n</script>\n\n<style scoped>\n    div.right-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n    }\n    div.right-panel > div.actions {\n      display: flex;\n      border-bottom: .5px solid #000;\n    }\n    div.right-panel > div.actions > div {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n    }\n    div.right-panel > div.actions > div.container\n    {\n      border-right: .5px solid #000;\n    }\n    div.right-panel > div.actions > div.element\n    {\n      border-right: .5px solid #000;\n    }\n\n    /* Animations thanks animista.net */\n  .left-enter-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  .right-enter-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n  @-webkit-keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @-webkit-keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n\n</style>\n"]}, media: undefined });
+      inject("data-v-3d7a099a_0", { source: "\ndiv.right-panel[data-v-3d7a099a] {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n}\ndiv.right-panel > div.actions[data-v-3d7a099a] {\n      display: flex;\n      border-bottom: .5px solid #000;\n}\ndiv.right-panel > div.actions > div[data-v-3d7a099a] {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n}\ndiv.right-panel > div.actions > div.container[data-v-3d7a099a]\n    {\n      border-right: .5px solid #000;\n}\ndiv.right-panel > div.actions > div.element[data-v-3d7a099a]\n    {\n      border-right: .5px solid #000;\n}\n\n    /* Animations thanks animista.net */\n.left-enter-active[data-v-3d7a099a] {\n    -webkit-animation: slide-in-left-data-v-3d7a099a 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left-data-v-3d7a099a 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n.right-enter-active[data-v-3d7a099a] {\n  -webkit-animation: slide-in-right-data-v-3d7a099a 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right-data-v-3d7a099a 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n@-webkit-keyframes slide-in-left-data-v-3d7a099a {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-left-data-v-3d7a099a {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@-webkit-keyframes slide-in-right-data-v-3d7a099a {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-right-data-v-3d7a099a {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\ndiv.setting-label[data-v-3d7a099a] {\n    color: #fff;\n    text-transform: capitalize;\n    font-size: 1.2rem;\n    border-bottom: 1px solid #fff;\n    padding-bottom: .7rem;\n}\ndiv.container-settings[data-v-3d7a099a],\n  div.element-settings[data-v-3d7a099a] {\n    margin: 3% 2.5%;\n    width: 95%;\n    min-width: 95%;\n    box-sizing: border-box;\n    user-select: none;\n}\n", map: {"version":3,"sources":["/Users/thomas/Developer/perso/wape/src/editor/components/layout/RightPanel.vue"],"names":[],"mappings":";AAuHA;MACA,yBAAA;MACA,2BAAA;MACA,YAAA;MACA,gBAAA;AACA;AACA;MACA,aAAA;MACA,8BAAA;AACA;AACA;MACA,cAAA;MACA,WAAA;MACA,iBAAA;MACA,eAAA;AACA;AACA;;MAEA,6BAAA;AACA;AACA;;MAEA,6BAAA;AACA;;IAEA,mCAAA;AACA;IACA,mGAAA;UACA,2FAAA;AACA;AACA;;;IAGA;AACA;EACA,oGAAA;UACA,4FAAA;AACA;CACA;;;IAGA;EACA,mCAAA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AAEA;IACA,WAAA;IACA,0BAAA;IACA,iBAAA;IACA,6BAAA;IACA,qBAAA;AACA;AAEA;;IAEA,eAAA;IACA,UAAA;IACA,cAAA;IACA,sBAAA;IACA,iBAAA;AACA","file":"RightPanel.vue","sourcesContent":["<template>\n  <div class=\"right-panel\">\n    <div class=\"actions\">\n      <div class=\"container\" @click=\"switchPanel('container')\">\n        <i class=\"far fa-square\" />\n      </div>\n      <div class=\"element\" @click=\"switchPanel('element')\">\n        <i class=\"fas fa-square\" />\n      </div>\n    </div>\n    <transition name=\"left\" @after-leave=\"animationEnd\">\n      <div v-if=\"(showPanel('container')) && !animating\" class=\"container-settings\">\n          <div class=\"grid\" v-if=\"isGrid(selected_container)\">\n            <div class=\"setting-label\">Grid settings</div>\n            <div class=\"gap\">\n              <div class=\"select\">\n                <label for=\"rows-gap\">Rows gap</label>\n                <select id=\"rows-gap\" name=\"rows-gap\" @change=\"replaceClass(selected_container, selected_row_gap.value, mappers.grid_mapper.gap.regex_patterns.rows_gap)\" v-model=\"selected_row_gap\">\n                  <option v-for='(row_gap, index) in mappers.grid_mapper.gap.rows_gap' :key=\"index\" :value=\"row_gap\">{{ row_gap.text }}</option>\n                </select>\n              </div>\n              <div class=\"select\">\n                <label for=\"cols-gap\">Cols gap</label>\n                <select id=\"cols-gap\" name=\"cols-gap\" @change=\"replaceClass(selected_container, selected_col_gap.value, mappers.grid_mapper.gap.regex_patterns.cols_gap)\" v-model=\"selected_col_gap\">\n                  <option v-for='(col_gap, index) in mappers.grid_mapper.gap.cols_gap' :key=\"index\" :value=\"col_gap\">{{ col_gap.text }}</option>\n                </select>\n              </div>\n            </div>\n          </div>\n          <div class=\"flex\" v-if=\"isFlex(selected_container)\">\n            <div class=\"gap\">\n              <div class=\"select\">\n                <label for=\"cols-gap\">Cols gap</label>\n                <select id=\"cols-gap\" name=\"cols-gap\" @change=\"replaceClass(selected_container, selected_col_gap.value, mappers.flex_mapper.gap.regex_patterns.cols_gap)\" v-model=\"selected_col_gap\">\n                  <option v-for='(col_gap, index) in mappers.flex_mapper.gap.cols_gap' :key=\"index\" :value=\"col_gap\">{{ col_gap.text }}</option>\n                </select>\n              </div>\n            </div>\n          </div>\n      </div>\n    </transition>\n\n    <transition name=\"right\" @after-leave=\"animationEnd\">\n      <div v-if=\"(showPanel('element')) && !animating\" class=\"element-settings\">\n        ELEMENT\n      </div>\n    </transition>\n  </div>\n</template>\n\n<script>\nimport { emitter } from 'App/Wape'\nimport isEmpty from 'lodash/isEmpty'\nimport { grid_mapper, flex_mapper } from 'Editor/mappers/tailwind'\n\nexport default {\n    name: 'RightPanel',\n    data() {\n      return {\n        current_panel: 'container',\n        animating: false,\n        selected_container: null,\n        selected_element: null,\n        mappers: {\n          grid_mapper,\n          flex_mapper,\n        },\n        container_options: [],\n        element_options: [],\n        selected_col_gap: Object,\n        selected_row_gap: Object\n      }\n    },\n    mounted() {\n      emitter.on('iframe-click', (args) => { //Fired from MainPanel.vue\n        this.selected_container = args.container\n        this.selected_element = args.element\n      })\n    },\n    methods: {\n      switchPanel(panel) {\n        this.animating = true\n        this.current_panel = panel\n      },\n      showPanel(panel) {\n        return (this.current_panel === panel)\n      },\n      animationEnd() {\n        this.animating = false\n      },\n      isGrid(container) {\n        if (container === null) {\n          return false\n        } else {\n          return container.type === 'grid'\n        }\n      },\n      isFlex(container) {\n        if (container === null) {\n          return false\n        } else {\n          return container.type === 'flex'\n        }\n      },\n      replaceClass(element, new_class, pattern) {\n        if (pattern !== null) {\n          let regex = new RegExp(pattern, 'g')\n          let match = element.element.className.match(regex)\n          if (match !== null) {\n            element.removeClass(match[0])\n          }\n        }\n        element.addClass(new_class)\n      }\n    }\n}\n</script>\n\n<style scoped>\n    div.right-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n    }\n    div.right-panel > div.actions {\n      display: flex;\n      border-bottom: .5px solid #000;\n    }\n    div.right-panel > div.actions > div {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n    }\n    div.right-panel > div.actions > div.container\n    {\n      border-right: .5px solid #000;\n    }\n    div.right-panel > div.actions > div.element\n    {\n      border-right: .5px solid #000;\n    }\n\n    /* Animations thanks animista.net */\n  .left-enter-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  .right-enter-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n  @-webkit-keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @-webkit-keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n\n  div.setting-label {\n    color: #fff;\n    text-transform: capitalize;\n    font-size: 1.2rem;\n    border-bottom: 1px solid #fff;\n    padding-bottom: .7rem;\n  }\n\n  div.container-settings,\n  div.element-settings {\n    margin: 3% 2.5%;\n    width: 95%;\n    min-width: 95%;\n    box-sizing: border-box;\n    user-select: none;\n  }\n</style>\n"]}, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__$2 = "data-v-32ba4999";
+    const __vue_scope_id__$2 = "data-v-3d7a099a";
     /* module identifier */
     const __vue_module_identifier__$2 = undefined;
     /* functional template */

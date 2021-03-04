@@ -10,34 +10,33 @@
     </div>
     <transition name="left" @after-leave="animationEnd">
       <div v-if="(showPanel('container')) && !animating" class="container-settings">
-          <div class="options">
-            <div class="grid" v-if="isGrid(selected_container)">
-              <div class="gap">
-                <div class="select">
-                  <label for="rows-gap">Rows gap</label>
-                  <select id="rows-gap" name="rows-gap" @change="replaceClass(selected_container, selected_row_gap.value, mappers.grid_mapper.gap.regex_patterns.rows_gap)" v-model="selected_row_gap">
-                    <option v-for='(row_gap, index) in mappers.grid_mapper.gap.rows_gap' :key="index" :value="row_gap">{{ row_gap.text }}</option>
-                  </select>
-                </div>
-                <div class="select">
-                  <label for="cols-gap">Cols gap</label>
-                  <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_container, selected_col_gap.value, mappers.grid_mapper.gap.regex_patterns.cols_gap)" v-model="selected_col_gap">
-                    <option v-for='(col_gap, index) in mappers.grid_mapper.gap.cols_gap' :key="index" :value="col_gap">{{ col_gap.text }}</option>
-                  </select>
-                </div>
+          <div class="grid" v-if="isGrid(selected_container)">
+            <div class="setting-label">Grid settings</div>
+            <div class="gap">
+              <div class="select">
+                <label for="rows-gap">Rows gap</label>
+                <select id="rows-gap" name="rows-gap" @change="replaceClass(selected_container, selected_row_gap.value, mappers.grid_mapper.gap.regex_patterns.rows_gap)" v-model="selected_row_gap">
+                  <option v-for='(row_gap, index) in mappers.grid_mapper.gap.rows_gap' :key="index" :value="row_gap">{{ row_gap.text }}</option>
+                </select>
+              </div>
+              <div class="select">
+                <label for="cols-gap">Cols gap</label>
+                <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_container, selected_col_gap.value, mappers.grid_mapper.gap.regex_patterns.cols_gap)" v-model="selected_col_gap">
+                  <option v-for='(col_gap, index) in mappers.grid_mapper.gap.cols_gap' :key="index" :value="col_gap">{{ col_gap.text }}</option>
+                </select>
               </div>
             </div>
-            <div class="flex" v-if="isFlex(selected_container)">
-              <div class="gap">
-                <div class="select">
-                  <label for="cols-gap">Cols gap</label>
-                  <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_container, selected_col_gap.value, mappers.flex_mapper.gap.regex_patterns.cols_gap)" v-model="selected_col_gap">
-                    <option v-for='(col_gap, index) in mappers.flex_mapper.gap.cols_gap' :key="index" :value="col_gap">{{ col_gap.text }}</option>
-                  </select>
-                </div>
+          </div>
+          <div class="flex" v-if="isFlex(selected_container)">
+            <div class="gap">
+              <div class="select">
+                <label for="cols-gap">Cols gap</label>
+                <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_container, selected_col_gap.value, mappers.flex_mapper.gap.regex_patterns.cols_gap)" v-model="selected_col_gap">
+                  <option v-for='(col_gap, index) in mappers.flex_mapper.gap.cols_gap' :key="index" :value="col_gap">{{ col_gap.text }}</option>
+                </select>
               </div>
             </div>
-        </div>
+          </div>
       </div>
     </transition>
 
@@ -210,4 +209,20 @@ export default {
     }
   }
 
+  div.setting-label {
+    color: #fff;
+    text-transform: capitalize;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #fff;
+    padding-bottom: .7rem;
+  }
+
+  div.container-settings,
+  div.element-settings {
+    margin: 3% 2.5%;
+    width: 95%;
+    min-width: 95%;
+    box-sizing: border-box;
+    user-select: none;
+  }
 </style>
