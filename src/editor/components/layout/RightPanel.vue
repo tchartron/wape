@@ -260,7 +260,7 @@ export default {
   div.setting-subtitle {
     color: #fff;
     font-size: 1.1rem;
-    margin: 0.7rem 0.2rem;
+    margin: 0.7rem 0.2rem 0.3rem;
   }
 
   div.setting-content {
