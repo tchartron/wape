@@ -1,7 +1,7 @@
 // import mitt from 'mitt'
 // import Event from './Event'
 // export const emitter = mitt()
-import { countRows, countCols } from 'Editor/utilities/grid'
+import { countRows, countCols, createElementAndAppend } from 'Editor/utilities/grid'
 
 export class Dragger {
     constructor(draggableSelector, options = {}) {
@@ -76,7 +76,7 @@ export class Dragger {
         if (this.elementExistsInContainer(this.options.iframe.document.body, this.elementDragged)) {
             if (this.isGrid(this.elementDragged)) {
                 let totalChilds = ((this.gridLayout.cols !== 0) ? this.gridLayout.cols : 1) * ((this.gridLayout.rows !== 0) ? this.gridLayout.rows : 1)
-                this.createElementAndAppend('div', this.elementDragged, totalChilds, 'grid-placeholder')
+                createElementAndAppend('div', this.elementDragged, totalChilds, 'grid-placeholder')
             }
             if (this.isLayout(this.objectDragged)) {
                 //Store new container in global containers list
@@ -162,7 +162,7 @@ export class Dragger {
                                 let elementsInGrid = this.countElementsInGrid(this.containerHovered)
                                 let numberOfPlaceholdersToAppend = totalPlacesInGrid - elementsInGrid
                                 if (numberOfPlaceholdersToAppend > 0) {
-                                    this.createElementAndAppend('div', this.containerHovered, numberOfPlaceholdersToAppend, 'grid-placeholder')
+                                    createElementAndAppend('div', this.containerHovered, numberOfPlaceholdersToAppend, 'grid-placeholder')
                                 }
                              }
                         }
@@ -204,7 +204,7 @@ export class Dragger {
                             let elementsInGrid = this.countElementsInGrid(this.containerHovered)
                             let numberOfPlaceholdersToAppend = totalPlacesInGrid - elementsInGrid
                             if (numberOfPlaceholdersToAppend > 0) {
-                                this.createElementAndAppend('div', this.containerHovered, numberOfPlaceholdersToAppend, 'grid-placeholder')
+                                createElementAndAppend('div', this.containerHovered, numberOfPlaceholdersToAppend, 'grid-placeholder')
                             }
                         }
                         this.containerHovered = null
@@ -233,7 +233,7 @@ export class Dragger {
                     let elementsInGrid = this.countElementsInGrid(this.containerHovered)
                     let numberOfPlaceholdersToAppend = totalPlacesInGrid - elementsInGrid
                     if (numberOfPlaceholdersToAppend > 0) {
-                        this.createElementAndAppend('div', this.containerHovered, numberOfPlaceholdersToAppend, 'grid-placeholder')
+                        createElementAndAppend('div', this.containerHovered, numberOfPlaceholdersToAppend, 'grid-placeholder')
                     }
                 }
             }
@@ -300,15 +300,15 @@ export class Dragger {
     // elementExists(idSelector) {
     //     return !!document.getElementById(idSelector)
     // }
-    createElementAndAppend(elementType, container, numberToAppend, classToAdd = '') {
-        for (let i = 0; i < numberToAppend; i++) {
-            let div = document.createElement(elementType);
-            if (classToAdd !== '') {
-                div.classList.add(classToAdd)
-            }
-            container.appendChild(div)
-        }
-    }
+    // createElementAndAppend(elementType, container, numberToAppend, classToAdd = '') {
+    //     for (let i = 0; i < numberToAppend; i++) {
+    //         let div = document.createElement(elementType);
+    //         if (classToAdd !== '') {
+    //             div.classList.add(classToAdd)
+    //         }
+    //         container.appendChild(div)
+    //     }
+    // }
     removeGridFirstChildMatching(container, cssClass) {
         let firstChildPlaceholder = container.querySelector(cssClass)
         if (firstChildPlaceholder !== null) {
