@@ -30,3 +30,13 @@ export function countCols(element) {
     }
     return parseInt(colsAmount)
 }
+
+export function createElementAndAppend(elementType, container, numberToAppend, classToAdd = '') {
+  for (let i = 0; i < numberToAppend; i++) {
+      let div = document.createElement(elementType);
+      if (classToAdd !== '') {
+          div.classList.add(classToAdd)
+      }
+      container.appendChild(div)
+  }
+}
