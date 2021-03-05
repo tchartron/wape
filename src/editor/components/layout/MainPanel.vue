@@ -80,7 +80,7 @@ export default {
               this.selected_container.removeClass('container-selected')
             }
             this.selected_container = new Container(layout)
-            console.log(this.selected_container)
+            // console.log(this.selected_container)
             this.selected_container.addClass('container-selected')
             // let children = this.selected_container.getChildren()
           }
