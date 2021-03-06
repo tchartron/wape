@@ -71,15 +71,15 @@ export default {
       },
       iframeClick(event) {
         let elements = this.iframe.document.elementsFromPoint(event.clientX, event.clientY)
-        let layout = elements.reverse().find((elem) => { // reverse elements to place flex containers before their columns (we need flex columns to have the layout class to handle dropping elements inside in dragger.js)
+        let container = elements.reverse().find((elem) => { // reverse elements to place flex containers before their columns (we need flex columns to have the layout class to handle dropping elements inside in dragger.js)
             return (elem.matches('.flex')) || (elem.matches('.layout')) //If you find .flex first take this as main layout not the columns inside it
         })
-        if (typeof layout !== 'undefined') {
-          if (this.selected_container === null || this.selected_container.element !== layout) { //if we selected another container than the current one
+        if (typeof container !== 'undefined') {
+          if (this.selected_container === null || this.selected_container.element !== container) { //if we selected another container than the current one
             if (this.selected_container !== null) {
               this.selected_container.removeClass('container-selected')
             }
-            this.selected_container = new Container(layout)
+            this.selected_container = new Container(container)
             // console.log(this.selected_container)
             this.selected_container.addClass('container-selected')
             // let children = this.selected_container.getChildren()
@@ -90,7 +90,7 @@ export default {
         let element = elements.find((elem) => {
             return (elem.matches('.element-hovered'))
         })
-        if (typeof layout !== 'undefined') {
+        if (typeof element !== 'undefined') {
           if (this.selected_element === null || this.selected_element !== element) {
             if (this.selected_element !== null) {
               this.selected_element.removeClass('element-selected')
