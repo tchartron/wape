@@ -23,7 +23,8 @@
                 </div>
                 <div class="rows">
                   <div class="row" v-for="(row, index) in selected_container.rows" :key="index">
-                    Row {{ row }}
+                    <div class="item-title">Row {{ row }}</div>
+                    <div class="remove-item" @click="deleteGridRow(selected_container)"><i class="fas fa-minus"></i></div>
                   </div>
                 </div>
               </div>
@@ -36,7 +37,8 @@
                 </div>
                 <div class="rows">
                   <div class="row" v-for="(col, index) in selected_container.cols" :key="index">
-                    Column {{ col }}
+                    <div class="item-title">Column {{ col }}</div>
+                    <div class="remove-item" @click="deleteGridRow(selected_container)"><i class="fas fa-minus"></i></div>
                   </div>
                 </div>
               </div>
@@ -168,11 +170,10 @@ export default {
         if (container_instance !== null) {
           container_instance.cols++
           this.replaceClass(container_instance, `grid-cols-${container_instance.cols}`, this.mappers.grid_mapper.cols.template.regex_pattern)
-          let totalPlacesInGrid = ((container_instance.cols !== 0) ? container_instance.cols : 1) * ((container_instance.cols !== 0) ? container_instance.cols : 1)
+          let totalPlacesInGrid = ((container_instance.cols !== 0) ? container_instance.cols : 1) * ((container_instance.rows !== 0) ? container_instance.rows : 1)
           let elementsInGrid = container_instance.element.children.length
           let numberOfPlaceholdersToAppend = totalPlacesInGrid - elementsInGrid
           if (numberOfPlaceholdersToAppend > 0) {
-            appendPlaceholder('div', container_instance.element, numberOfPlaceholdersToAppend, 'grid-placeholder')
             appendPlaceholder('div', container_instance.element, numberOfPlaceholdersToAppend, 'grid-placeholder')
           }
         }
@@ -185,7 +186,6 @@ export default {
           let elementsInGrid = container_instance.element.children.length
           let numberOfPlaceholdersToAppend = totalPlacesInGrid - elementsInGrid
           if (numberOfPlaceholdersToAppend > 0) {
-            appendPlaceholder('div', container_instance.element, numberOfPlaceholdersToAppend, 'grid-placeholder')
             appendPlaceholder('div', container_instance.element, numberOfPlaceholdersToAppend, 'grid-placeholder')
           }
         }
@@ -309,6 +309,8 @@ export default {
     min-width: 95%;
     box-sizing: border-box;
     user-select: none;
+    overflow-y: scroll;
+    height: calc(100% - 2.7rem);
   }
 
   div.setting-subtitle {
@@ -348,6 +350,19 @@ export default {
     background-color: #707070;
     cursor: pointer;
   }
+  div.row > div.remove-item {
+    padding: 0.2rem 0.5rem;
+    border: 1px solid #000;
+    cursor: pointer;
+    margin: 0.3rem 0;
+  }
+  div.row > div.remove-item:hover {
+    padding: 0.2rem 0.5rem;
+    border: 1px solid #000;
+    background-color: #707070;
+    cursor: pointer;
+    margin: 0.3rem 0;
+  }
   div.setting-wrapper > div.rows > div.row:first-child {
     line-height: 2rem;
     border-top: 1px dotted #fff;
@@ -355,8 +370,14 @@ export default {
     cursor: pointer;
   }
   div.setting-wrapper > div.rows > div.row {
+    display: flex;
+    justify-content: space-between;
     line-height: 2rem;
     border-bottom: 1px dotted #fff;
     cursor: pointer;
+  }
+  div.item-title {
+    display: flex;
+    align-items: center;
   }
 </style>
