@@ -16,7 +16,7 @@
               <div class="setting-subtitle">Rows</div>
               <div class="setting-wrapper">
                 <div class="action">
-                  <div class="add-item" @click="addItemInGrid('row')">
+                  <div class="add-item" @click="addRow(selected_container)">
                     <i class="fas fa-plus"></i>
                   </div>
                 </div>
@@ -29,7 +29,7 @@
               <div class="setting-subtitle">Columns</div>
               <div class="setting-wrapper">
                 <div class="action">
-                  <div class="add-item" @click="addItemInGrid('col')">
+                  <div class="add-item" @click="addCol('col')">
                     <i class="fas fa-plus"></i>
                   </div>
                 </div>
@@ -98,8 +98,7 @@
 import { emitter } from 'App/Wape'
 import isEmpty from 'lodash/isEmpty'
 import { grid_mapper, flex_mapper } from 'Editor/mappers/tailwind'
-import { createElementAndAppend } from 'Editor/utilities/grid'
-import { replaceClass } from 'Editor/utilities/css'
+import { createElementAndAppend, addCol, addRow } from 'Editor/utilities/grid'
 
 export default {
     name: 'RightPanel',
@@ -148,48 +147,6 @@ export default {
           return false
         } else {
           return container.type === 'flex'
-        }
-      },
-      // replaceClass(element, new_class, pattern) {
-      //   if (pattern !== null) {
-      //     let regex = new RegExp(pattern, 'g')
-      //     let class_array = [...element.element.classList.values()]
-      //     let match = class_array.find((item) => {
-      //       return regex.test(item)
-      //     })
-      //     if (match !== null) {
-      //       element.removeClass(match)
-      //     }
-      //   }
-      //   element.addClass(new_class)
-      // },
-      addItemInGrid(typeToAdd) {
-        if (this.selected_container !== null) {
-          if (this.selected_container.type === 'grid') {
-            if (typeToAdd === 'row') {
-              // let new_row_amount = this.selected_container.rows + 1
-              // console.log(new_row_amount)
-              this.selected_container.rows++
-              this.replaceClass(this.selected_container, `grid-rows-${this.selected_container.rows}`, this.mappers.grid_mapper.rows.template.regex_pattern)
-              let totalPlacesInGrid = ((this.selected_container.cols !== 0) ? this.selected_container.cols : 1) * ((this.selected_container.rows !== 0) ? this.selected_container.rows : 1)
-              let elementsInGrid = this.selected_container.element.children.length
-              let numberOfPlaceholdersToAppend = totalPlacesInGrid - elementsInGrid
-              if (numberOfPlaceholdersToAppend > 0) {
-                  createElementAndAppend('div', this.selected_container.element, numberOfPlaceholdersToAppend, 'grid-placeholder')
-              }
-            } else if (typeToAdd === 'col') {
-              this.selected_container.cols++
-              this.replaceClass(this.selected_container, `grid-cols-${this.selected_container.cols}`, this.mappers.grid_mapper.cols.template.regex_pattern)
-              let totalPlacesInGrid = ((this.selected_container.cols !== 0) ? this.selected_container.cols : 1) * ((this.selected_container.cols !== 0) ? this.selected_container.cols : 1)
-              let elementsInGrid = this.selected_container.element.children.length
-              let numberOfPlaceholdersToAppend = totalPlacesInGrid - elementsInGrid
-              if (numberOfPlaceholdersToAppend > 0) {
-                  createElementAndAppend('div', this.selected_container.element, numberOfPlaceholdersToAppend, 'grid-placeholder')
-              }
-            }
-          } else if (this.selected_container.type === 'flex' && typeToAdd === 'col') {
-            console.log(this.selected_container)
-          }
         }
       },
       addColumnInFlex() {
