@@ -16,7 +16,7 @@
               <div class="setting-subtitle">Rows</div>
               <div class="setting-wrapper">
                 <div class="action">
-                  <div class="add-item">
+                  <div class="add-item" @click="addItemInGrid('row')">
                     <i class="fas fa-plus"></i>
                   </div>
                 </div>
@@ -29,7 +29,7 @@
               <div class="setting-subtitle">Columns</div>
               <div class="setting-wrapper">
                 <div class="action">
-                  <div class="add-item">
+                  <div class="add-item" @click="addItemInGrid('col')">
                     <i class="fas fa-plus"></i>
                   </div>
                 </div>
@@ -44,14 +44,14 @@
               <div class="setting-subtitle">Gap</div>
               <div class="setting">
                 <label for="rows-gap">Rows gap</label>
-                <select id="rows-gap" name="rows-gap" @change="replaceClass(selected_container, selected_row_gap.value, mappers.grid_mapper.gap.regex_patterns.rows_gap)" v-model="selected_row_gap">
-                  <option v-for="(row_gap, index) in mappers.grid_mapper.gap.rows_gap" :key="index" :value="row_gap">{{ row_gap.text }}</option>
+                <select id="rows-gap" name="rows-gap" @change="replaceClass(selected_container, selected_row_gap.value, mappers.grid_mapper.rows.gap.regex_pattern)" v-model="selected_row_gap">
+                  <option v-for="(row_gap, index) in mappers.grid_mapper.rows.gap.values" :key="index" :value="row_gap">{{ row_gap.text }}</option>
                 </select>
               </div>
               <div class="setting">
                 <label for="cols-gap">Cols gap</label>
-                <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_container, selected_col_gap.value, mappers.grid_mapper.gap.regex_patterns.cols_gap)" v-model="selected_col_gap">
-                  <option v-for='(col_gap, index) in mappers.grid_mapper.gap.cols_gap' :key="index" :value="col_gap">{{ col_gap.text }}</option>
+                <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_container, selected_col_gap.value, mappers.grid_mapper.cols.gap.regex_pattern)" v-model="selected_col_gap">
+                  <option v-for='(col_gap, index) in mappers.grid_mapper.cols.gap.values' :key="index" :value="col_gap">{{ col_gap.text }}</option>
                 </select>
               </div>
             </div>
@@ -59,11 +59,26 @@
           <div class="flex" v-if="isFlex(selected_container)">
             <div class="setting-label">Columns settings</div>
             <div class="setting-content">
+              <div class="setting-subtitle">Columns</div>
+              <div class="setting-wrapper">
+                <div class="action">
+                  <div class="add-item" @click="addColumnInFlex('col')">
+                    <i class="fas fa-plus"></i>
+                  </div>
+                </div>
+                <div class="rows">
+                  <div class="row" v-for="(col, index) in selected_container.cols" :key="index">
+                    Column {{ col }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="setting-content">
               <div class="setting-subtitle">Gap</div>
               <div class="setting">
                 <label for="cols-gap">Cols gap</label>
-                <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_container, selected_col_gap.value, mappers.flex_mapper.gap.regex_patterns.cols_gap)" v-model="selected_col_gap">
-                  <option v-for='(col_gap, index) in mappers.flex_mapper.gap.cols_gap' :key="index" :value="col_gap">{{ col_gap.text }}</option>
+                <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_container, selected_col_gap.value, mappers.flex_mapper.gap.regex_pattern)" v-model="selected_col_gap">
+                  <option v-for='(col_gap, index) in mappers.flex_mapper.gap.value' :key="index" :value="col_gap">{{ col_gap.text }}</option>
                 </select>
               </div>
             </div>
@@ -83,6 +98,7 @@
 import { emitter } from 'App/Wape'
 import isEmpty from 'lodash/isEmpty'
 import { grid_mapper, flex_mapper } from 'Editor/mappers/tailwind'
+import { createElementAndAppend } from 'Editor/utilities/grid'
 
 export default {
     name: 'RightPanel',
@@ -136,12 +152,51 @@ export default {
       replaceClass(element, new_class, pattern) {
         if (pattern !== null) {
           let regex = new RegExp(pattern, 'g')
-          let match = element.element.className.match(regex)
+          let class_array = [...element.element.classList.values()]
+          let match = class_array.find((item) => {
+            return regex.test(item)
+          })
           if (match !== null) {
-            element.removeClass(match[0])
+            element.removeClass(match)
           }
         }
         element.addClass(new_class)
+      },
+      addItemInGrid(typeToAdd) {
+        if (this.selected_container !== null) {
+          if (this.selected_container.type === 'grid') {
+            if (typeToAdd === 'row') {
+              // let new_row_amount = this.selected_container.rows + 1
+              // console.log(new_row_amount)
+              this.selected_container.rows++
+              this.replaceClass(this.selected_container, `grid-rows-${this.selected_container.rows}`, this.mappers.grid_mapper.rows.template.regex_pattern)
+              let totalPlacesInGrid = ((this.selected_container.cols !== 0) ? this.selected_container.cols : 1) * ((this.selected_container.rows !== 0) ? this.selected_container.rows : 1)
+              let elementsInGrid = this.selected_container.element.children.length
+              let numberOfPlaceholdersToAppend = totalPlacesInGrid - elementsInGrid
+              if (numberOfPlaceholdersToAppend > 0) {
+                  createElementAndAppend('div', this.selected_container.element, numberOfPlaceholdersToAppend, 'grid-placeholder')
+              }
+            } else if (typeToAdd === 'col') {
+              this.selected_container.cols++
+              this.replaceClass(this.selected_container, `grid-cols-${this.selected_container.cols}`, this.mappers.grid_mapper.cols.template.regex_pattern)
+              let totalPlacesInGrid = ((this.selected_container.cols !== 0) ? this.selected_container.cols : 1) * ((this.selected_container.cols !== 0) ? this.selected_container.cols : 1)
+              let elementsInGrid = this.selected_container.element.children.length
+              let numberOfPlaceholdersToAppend = totalPlacesInGrid - elementsInGrid
+              if (numberOfPlaceholdersToAppend > 0) {
+                  createElementAndAppend('div', this.selected_container.element, numberOfPlaceholdersToAppend, 'grid-placeholder')
+              }
+            }
+          } else if (this.selected_container.type === 'flex' && typeToAdd === 'col') {
+            console.log(this.selected_container)
+          }
+        }
+      },
+      addColumnInFlex() {
+        if (this.selected_container !== null) {
+          if (this.selected_container.type === 'flex') {
+
+          }
+        }
       }
     }
 }
