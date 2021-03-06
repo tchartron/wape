@@ -1,9 +1,10 @@
 import { countRows, countCols } from 'Editor/utilities/grid'
+import { containerType } from 'Editor/utilities/container'
 
 export default class Container {
     constructor(element) {
         this.element = element // html element
-        this.type = this.containerType(element)
+        this.type = containerType(element)
         this.rows = countRows(element)
         this.cols = countCols(element)
     }
@@ -14,15 +15,15 @@ export default class Container {
     // set element(element) {
     //     this.element = element
     // }
-    containerType(element) {
-        if (element.matches('.grid')) {
-            return 'grid'
-        }
-        if (element.matches('.flex')) {
-            return 'flex'
-        }
-        return 'container'
-    }
+    // containerType(element) {
+    //     if (element.matches('.grid')) {
+    //         return 'grid'
+    //     }
+    //     if (element.matches('.flex')) {
+    //         return 'flex'
+    //     }
+    //     return 'container'
+    // }
     addClass(cssClass) {
         this.element.classList.add(cssClass)
     }
