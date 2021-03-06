@@ -1,13 +1,13 @@
 export function countRows(element) {
     let classList = element.className.split(' ')
     let rowsAmount = 0
-    if(classList.includes('grid')) {
+    if (classList.includes('grid')) {
         let rowsClass = classList.find((elem) => {
             return (elem.match(/grid-rows-([0-9])/) !== null)
         })
-        if(typeof rowsClass !== 'undefined') {
+        if (typeof rowsClass !== 'undefined') {
             let matchRows = rowsClass.match(/grid-rows-([0-9])/)
-            if(matchRows !== null) {
+            if (matchRows !== null) {
                 rowsAmount = matchRows[1]
             }
         }
@@ -17,13 +17,13 @@ export function countRows(element) {
 export function countCols(element) {
     let classList = element.className.split(' ')
     let colsAmount = 0
-    if(classList.includes('grid')) {
+    if (classList.includes('grid')) {
         let colsClass = classList.find((elem) => {
             return (elem.match(/grid-cols-([0-9])/) !== null)
         })
-        if(typeof colsClass !== 'undefined') {
+        if (typeof colsClass !== 'undefined') {
             let matchCols = colsClass.match(/grid-cols-([0-9])/)
-            if(matchCols !== null) {
+            if (matchCols !== null) {
                 colsAmount = matchCols[1]
             }
         }
