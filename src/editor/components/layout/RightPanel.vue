@@ -10,6 +10,7 @@
     </div>
     <transition name="left" @after-leave="animationEnd">
       <div v-if="(showPanel('container')) && !animating" class="container-settings">
+          <!-- GRID -->
           <div class="grid" v-if="isGrid(selected_container)">
             <div class="setting-label">Grid settings</div>
             <div class="setting-content">
@@ -56,6 +57,7 @@
               </div>
             </div>
           </div>
+          <!-- FLEX -->
           <div class="flex" v-if="isFlex(selected_container)">
             <div class="setting-label">Columns settings</div>
             <div class="setting-content">
