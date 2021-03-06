@@ -99,6 +99,7 @@ import { emitter } from 'App/Wape'
 import isEmpty from 'lodash/isEmpty'
 import { grid_mapper, flex_mapper } from 'Editor/mappers/tailwind'
 import { createElementAndAppend } from 'Editor/utilities/grid'
+import { replaceClass } from 'Editor/utilities/css'
 
 export default {
     name: 'RightPanel',
@@ -149,19 +150,19 @@ export default {
           return container.type === 'flex'
         }
       },
-      replaceClass(element, new_class, pattern) {
-        if (pattern !== null) {
-          let regex = new RegExp(pattern, 'g')
-          let class_array = [...element.element.classList.values()]
-          let match = class_array.find((item) => {
-            return regex.test(item)
-          })
-          if (match !== null) {
-            element.removeClass(match)
-          }
-        }
-        element.addClass(new_class)
-      },
+      // replaceClass(element, new_class, pattern) {
+      //   if (pattern !== null) {
+      //     let regex = new RegExp(pattern, 'g')
+      //     let class_array = [...element.element.classList.values()]
+      //     let match = class_array.find((item) => {
+      //       return regex.test(item)
+      //     })
+      //     if (match !== null) {
+      //       element.removeClass(match)
+      //     }
+      //   }
+      //   element.addClass(new_class)
+      // },
       addItemInGrid(typeToAdd) {
         if (this.selected_container !== null) {
           if (this.selected_container.type === 'grid') {
