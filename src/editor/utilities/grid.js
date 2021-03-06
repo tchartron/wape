@@ -1,5 +1,3 @@
-import { replaceClass } from 'Editor/utilities/css'
-
 export function countRows(element) {
     let classList = element.className.split(' ')
     let rowsAmount = 0
@@ -31,40 +29,4 @@ export function countCols(element) {
         }
     }
     return parseInt(colsAmount)
-}
-
-export function createElementAndAppend(elementType, container, numberToAppend, classToAdd = '') {
-  for (let i = 0; i < numberToAppend; i++) {
-      let div = document.createElement(elementType);
-      if (classToAdd !== '') {
-          div.classList.add(classToAdd)
-      }
-      container.appendChild(div)
-  }
-}
-
-export function addColumn(container_instance) {
-    if (container_instance !== null) {
-         else if (typeToAdd === 'col') {
-            container_instance.cols++
-            replaceClass(container_instance, `grid-cols-${container_instance.cols}`, this.mappers.grid_mapper.cols.template.regex_pattern)
-            let totalPlacesInGrid = ((container_instance.cols !== 0) ? container_instance.cols : 1) * ((container_instance.cols !== 0) ? container_instance.cols : 1)
-            let elementsInGrid = container_instance.element.children.length
-            let numberOfPlaceholdersToAppend = totalPlacesInGrid - elementsInGrid
-            if (numberOfPlaceholdersToAppend > 0) {
-                createElementAndAppend('div', container_instance.element, numberOfPlaceholdersToAppend, 'grid-placeholder')
-            }
-        }
-    }
-}
-
-export function addRow(container_instance) {
-    container_instance.rows++
-    replaceClass(container_instance, `grid-rows-${container_instance.rows}`, this.mappers.grid_mapper.rows.template.regex_pattern)
-    let totalPlacesInGrid = ((container_instance.cols !== 0) ? container_instance.cols : 1) * ((container_instance.rows !== 0) ? container_instance.rows : 1)
-    let elementsInGrid = container_instance.element.children.length
-    let numberOfPlaceholdersToAppend = totalPlacesInGrid - elementsInGrid
-    if (numberOfPlaceholdersToAppend > 0) {
-        createElementAndAppend('div', container_instance.element, numberOfPlaceholdersToAppend, 'grid-placeholder')
-    }
 }

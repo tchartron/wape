@@ -16,7 +16,7 @@
               <div class="setting-subtitle">Rows</div>
               <div class="setting-wrapper">
                 <div class="action">
-                  <div class="add-item" @click="addRow(selected_container)">
+                  <div class="add-item" @click="addGridRow(selected_container)">
                     <i class="fas fa-plus"></i>
                   </div>
                 </div>
@@ -29,7 +29,7 @@
               <div class="setting-subtitle">Columns</div>
               <div class="setting-wrapper">
                 <div class="action">
-                  <div class="add-item" @click="addCol('col')">
+                  <div class="add-item" @click="addGridColumn(selected_container)">
                     <i class="fas fa-plus"></i>
                   </div>
                 </div>
@@ -98,7 +98,7 @@
 import { emitter } from 'App/Wape'
 import isEmpty from 'lodash/isEmpty'
 import { grid_mapper, flex_mapper } from 'Editor/mappers/tailwind'
-import { createElementAndAppend, addCol, addRow } from 'Editor/utilities/grid'
+import { appendPlaceholder } from 'Editor/utilities/container'
 
 export default {
     name: 'RightPanel',
@@ -147,6 +147,45 @@ export default {
           return false
         } else {
           return container.type === 'flex'
+        }
+      },
+      replaceClass(element, new_class, pattern) {
+        if (pattern !== null) {
+          let regex = new RegExp(pattern, 'g')
+          let class_array = [...element.element.classList.values()]
+          let match = class_array.find((item) => {
+            return regex.test(item)
+          })
+          if (match !== null) {
+            element.removeClass(match)
+          }
+        }
+        element.addClass(new_class)
+      },
+      addGridColumn(container_instance) {
+        if (container_instance !== null) {
+          container_instance.cols++
+          this.replaceClass(container_instance, `grid-cols-${container_instance.cols}`, this.mappers.grid_mapper.cols.template.regex_pattern)
+          let totalPlacesInGrid = ((container_instance.cols !== 0) ? container_instance.cols : 1) * ((container_instance.cols !== 0) ? container_instance.cols : 1)
+          let elementsInGrid = container_instance.element.children.length
+          let numberOfPlaceholdersToAppend = totalPlacesInGrid - elementsInGrid
+          if (numberOfPlaceholdersToAppend > 0) {
+            appendPlaceholder('div', container_instance.element, numberOfPlaceholdersToAppend, 'grid-placeholder')
+            appendPlaceholder('div', container_instance.element, numberOfPlaceholdersToAppend, 'grid-placeholder')
+          }
+        }
+      },
+      addGridRow(container_instance) {
+        if (container_instance !== null) {
+          container_instance.rows++
+          this.replaceClass(container_instance, `grid-rows-${container_instance.rows}`, this.mappers.grid_mapper.rows.template.regex_pattern)
+          let totalPlacesInGrid = ((container_instance.cols !== 0) ? container_instance.cols : 1) * ((container_instance.rows !== 0) ? container_instance.rows : 1)
+          let elementsInGrid = container_instance.element.children.length
+          let numberOfPlaceholdersToAppend = totalPlacesInGrid - elementsInGrid
+          if (numberOfPlaceholdersToAppend > 0) {
+            appendPlaceholder('div', container_instance.element, numberOfPlaceholdersToAppend, 'grid-placeholder')
+            appendPlaceholder('div', container_instance.element, numberOfPlaceholdersToAppend, 'grid-placeholder')
+          }
         }
       },
       addColumnInFlex() {
