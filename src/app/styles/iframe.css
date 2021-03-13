@@ -13,16 +13,17 @@ div.layout {
 /*body > div.grid.layout > div {
     border: .5px dashed #000;
 }*/
-div.grid.layout > div.grid-placeholder {
-    border: .5px dashed #000;
+div.grid.layout > div.grid-placeholder,
+div.flex.layout > div.empty-flex-col {
+    border: .5px dotted #000;
 }
-.shadow-elem {
-    opacity: .5;
+.half-opacity {
+    opacity: .3;
 }
 /*.layout.container-hovered {
     border: 2px solid blue;
 }*/
-.container-selected {
+.layout-selected {
     border: 2px solid green !important;
 }
 .element-selected {
