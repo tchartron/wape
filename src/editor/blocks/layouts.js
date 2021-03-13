@@ -18,10 +18,7 @@ export default [
         title: 'Columns',
         icon: 'fas fa-columns',
         type: 'layout',
-        content: `<div class="flex flex-row flex-wrap">
-                    <div class="flex-1"></div>
-                    <div class="flex-1"></div>
-                </div>`
+        content: `<div class="flex flex-row flex-wrap"></div>`
     },
     {
         id: 4,
