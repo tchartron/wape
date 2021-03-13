@@ -9,10 +9,14 @@ import Iframe from 'Editor/Iframe'
 import layouts from 'Editor/blocks/layouts'
 import elements from 'Editor/blocks/elements'
 import { Dragger } from 'Editor/Dragger/Dragger'
-import Container from 'Editor/elements/Container'
-import Element from 'Editor/elements/Element'
+import Layout from 'Editor/classes/layouts/Layout'
+import Grid from 'Editor/classes/layouts/Grid'
+import Flex from 'Editor/classes/layouts/Flex'
+import Element from 'Editor/classes/elements/Element'
 import isEmpty from 'lodash/isEmpty'
 import { emitter } from 'App/Wape'
+import { layoutType } from 'Editor/utilities/layout'
+import { findFirstChildMatching } from 'Editor/utilities/utilities'
 
 export default {
     name: 'MainPanel',
@@ -21,7 +25,7 @@ export default {
         iframe: Object,
         canvas_width: 'calc(100vw - 500px)',
         element_hovered: null,
-        selected_container: null,
+        selected_layout: null,
         selected_element: null
       }
     },
@@ -71,21 +75,36 @@ export default {
       },
       iframeClick(event) {
         let elements = this.iframe.document.elementsFromPoint(event.clientX, event.clientY)
-        let container = elements.reverse().find((elem) => { // reverse elements to place flex containers before their columns (we need flex columns to have the layout class to handle dropping elements inside in dragger.js)
-            return (elem.matches('.flex')) || (elem.matches('.layout')) //If you find .flex first take this as main layout not the columns inside it
+        console.log(elements)
+        let layout = elements.reverse().find((elem) => { // reverse elements to place flex containers before their columns (we need flex columns to have the layout class to handle dropping elements inside in dragger.js)
+            return (elem.matches('.layout')) //If you find .flex first take this as main layout not the columns inside it
         })
-        if (typeof container !== 'undefined') {
-          if (this.selected_container === null || this.selected_container.element !== container) { //if we selected another container than the current one
-            if (this.selected_container !== null) {
-              this.selected_container.removeClass('container-selected')
+        // let layout = findFirstChildMatching(elements, '.layout')
+        //   console.log(layout)
+        // console.log(layout)
+        if (typeof layout !== 'undefined') {
+          if (this.selected_layout === null || this.selected_layout.element !== layout) { //if we selected another layout than the current one
+            if (this.selected_layout !== null) {
+              this.selected_layout.removeClass('layout-selected')
             }
-            this.selected_container = new Container(container)
-            // console.log(this.selected_container)
-            this.selected_container.addClass('container-selected')
-            // let children = this.selected_container.getChildren()
+            // this.selected_layout = new Layout(layout)
+            let layout_type = layoutType(layout)
+            switch(layout_type) {
+              case 'grid':
+                this.selected_layout = new Grid(layout, layout_type)
+              break;
+              case 'flex':
+                this.selected_layout = new Flex(layout, layout_type)
+              break;
+              default:
+                this.selected_layout = new Layout(layout, layout_type)
+            }
+            console.log(this.selected_layout)
+            this.selected_layout.addClass('layout-selected')
+            // let children = this.selected_layout.getChildren()
           }
         } else {
-          this.selected_container = null
+          this.selected_layout = null
         }
         let element = elements.find((elem) => {
             return (elem.matches('.element-hovered'))
@@ -97,12 +116,12 @@ export default {
             }
             this.selected_element = new Element(element)
             this.selected_element.addClass('element-selected')
-            // let children = this.selected_container.getChildren()
+            // let children = this.selected_layout.getChildren()
             }
           } else {
             this.selected_element = null
         }
-        emitter.emit('iframe-click', { container: this.selected_container, element: this.selected_element })
+        emitter.emit('iframe-click', { container: this.selected_layout, element: this.selected_element })
       }
     }
 }
