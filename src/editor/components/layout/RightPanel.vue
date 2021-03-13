@@ -11,34 +11,34 @@
     <transition name="left" @after-leave="animationEnd">
       <div v-if="(showPanel('container')) && !animating" class="container-settings">
           <!-- GRID -->
-          <div class="grid" v-if="isGrid(selected_container)">
+          <div class="grid" v-if="isGrid(selected_layout)">
             <div class="setting-label">Grid settings</div>
             <div class="setting-content">
               <div class="setting-subtitle">Rows</div>
               <div class="setting-wrapper">
                 <div class="action">
-                  <div class="add-item" @click="addGridRow(selected_container)">
+                  <div class="add-item" @click="addGridRow(selected_layout)">
                     <i class="fas fa-plus"></i>
                   </div>
                 </div>
                 <div class="rows">
-                  <div class="row" v-for="(row, index) in selected_container.rows" :key="index">
+                  <div class="row" v-for="(row, index) in selected_layout.rows" :key="index">
                     <div class="item-title">Row {{ row }}</div>
-                    <div class="remove-item" @click="deleteGridRow(selected_container)"><i class="fas fa-minus"></i></div>
+                    <div class="remove-item" @click="deleteGridRow(selected_layout)"><i class="fas fa-minus"></i></div>
                   </div>
                 </div>
               </div>
               <div class="setting-subtitle">Columns</div>
               <div class="setting-wrapper">
                 <div class="action">
-                  <div class="add-item" @click="addGridColumn(selected_container)">
+                  <div class="add-item" @click="addGridColumn(selected_layout)">
                     <i class="fas fa-plus"></i>
                   </div>
                 </div>
                 <div class="rows">
-                  <div class="row" v-for="(col, index) in selected_container.cols" :key="index">
+                  <div class="row" v-for="(col, index) in selected_layout.cols" :key="index">
                     <div class="item-title">Column {{ col }}</div>
-                    <div class="remove-item" @click="deleteGridRow(selected_container)"><i class="fas fa-minus"></i></div>
+                    <div class="remove-item" @click="deleteGridRow(selected_layout)"><i class="fas fa-minus"></i></div>
                   </div>
                 </div>
               </div>
@@ -47,20 +47,20 @@
               <div class="setting-subtitle">Gap</div>
               <div class="setting">
                 <label for="rows-gap">Rows gap</label>
-                <select id="rows-gap" name="rows-gap" @change="replaceClass(selected_container, selected_row_gap.value, mappers.grid_mapper.rows.gap.regex_pattern)" v-model="selected_row_gap">
+                <select id="rows-gap" name="rows-gap" @change="replaceClass(selected_layout, selected_row_gap.value, mappers.grid_mapper.rows.gap.regex_pattern)" v-model="selected_row_gap">
                   <option v-for="(row_gap, index) in mappers.grid_mapper.rows.gap.values" :key="index" :value="row_gap">{{ row_gap.text }}</option>
                 </select>
               </div>
               <div class="setting">
                 <label for="cols-gap">Cols gap</label>
-                <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_container, selected_col_gap.value, mappers.grid_mapper.cols.gap.regex_pattern)" v-model="selected_col_gap">
+                <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_layout, selected_col_gap.value, mappers.grid_mapper.cols.gap.regex_pattern)" v-model="selected_col_gap">
                   <option v-for='(col_gap, index) in mappers.grid_mapper.cols.gap.values' :key="index" :value="col_gap">{{ col_gap.text }}</option>
                 </select>
               </div>
             </div>
           </div>
           <!-- FLEX -->
-          <div class="flex" v-if="isFlex(selected_container)">
+          <div class="flex" v-if="isFlex(selected_layout)">
             <div class="setting-label">Columns settings</div>
             <div class="setting-content">
               <div class="setting-subtitle">Columns</div>
@@ -71,7 +71,7 @@
                   </div>
                 </div>
                 <div class="rows">
-                  <div class="row" v-for="(col, index) in selected_container.cols" :key="index">
+                  <div class="row" v-for="(col, index) in selected_layout.cols" :key="index">
                     Column {{ col }}
                   </div>
                 </div>
@@ -81,7 +81,7 @@
               <div class="setting-subtitle">Gap</div>
               <div class="setting">
                 <label for="cols-gap">Cols gap</label>
-                <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_container, selected_col_gap.value, mappers.flex_mapper.gap.regex_pattern)" v-model="selected_col_gap">
+                <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_layout, selected_col_gap.value, mappers.flex_mapper.gap.regex_pattern)" v-model="selected_col_gap">
                   <option v-for='(col_gap, index) in mappers.flex_mapper.gap.value' :key="index" :value="col_gap">{{ col_gap.text }}</option>
                 </select>
               </div>
@@ -102,7 +102,7 @@
 import { emitter } from 'App/Wape'
 import isEmpty from 'lodash/isEmpty'
 import { grid_mapper, flex_mapper } from 'Editor/mappers/tailwind'
-import { appendPlaceholder } from 'Editor/utilities/container'
+import { appendPlaceholder } from 'Editor/utilities/layout'
 
 export default {
     name: 'RightPanel',
@@ -110,7 +110,7 @@ export default {
       return {
         current_panel: 'container',
         animating: false,
-        selected_container: null,
+        selected_layout: null,
         selected_element: null,
         mappers: {
           grid_mapper,
@@ -124,7 +124,7 @@ export default {
     },
     mounted() {
       emitter.on('iframe-click', (args) => { //Fired from MainPanel.vue
-        this.selected_container = args.container
+        this.selected_layout = args.container
         this.selected_element = args.element
       })
     },
@@ -191,8 +191,8 @@ export default {
         }
       },
       addColumnInFlex() {
-        if (this.selected_container !== null) {
-          if (this.selected_container.type === 'flex') {
+        if (this.selected_layout !== null) {
+          if (this.selected_layout.type === 'flex') {
 
           }
         }
