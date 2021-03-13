@@ -30,3 +30,9 @@ export function countCols(element) {
     }
     return parseInt(colsAmount)
 }
+
+export function  createPlaceholder() {
+    let placeholder = document.createElement('div');
+    placeholder.classList.add('grid-placeholder')
+    return placeholder
+}
