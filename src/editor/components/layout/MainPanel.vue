@@ -79,15 +79,11 @@ export default {
         let layout = elements.reverse().find((elem) => { // reverse elements to place flex containers before their columns (we need flex columns to have the layout class to handle dropping elements inside in dragger.js)
             return (elem.matches('.layout')) //If you find .flex first take this as main layout not the columns inside it
         })
-        // let layout = findFirstChildMatching(elements, '.layout')
-        //   console.log(layout)
-        // console.log(layout)
         if (typeof layout !== 'undefined') {
           if (this.selected_layout === null || this.selected_layout.element !== layout) { //if we selected another layout than the current one
             if (this.selected_layout !== null) {
               this.selected_layout.removeClass('layout-selected')
             }
-            // this.selected_layout = new Layout(layout)
             let layout_type = layoutType(layout)
             switch(layout_type) {
               case 'grid':
@@ -101,7 +97,6 @@ export default {
             }
             console.log(this.selected_layout)
             this.selected_layout.addClass('layout-selected')
-            // let children = this.selected_layout.getChildren()
           }
         } else {
           this.selected_layout = null
@@ -116,7 +111,6 @@ export default {
             }
             this.selected_element = new Element(element)
             this.selected_element.addClass('element-selected')
-            // let children = this.selected_layout.getChildren()
             }
           } else {
             this.selected_element = null
