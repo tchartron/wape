@@ -6,7 +6,10 @@ export function layoutType(element) {
     if (element.matches('.flex')) {
         return 'flex'
     }
-    return 'container'
+    if (element.matches('.container')) {
+        return 'container'
+    }
+    return null
 }
 
 export function appendPlaceholder(element_type, container, number_to_append, class_to_add = '') {
