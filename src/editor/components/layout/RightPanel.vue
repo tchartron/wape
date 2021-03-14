@@ -284,6 +284,7 @@ export default {
       })
     },
     methods: {
+      replaceClass,
       switchPanel(panel) {
         this.animating = true
         this.current_panel = panel
@@ -308,7 +309,6 @@ export default {
           return container.type === 'flex'
         }
       },
-      replaceClass,
       addGridColumn(layout_instance) {
         if (layout_instance !== null) {
           layout_instance.cols++
@@ -335,9 +335,7 @@ export default {
       },
       addFlexColumn(layout_instance) {
         if (layout_instance !== null) {
-          // if (this.selected_layout.type === 'flex') {
-            layout_instance.addColumn()
-          // }
+          layout_instance.addColumn()
         }
       }
     }
