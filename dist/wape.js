@@ -9722,6 +9722,811 @@ var wape = (function () {
       }
   };
 
+  const spacing_mapper = {
+      padding: {
+          all: {
+              regex_pattern: 'p-[0-9]+(\.[0-9])?',
+              values: [
+                  { id: 1, text: '0', value: 'p-0' },
+                  { id: 2, text: '0.5', value: 'p-0.5'},
+                  { id: 3, text: '1', value: 'p-1'},
+                  { id: 4, text: '1.5', value: 'p-1.5'},
+                  { id: 5, text: '2', value: 'p-2'},
+                  { id: 6, text: '2.5', value: 'p-2.5'},
+                  { id: 7, text: '3', value: 'p-3'},
+                  { id: 8, text: '3.5', value: 'p-3.5'},
+                  { id: 9, text: '4', value: 'p-4'},
+                  { id: 10, text: '5', value: 'p-5'},
+                  { id: 11, text: '6', value: 'p-6'},
+                  { id: 12, text: '7', value: 'p-7'},
+                  { id: 13, text: '8', value: 'p-8'},
+                  { id: 14, text: '9', value: 'p-9'},
+                  { id: 15, text: '10', value: 'p-10'},
+                  { id: 16, text: '11', value: 'p-11'},
+                  { id: 17, text: '12', value: 'p-12'},
+                  { id: 18, text: '14', value: 'p-14'},
+                  { id: 19, text: '16', value: 'p-16'},
+                  { id: 20, text: '20', value: 'p-20'},
+                  { id: 21, text: '24', value: 'p-24'},
+                  { id: 22, text: '28', value: 'p-28'},
+                  { id: 23, text: '32', value: 'p-32'},
+                  { id: 24, text: '36', value: 'p-36'},
+                  { id: 25, text: '40', value: 'p-40'},
+                  { id: 26, text: '44', value: 'p-44'},
+                  { id: 27, text: '48', value: 'p-48'},
+                  { id: 28, text: '52', value: 'p-52'},
+                  { id: 29, text: '56', value: 'p-56'},
+                  { id: 30, text: '60', value: 'p-60'},
+                  { id: 31, text: '64', value: 'p-64'},
+                  { id: 32, text: '72', value: 'p-72'},
+                  { id: 33, text: '80', value: 'p-80'},
+                  { id: 34, text: '96', value: 'p-96'},
+              ]
+          },
+          vertical: {
+              regex_pattern: 'py-[0-9]+(\.[0-9])?',
+              values: [
+                  { id: 1, text: '0', value: 'py-0' },
+                  { id: 2, text: '0.5', value: 'py-0.5'},
+                  { id: 3, text: '1', value: 'py-1'},
+                  { id: 4, text: '1.5', value: 'py-1.5'},
+                  { id: 5, text: '2', value: 'py-2'},
+                  { id: 6, text: '2.5', value: 'py-2.5'},
+                  { id: 7, text: '3', value: 'py-3'},
+                  { id: 8, text: '3.5', value: 'py-3.5'},
+                  { id: 9, text: '4', value: 'py-4'},
+                  { id: 10, text: '5', value: 'py-5'},
+                  { id: 11, text: '6', value: 'py-6'},
+                  { id: 12, text: '7', value: 'py-7'},
+                  { id: 13, text: '8', value: 'py-8'},
+                  { id: 14, text: '9', value: 'py-9'},
+                  { id: 15, text: '10', value: 'py-10'},
+                  { id: 16, text: '11', value: 'py-11'},
+                  { id: 17, text: '12', value: 'py-12'},
+                  { id: 18, text: '14', value: 'py-14'},
+                  { id: 19, text: '16', value: 'py-16'},
+                  { id: 20, text: '20', value: 'py-20'},
+                  { id: 21, text: '24', value: 'py-24'},
+                  { id: 22, text: '28', value: 'py-28'},
+                  { id: 23, text: '32', value: 'py-32'},
+                  { id: 24, text: '36', value: 'py-36'},
+                  { id: 25, text: '40', value: 'py-40'},
+                  { id: 26, text: '44', value: 'py-44'},
+                  { id: 27, text: '48', value: 'py-48'},
+                  { id: 28, text: '52', value: 'py-52'},
+                  { id: 29, text: '56', value: 'py-56'},
+                  { id: 30, text: '60', value: 'py-60'},
+                  { id: 31, text: '64', value: 'py-64'},
+                  { id: 32, text: '72', value: 'py-72'},
+                  { id: 33, text: '80', value: 'py-80'},
+                  { id: 34, text: '96', value: 'py-96'},
+              ]
+          },
+          horizontal: {
+              regex_pattern: 'px-[0-9]+(\.[0-9])?',
+              values: [
+                  { id: 1, text: '0', value: 'px-0' },
+                  { id: 2, text: '0.5', value: 'px-0.5'},
+                  { id: 3, text: '1', value: 'px-1'},
+                  { id: 4, text: '1.5', value: 'px-1.5'},
+                  { id: 5, text: '2', value: 'px-2'},
+                  { id: 6, text: '2.5', value: 'px-2.5'},
+                  { id: 7, text: '3', value: 'px-3'},
+                  { id: 8, text: '3.5', value: 'px-3.5'},
+                  { id: 9, text: '4', value: 'px-4'},
+                  { id: 10, text: '5', value: 'px-5'},
+                  { id: 11, text: '6', value: 'px-6'},
+                  { id: 12, text: '7', value: 'px-7'},
+                  { id: 13, text: '8', value: 'px-8'},
+                  { id: 14, text: '9', value: 'px-9'},
+                  { id: 15, text: '10', value: 'px-10'},
+                  { id: 16, text: '11', value: 'px-11'},
+                  { id: 17, text: '12', value: 'px-12'},
+                  { id: 18, text: '14', value: 'px-14'},
+                  { id: 19, text: '16', value: 'px-16'},
+                  { id: 20, text: '20', value: 'px-20'},
+                  { id: 21, text: '24', value: 'px-24'},
+                  { id: 22, text: '28', value: 'px-28'},
+                  { id: 23, text: '32', value: 'px-32'},
+                  { id: 24, text: '36', value: 'px-36'},
+                  { id: 25, text: '40', value: 'px-40'},
+                  { id: 26, text: '44', value: 'px-44'},
+                  { id: 27, text: '48', value: 'px-48'},
+                  { id: 28, text: '52', value: 'px-52'},
+                  { id: 29, text: '56', value: 'px-56'},
+                  { id: 30, text: '60', value: 'px-60'},
+                  { id: 31, text: '64', value: 'px-64'},
+                  { id: 32, text: '72', value: 'px-72'},
+                  { id: 33, text: '80', value: 'px-80'},
+                  { id: 34, text: '96', value: 'px-96'},
+              ]
+          },
+          top: {
+              regex_pattern: 'pt-[0-9]+(\.[0-9])?',
+              values: [
+                  { id: 1, text: '0', value: 'pt-0' },
+                  { id: 2, text: '0.5', value: 'pt-0.5'},
+                  { id: 3, text: '1', value: 'pt-1'},
+                  { id: 4, text: '1.5', value: 'pt-1.5'},
+                  { id: 5, text: '2', value: 'pt-2'},
+                  { id: 6, text: '2.5', value: 'pt-2.5'},
+                  { id: 7, text: '3', value: 'pt-3'},
+                  { id: 8, text: '3.5', value: 'pt-3.5'},
+                  { id: 9, text: '4', value: 'pt-4'},
+                  { id: 10, text: '5', value: 'pt-5'},
+                  { id: 11, text: '6', value: 'pt-6'},
+                  { id: 12, text: '7', value: 'pt-7'},
+                  { id: 13, text: '8', value: 'pt-8'},
+                  { id: 14, text: '9', value: 'pt-9'},
+                  { id: 15, text: '10', value: 'pt-10'},
+                  { id: 16, text: '11', value: 'pt-11'},
+                  { id: 17, text: '12', value: 'pt-12'},
+                  { id: 18, text: '14', value: 'pt-14'},
+                  { id: 19, text: '16', value: 'pt-16'},
+                  { id: 20, text: '20', value: 'pt-20'},
+                  { id: 21, text: '24', value: 'pt-24'},
+                  { id: 22, text: '28', value: 'pt-28'},
+                  { id: 23, text: '32', value: 'pt-32'},
+                  { id: 24, text: '36', value: 'pt-36'},
+                  { id: 25, text: '40', value: 'pt-40'},
+                  { id: 26, text: '44', value: 'pt-44'},
+                  { id: 27, text: '48', value: 'pt-48'},
+                  { id: 28, text: '52', value: 'pt-52'},
+                  { id: 29, text: '56', value: 'pt-56'},
+                  { id: 30, text: '60', value: 'pt-60'},
+                  { id: 31, text: '64', value: 'pt-64'},
+                  { id: 32, text: '72', value: 'pt-72'},
+                  { id: 33, text: '80', value: 'pt-80'},
+                  { id: 34, text: '96', value: 'pt-96'},
+              ]
+          },
+          right: {
+              regex_pattern: 'pr-[0-9]+(\.[0-9])?',
+              values: [
+                  { id: 1, text: '0', value: 'pr-0' },
+                  { id: 2, text: '0.5', value: 'pr-0.5'},
+                  { id: 3, text: '1', value: 'pr-1'},
+                  { id: 4, text: '1.5', value: 'pr-1.5'},
+                  { id: 5, text: '2', value: 'pr-2'},
+                  { id: 6, text: '2.5', value: 'pr-2.5'},
+                  { id: 7, text: '3', value: 'pr-3'},
+                  { id: 8, text: '3.5', value: 'pr-3.5'},
+                  { id: 9, text: '4', value: 'pr-4'},
+                  { id: 10, text: '5', value: 'pr-5'},
+                  { id: 11, text: '6', value: 'pr-6'},
+                  { id: 12, text: '7', value: 'pr-7'},
+                  { id: 13, text: '8', value: 'pr-8'},
+                  { id: 14, text: '9', value: 'pr-9'},
+                  { id: 15, text: '10', value: 'pr-10'},
+                  { id: 16, text: '11', value: 'pr-11'},
+                  { id: 17, text: '12', value: 'pr-12'},
+                  { id: 18, text: '14', value: 'pr-14'},
+                  { id: 19, text: '16', value: 'pr-16'},
+                  { id: 20, text: '20', value: 'pr-20'},
+                  { id: 21, text: '24', value: 'pr-24'},
+                  { id: 22, text: '28', value: 'pr-28'},
+                  { id: 23, text: '32', value: 'pr-32'},
+                  { id: 24, text: '36', value: 'pr-36'},
+                  { id: 25, text: '40', value: 'pr-40'},
+                  { id: 26, text: '44', value: 'pr-44'},
+                  { id: 27, text: '48', value: 'pr-48'},
+                  { id: 28, text: '52', value: 'pr-52'},
+                  { id: 29, text: '56', value: 'pr-56'},
+                  { id: 30, text: '60', value: 'pr-60'},
+                  { id: 31, text: '64', value: 'pr-64'},
+                  { id: 32, text: '72', value: 'pr-72'},
+                  { id: 33, text: '80', value: 'pr-80'},
+                  { id: 34, text: '96', value: 'pr-96'},
+              ]
+          },
+          bottom: {
+              regex_pattern: 'pb-[0-9]+(\.[0-9])?',
+              values: [
+                  { id: 1, text: '0', value: 'pb-0' },
+                  { id: 2, text: '0.5', value: 'pb-0.5'},
+                  { id: 3, text: '1', value: 'pb-1'},
+                  { id: 4, text: '1.5', value: 'pb-1.5'},
+                  { id: 5, text: '2', value: 'pb-2'},
+                  { id: 6, text: '2.5', value: 'pb-2.5'},
+                  { id: 7, text: '3', value: 'pb-3'},
+                  { id: 8, text: '3.5', value: 'pb-3.5'},
+                  { id: 9, text: '4', value: 'pb-4'},
+                  { id: 10, text: '5', value: 'pb-5'},
+                  { id: 11, text: '6', value: 'pb-6'},
+                  { id: 12, text: '7', value: 'pb-7'},
+                  { id: 13, text: '8', value: 'pb-8'},
+                  { id: 14, text: '9', value: 'pb-9'},
+                  { id: 15, text: '10', value: 'pb-10'},
+                  { id: 16, text: '11', value: 'pb-11'},
+                  { id: 17, text: '12', value: 'pb-12'},
+                  { id: 18, text: '14', value: 'pb-14'},
+                  { id: 19, text: '16', value: 'pb-16'},
+                  { id: 20, text: '20', value: 'pb-20'},
+                  { id: 21, text: '24', value: 'pb-24'},
+                  { id: 22, text: '28', value: 'pb-28'},
+                  { id: 23, text: '32', value: 'pb-32'},
+                  { id: 24, text: '36', value: 'pb-36'},
+                  { id: 25, text: '40', value: 'pb-40'},
+                  { id: 26, text: '44', value: 'pb-44'},
+                  { id: 27, text: '48', value: 'pb-48'},
+                  { id: 28, text: '52', value: 'pb-52'},
+                  { id: 29, text: '56', value: 'pb-56'},
+                  { id: 30, text: '60', value: 'pb-60'},
+                  { id: 31, text: '64', value: 'pb-64'},
+                  { id: 32, text: '72', value: 'pb-72'},
+                  { id: 33, text: '80', value: 'pb-80'},
+                  { id: 34, text: '96', value: 'pb-96'},
+              ]
+          },
+          left: {
+              regex_pattern: 'pl-[0-9]+(\.[0-9])?',
+              values: [
+                  { id: 1, text: '0', value: 'pl-0' },
+                  { id: 2, text: '0.5', value: 'pl-0.5'},
+                  { id: 3, text: '1', value: 'pl-1'},
+                  { id: 4, text: '1.5', value: 'pl-1.5'},
+                  { id: 5, text: '2', value: 'pl-2'},
+                  { id: 6, text: '2.5', value: 'pl-2.5'},
+                  { id: 7, text: '3', value: 'pl-3'},
+                  { id: 8, text: '3.5', value: 'pl-3.5'},
+                  { id: 9, text: '4', value: 'pl-4'},
+                  { id: 10, text: '5', value: 'pl-5'},
+                  { id: 11, text: '6', value: 'pl-6'},
+                  { id: 12, text: '7', value: 'pl-7'},
+                  { id: 13, text: '8', value: 'pl-8'},
+                  { id: 14, text: '9', value: 'pl-9'},
+                  { id: 15, text: '10', value: 'pl-10'},
+                  { id: 16, text: '11', value: 'pl-11'},
+                  { id: 17, text: '12', value: 'pl-12'},
+                  { id: 18, text: '14', value: 'pl-14'},
+                  { id: 19, text: '16', value: 'pl-16'},
+                  { id: 20, text: '20', value: 'pl-20'},
+                  { id: 21, text: '24', value: 'pl-24'},
+                  { id: 22, text: '28', value: 'pl-28'},
+                  { id: 23, text: '32', value: 'pl-32'},
+                  { id: 24, text: '36', value: 'pl-36'},
+                  { id: 25, text: '40', value: 'pl-40'},
+                  { id: 26, text: '44', value: 'pl-44'},
+                  { id: 27, text: '48', value: 'pl-48'},
+                  { id: 28, text: '52', value: 'pl-52'},
+                  { id: 29, text: '56', value: 'pl-56'},
+                  { id: 30, text: '60', value: 'pl-60'},
+                  { id: 31, text: '64', value: 'pl-64'},
+                  { id: 32, text: '72', value: 'pl-72'},
+                  { id: 33, text: '80', value: 'pl-80'},
+                  { id: 34, text: '96', value: 'pl-96'},
+              ]
+          }
+      },
+      margin: {
+          all: {
+              // regex_pattern: '-?m-[0-9]+(\.[0-9])?',
+              regex_pattern: '^-?m-([0-9]+)?(\.[0-9])?(\\w+)?$',
+              values: [
+                  { id: 1, text: '0', value: 'm-0' },
+                  { id: 2, text: '0.5', value: 'm-0.5'},
+                  { id: 3, text: '1', value: 'm-1'},
+                  { id: 4, text: '1.5', value: 'm-1.5'},
+                  { id: 5, text: '2', value: 'm-2'},
+                  { id: 6, text: '2.5', value: 'm-2.5'},
+                  { id: 7, text: '3', value: 'm-3'},
+                  { id: 8, text: '3.5', value: 'm-3.5'},
+                  { id: 9, text: '4', value: 'm-4'},
+                  { id: 10, text: '5', value: 'm-5'},
+                  { id: 11, text: '6', value: 'm-6'},
+                  { id: 12, text: '7', value: 'm-7'},
+                  { id: 13, text: '8', value: 'm-8'},
+                  { id: 14, text: '9', value: 'm-9'},
+                  { id: 15, text: '10', value: 'm-10'},
+                  { id: 16, text: '11', value: 'm-11'},
+                  { id: 17, text: '12', value: 'm-12'},
+                  { id: 18, text: '14', value: 'm-14'},
+                  { id: 19, text: '16', value: 'm-16'},
+                  { id: 20, text: '20', value: 'm-20'},
+                  { id: 21, text: '24', value: 'm-24'},
+                  { id: 22, text: '28', value: 'm-28'},
+                  { id: 23, text: '32', value: 'm-32'},
+                  { id: 24, text: '36', value: 'm-36'},
+                  { id: 25, text: '40', value: 'm-40'},
+                  { id: 26, text: '44', value: 'm-44'},
+                  { id: 27, text: '48', value: 'm-48'},
+                  { id: 28, text: '52', value: 'm-52'},
+                  { id: 29, text: '56', value: 'm-56'},
+                  { id: 30, text: '60', value: 'm-60'},
+                  { id: 31, text: '64', value: 'm-64'},
+                  { id: 32, text: '72', value: 'm-72'},
+                  { id: 33, text: '80', value: 'm-80'},
+                  { id: 34, text: '96', value: 'm-96'},
+                  { id: 35, text: 'auto', value: 'm-auto'},
+                  { id: 36, text: '-0', value: '-m-0' },
+                  { id: 37, text: '-0.5', value: '-m-0.5'},
+                  { id: 38, text: '-1', value: '-m-1'},
+                  { id: 39, text: '-1.5', value: '-m-1.5'},
+                  { id: 40, text: '-2', value: '-m-2'},
+                  { id: 41, text: '-2.5', value: '-m-2.5'},
+                  { id: 42, text: '-3', value: '-m-3'},
+                  { id: 43, text: '-3.5', value: '-m-3.5'},
+                  { id: 44, text: '-4', value: '-m-4'},
+                  { id: 45, text: '-5', value: '-m-5'},
+                  { id: 46, text: '-6', value: '-m-6'},
+                  { id: 47, text: '-7', value: '-m-7'},
+                  { id: 48, text: '-8', value: '-m-8'},
+                  { id: 49, text: '-9', value: '-m-9'},
+                  { id: 50, text: '-10', value: '-m-10'},
+                  { id: 51, text: '-11', value: '-m-11'},
+                  { id: 52, text: '-12', value: '-m-12'},
+                  { id: 53, text: '-14', value: '-m-14'},
+                  { id: 54, text: '-16', value: '-m-16'},
+                  { id: 55, text: '-20', value: '-m-20'},
+                  { id: 56, text: '-24', value: '-m-24'},
+                  { id: 57, text: '-28', value: '-m-28'},
+                  { id: 58, text: '-32', value: '-m-32'},
+                  { id: 59, text: '-36', value: '-m-36'},
+                  { id: 60, text: '-40', value: '-m-40'},
+                  { id: 61, text: '-44', value: '-m-44'},
+                  { id: 62, text: '-48', value: '-m-48'},
+                  { id: 63, text: '-52', value: '-m-52'},
+                  { id: 64, text: '-56', value: '-m-56'},
+                  { id: 65, text: '-60', value: '-m-60'},
+                  { id: 66, text: '-64', value: '-m-64'},
+                  { id: 67, text: '-72', value: '-m-72'},
+                  { id: 68, text: '-80', value: '-m-80'},
+                  { id: 69, text: '-96', value: '-m-96'},
+              ]
+          },
+          vertical: {
+              // regex_pattern: 'my-[0-9]+(\.[0-9])?',
+              regex_pattern: '^-?my-([0-9]+)?(\.[0-9])?(\\w+)?$',
+              values: [
+                  { id: 1, text: '0', value: 'my-0' },
+                  { id: 2, text: '0.5', value: 'my-0.5'},
+                  { id: 3, text: '1', value: 'my-1'},
+                  { id: 4, text: '1.5', value: 'my-1.5'},
+                  { id: 5, text: '2', value: 'my-2'},
+                  { id: 6, text: '2.5', value: 'my-2.5'},
+                  { id: 7, text: '3', value: 'my-3'},
+                  { id: 8, text: '3.5', value: 'my-3.5'},
+                  { id: 9, text: '4', value: 'my-4'},
+                  { id: 10, text: '5', value: 'my-5'},
+                  { id: 11, text: '6', value: 'my-6'},
+                  { id: 12, text: '7', value: 'my-7'},
+                  { id: 13, text: '8', value: 'my-8'},
+                  { id: 14, text: '9', value: 'my-9'},
+                  { id: 15, text: '10', value: 'my-10'},
+                  { id: 16, text: '11', value: 'my-11'},
+                  { id: 17, text: '12', value: 'my-12'},
+                  { id: 18, text: '14', value: 'my-14'},
+                  { id: 19, text: '16', value: 'my-16'},
+                  { id: 20, text: '20', value: 'my-20'},
+                  { id: 21, text: '24', value: 'my-24'},
+                  { id: 22, text: '28', value: 'my-28'},
+                  { id: 23, text: '32', value: 'my-32'},
+                  { id: 24, text: '36', value: 'my-36'},
+                  { id: 25, text: '40', value: 'my-40'},
+                  { id: 26, text: '44', value: 'my-44'},
+                  { id: 27, text: '48', value: 'my-48'},
+                  { id: 28, text: '52', value: 'my-52'},
+                  { id: 29, text: '56', value: 'my-56'},
+                  { id: 30, text: '60', value: 'my-60'},
+                  { id: 31, text: '64', value: 'my-64'},
+                  { id: 32, text: '72', value: 'my-72'},
+                  { id: 33, text: '80', value: 'my-80'},
+                  { id: 34, text: '96', value: 'my-96'},
+                  { id: 35, text: 'auto', value: 'my-auto'},
+                  { id: 36, text: '-0', value: '-my-0' },
+                  { id: 37, text: '-0.5', value: '-my-0.5'},
+                  { id: 38, text: '-1', value: '-my-1'},
+                  { id: 39, text: '-1.5', value: '-my-1.5'},
+                  { id: 40, text: '-2', value: '-my-2'},
+                  { id: 41, text: '-2.5', value: '-my-2.5'},
+                  { id: 42, text: '-3', value: '-my-3'},
+                  { id: 43, text: '-3.5', value: '-my-3.5'},
+                  { id: 44, text: '-4', value: '-my-4'},
+                  { id: 45, text: '-5', value: '-my-5'},
+                  { id: 46, text: '-6', value: '-my-6'},
+                  { id: 47, text: '-7', value: '-my-7'},
+                  { id: 48, text: '-8', value: '-my-8'},
+                  { id: 49, text: '-9', value: '-my-9'},
+                  { id: 50, text: '-10', value: '-my-10'},
+                  { id: 51, text: '-11', value: '-my-11'},
+                  { id: 52, text: '-12', value: '-my-12'},
+                  { id: 53, text: '-14', value: '-my-14'},
+                  { id: 54, text: '-16', value: '-my-16'},
+                  { id: 55, text: '-20', value: '-my-20'},
+                  { id: 56, text: '-24', value: '-my-24'},
+                  { id: 57, text: '-28', value: '-my-28'},
+                  { id: 58, text: '-32', value: '-my-32'},
+                  { id: 59, text: '-36', value: '-my-36'},
+                  { id: 60, text: '-40', value: '-my-40'},
+                  { id: 61, text: '-44', value: '-my-44'},
+                  { id: 62, text: '-48', value: '-my-48'},
+                  { id: 63, text: '-52', value: '-my-52'},
+                  { id: 64, text: '-56', value: '-my-56'},
+                  { id: 65, text: '-60', value: '-my-60'},
+                  { id: 66, text: '-64', value: '-my-64'},
+                  { id: 67, text: '-72', value: '-my-72'},
+                  { id: 68, text: '-80', value: '-my-80'},
+                  { id: 69, text: '-96', value: '-my-96'},
+              ]
+          },
+          horizontal: {
+              // regex_pattern: 'mx-[0-9]+(\.[0-9])?',
+              regex_pattern: '^-?mx-([0-9]+)?(\.[0-9])?(\\w+)?$',
+              values: [
+                  { id: 1, text: '0', value: 'mx-0' },
+                  { id: 2, text: '0.5', value: 'mx-0.5'},
+                  { id: 3, text: '1', value: 'mx-1'},
+                  { id: 4, text: '1.5', value: 'mx-1.5'},
+                  { id: 5, text: '2', value: 'mx-2'},
+                  { id: 6, text: '2.5', value: 'mx-2.5'},
+                  { id: 7, text: '3', value: 'mx-3'},
+                  { id: 8, text: '3.5', value: 'mx-3.5'},
+                  { id: 9, text: '4', value: 'mx-4'},
+                  { id: 10, text: '5', value: 'mx-5'},
+                  { id: 11, text: '6', value: 'mx-6'},
+                  { id: 12, text: '7', value: 'mx-7'},
+                  { id: 13, text: '8', value: 'mx-8'},
+                  { id: 14, text: '9', value: 'mx-9'},
+                  { id: 15, text: '10', value: 'mx-10'},
+                  { id: 16, text: '11', value: 'mx-11'},
+                  { id: 17, text: '12', value: 'mx-12'},
+                  { id: 18, text: '14', value: 'mx-14'},
+                  { id: 19, text: '16', value: 'mx-16'},
+                  { id: 20, text: '20', value: 'mx-20'},
+                  { id: 21, text: '24', value: 'mx-24'},
+                  { id: 22, text: '28', value: 'mx-28'},
+                  { id: 23, text: '32', value: 'mx-32'},
+                  { id: 24, text: '36', value: 'mx-36'},
+                  { id: 25, text: '40', value: 'mx-40'},
+                  { id: 26, text: '44', value: 'mx-44'},
+                  { id: 27, text: '48', value: 'mx-48'},
+                  { id: 28, text: '52', value: 'mx-52'},
+                  { id: 29, text: '56', value: 'mx-56'},
+                  { id: 30, text: '60', value: 'mx-60'},
+                  { id: 31, text: '64', value: 'mx-64'},
+                  { id: 32, text: '72', value: 'mx-72'},
+                  { id: 33, text: '80', value: 'mx-80'},
+                  { id: 34, text: '96', value: 'mx-96'},
+                  { id: 35, text: 'auto', value: 'mx-auto'},
+                  { id: 36, text: '-0', value: '-mx-0' },
+                  { id: 37, text: '-0.5', value: '-mx-0.5'},
+                  { id: 38, text: '-1', value: '-mx-1'},
+                  { id: 39, text: '-1.5', value: '-mx-1.5'},
+                  { id: 40, text: '-2', value: '-mx-2'},
+                  { id: 41, text: '-2.5', value: '-mx-2.5'},
+                  { id: 42, text: '-3', value: '-mx-3'},
+                  { id: 43, text: '-3.5', value: '-mx-3.5'},
+                  { id: 44, text: '-4', value: '-mx-4'},
+                  { id: 45, text: '-5', value: '-mx-5'},
+                  { id: 46, text: '-6', value: '-mx-6'},
+                  { id: 47, text: '-7', value: '-mx-7'},
+                  { id: 48, text: '-8', value: '-mx-8'},
+                  { id: 49, text: '-9', value: '-mx-9'},
+                  { id: 50, text: '-10', value: '-mx-10'},
+                  { id: 51, text: '-11', value: '-mx-11'},
+                  { id: 52, text: '-12', value: '-mx-12'},
+                  { id: 53, text: '-14', value: '-mx-14'},
+                  { id: 54, text: '-16', value: '-mx-16'},
+                  { id: 55, text: '-20', value: '-mx-20'},
+                  { id: 56, text: '-24', value: '-mx-24'},
+                  { id: 57, text: '-28', value: '-mx-28'},
+                  { id: 58, text: '-32', value: '-mx-32'},
+                  { id: 59, text: '-36', value: '-mx-36'},
+                  { id: 60, text: '-40', value: '-mx-40'},
+                  { id: 61, text: '-44', value: '-mx-44'},
+                  { id: 62, text: '-48', value: '-mx-48'},
+                  { id: 63, text: '-52', value: '-mx-52'},
+                  { id: 64, text: '-56', value: '-mx-56'},
+                  { id: 65, text: '-60', value: '-mx-60'},
+                  { id: 66, text: '-64', value: '-mx-64'},
+                  { id: 67, text: '-72', value: '-mx-72'},
+                  { id: 68, text: '-80', value: '-mx-80'},
+                  { id: 69, text: '-96', value: '-mx-96'},
+              ]
+          },
+          top: {
+              // regex_pattern: 'mt-[0-9]+(\.[0-9])?',
+              regex_pattern: '^-?mt-([0-9]+)?(\.[0-9])?(\\w+)?$',
+              values: [
+                  { id: 1, text: '0', value: 'mt-0' },
+                  { id: 2, text: '0.5', value: 'mt-0.5'},
+                  { id: 3, text: '1', value: 'mt-1'},
+                  { id: 4, text: '1.5', value: 'mt-1.5'},
+                  { id: 5, text: '2', value: 'mt-2'},
+                  { id: 6, text: '2.5', value: 'mt-2.5'},
+                  { id: 7, text: '3', value: 'mt-3'},
+                  { id: 8, text: '3.5', value: 'mt-3.5'},
+                  { id: 9, text: '4', value: 'mt-4'},
+                  { id: 10, text: '5', value: 'mt-5'},
+                  { id: 11, text: '6', value: 'mt-6'},
+                  { id: 12, text: '7', value: 'mt-7'},
+                  { id: 13, text: '8', value: 'mt-8'},
+                  { id: 14, text: '9', value: 'mt-9'},
+                  { id: 15, text: '10', value: 'mt-10'},
+                  { id: 16, text: '11', value: 'mt-11'},
+                  { id: 17, text: '12', value: 'mt-12'},
+                  { id: 18, text: '14', value: 'mt-14'},
+                  { id: 19, text: '16', value: 'mt-16'},
+                  { id: 20, text: '20', value: 'mt-20'},
+                  { id: 21, text: '24', value: 'mt-24'},
+                  { id: 22, text: '28', value: 'mt-28'},
+                  { id: 23, text: '32', value: 'mt-32'},
+                  { id: 24, text: '36', value: 'mt-36'},
+                  { id: 25, text: '40', value: 'mt-40'},
+                  { id: 26, text: '44', value: 'mt-44'},
+                  { id: 27, text: '48', value: 'mt-48'},
+                  { id: 28, text: '52', value: 'mt-52'},
+                  { id: 29, text: '56', value: 'mt-56'},
+                  { id: 30, text: '60', value: 'mt-60'},
+                  { id: 31, text: '64', value: 'mt-64'},
+                  { id: 32, text: '72', value: 'mt-72'},
+                  { id: 33, text: '80', value: 'mt-80'},
+                  { id: 34, text: '96', value: 'mt-96'},
+                  { id: 35, text: 'auto', value: 'mt-auto'},
+                  { id: 36, text: '-0', value: '-mt-0' },
+                  { id: 37, text: '-0.5', value: '-mt-0.5'},
+                  { id: 38, text: '-1', value: '-mt-1'},
+                  { id: 39, text: '-1.5', value: '-mt-1.5'},
+                  { id: 40, text: '-2', value: '-mt-2'},
+                  { id: 41, text: '-2.5', value: '-mt-2.5'},
+                  { id: 42, text: '-3', value: '-mt-3'},
+                  { id: 43, text: '-3.5', value: '-mt-3.5'},
+                  { id: 44, text: '-4', value: '-mt-4'},
+                  { id: 45, text: '-5', value: '-mt-5'},
+                  { id: 46, text: '-6', value: '-mt-6'},
+                  { id: 47, text: '-7', value: '-mt-7'},
+                  { id: 48, text: '-8', value: '-mt-8'},
+                  { id: 49, text: '-9', value: '-mt-9'},
+                  { id: 50, text: '-10', value: '-mt-10'},
+                  { id: 51, text: '-11', value: '-mt-11'},
+                  { id: 52, text: '-12', value: '-mt-12'},
+                  { id: 53, text: '-14', value: '-mt-14'},
+                  { id: 54, text: '-16', value: '-mt-16'},
+                  { id: 55, text: '-20', value: '-mt-20'},
+                  { id: 56, text: '-24', value: '-mt-24'},
+                  { id: 57, text: '-28', value: '-mt-28'},
+                  { id: 58, text: '-32', value: '-mt-32'},
+                  { id: 59, text: '-36', value: '-mt-36'},
+                  { id: 60, text: '-40', value: '-mt-40'},
+                  { id: 61, text: '-44', value: '-mt-44'},
+                  { id: 62, text: '-48', value: '-mt-48'},
+                  { id: 63, text: '-52', value: '-mt-52'},
+                  { id: 64, text: '-56', value: '-mt-56'},
+                  { id: 65, text: '-60', value: '-mt-60'},
+                  { id: 66, text: '-64', value: '-mt-64'},
+                  { id: 67, text: '-72', value: '-mt-72'},
+                  { id: 68, text: '-80', value: '-mt-80'},
+                  { id: 69, text: '-96', value: '-mt-96'},
+              ]
+          },
+          right: {
+              // regex_pattern: 'mr-[0-9]+(\.[0-9])?',
+              regex_pattern: '^-?mr-([0-9]+)?(\.[0-9])?(\\w+)?$',
+              values: [
+                  { id: 1, text: '0', value: 'mr-0' },
+                  { id: 2, text: '0.5', value: 'mr-0.5'},
+                  { id: 3, text: '1', value: 'mr-1'},
+                  { id: 4, text: '1.5', value: 'mr-1.5'},
+                  { id: 5, text: '2', value: 'mr-2'},
+                  { id: 6, text: '2.5', value: 'mr-2.5'},
+                  { id: 7, text: '3', value: 'mr-3'},
+                  { id: 8, text: '3.5', value: 'mr-3.5'},
+                  { id: 9, text: '4', value: 'mr-4'},
+                  { id: 10, text: '5', value: 'mr-5'},
+                  { id: 11, text: '6', value: 'mr-6'},
+                  { id: 12, text: '7', value: 'mr-7'},
+                  { id: 13, text: '8', value: 'mr-8'},
+                  { id: 14, text: '9', value: 'mr-9'},
+                  { id: 15, text: '10', value: 'mr-10'},
+                  { id: 16, text: '11', value: 'mr-11'},
+                  { id: 17, text: '12', value: 'mr-12'},
+                  { id: 18, text: '14', value: 'mr-14'},
+                  { id: 19, text: '16', value: 'mr-16'},
+                  { id: 20, text: '20', value: 'mr-20'},
+                  { id: 21, text: '24', value: 'mr-24'},
+                  { id: 22, text: '28', value: 'mr-28'},
+                  { id: 23, text: '32', value: 'mr-32'},
+                  { id: 24, text: '36', value: 'mr-36'},
+                  { id: 25, text: '40', value: 'mr-40'},
+                  { id: 26, text: '44', value: 'mr-44'},
+                  { id: 27, text: '48', value: 'mr-48'},
+                  { id: 28, text: '52', value: 'mr-52'},
+                  { id: 29, text: '56', value: 'mr-56'},
+                  { id: 30, text: '60', value: 'mr-60'},
+                  { id: 31, text: '64', value: 'mr-64'},
+                  { id: 32, text: '72', value: 'mr-72'},
+                  { id: 33, text: '80', value: 'mr-80'},
+                  { id: 34, text: '96', value: 'mr-96'},
+                  { id: 35, text: 'auto', value: 'mr-auto'},
+                  { id: 36, text: '-0', value: '-mr-0' },
+                  { id: 37, text: '-0.5', value: '-mr-0.5'},
+                  { id: 38, text: '-1', value: '-mr-1'},
+                  { id: 39, text: '-1.5', value: '-mr-1.5'},
+                  { id: 40, text: '-2', value: '-mr-2'},
+                  { id: 41, text: '-2.5', value: '-mr-2.5'},
+                  { id: 42, text: '-3', value: '-mr-3'},
+                  { id: 43, text: '-3.5', value: '-mr-3.5'},
+                  { id: 44, text: '-4', value: '-mr-4'},
+                  { id: 45, text: '-5', value: '-mr-5'},
+                  { id: 46, text: '-6', value: '-mr-6'},
+                  { id: 47, text: '-7', value: '-mr-7'},
+                  { id: 48, text: '-8', value: '-mr-8'},
+                  { id: 49, text: '-9', value: '-mr-9'},
+                  { id: 50, text: '-10', value: '-mr-10'},
+                  { id: 51, text: '-11', value: '-mr-11'},
+                  { id: 52, text: '-12', value: '-mr-12'},
+                  { id: 53, text: '-14', value: '-mr-14'},
+                  { id: 54, text: '-16', value: '-mr-16'},
+                  { id: 55, text: '-20', value: '-mr-20'},
+                  { id: 56, text: '-24', value: '-mr-24'},
+                  { id: 57, text: '-28', value: '-mr-28'},
+                  { id: 58, text: '-32', value: '-mr-32'},
+                  { id: 59, text: '-36', value: '-mr-36'},
+                  { id: 60, text: '-40', value: '-mr-40'},
+                  { id: 61, text: '-44', value: '-mr-44'},
+                  { id: 62, text: '-48', value: '-mr-48'},
+                  { id: 63, text: '-52', value: '-mr-52'},
+                  { id: 64, text: '-56', value: '-mr-56'},
+                  { id: 65, text: '-60', value: '-mr-60'},
+                  { id: 66, text: '-64', value: '-mr-64'},
+                  { id: 67, text: '-72', value: '-mr-72'},
+                  { id: 68, text: '-80', value: '-mr-80'},
+                  { id: 69, text: '-96', value: '-mr-96'},
+              ]
+          },
+          bottom: {
+              // regex_pattern: 'mb-[0-9]+(\.[0-9])?',
+              regex_pattern: '^-?mb-([0-9]+)?(\.[0-9])?(\\w+)?$',
+              values: [
+                  { id: 1, text: '0', value: 'mb-0' },
+                  { id: 2, text: '0.5', value: 'mb-0.5'},
+                  { id: 3, text: '1', value: 'mb-1'},
+                  { id: 4, text: '1.5', value: 'mb-1.5'},
+                  { id: 5, text: '2', value: 'mb-2'},
+                  { id: 6, text: '2.5', value: 'mb-2.5'},
+                  { id: 7, text: '3', value: 'mb-3'},
+                  { id: 8, text: '3.5', value: 'mb-3.5'},
+                  { id: 9, text: '4', value: 'mb-4'},
+                  { id: 10, text: '5', value: 'mb-5'},
+                  { id: 11, text: '6', value: 'mb-6'},
+                  { id: 12, text: '7', value: 'mb-7'},
+                  { id: 13, text: '8', value: 'mb-8'},
+                  { id: 14, text: '9', value: 'mb-9'},
+                  { id: 15, text: '10', value: 'mb-10'},
+                  { id: 16, text: '11', value: 'mb-11'},
+                  { id: 17, text: '12', value: 'mb-12'},
+                  { id: 18, text: '14', value: 'mb-14'},
+                  { id: 19, text: '16', value: 'mb-16'},
+                  { id: 20, text: '20', value: 'mb-20'},
+                  { id: 21, text: '24', value: 'mb-24'},
+                  { id: 22, text: '28', value: 'mb-28'},
+                  { id: 23, text: '32', value: 'mb-32'},
+                  { id: 24, text: '36', value: 'mb-36'},
+                  { id: 25, text: '40', value: 'mb-40'},
+                  { id: 26, text: '44', value: 'mb-44'},
+                  { id: 27, text: '48', value: 'mb-48'},
+                  { id: 28, text: '52', value: 'mb-52'},
+                  { id: 29, text: '56', value: 'mb-56'},
+                  { id: 30, text: '60', value: 'mb-60'},
+                  { id: 31, text: '64', value: 'mb-64'},
+                  { id: 32, text: '72', value: 'mb-72'},
+                  { id: 33, text: '80', value: 'mb-80'},
+                  { id: 34, text: '96', value: 'mb-96'},
+                  { id: 35, text: 'auto', value: 'mb-auto'},
+                  { id: 36, text: '-0', value: '-mb-0' },
+                  { id: 37, text: '-0.5', value: '-mb-0.5'},
+                  { id: 38, text: '-1', value: '-mb-1'},
+                  { id: 39, text: '-1.5', value: '-mb-1.5'},
+                  { id: 40, text: '-2', value: '-mb-2'},
+                  { id: 41, text: '-2.5', value: '-mb-2.5'},
+                  { id: 42, text: '-3', value: '-mb-3'},
+                  { id: 43, text: '-3.5', value: '-mb-3.5'},
+                  { id: 44, text: '-4', value: '-mb-4'},
+                  { id: 45, text: '-5', value: '-mb-5'},
+                  { id: 46, text: '-6', value: '-mb-6'},
+                  { id: 47, text: '-7', value: '-mb-7'},
+                  { id: 48, text: '-8', value: '-mb-8'},
+                  { id: 49, text: '-9', value: '-mb-9'},
+                  { id: 50, text: '-10', value: '-mb-10'},
+                  { id: 51, text: '-11', value: '-mb-11'},
+                  { id: 52, text: '-12', value: '-mb-12'},
+                  { id: 53, text: '-14', value: '-mb-14'},
+                  { id: 54, text: '-16', value: '-mb-16'},
+                  { id: 55, text: '-20', value: '-mb-20'},
+                  { id: 56, text: '-24', value: '-mb-24'},
+                  { id: 57, text: '-28', value: '-mb-28'},
+                  { id: 58, text: '-32', value: '-mb-32'},
+                  { id: 59, text: '-36', value: '-mb-36'},
+                  { id: 60, text: '-40', value: '-mb-40'},
+                  { id: 61, text: '-44', value: '-mb-44'},
+                  { id: 62, text: '-48', value: '-mb-48'},
+                  { id: 63, text: '-52', value: '-mb-52'},
+                  { id: 64, text: '-56', value: '-mb-56'},
+                  { id: 65, text: '-60', value: '-mb-60'},
+                  { id: 66, text: '-64', value: '-mb-64'},
+                  { id: 67, text: '-72', value: '-mb-72'},
+                  { id: 68, text: '-80', value: '-mb-80'},
+                  { id: 69, text: '-96', value: '-mb-96'},
+              ]
+          },
+          left: {
+              // regex_pattern: 'ml-[0-9]+(\.[0-9])?',
+              regex_pattern: '^-?ml-([0-9]+)?(\.[0-9])?(\\w+)?$',
+              values: [
+                  { id: 1, text: '0', value: 'ml-0' },
+                  { id: 2, text: '0.5', value: 'ml-0.5'},
+                  { id: 3, text: '1', value: 'ml-1'},
+                  { id: 4, text: '1.5', value: 'ml-1.5'},
+                  { id: 5, text: '2', value: 'ml-2'},
+                  { id: 6, text: '2.5', value: 'ml-2.5'},
+                  { id: 7, text: '3', value: 'ml-3'},
+                  { id: 8, text: '3.5', value: 'ml-3.5'},
+                  { id: 9, text: '4', value: 'ml-4'},
+                  { id: 10, text: '5', value: 'ml-5'},
+                  { id: 11, text: '6', value: 'ml-6'},
+                  { id: 12, text: '7', value: 'ml-7'},
+                  { id: 13, text: '8', value: 'ml-8'},
+                  { id: 14, text: '9', value: 'ml-9'},
+                  { id: 15, text: '10', value: 'ml-10'},
+                  { id: 16, text: '11', value: 'ml-11'},
+                  { id: 17, text: '12', value: 'ml-12'},
+                  { id: 18, text: '14', value: 'ml-14'},
+                  { id: 19, text: '16', value: 'ml-16'},
+                  { id: 20, text: '20', value: 'ml-20'},
+                  { id: 21, text: '24', value: 'ml-24'},
+                  { id: 22, text: '28', value: 'ml-28'},
+                  { id: 23, text: '32', value: 'ml-32'},
+                  { id: 24, text: '36', value: 'ml-36'},
+                  { id: 25, text: '40', value: 'ml-40'},
+                  { id: 26, text: '44', value: 'ml-44'},
+                  { id: 27, text: '48', value: 'ml-48'},
+                  { id: 28, text: '52', value: 'ml-52'},
+                  { id: 29, text: '56', value: 'ml-56'},
+                  { id: 30, text: '60', value: 'ml-60'},
+                  { id: 31, text: '64', value: 'ml-64'},
+                  { id: 32, text: '72', value: 'ml-72'},
+                  { id: 33, text: '80', value: 'ml-80'},
+                  { id: 34, text: '96', value: 'ml-96'},
+                  { id: 35, text: 'auto', value: 'ml-auto'},
+                  { id: 36, text: '-0', value: '-ml-0' },
+                  { id: 37, text: '-0.5', value: '-ml-0.5'},
+                  { id: 38, text: '-1', value: '-ml-1'},
+                  { id: 39, text: '-1.5', value: '-ml-1.5'},
+                  { id: 40, text: '-2', value: '-ml-2'},
+                  { id: 41, text: '-2.5', value: '-ml-2.5'},
+                  { id: 42, text: '-3', value: '-ml-3'},
+                  { id: 43, text: '-3.5', value: '-ml-3.5'},
+                  { id: 44, text: '-4', value: '-ml-4'},
+                  { id: 45, text: '-5', value: '-ml-5'},
+                  { id: 46, text: '-6', value: '-ml-6'},
+                  { id: 47, text: '-7', value: '-ml-7'},
+                  { id: 48, text: '-8', value: '-ml-8'},
+                  { id: 49, text: '-9', value: '-ml-9'},
+                  { id: 50, text: '-10', value: '-ml-10'},
+                  { id: 51, text: '-11', value: '-ml-11'},
+                  { id: 52, text: '-12', value: '-ml-12'},
+                  { id: 53, text: '-14', value: '-ml-14'},
+                  { id: 54, text: '-16', value: '-ml-16'},
+                  { id: 55, text: '-20', value: '-ml-20'},
+                  { id: 56, text: '-24', value: '-ml-24'},
+                  { id: 57, text: '-28', value: '-ml-28'},
+                  { id: 58, text: '-32', value: '-ml-32'},
+                  { id: 59, text: '-36', value: '-ml-36'},
+                  { id: 60, text: '-40', value: '-ml-40'},
+                  { id: 61, text: '-44', value: '-ml-44'},
+                  { id: 62, text: '-48', value: '-ml-48'},
+                  { id: 63, text: '-52', value: '-ml-52'},
+                  { id: 64, text: '-56', value: '-ml-56'},
+                  { id: 65, text: '-60', value: '-ml-60'},
+                  { id: 66, text: '-64', value: '-ml-64'},
+                  { id: 67, text: '-72', value: '-ml-72'},
+                  { id: 68, text: '-80', value: '-ml-80'},
+                  { id: 69, text: '-96', value: '-ml-96'},
+              ]
+          }
+      }
+  };
+
   function layoutType(element) {
       // console.log(element)
       if (element.matches('.grid')) {
@@ -9765,6 +10570,32 @@ var wape = (function () {
       return layout.contains(element)
   }
 
+  function findFirstChildMatching(elements, css_selector) {
+      return elements.find((elem) => {
+          return (elem.matches(css_selector))
+      })
+  }
+
+  function selectorMatchFound(elements, css_selector) {
+      return elements.some((elem) => {
+          return (elem.matches(css_selector))
+      })
+  }
+
+  function replaceClass(element, new_class, pattern) {
+      if (pattern !== null) {
+          let regex = new RegExp(pattern, 'g');
+          let class_array = [...element.element.classList.values()];
+          let match = class_array.find((item) => {
+              return regex.test(item)
+          });
+          if (match !== null) {
+              element.removeClass(match);
+          }
+      }
+      element.addClass(new_class);
+  }
+
   //
 
   var script$2 = {
@@ -9778,11 +10609,31 @@ var wape = (function () {
           mappers: {
             grid_mapper,
             flex_mapper,
+            spacing_mapper,
           },
           container_options: [],
           element_options: [],
+          //Gaps
           selected_col_gap: Object,
-          selected_row_gap: Object
+          selected_row_gap: Object,
+          selected_flex_col_gap: Object,
+          //Spacings
+          //Paddings
+          selected_all_padding: Object,
+          selected_vertical_padding: Object,
+          selected_horizontal_padding: Object,
+          selected_top_padding: Object,
+          selected_bottom_padding: Object,
+          selected_left_padding: Object,
+          selected_right_padding: Object,
+          //Margins
+          selected_all_margin: Object,
+          selected_vertical_margin: Object,
+          selected_horizontal_margin: Object,
+          selected_top_margin: Object,
+          selected_bottom_margin: Object,
+          selected_left_margin: Object,
+          selected_right_margin: Object,
         }
       },
       mounted() {
@@ -9816,19 +10667,7 @@ var wape = (function () {
             return container.type === 'flex'
           }
         },
-        replaceClass(element, new_class, pattern) {
-          if (pattern !== null) {
-            let regex = new RegExp(pattern, 'g');
-            let class_array = [...element.element.classList.values()];
-            let match = class_array.find((item) => {
-              return regex.test(item)
-            });
-            if (match !== null) {
-              element.removeClass(match);
-            }
-          }
-          element.addClass(new_class);
-        },
+        replaceClass,
         addGridColumn(layout_instance) {
           if (layout_instance !== null) {
             layout_instance.cols++;
@@ -10198,9 +11037,9 @@ var wape = (function () {
                                   { key: index, staticClass: "row" },
                                   [
                                     _vm._v(
-                                      "\n                  Column " +
+                                      "\n                Column " +
                                         _vm._s(col) +
-                                        "\n                "
+                                        "\n              "
                                     )
                                   ]
                                 )
@@ -10227,8 +11066,8 @@ var wape = (function () {
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.selected_col_gap,
-                                    expression: "selected_col_gap"
+                                    value: _vm.selected_flex_col_gap,
+                                    expression: "selected_flex_col_gap"
                                   }
                                 ],
                                 attrs: { id: "cols-gap", name: "cols-gap" },
@@ -10244,7 +11083,7 @@ var wape = (function () {
                                             "_value" in o ? o._value : o.value;
                                           return val
                                         });
-                                      _vm.selected_col_gap = $event.target
+                                      _vm.selected_flex_col_gap = $event.target
                                         .multiple
                                         ? $$selectedVal
                                         : $$selectedVal[0];
@@ -10252,7 +11091,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_col_gap.value,
+                                        _vm.selected_flex_col_gap.value,
                                         _vm.mappers.flex_mapper.gap.regex_pattern
                                       )
                                     }
@@ -10269,6 +11108,922 @@ var wape = (function () {
                                   [_vm._v(_vm._s(col_gap.text))]
                                 )
                               }),
+                              0
+                            )
+                          ])
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.selected_layout !== null
+                    ? _c("div", { staticClass: "generals" }, [
+                        _c("div", { staticClass: "setting-content" }, [
+                          _c("div", { staticClass: "setting-subtitle" }, [
+                            _vm._v("Paddings")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c("label", { attrs: { for: "padding-all" } }, [
+                              _vm._v("All")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_all_padding,
+                                    expression: "selected_all_padding"
+                                  }
+                                ],
+                                attrs: { id: "padding-all", name: "padding-all" },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_all_padding = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_layout,
+                                        _vm.selected_all_padding.value,
+                                        _vm.mappers.spacing_mapper.padding.all
+                                          .regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.spacing_mapper.padding.all.values,
+                                function(padding_all, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: padding_all }
+                                    },
+                                    [_vm._v(_vm._s(padding_all.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c("label", { attrs: { for: "padding-vertical" } }, [
+                              _vm._v("Vertical")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_vertical_padding,
+                                    expression: "selected_vertical_padding"
+                                  }
+                                ],
+                                attrs: {
+                                  id: "padding-vertical",
+                                  name: "padding-vertical"
+                                },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_vertical_padding = $event
+                                        .target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_layout,
+                                        _vm.selected_vertical_padding.value,
+                                        _vm.mappers.spacing_mapper.padding
+                                          .vertical.regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.spacing_mapper.padding.vertical
+                                  .values,
+                                function(padding_vertical, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: padding_vertical }
+                                    },
+                                    [_vm._v(_vm._s(padding_vertical.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c(
+                              "label",
+                              { attrs: { for: "padding-horizontal" } },
+                              [_vm._v("Horizontal")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_horizontal_padding,
+                                    expression: "selected_horizontal_padding"
+                                  }
+                                ],
+                                attrs: {
+                                  id: "padding-horizontal",
+                                  name: "padding-horizontal"
+                                },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_horizontal_padding = $event
+                                        .target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_layout,
+                                        _vm.selected_horizontal_padding.value,
+                                        _vm.mappers.spacing_mapper.padding
+                                          .horizontal.regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.spacing_mapper.padding.horizontal
+                                  .values,
+                                function(padding_horizontal, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: padding_horizontal }
+                                    },
+                                    [_vm._v(_vm._s(padding_horizontal.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c("label", { attrs: { for: "padding-top" } }, [
+                              _vm._v("Top")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_top_padding,
+                                    expression: "selected_top_padding"
+                                  }
+                                ],
+                                attrs: { id: "padding-top", name: "padding-top" },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_top_padding = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_layout,
+                                        _vm.selected_top_padding.value,
+                                        _vm.mappers.spacing_mapper.padding.top
+                                          .regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.spacing_mapper.padding.top.values,
+                                function(padding_top, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: padding_top }
+                                    },
+                                    [_vm._v(_vm._s(padding_top.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c("label", { attrs: { for: "padding-bottom" } }, [
+                              _vm._v("Bottom")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_bottom_padding,
+                                    expression: "selected_bottom_padding"
+                                  }
+                                ],
+                                attrs: {
+                                  id: "padding-bottom",
+                                  name: "padding-bottom"
+                                },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_bottom_padding = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_layout,
+                                        _vm.selected_bottom_padding.value,
+                                        _vm.mappers.spacing_mapper.padding.bottom
+                                          .regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.spacing_mapper.padding.bottom.values,
+                                function(padding_bottom, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: padding_bottom }
+                                    },
+                                    [_vm._v(_vm._s(padding_bottom.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c("label", { attrs: { for: "padding-left" } }, [
+                              _vm._v("Left")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_left_padding,
+                                    expression: "selected_left_padding"
+                                  }
+                                ],
+                                attrs: {
+                                  id: "padding-left",
+                                  name: "padding-left"
+                                },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_left_padding = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_layout,
+                                        _vm.selected_left_padding.value,
+                                        _vm.mappers.spacing_mapper.padding.left
+                                          .regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.spacing_mapper.padding.left.values,
+                                function(padding_left, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: padding_left }
+                                    },
+                                    [_vm._v(_vm._s(padding_left.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c("label", { attrs: { for: "padding-right" } }, [
+                              _vm._v("Right")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_right_padding,
+                                    expression: "selected_right_padding"
+                                  }
+                                ],
+                                attrs: {
+                                  id: "padding-right",
+                                  name: "padding-right"
+                                },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_right_padding = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_layout,
+                                        _vm.selected_right_padding.value,
+                                        _vm.mappers.spacing_mapper.padding.right
+                                          .regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.spacing_mapper.padding.right.values,
+                                function(padding_right, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: padding_right }
+                                    },
+                                    [_vm._v(_vm._s(padding_right.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "setting-content" }, [
+                          _c("div", { staticClass: "setting-subtitle" }, [
+                            _vm._v("Margins")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c("label", { attrs: { for: "margin-all" } }, [
+                              _vm._v("All")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_all_margin,
+                                    expression: "selected_all_margin"
+                                  }
+                                ],
+                                attrs: { id: "margin-all", name: "margin-all" },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_all_margin = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_layout,
+                                        _vm.selected_all_margin.value,
+                                        _vm.mappers.spacing_mapper.margin.all
+                                          .regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.spacing_mapper.margin.all.values,
+                                function(margin_all, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: margin_all }
+                                    },
+                                    [_vm._v(_vm._s(margin_all.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c("label", { attrs: { for: "margin-vertical" } }, [
+                              _vm._v("Vertical")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_vertical_margin,
+                                    expression: "selected_vertical_margin"
+                                  }
+                                ],
+                                attrs: {
+                                  id: "margin-vertical",
+                                  name: "margin-vertical"
+                                },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_vertical_margin = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_layout,
+                                        _vm.selected_vertical_margin.value,
+                                        _vm.mappers.spacing_mapper.margin.vertical
+                                          .regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.spacing_mapper.margin.vertical.values,
+                                function(margin_vertical, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: margin_vertical }
+                                    },
+                                    [_vm._v(_vm._s(margin_vertical.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c("label", { attrs: { for: "margin-horizontal" } }, [
+                              _vm._v("Horizontal")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_horizontal_margin,
+                                    expression: "selected_horizontal_margin"
+                                  }
+                                ],
+                                attrs: {
+                                  id: "margin-horizontal",
+                                  name: "margin-horizontal"
+                                },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_horizontal_margin = $event
+                                        .target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_layout,
+                                        _vm.selected_horizontal_margin.value,
+                                        _vm.mappers.spacing_mapper.margin
+                                          .horizontal.regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.spacing_mapper.margin.horizontal
+                                  .values,
+                                function(margin_horizontal, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: margin_horizontal }
+                                    },
+                                    [_vm._v(_vm._s(margin_horizontal.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c("label", { attrs: { for: "margin-top" } }, [
+                              _vm._v("Top")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_top_margin,
+                                    expression: "selected_top_margin"
+                                  }
+                                ],
+                                attrs: { id: "margin-top", name: "margin-top" },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_top_margin = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_layout,
+                                        _vm.selected_top_margin.value,
+                                        _vm.mappers.spacing_mapper.margin.top
+                                          .regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.spacing_mapper.margin.top.values,
+                                function(margin_top, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: margin_top }
+                                    },
+                                    [_vm._v(_vm._s(margin_top.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c("label", { attrs: { for: "margin-bottom" } }, [
+                              _vm._v("Bottom")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_bottom_margin,
+                                    expression: "selected_bottom_margin"
+                                  }
+                                ],
+                                attrs: {
+                                  id: "margin-bottom",
+                                  name: "margin-bottom"
+                                },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_bottom_margin = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_layout,
+                                        _vm.selected_bottom_margin.value,
+                                        _vm.mappers.spacing_mapper.margin.bottom
+                                          .regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.spacing_mapper.margin.bottom.values,
+                                function(margin_bottom, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: margin_bottom }
+                                    },
+                                    [_vm._v(_vm._s(margin_bottom.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c("label", { attrs: { for: "margin-left" } }, [
+                              _vm._v("Left")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_left_margin,
+                                    expression: "selected_left_margin"
+                                  }
+                                ],
+                                attrs: { id: "margin-left", name: "margin-left" },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_left_margin = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_layout,
+                                        _vm.selected_left_margin.value,
+                                        _vm.mappers.spacing_mapper.margin.left
+                                          .regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.spacing_mapper.margin.left.values,
+                                function(margin_left, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: margin_left }
+                                    },
+                                    [_vm._v(_vm._s(margin_left.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c("label", { attrs: { for: "margin-right" } }, [
+                              _vm._v("Right")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_right_margin,
+                                    expression: "selected_right_margin"
+                                  }
+                                ],
+                                attrs: {
+                                  id: "margin-right",
+                                  name: "margin-right"
+                                },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_right_margin = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_layout,
+                                        _vm.selected_right_margin.value,
+                                        _vm.mappers.spacing_mapper.margin.right
+                                          .regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.spacing_mapper.margin.right.values,
+                                function(margin_right, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: margin_right }
+                                    },
+                                    [_vm._v(_vm._s(margin_right.text))]
+                                  )
+                                }
+                              ),
                               0
                             )
                           ])
@@ -10301,11 +12056,11 @@ var wape = (function () {
     /* style */
     const __vue_inject_styles__$2 = function (inject) {
       if (!inject) return
-      inject("data-v-968c6af4_0", { source: "\ndiv.right-panel[data-v-968c6af4] {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n}\ndiv.right-panel > div.actions[data-v-968c6af4] {\n      display: flex;\n      border-bottom: .5px solid #000;\n}\ndiv.right-panel > div.actions > div[data-v-968c6af4] {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n}\ndiv.right-panel > div.actions > div.container[data-v-968c6af4]\n    {\n      border-right: .5px solid #000;\n}\ndiv.right-panel > div.actions > div.element[data-v-968c6af4]\n    {\n      border-right: .5px solid #000;\n}\n\n    /* Animations thanks animista.net */\n.left-enter-active[data-v-968c6af4] {\n    -webkit-animation: slide-in-left-data-v-968c6af4 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left-data-v-968c6af4 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n.right-enter-active[data-v-968c6af4] {\n  -webkit-animation: slide-in-right-data-v-968c6af4 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right-data-v-968c6af4 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n@-webkit-keyframes slide-in-left-data-v-968c6af4 {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-left-data-v-968c6af4 {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@-webkit-keyframes slide-in-right-data-v-968c6af4 {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-right-data-v-968c6af4 {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\ndiv.setting-label[data-v-968c6af4] {\n    color: #fff;\n    text-transform: capitalize;\n    font-size: 1.2rem;\n    border-bottom: 1px solid #fff;\n    padding-bottom: .7rem;\n}\ndiv.container-settings[data-v-968c6af4],\n  div.element-settings[data-v-968c6af4] {\n    margin: 3% 2.5%;\n    width: 95%;\n    min-width: 95%;\n    box-sizing: border-box;\n    user-select: none;\n    overflow-y: scroll;\n    height: calc(100% - 2.7rem);\n}\ndiv.setting-subtitle[data-v-968c6af4] {\n    color: #fff;\n    font-size: 1.1rem;\n    margin: 0.7rem 0.2rem 0.3rem;\n}\ndiv.setting-content[data-v-968c6af4] {\n    margin: 0.5rem;\n    color: #d3d3d3;\n    border-bottom: 1px dashed #fff;\n    padding-bottom: 0.7rem;\n}\ndiv.setting[data-v-968c6af4] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    line-height: 1.7rem;\n}\ndiv.action[data-v-968c6af4] {\n    display: flex;\n    justify-content: flex-end;\n    margin-bottom: 5px;\n}\ndiv.action > div.add-item[data-v-968c6af4] {\n    padding: .5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    color: #fff;\n}\ndiv.action > div.add-item[data-v-968c6af4]:hover {\n    padding: .5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n}\ndiv.row > div.remove-item[data-v-968c6af4] {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    margin: 0.3rem 0;\n}\ndiv.row > div.remove-item[data-v-968c6af4]:hover {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n    margin: 0.3rem 0;\n}\ndiv.setting-wrapper > div.rows > div.row[data-v-968c6af4]:first-child {\n    line-height: 2rem;\n    border-top: 1px dotted #fff;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n}\ndiv.setting-wrapper > div.rows > div.row[data-v-968c6af4] {\n    display: flex;\n    justify-content: space-between;\n    line-height: 2rem;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n}\ndiv.item-title[data-v-968c6af4] {\n    display: flex;\n    align-items: center;\n}\n", map: {"version":3,"sources":["/Users/thomas/Developer/perso/wape/src/editor/components/layout/RightPanel.vue"],"names":[],"mappings":";AA4MA;MACA,yBAAA;MACA,2BAAA;MACA,YAAA;MACA,gBAAA;AACA;AACA;MACA,aAAA;MACA,8BAAA;AACA;AACA;MACA,cAAA;MACA,WAAA;MACA,iBAAA;MACA,eAAA;AACA;AACA;;MAEA,6BAAA;AACA;AACA;;MAEA,6BAAA;AACA;;IAEA,mCAAA;AACA;IACA,mGAAA;UACA,2FAAA;AACA;AACA;;;IAGA;AACA;EACA,oGAAA;UACA,4FAAA;AACA;CACA;;;IAGA;EACA,mCAAA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AAEA;IACA,WAAA;IACA,0BAAA;IACA,iBAAA;IACA,6BAAA;IACA,qBAAA;AACA;AAEA;;IAEA,eAAA;IACA,UAAA;IACA,cAAA;IACA,sBAAA;IACA,iBAAA;IACA,kBAAA;IACA,2BAAA;AACA;AAEA;IACA,WAAA;IACA,iBAAA;IACA,4BAAA;AACA;AAEA;IACA,cAAA;IACA,cAAA;IACA,8BAAA;IACA,sBAAA;AACA;AAEA;IACA,aAAA;IACA,mBAAA;IACA,8BAAA;IACA,mBAAA;AACA;AAEA;IACA,aAAA;IACA,yBAAA;IACA,kBAAA;AACA;AACA;IACA,cAAA;IACA,sBAAA;IACA,eAAA;IACA,WAAA;AACA;AACA;IACA,cAAA;IACA,sBAAA;IACA,yBAAA;IACA,eAAA;AACA;AACA;IACA,sBAAA;IACA,sBAAA;IACA,eAAA;IACA,gBAAA;AACA;AACA;IACA,sBAAA;IACA,sBAAA;IACA,yBAAA;IACA,eAAA;IACA,gBAAA;AACA;AACA;IACA,iBAAA;IACA,2BAAA;IACA,8BAAA;IACA,eAAA;AACA;AACA;IACA,aAAA;IACA,8BAAA;IACA,iBAAA;IACA,8BAAA;IACA,eAAA;AACA;AACA;IACA,aAAA;IACA,mBAAA;AACA","file":"RightPanel.vue","sourcesContent":["<template>\n  <div class=\"right-panel\">\n    <div class=\"actions\">\n      <div class=\"container\" @click=\"switchPanel('container')\">\n        <i class=\"far fa-square\" />\n      </div>\n      <div class=\"element\" @click=\"switchPanel('element')\">\n        <i class=\"fas fa-square\" />\n      </div>\n    </div>\n    <transition name=\"left\" @after-leave=\"animationEnd\">\n      <div v-if=\"(showPanel('container')) && !animating\" class=\"container-settings\">\n          <!-- GRID -->\n          <div class=\"grid\" v-if=\"isGrid(selected_layout)\">\n            <div class=\"setting-label\">Grid settings</div>\n            <div class=\"setting-content\">\n              <div class=\"setting-subtitle\">Rows</div>\n              <div class=\"setting-wrapper\">\n                <div class=\"action\">\n                  <div class=\"add-item\" @click=\"addGridRow(selected_layout)\">\n                    <i class=\"fas fa-plus\"></i>\n                  </div>\n                </div>\n                <div class=\"rows\">\n                  <div class=\"row\" v-for=\"(row, index) in selected_layout.rows\" :key=\"index\">\n                    <div class=\"item-title\">Row {{ row }}</div>\n                    <div class=\"remove-item\" @click=\"deleteGridRow(selected_layout)\"><i class=\"fas fa-minus\"></i></div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"setting-subtitle\">Columns</div>\n              <div class=\"setting-wrapper\">\n                <div class=\"action\">\n                  <div class=\"add-item\" @click=\"addGridColumn(selected_layout)\">\n                    <i class=\"fas fa-plus\"></i>\n                  </div>\n                </div>\n                <div class=\"rows\">\n                  <div class=\"row\" v-for=\"(col, index) in selected_layout.cols\" :key=\"index\">\n                    <div class=\"item-title\">Column {{ col }}</div>\n                    <div class=\"remove-item\" @click=\"deleteGridRow(selected_layout)\"><i class=\"fas fa-minus\"></i></div>\n                  </div>\n                </div>\n              </div>\n            </div>\n            <div class=\"setting-content\">\n              <div class=\"setting-subtitle\">Gap</div>\n              <div class=\"setting\">\n                <label for=\"rows-gap\">Rows gap</label>\n                <select id=\"rows-gap\" name=\"rows-gap\" @change=\"replaceClass(selected_layout, selected_row_gap.value, mappers.grid_mapper.rows.gap.regex_pattern)\" v-model=\"selected_row_gap\">\n                  <option v-for=\"(row_gap, index) in mappers.grid_mapper.rows.gap.values\" :key=\"index\" :value=\"row_gap\">{{ row_gap.text }}</option>\n                </select>\n              </div>\n              <div class=\"setting\">\n                <label for=\"cols-gap\">Cols gap</label>\n                <select id=\"cols-gap\" name=\"cols-gap\" @change=\"replaceClass(selected_layout, selected_col_gap.value, mappers.grid_mapper.cols.gap.regex_pattern)\" v-model=\"selected_col_gap\">\n                  <option v-for='(col_gap, index) in mappers.grid_mapper.cols.gap.values' :key=\"index\" :value=\"col_gap\">{{ col_gap.text }}</option>\n                </select>\n              </div>\n            </div>\n          </div>\n          <!-- FLEX -->\n          <div class=\"flex\" v-if=\"isFlex(selected_layout)\">\n            <div class=\"setting-label\">Columns settings</div>\n            <div class=\"setting-content\">\n              <div class=\"setting-subtitle\">Columns</div>\n              <div class=\"setting-wrapper\">\n                <div class=\"action\">\n                  <div class=\"add-item\" @click=\"addFlexColumn(selected_layout)\">\n                    <i class=\"fas fa-plus\"></i>\n                  </div>\n                </div>\n                <div class=\"rows\">\n                  <div class=\"row\" v-for=\"(col, index) in selected_layout.cols\" :key=\"index\">\n                    Column {{ col }}\n                  </div>\n                </div>\n              </div>\n            </div>\n            <div class=\"setting-content\">\n              <div class=\"setting-subtitle\">Gap</div>\n              <div class=\"setting\">\n                <label for=\"cols-gap\">Cols gap</label>\n                <select id=\"cols-gap\" name=\"cols-gap\" @change=\"replaceClass(selected_layout, selected_col_gap.value, mappers.flex_mapper.gap.regex_pattern)\" v-model=\"selected_col_gap\">\n                  <option v-for='(col_gap, index) in mappers.flex_mapper.gap.values' :key=\"index\" :value=\"col_gap\">{{ col_gap.text }}</option>\n                </select>\n              </div>\n            </div>\n          </div>\n      </div>\n    </transition>\n\n    <transition name=\"right\" @after-leave=\"animationEnd\">\n      <div v-if=\"(showPanel('element')) && !animating\" class=\"element-settings\">\n        ELEMENT\n      </div>\n    </transition>\n  </div>\n</template>\n\n<script>\nimport { emitter } from 'App/Wape'\nimport isEmpty from 'lodash/isEmpty'\nimport { grid_mapper, flex_mapper } from 'Editor/mappers/tailwind'\nimport { appendPlaceholder } from 'Editor/utilities/layout'\n\nexport default {\n    name: 'RightPanel',\n    data() {\n      return {\n        current_panel: 'container',\n        animating: false,\n        selected_layout: null,\n        selected_element: null,\n        mappers: {\n          grid_mapper,\n          flex_mapper,\n        },\n        container_options: [],\n        element_options: [],\n        selected_col_gap: Object,\n        selected_row_gap: Object\n      }\n    },\n    mounted() {\n      emitter.on('iframe-click', (args) => { //Fired from MainPanel.vue\n        this.selected_layout = args.container\n        this.selected_element = args.element\n      })\n    },\n    methods: {\n      switchPanel(panel) {\n        this.animating = true\n        this.current_panel = panel\n      },\n      showPanel(panel) {\n        return (this.current_panel === panel)\n      },\n      animationEnd() {\n        this.animating = false\n      },\n      isGrid(container) {\n        if (container === null) {\n          return false\n        } else {\n          return container.type === 'grid'\n        }\n      },\n      isFlex(container) {\n        if (container === null) {\n          return false\n        } else {\n          return container.type === 'flex'\n        }\n      },\n      replaceClass(element, new_class, pattern) {\n        if (pattern !== null) {\n          let regex = new RegExp(pattern, 'g')\n          let class_array = [...element.element.classList.values()]\n          let match = class_array.find((item) => {\n            return regex.test(item)\n          })\n          if (match !== null) {\n            element.removeClass(match)\n          }\n        }\n        element.addClass(new_class)\n      },\n      addGridColumn(layout_instance) {\n        if (layout_instance !== null) {\n          layout_instance.cols++\n          this.replaceClass(layout_instance, `grid-cols-${layout_instance.cols}`, this.mappers.grid_mapper.cols.template.regex_pattern)\n          let total_places_in_grid = ((layout_instance.cols !== 0) ? layout_instance.cols : 1) * ((layout_instance.rows !== 0) ? layout_instance.rows : 1)\n          let elements_in_grid = layout_instance.element.children.length\n          let number_of_placeholder_to_append = total_places_in_grid - elements_in_grid\n          if (number_of_placeholder_to_append > 0) {\n            appendPlaceholder('div', layout_instance.element, number_of_placeholder_to_append, 'grid-placeholder')\n          }\n        }\n      },\n      addGridRow(layout_instance) {\n        if (layout_instance !== null) {\n          layout_instance.rows++\n          this.replaceClass(layout_instance, `grid-rows-${layout_instance.rows}`, this.mappers.grid_mapper.rows.template.regex_pattern)\n          let total_places_in_grid = ((layout_instance.cols !== 0) ? layout_instance.cols : 1) * ((layout_instance.rows !== 0) ? layout_instance.rows : 1)\n          let elements_in_grid = layout_instance.element.children.length\n          let number_of_placeholder_to_append = total_places_in_grid - elements_in_grid\n          if (number_of_placeholder_to_append > 0) {\n            appendPlaceholder('div', layout_instance.element, number_of_placeholder_to_append, 'grid-placeholder')\n          }\n        }\n      },\n      addFlexColumn(layout_instance) {\n        if (layout_instance !== null) {\n          // if (this.selected_layout.type === 'flex') {\n            layout_instance.addColumn()\n          // }\n        }\n      }\n    }\n}\n</script>\n\n<style scoped>\n    div.right-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n    }\n    div.right-panel > div.actions {\n      display: flex;\n      border-bottom: .5px solid #000;\n    }\n    div.right-panel > div.actions > div {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n    }\n    div.right-panel > div.actions > div.container\n    {\n      border-right: .5px solid #000;\n    }\n    div.right-panel > div.actions > div.element\n    {\n      border-right: .5px solid #000;\n    }\n\n    /* Animations thanks animista.net */\n  .left-enter-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  .right-enter-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n  @-webkit-keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @-webkit-keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n\n  div.setting-label {\n    color: #fff;\n    text-transform: capitalize;\n    font-size: 1.2rem;\n    border-bottom: 1px solid #fff;\n    padding-bottom: .7rem;\n  }\n\n  div.container-settings,\n  div.element-settings {\n    margin: 3% 2.5%;\n    width: 95%;\n    min-width: 95%;\n    box-sizing: border-box;\n    user-select: none;\n    overflow-y: scroll;\n    height: calc(100% - 2.7rem);\n  }\n\n  div.setting-subtitle {\n    color: #fff;\n    font-size: 1.1rem;\n    margin: 0.7rem 0.2rem 0.3rem;\n  }\n\n  div.setting-content {\n    margin: 0.5rem;\n    color: #d3d3d3;\n    border-bottom: 1px dashed #fff;\n    padding-bottom: 0.7rem;\n  }\n\n  div.setting {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    line-height: 1.7rem;\n  }\n\n  div.action {\n    display: flex;\n    justify-content: flex-end;\n    margin-bottom: 5px;\n  }\n  div.action > div.add-item {\n    padding: .5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    color: #fff;\n  }\n  div.action > div.add-item:hover {\n    padding: .5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n  }\n  div.row > div.remove-item {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    margin: 0.3rem 0;\n  }\n  div.row > div.remove-item:hover {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n    margin: 0.3rem 0;\n  }\n  div.setting-wrapper > div.rows > div.row:first-child {\n    line-height: 2rem;\n    border-top: 1px dotted #fff;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n  }\n  div.setting-wrapper > div.rows > div.row {\n    display: flex;\n    justify-content: space-between;\n    line-height: 2rem;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n  }\n  div.item-title {\n    display: flex;\n    align-items: center;\n  }\n</style>\n"]}, media: undefined });
+      inject("data-v-44c3ca62_0", { source: "\ndiv.right-panel[data-v-44c3ca62] {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n}\ndiv.right-panel > div.actions[data-v-44c3ca62] {\n      display: flex;\n      border-bottom: .5px solid #000;\n}\ndiv.right-panel > div.actions > div[data-v-44c3ca62] {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n}\ndiv.right-panel > div.actions > div.container[data-v-44c3ca62]\n    {\n      border-right: .5px solid #000;\n}\ndiv.right-panel > div.actions > div.element[data-v-44c3ca62]\n    {\n      border-right: .5px solid #000;\n}\n\n    /* Animations thanks animista.net */\n.left-enter-active[data-v-44c3ca62] {\n    -webkit-animation: slide-in-left-data-v-44c3ca62 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left-data-v-44c3ca62 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n.right-enter-active[data-v-44c3ca62] {\n  -webkit-animation: slide-in-right-data-v-44c3ca62 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right-data-v-44c3ca62 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n@-webkit-keyframes slide-in-left-data-v-44c3ca62 {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-left-data-v-44c3ca62 {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@-webkit-keyframes slide-in-right-data-v-44c3ca62 {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-right-data-v-44c3ca62 {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\ndiv.setting-label[data-v-44c3ca62] {\n    color: #fff;\n    text-transform: capitalize;\n    font-size: 1.2rem;\n    border-bottom: 1px solid #fff;\n    padding-bottom: .7rem;\n}\ndiv.container-settings[data-v-44c3ca62],\n  div.element-settings[data-v-44c3ca62] {\n    margin: 3% 2.5%;\n    width: 95%;\n    min-width: 95%;\n    box-sizing: border-box;\n    user-select: none;\n    overflow-y: scroll;\n    height: calc(100% - 2.7rem);\n}\ndiv.setting-subtitle[data-v-44c3ca62] {\n    color: #fff;\n    font-size: 1.1rem;\n    margin: 0.7rem 0.2rem 0.3rem;\n}\ndiv.setting-content[data-v-44c3ca62] {\n    margin: 0.5rem;\n    color: #d3d3d3;\n    border-bottom: 1px dashed #fff;\n    padding-bottom: 0.7rem;\n}\ndiv.setting[data-v-44c3ca62] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    line-height: 1.7rem;\n}\ndiv.action[data-v-44c3ca62] {\n    display: flex;\n    justify-content: flex-end;\n    margin-bottom: 5px;\n}\ndiv.action > div.add-item[data-v-44c3ca62] {\n    padding: .5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    color: #fff;\n}\ndiv.action > div.add-item[data-v-44c3ca62]:hover {\n    padding: .5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n}\ndiv.row > div.remove-item[data-v-44c3ca62] {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    margin: 0.3rem 0;\n}\ndiv.row > div.remove-item[data-v-44c3ca62]:hover {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n    margin: 0.3rem 0;\n}\ndiv.setting-wrapper > div.rows > div.row[data-v-44c3ca62]:first-child {\n    line-height: 2rem;\n    border-top: 1px dotted #fff;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n}\ndiv.setting-wrapper > div.rows > div.row[data-v-44c3ca62] {\n    display: flex;\n    justify-content: space-between;\n    line-height: 2rem;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n}\ndiv.item-title[data-v-44c3ca62] {\n    display: flex;\n    align-items: center;\n}\n", map: {"version":3,"sources":["/Users/thomas/Developer/perso/wape/src/editor/components/layout/RightPanel.vue"],"names":[],"mappings":";AAoTA;MACA,yBAAA;MACA,2BAAA;MACA,YAAA;MACA,gBAAA;AACA;AACA;MACA,aAAA;MACA,8BAAA;AACA;AACA;MACA,cAAA;MACA,WAAA;MACA,iBAAA;MACA,eAAA;AACA;AACA;;MAEA,6BAAA;AACA;AACA;;MAEA,6BAAA;AACA;;IAEA,mCAAA;AACA;IACA,mGAAA;UACA,2FAAA;AACA;AACA;;;IAGA;AACA;EACA,oGAAA;UACA,4FAAA;AACA;CACA;;;IAGA;EACA,mCAAA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AAEA;IACA,WAAA;IACA,0BAAA;IACA,iBAAA;IACA,6BAAA;IACA,qBAAA;AACA;AAEA;;IAEA,eAAA;IACA,UAAA;IACA,cAAA;IACA,sBAAA;IACA,iBAAA;IACA,kBAAA;IACA,2BAAA;AACA;AAEA;IACA,WAAA;IACA,iBAAA;IACA,4BAAA;AACA;AAEA;IACA,cAAA;IACA,cAAA;IACA,8BAAA;IACA,sBAAA;AACA;AAEA;IACA,aAAA;IACA,mBAAA;IACA,8BAAA;IACA,mBAAA;AACA;AAEA;IACA,aAAA;IACA,yBAAA;IACA,kBAAA;AACA;AACA;IACA,cAAA;IACA,sBAAA;IACA,eAAA;IACA,WAAA;AACA;AACA;IACA,cAAA;IACA,sBAAA;IACA,yBAAA;IACA,eAAA;AACA;AACA;IACA,sBAAA;IACA,sBAAA;IACA,eAAA;IACA,gBAAA;AACA;AACA;IACA,sBAAA;IACA,sBAAA;IACA,yBAAA;IACA,eAAA;IACA,gBAAA;AACA;AACA;IACA,iBAAA;IACA,2BAAA;IACA,8BAAA;IACA,eAAA;AACA;AACA;IACA,aAAA;IACA,8BAAA;IACA,iBAAA;IACA,8BAAA;IACA,eAAA;AACA;AACA;IACA,aAAA;IACA,mBAAA;AACA","file":"RightPanel.vue","sourcesContent":["<template>\n  <div class=\"right-panel\">\n    <div class=\"actions\">\n      <div class=\"container\" @click=\"switchPanel('container')\">\n        <i class=\"far fa-square\" />\n      </div>\n      <div class=\"element\" @click=\"switchPanel('element')\">\n        <i class=\"fas fa-square\" />\n      </div>\n    </div>\n    <transition name=\"left\" @after-leave=\"animationEnd\">\n      <div v-if=\"(showPanel('container')) && !animating\" class=\"container-settings\">\n        <!-- GRID -->\n        <div class=\"grid\" v-if=\"isGrid(selected_layout)\">\n          <div class=\"setting-label\">Grid settings</div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Rows</div>\n            <div class=\"setting-wrapper\">\n              <div class=\"action\">\n                <div class=\"add-item\" @click=\"addGridRow(selected_layout)\">\n                  <i class=\"fas fa-plus\"></i>\n                </div>\n              </div>\n              <div class=\"rows\">\n                <div class=\"row\" v-for=\"(row, index) in selected_layout.rows\" :key=\"index\">\n                  <div class=\"item-title\">Row {{ row }}</div>\n                  <div class=\"remove-item\" @click=\"deleteGridRow(selected_layout)\"><i class=\"fas fa-minus\"></i></div>\n                </div>\n              </div>\n            </div>\n            <div class=\"setting-subtitle\">Columns</div>\n            <div class=\"setting-wrapper\">\n              <div class=\"action\">\n                <div class=\"add-item\" @click=\"addGridColumn(selected_layout)\">\n                  <i class=\"fas fa-plus\"></i>\n                </div>\n              </div>\n              <div class=\"rows\">\n                <div class=\"row\" v-for=\"(col, index) in selected_layout.cols\" :key=\"index\">\n                  <div class=\"item-title\">Column {{ col }}</div>\n                  <div class=\"remove-item\" @click=\"deleteGridRow(selected_layout)\"><i class=\"fas fa-minus\"></i></div>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Gap</div>\n            <div class=\"setting\">\n              <label for=\"rows-gap\">Rows gap</label>\n              <select id=\"rows-gap\" name=\"rows-gap\" @change=\"replaceClass(selected_layout, selected_row_gap.value, mappers.grid_mapper.rows.gap.regex_pattern)\" v-model=\"selected_row_gap\">\n                <option v-for=\"(row_gap, index) in mappers.grid_mapper.rows.gap.values\" :key=\"index\" :value=\"row_gap\">{{ row_gap.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"cols-gap\">Cols gap</label>\n              <select id=\"cols-gap\" name=\"cols-gap\" @change=\"replaceClass(selected_layout, selected_col_gap.value, mappers.grid_mapper.cols.gap.regex_pattern)\" v-model=\"selected_col_gap\">\n                <option v-for='(col_gap, index) in mappers.grid_mapper.cols.gap.values' :key=\"index\" :value=\"col_gap\">{{ col_gap.text }}</option>\n              </select>\n            </div>\n          </div>\n        </div>\n        <!-- FLEX -->\n        <div class=\"flex\" v-if=\"isFlex(selected_layout)\">\n          <div class=\"setting-label\">Columns settings</div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Columns</div>\n            <div class=\"setting-wrapper\">\n              <div class=\"action\">\n                <div class=\"add-item\" @click=\"addFlexColumn(selected_layout)\">\n                  <i class=\"fas fa-plus\"></i>\n                </div>\n              </div>\n              <div class=\"rows\">\n                <div class=\"row\" v-for=\"(col, index) in selected_layout.cols\" :key=\"index\">\n                  Column {{ col }}\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Gap</div>\n            <div class=\"setting\">\n              <label for=\"cols-gap\">Cols gap</label>\n              <select id=\"cols-gap\" name=\"cols-gap\" @change=\"replaceClass(selected_layout, selected_flex_col_gap.value, mappers.flex_mapper.gap.regex_pattern)\" v-model=\"selected_flex_col_gap\">\n                <option v-for='(col_gap, index) in mappers.flex_mapper.gap.values' :key=\"index\" :value=\"col_gap\">{{ col_gap.text }}</option>\n              </select>\n            </div>\n          </div>\n        </div>\n        <!-- GENERALS -->\n        <div class=\"generals\" v-if=\"(selected_layout !== null)\">\n          <!-- PADDINGS -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Paddings</div>\n            <div class=\"setting\">\n              <label for=\"padding-all\">All</label>\n              <select id=\"padding-all\" name=\"padding-all\" @change=\"replaceClass(selected_layout, selected_all_padding.value, mappers.spacing_mapper.padding.all.regex_pattern)\" v-model=\"selected_all_padding\">\n                <option v-for='(padding_all, index) in mappers.spacing_mapper.padding.all.values' :key=\"index\" :value=\"padding_all\">{{ padding_all.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-vertical\">Vertical</label>\n              <select id=\"padding-vertical\" name=\"padding-vertical\" @change=\"replaceClass(selected_layout, selected_vertical_padding.value, mappers.spacing_mapper.padding.vertical.regex_pattern)\" v-model=\"selected_vertical_padding\">\n                <option v-for='(padding_vertical, index) in mappers.spacing_mapper.padding.vertical.values' :key=\"index\" :value=\"padding_vertical\">{{ padding_vertical.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-horizontal\">Horizontal</label>\n              <select id=\"padding-horizontal\" name=\"padding-horizontal\" @change=\"replaceClass(selected_layout, selected_horizontal_padding.value, mappers.spacing_mapper.padding.horizontal.regex_pattern)\" v-model=\"selected_horizontal_padding\">\n                <option v-for='(padding_horizontal, index) in mappers.spacing_mapper.padding.horizontal.values' :key=\"index\" :value=\"padding_horizontal\">{{ padding_horizontal.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-top\">Top</label>\n              <select id=\"padding-top\" name=\"padding-top\" @change=\"replaceClass(selected_layout, selected_top_padding.value, mappers.spacing_mapper.padding.top.regex_pattern)\" v-model=\"selected_top_padding\">\n                <option v-for='(padding_top, index) in mappers.spacing_mapper.padding.top.values' :key=\"index\" :value=\"padding_top\">{{ padding_top.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-bottom\">Bottom</label>\n              <select id=\"padding-bottom\" name=\"padding-bottom\" @change=\"replaceClass(selected_layout, selected_bottom_padding.value, mappers.spacing_mapper.padding.bottom.regex_pattern)\" v-model=\"selected_bottom_padding\">\n                <option v-for='(padding_bottom, index) in mappers.spacing_mapper.padding.bottom.values' :key=\"index\" :value=\"padding_bottom\">{{ padding_bottom.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-left\">Left</label>\n              <select id=\"padding-left\" name=\"padding-left\" @change=\"replaceClass(selected_layout, selected_left_padding.value, mappers.spacing_mapper.padding.left.regex_pattern)\" v-model=\"selected_left_padding\">\n                <option v-for='(padding_left, index) in mappers.spacing_mapper.padding.left.values' :key=\"index\" :value=\"padding_left\">{{ padding_left.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-right\">Right</label>\n              <select id=\"padding-right\" name=\"padding-right\" @change=\"replaceClass(selected_layout, selected_right_padding.value, mappers.spacing_mapper.padding.right.regex_pattern)\" v-model=\"selected_right_padding\">\n                <option v-for='(padding_right, index) in mappers.spacing_mapper.padding.right.values' :key=\"index\" :value=\"padding_right\">{{ padding_right.text }}</option>\n              </select>\n            </div>\n          </div>\n          <!-- MARGINS -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Margins</div>\n            <div class=\"setting\">\n              <label for=\"margin-all\">All</label>\n              <select id=\"margin-all\" name=\"margin-all\" @change=\"replaceClass(selected_layout, selected_all_margin.value, mappers.spacing_mapper.margin.all.regex_pattern)\" v-model=\"selected_all_margin\">\n                <option v-for='(margin_all, index) in mappers.spacing_mapper.margin.all.values' :key=\"index\" :value=\"margin_all\">{{ margin_all.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-vertical\">Vertical</label>\n              <select id=\"margin-vertical\" name=\"margin-vertical\" @change=\"replaceClass(selected_layout, selected_vertical_margin.value, mappers.spacing_mapper.margin.vertical.regex_pattern)\" v-model=\"selected_vertical_margin\">\n                <option v-for='(margin_vertical, index) in mappers.spacing_mapper.margin.vertical.values' :key=\"index\" :value=\"margin_vertical\">{{ margin_vertical.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-horizontal\">Horizontal</label>\n              <select id=\"margin-horizontal\" name=\"margin-horizontal\" @change=\"replaceClass(selected_layout, selected_horizontal_margin.value, mappers.spacing_mapper.margin.horizontal.regex_pattern)\" v-model=\"selected_horizontal_margin\">\n                <option v-for='(margin_horizontal, index) in mappers.spacing_mapper.margin.horizontal.values' :key=\"index\" :value=\"margin_horizontal\">{{ margin_horizontal.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-top\">Top</label>\n              <select id=\"margin-top\" name=\"margin-top\" @change=\"replaceClass(selected_layout, selected_top_margin.value, mappers.spacing_mapper.margin.top.regex_pattern)\" v-model=\"selected_top_margin\">\n                <option v-for='(margin_top, index) in mappers.spacing_mapper.margin.top.values' :key=\"index\" :value=\"margin_top\">{{ margin_top.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-bottom\">Bottom</label>\n              <select id=\"margin-bottom\" name=\"margin-bottom\" @change=\"replaceClass(selected_layout, selected_bottom_margin.value, mappers.spacing_mapper.margin.bottom.regex_pattern)\" v-model=\"selected_bottom_margin\">\n                <option v-for='(margin_bottom, index) in mappers.spacing_mapper.margin.bottom.values' :key=\"index\" :value=\"margin_bottom\">{{ margin_bottom.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-left\">Left</label>\n              <select id=\"margin-left\" name=\"margin-left\" @change=\"replaceClass(selected_layout, selected_left_margin.value, mappers.spacing_mapper.margin.left.regex_pattern)\" v-model=\"selected_left_margin\">\n                <option v-for='(margin_left, index) in mappers.spacing_mapper.margin.left.values' :key=\"index\" :value=\"margin_left\">{{ margin_left.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-right\">Right</label>\n              <select id=\"margin-right\" name=\"margin-right\" @change=\"replaceClass(selected_layout, selected_right_margin.value, mappers.spacing_mapper.margin.right.regex_pattern)\" v-model=\"selected_right_margin\">\n                <option v-for='(margin_right, index) in mappers.spacing_mapper.margin.right.values' :key=\"index\" :value=\"margin_right\">{{ margin_right.text }}</option>\n              </select>\n            </div>\n          </div>\n        </div>\n      </div>\n    </transition>\n\n    <transition name=\"right\" @after-leave=\"animationEnd\">\n      <div v-if=\"(showPanel('element')) && !animating\" class=\"element-settings\">\n        ELEMENT\n      </div>\n    </transition>\n  </div>\n</template>\n\n<script>\nimport { emitter } from 'App/Wape'\nimport isEmpty from 'lodash/isEmpty'\nimport { grid_mapper, flex_mapper, spacing_mapper } from 'Editor/mappers/tailwind'\nimport { appendPlaceholder } from 'Editor/utilities/layout'\nimport { replaceClass } from 'Editor/utilities/utilities'\n\nexport default {\n    name: 'RightPanel',\n    data() {\n      return {\n        current_panel: 'container',\n        animating: false,\n        selected_layout: null,\n        selected_element: null,\n        mappers: {\n          grid_mapper,\n          flex_mapper,\n          spacing_mapper,\n        },\n        container_options: [],\n        element_options: [],\n        //Gaps\n        selected_col_gap: Object,\n        selected_row_gap: Object,\n        selected_flex_col_gap: Object,\n        //Spacings\n        //Paddings\n        selected_all_padding: Object,\n        selected_vertical_padding: Object,\n        selected_horizontal_padding: Object,\n        selected_top_padding: Object,\n        selected_bottom_padding: Object,\n        selected_left_padding: Object,\n        selected_right_padding: Object,\n        //Margins\n        selected_all_margin: Object,\n        selected_vertical_margin: Object,\n        selected_horizontal_margin: Object,\n        selected_top_margin: Object,\n        selected_bottom_margin: Object,\n        selected_left_margin: Object,\n        selected_right_margin: Object,\n      }\n    },\n    mounted() {\n      emitter.on('iframe-click', (args) => { //Fired from MainPanel.vue\n        this.selected_layout = args.container\n        this.selected_element = args.element\n      })\n    },\n    methods: {\n      switchPanel(panel) {\n        this.animating = true\n        this.current_panel = panel\n      },\n      showPanel(panel) {\n        return (this.current_panel === panel)\n      },\n      animationEnd() {\n        this.animating = false\n      },\n      isGrid(container) {\n        if (container === null) {\n          return false\n        } else {\n          return container.type === 'grid'\n        }\n      },\n      isFlex(container) {\n        if (container === null) {\n          return false\n        } else {\n          return container.type === 'flex'\n        }\n      },\n      replaceClass,\n      addGridColumn(layout_instance) {\n        if (layout_instance !== null) {\n          layout_instance.cols++\n          this.replaceClass(layout_instance, `grid-cols-${layout_instance.cols}`, this.mappers.grid_mapper.cols.template.regex_pattern)\n          let total_places_in_grid = ((layout_instance.cols !== 0) ? layout_instance.cols : 1) * ((layout_instance.rows !== 0) ? layout_instance.rows : 1)\n          let elements_in_grid = layout_instance.element.children.length\n          let number_of_placeholder_to_append = total_places_in_grid - elements_in_grid\n          if (number_of_placeholder_to_append > 0) {\n            appendPlaceholder('div', layout_instance.element, number_of_placeholder_to_append, 'grid-placeholder')\n          }\n        }\n      },\n      addGridRow(layout_instance) {\n        if (layout_instance !== null) {\n          layout_instance.rows++\n          this.replaceClass(layout_instance, `grid-rows-${layout_instance.rows}`, this.mappers.grid_mapper.rows.template.regex_pattern)\n          let total_places_in_grid = ((layout_instance.cols !== 0) ? layout_instance.cols : 1) * ((layout_instance.rows !== 0) ? layout_instance.rows : 1)\n          let elements_in_grid = layout_instance.element.children.length\n          let number_of_placeholder_to_append = total_places_in_grid - elements_in_grid\n          if (number_of_placeholder_to_append > 0) {\n            appendPlaceholder('div', layout_instance.element, number_of_placeholder_to_append, 'grid-placeholder')\n          }\n        }\n      },\n      addFlexColumn(layout_instance) {\n        if (layout_instance !== null) {\n          // if (this.selected_layout.type === 'flex') {\n            layout_instance.addColumn()\n          // }\n        }\n      }\n    }\n}\n</script>\n\n<style scoped>\n    div.right-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n    }\n    div.right-panel > div.actions {\n      display: flex;\n      border-bottom: .5px solid #000;\n    }\n    div.right-panel > div.actions > div {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n    }\n    div.right-panel > div.actions > div.container\n    {\n      border-right: .5px solid #000;\n    }\n    div.right-panel > div.actions > div.element\n    {\n      border-right: .5px solid #000;\n    }\n\n    /* Animations thanks animista.net */\n  .left-enter-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  .right-enter-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n  @-webkit-keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @-webkit-keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n\n  div.setting-label {\n    color: #fff;\n    text-transform: capitalize;\n    font-size: 1.2rem;\n    border-bottom: 1px solid #fff;\n    padding-bottom: .7rem;\n  }\n\n  div.container-settings,\n  div.element-settings {\n    margin: 3% 2.5%;\n    width: 95%;\n    min-width: 95%;\n    box-sizing: border-box;\n    user-select: none;\n    overflow-y: scroll;\n    height: calc(100% - 2.7rem);\n  }\n\n  div.setting-subtitle {\n    color: #fff;\n    font-size: 1.1rem;\n    margin: 0.7rem 0.2rem 0.3rem;\n  }\n\n  div.setting-content {\n    margin: 0.5rem;\n    color: #d3d3d3;\n    border-bottom: 1px dashed #fff;\n    padding-bottom: 0.7rem;\n  }\n\n  div.setting {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    line-height: 1.7rem;\n  }\n\n  div.action {\n    display: flex;\n    justify-content: flex-end;\n    margin-bottom: 5px;\n  }\n  div.action > div.add-item {\n    padding: .5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    color: #fff;\n  }\n  div.action > div.add-item:hover {\n    padding: .5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n  }\n  div.row > div.remove-item {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    margin: 0.3rem 0;\n  }\n  div.row > div.remove-item:hover {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n    margin: 0.3rem 0;\n  }\n  div.setting-wrapper > div.rows > div.row:first-child {\n    line-height: 2rem;\n    border-top: 1px dotted #fff;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n  }\n  div.setting-wrapper > div.rows > div.row {\n    display: flex;\n    justify-content: space-between;\n    line-height: 2rem;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n  }\n  div.item-title {\n    display: flex;\n    align-items: center;\n  }\n</style>\n"]}, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__$2 = "data-v-968c6af4";
+    const __vue_scope_id__$2 = "data-v-44c3ca62";
     /* module identifier */
     const __vue_module_identifier__$2 = undefined;
     /* functional template */
@@ -10421,18 +12176,6 @@ var wape = (function () {
 
   function countCols$1(element) {
       return element.children.length
-  }
-
-  function findFirstChildMatching(elements, css_selector) {
-      return elements.find((elem) => {
-          return (elem.matches(css_selector))
-      })
-  }
-
-  function selectorMatchFound(elements, css_selector) {
-      return elements.some((elem) => {
-          return (elem.matches(css_selector))
-      })
   }
 
   class Dragger {
