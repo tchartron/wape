@@ -1088,6 +1088,6 @@ const whitespace_mapper = {
         { id: 4, text: 'pre-line', value: 'whitespace-pre-line' },
         { id: 5, text: 'pre-wrap', value: 'whitespace-pre-wrap' },
     ]
-}
+};
 
 export { grid_mapper, flex_mapper, spacing_mapper, sizing_mapper, whitespace_mapper }
