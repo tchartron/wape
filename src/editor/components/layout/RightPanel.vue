@@ -82,7 +82,7 @@
               <div class="setting">
                 <label for="cols-gap">Cols gap</label>
                 <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_layout, selected_col_gap.value, mappers.flex_mapper.gap.regex_pattern)" v-model="selected_col_gap">
-                  <option v-for='(col_gap, index) in mappers.flex_mapper.gap.value' :key="index" :value="col_gap">{{ col_gap.text }}</option>
+                  <option v-for='(col_gap, index) in mappers.flex_mapper.gap.values' :key="index" :value="col_gap">{{ col_gap.text }}</option>
                 </select>
               </div>
             </div>
