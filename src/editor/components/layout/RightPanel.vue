@@ -10,83 +10,178 @@
     </div>
     <transition name="left" @after-leave="animationEnd">
       <div v-if="(showPanel('container')) && !animating" class="container-settings">
-          <!-- GRID -->
-          <div class="grid" v-if="isGrid(selected_layout)">
-            <div class="setting-label">Grid settings</div>
-            <div class="setting-content">
-              <div class="setting-subtitle">Rows</div>
-              <div class="setting-wrapper">
-                <div class="action">
-                  <div class="add-item" @click="addGridRow(selected_layout)">
-                    <i class="fas fa-plus"></i>
-                  </div>
-                </div>
-                <div class="rows">
-                  <div class="row" v-for="(row, index) in selected_layout.rows" :key="index">
-                    <div class="item-title">Row {{ row }}</div>
-                    <div class="remove-item" @click="deleteGridRow(selected_layout)"><i class="fas fa-minus"></i></div>
-                  </div>
+        <!-- GRID -->
+        <div class="grid" v-if="isGrid(selected_layout)">
+          <div class="setting-label">Grid settings</div>
+          <div class="setting-content">
+            <div class="setting-subtitle">Rows</div>
+            <div class="setting-wrapper">
+              <div class="action">
+                <div class="add-item" @click="addGridRow(selected_layout)">
+                  <i class="fas fa-plus"></i>
                 </div>
               </div>
-              <div class="setting-subtitle">Columns</div>
-              <div class="setting-wrapper">
-                <div class="action">
-                  <div class="add-item" @click="addGridColumn(selected_layout)">
-                    <i class="fas fa-plus"></i>
-                  </div>
-                </div>
-                <div class="rows">
-                  <div class="row" v-for="(col, index) in selected_layout.cols" :key="index">
-                    <div class="item-title">Column {{ col }}</div>
-                    <div class="remove-item" @click="deleteGridRow(selected_layout)"><i class="fas fa-minus"></i></div>
-                  </div>
+              <div class="rows">
+                <div class="row" v-for="(row, index) in selected_layout.rows" :key="index">
+                  <div class="item-title">Row {{ row }}</div>
+                  <div class="remove-item" @click="deleteGridRow(selected_layout)"><i class="fas fa-minus"></i></div>
                 </div>
               </div>
             </div>
-            <div class="setting-content">
-              <div class="setting-subtitle">Gap</div>
-              <div class="setting">
-                <label for="rows-gap">Rows gap</label>
-                <select id="rows-gap" name="rows-gap" @change="replaceClass(selected_layout, selected_row_gap.value, mappers.grid_mapper.rows.gap.regex_pattern)" v-model="selected_row_gap">
-                  <option v-for="(row_gap, index) in mappers.grid_mapper.rows.gap.values" :key="index" :value="row_gap">{{ row_gap.text }}</option>
-                </select>
+            <div class="setting-subtitle">Columns</div>
+            <div class="setting-wrapper">
+              <div class="action">
+                <div class="add-item" @click="addGridColumn(selected_layout)">
+                  <i class="fas fa-plus"></i>
+                </div>
               </div>
-              <div class="setting">
-                <label for="cols-gap">Cols gap</label>
-                <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_layout, selected_col_gap.value, mappers.grid_mapper.cols.gap.regex_pattern)" v-model="selected_col_gap">
-                  <option v-for='(col_gap, index) in mappers.grid_mapper.cols.gap.values' :key="index" :value="col_gap">{{ col_gap.text }}</option>
-                </select>
+              <div class="rows">
+                <div class="row" v-for="(col, index) in selected_layout.cols" :key="index">
+                  <div class="item-title">Column {{ col }}</div>
+                  <div class="remove-item" @click="deleteGridRow(selected_layout)"><i class="fas fa-minus"></i></div>
+                </div>
               </div>
             </div>
           </div>
-          <!-- FLEX -->
-          <div class="flex" v-if="isFlex(selected_layout)">
-            <div class="setting-label">Columns settings</div>
-            <div class="setting-content">
-              <div class="setting-subtitle">Columns</div>
-              <div class="setting-wrapper">
-                <div class="action">
-                  <div class="add-item" @click="addFlexColumn(selected_layout)">
-                    <i class="fas fa-plus"></i>
-                  </div>
-                </div>
-                <div class="rows">
-                  <div class="row" v-for="(col, index) in selected_layout.cols" :key="index">
-                    Column {{ col }}
-                  </div>
+          <div class="setting-content">
+            <div class="setting-subtitle">Gap</div>
+            <div class="setting">
+              <label for="rows-gap">Rows gap</label>
+              <select id="rows-gap" name="rows-gap" @change="replaceClass(selected_layout, selected_row_gap.value, mappers.grid_mapper.rows.gap.regex_pattern)" v-model="selected_row_gap">
+                <option v-for="(row_gap, index) in mappers.grid_mapper.rows.gap.values" :key="index" :value="row_gap">{{ row_gap.text }}</option>
+              </select>
+            </div>
+            <div class="setting">
+              <label for="cols-gap">Cols gap</label>
+              <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_layout, selected_col_gap.value, mappers.grid_mapper.cols.gap.regex_pattern)" v-model="selected_col_gap">
+                <option v-for='(col_gap, index) in mappers.grid_mapper.cols.gap.values' :key="index" :value="col_gap">{{ col_gap.text }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- FLEX -->
+        <div class="flex" v-if="isFlex(selected_layout)">
+          <div class="setting-label">Columns settings</div>
+          <div class="setting-content">
+            <div class="setting-subtitle">Columns</div>
+            <div class="setting-wrapper">
+              <div class="action">
+                <div class="add-item" @click="addFlexColumn(selected_layout)">
+                  <i class="fas fa-plus"></i>
                 </div>
               </div>
-            </div>
-            <div class="setting-content">
-              <div class="setting-subtitle">Gap</div>
-              <div class="setting">
-                <label for="cols-gap">Cols gap</label>
-                <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_layout, selected_col_gap.value, mappers.flex_mapper.gap.regex_pattern)" v-model="selected_col_gap">
-                  <option v-for='(col_gap, index) in mappers.flex_mapper.gap.values' :key="index" :value="col_gap">{{ col_gap.text }}</option>
-                </select>
+              <div class="rows">
+                <div class="row" v-for="(col, index) in selected_layout.cols" :key="index">
+                  Column {{ col }}
+                </div>
               </div>
             </div>
           </div>
+          <div class="setting-content">
+            <div class="setting-subtitle">Gap</div>
+            <div class="setting">
+              <label for="cols-gap">Cols gap</label>
+              <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_layout, selected_flex_col_gap.value, mappers.flex_mapper.gap.regex_pattern)" v-model="selected_flex_col_gap">
+                <option v-for='(col_gap, index) in mappers.flex_mapper.gap.values' :key="index" :value="col_gap">{{ col_gap.text }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- GENERALS -->
+        <div class="generals" v-if="(selected_layout !== null)">
+          <!-- PADDINGS -->
+          <div class="setting-content">
+            <div class="setting-subtitle">Paddings</div>
+            <div class="setting">
+              <label for="padding-all">All</label>
+              <select id="padding-all" name="padding-all" @change="replaceClass(selected_layout, selected_all_padding.value, mappers.spacing_mapper.padding.all.regex_pattern)" v-model="selected_all_padding">
+                <option v-for='(padding_all, index) in mappers.spacing_mapper.padding.all.values' :key="index" :value="padding_all">{{ padding_all.text }}</option>
+              </select>
+            </div>
+            <div class="setting">
+              <label for="padding-vertical">Vertical</label>
+              <select id="padding-vertical" name="padding-vertical" @change="replaceClass(selected_layout, selected_vertical_padding.value, mappers.spacing_mapper.padding.vertical.regex_pattern)" v-model="selected_vertical_padding">
+                <option v-for='(padding_vertical, index) in mappers.spacing_mapper.padding.vertical.values' :key="index" :value="padding_vertical">{{ padding_vertical.text }}</option>
+              </select>
+            </div>
+            <div class="setting">
+              <label for="padding-horizontal">Horizontal</label>
+              <select id="padding-horizontal" name="padding-horizontal" @change="replaceClass(selected_layout, selected_horizontal_padding.value, mappers.spacing_mapper.padding.horizontal.regex_pattern)" v-model="selected_horizontal_padding">
+                <option v-for='(padding_horizontal, index) in mappers.spacing_mapper.padding.horizontal.values' :key="index" :value="padding_horizontal">{{ padding_horizontal.text }}</option>
+              </select>
+            </div>
+            <div class="setting">
+              <label for="padding-top">Top</label>
+              <select id="padding-top" name="padding-top" @change="replaceClass(selected_layout, selected_top_padding.value, mappers.spacing_mapper.padding.top.regex_pattern)" v-model="selected_top_padding">
+                <option v-for='(padding_top, index) in mappers.spacing_mapper.padding.top.values' :key="index" :value="padding_top">{{ padding_top.text }}</option>
+              </select>
+            </div>
+            <div class="setting">
+              <label for="padding-bottom">Bottom</label>
+              <select id="padding-bottom" name="padding-bottom" @change="replaceClass(selected_layout, selected_bottom_padding.value, mappers.spacing_mapper.padding.bottom.regex_pattern)" v-model="selected_bottom_padding">
+                <option v-for='(padding_bottom, index) in mappers.spacing_mapper.padding.bottom.values' :key="index" :value="padding_bottom">{{ padding_bottom.text }}</option>
+              </select>
+            </div>
+            <div class="setting">
+              <label for="padding-left">Left</label>
+              <select id="padding-left" name="padding-left" @change="replaceClass(selected_layout, selected_left_padding.value, mappers.spacing_mapper.padding.left.regex_pattern)" v-model="selected_left_padding">
+                <option v-for='(padding_left, index) in mappers.spacing_mapper.padding.left.values' :key="index" :value="padding_left">{{ padding_left.text }}</option>
+              </select>
+            </div>
+            <div class="setting">
+              <label for="padding-right">Right</label>
+              <select id="padding-right" name="padding-right" @change="replaceClass(selected_layout, selected_right_padding.value, mappers.spacing_mapper.padding.right.regex_pattern)" v-model="selected_right_padding">
+                <option v-for='(padding_right, index) in mappers.spacing_mapper.padding.right.values' :key="index" :value="padding_right">{{ padding_right.text }}</option>
+              </select>
+            </div>
+          </div>
+          <!-- MARGINS -->
+          <div class="setting-content">
+            <div class="setting-subtitle">Margins</div>
+            <div class="setting">
+              <label for="margin-all">All</label>
+              <select id="margin-all" name="margin-all" @change="replaceClass(selected_layout, selected_all_margin.value, mappers.spacing_mapper.margin.all.regex_pattern)" v-model="selected_all_margin">
+                <option v-for='(margin_all, index) in mappers.spacing_mapper.margin.all.values' :key="index" :value="margin_all">{{ margin_all.text }}</option>
+              </select>
+            </div>
+            <div class="setting">
+              <label for="margin-vertical">Vertical</label>
+              <select id="margin-vertical" name="margin-vertical" @change="replaceClass(selected_layout, selected_vertical_margin.value, mappers.spacing_mapper.margin.vertical.regex_pattern)" v-model="selected_vertical_margin">
+                <option v-for='(margin_vertical, index) in mappers.spacing_mapper.margin.vertical.values' :key="index" :value="margin_vertical">{{ margin_vertical.text }}</option>
+              </select>
+            </div>
+            <div class="setting">
+              <label for="margin-horizontal">Horizontal</label>
+              <select id="margin-horizontal" name="margin-horizontal" @change="replaceClass(selected_layout, selected_horizontal_margin.value, mappers.spacing_mapper.margin.horizontal.regex_pattern)" v-model="selected_horizontal_margin">
+                <option v-for='(margin_horizontal, index) in mappers.spacing_mapper.margin.horizontal.values' :key="index" :value="margin_horizontal">{{ margin_horizontal.text }}</option>
+              </select>
+            </div>
+            <div class="setting">
+              <label for="margin-top">Top</label>
+              <select id="margin-top" name="margin-top" @change="replaceClass(selected_layout, selected_top_margin.value, mappers.spacing_mapper.margin.top.regex_pattern)" v-model="selected_top_margin">
+                <option v-for='(margin_top, index) in mappers.spacing_mapper.margin.top.values' :key="index" :value="margin_top">{{ margin_top.text }}</option>
+              </select>
+            </div>
+            <div class="setting">
+              <label for="margin-bottom">Bottom</label>
+              <select id="margin-bottom" name="margin-bottom" @change="replaceClass(selected_layout, selected_bottom_margin.value, mappers.spacing_mapper.margin.bottom.regex_pattern)" v-model="selected_bottom_margin">
+                <option v-for='(margin_bottom, index) in mappers.spacing_mapper.margin.bottom.values' :key="index" :value="margin_bottom">{{ margin_bottom.text }}</option>
+              </select>
+            </div>
+            <div class="setting">
+              <label for="margin-left">Left</label>
+              <select id="margin-left" name="margin-left" @change="replaceClass(selected_layout, selected_left_margin.value, mappers.spacing_mapper.margin.left.regex_pattern)" v-model="selected_left_margin">
+                <option v-for='(margin_left, index) in mappers.spacing_mapper.margin.left.values' :key="index" :value="margin_left">{{ margin_left.text }}</option>
+              </select>
+            </div>
+            <div class="setting">
+              <label for="margin-right">Right</label>
+              <select id="margin-right" name="margin-right" @change="replaceClass(selected_layout, selected_right_margin.value, mappers.spacing_mapper.margin.right.regex_pattern)" v-model="selected_right_margin">
+                <option v-for='(margin_right, index) in mappers.spacing_mapper.margin.right.values' :key="index" :value="margin_right">{{ margin_right.text }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
     </transition>
 
@@ -101,8 +196,9 @@
 <script>
 import { emitter } from 'App/Wape'
 import isEmpty from 'lodash/isEmpty'
-import { grid_mapper, flex_mapper } from 'Editor/mappers/tailwind'
+import { grid_mapper, flex_mapper, spacing_mapper } from 'Editor/mappers/tailwind'
 import { appendPlaceholder } from 'Editor/utilities/layout'
+import { replaceClass } from 'Editor/utilities/utilities'
 
 export default {
     name: 'RightPanel',
@@ -115,11 +211,31 @@ export default {
         mappers: {
           grid_mapper,
           flex_mapper,
+          spacing_mapper,
         },
         container_options: [],
         element_options: [],
+        //Gaps
         selected_col_gap: Object,
-        selected_row_gap: Object
+        selected_row_gap: Object,
+        selected_flex_col_gap: Object,
+        //Spacings
+        //Paddings
+        selected_all_padding: Object,
+        selected_vertical_padding: Object,
+        selected_horizontal_padding: Object,
+        selected_top_padding: Object,
+        selected_bottom_padding: Object,
+        selected_left_padding: Object,
+        selected_right_padding: Object,
+        //Margins
+        selected_all_margin: Object,
+        selected_vertical_margin: Object,
+        selected_horizontal_margin: Object,
+        selected_top_margin: Object,
+        selected_bottom_margin: Object,
+        selected_left_margin: Object,
+        selected_right_margin: Object,
       }
     },
     mounted() {
@@ -153,19 +269,7 @@ export default {
           return container.type === 'flex'
         }
       },
-      replaceClass(element, new_class, pattern) {
-        if (pattern !== null) {
-          let regex = new RegExp(pattern, 'g')
-          let class_array = [...element.element.classList.values()]
-          let match = class_array.find((item) => {
-            return regex.test(item)
-          })
-          if (match !== null) {
-            element.removeClass(match)
-          }
-        }
-        element.addClass(new_class)
-      },
+      replaceClass,
       addGridColumn(layout_instance) {
         if (layout_instance !== null) {
           layout_instance.cols++
