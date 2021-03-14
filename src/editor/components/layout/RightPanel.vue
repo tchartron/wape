@@ -197,6 +197,16 @@
               </select>
             </div>
           </div>
+           <!-- WHITESPACE -->
+          <div class="setting-content">
+            <div class="setting-subtitle">Whitespace</div>
+            <div class="setting">
+              <label for="width">Whitespace</label>
+              <select id="width" name="width" @change="replaceClass(selected_layout, selected_ws.value, mappers.whitespace_mapper.regex_pattern)" v-model="selected_ws">
+                <option v-for='(ws, index) in mappers.whitespace_mapper.values' :key="index" :value="ws">{{ ws.text }}</option>
+              </select>
+            </div>
+          </div>
         </div>
       </div>
     </transition>
@@ -216,8 +226,9 @@ import {
   grid_mapper,
   flex_mapper,
   spacing_mapper,
-  sizing_mapper
-} from 'Editor/mappers/tailwind'
+  sizing_mapper,
+  whitespace_mapper
+} from 'Editor/mappers/tailwind/layout'
 import { appendPlaceholder } from 'Editor/utilities/layout'
 import { replaceClass } from 'Editor/utilities/utilities'
 
@@ -234,6 +245,7 @@ export default {
           flex_mapper,
           spacing_mapper,
           sizing_mapper,
+          whitespace_mapper,
         },
         container_options: [],
         element_options: [],
@@ -260,7 +272,9 @@ export default {
         selected_right_margin: Object,
         //Sizings
         selected_width: Object,
-        selected_height: Object
+        selected_height: Object,
+        //Whitespace
+        selected_ws: Object,
       }
     },
     mounted() {
