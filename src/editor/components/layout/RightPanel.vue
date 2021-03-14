@@ -181,6 +181,22 @@
               </select>
             </div>
           </div>
+           <!-- SIZINGS -->
+          <div class="setting-content">
+            <div class="setting-subtitle">Sizing</div>
+            <div class="setting">
+              <label for="width">Width</label>
+              <select id="width" name="width" @change="replaceClass(selected_layout, selected_width.value, mappers.sizing_mapper.width.regex_pattern)" v-model="selected_width">
+                <option v-for='(width, index) in mappers.sizing_mapper.width.values' :key="index" :value="width">{{ width.text }}</option>
+              </select>
+            </div>
+            <div class="setting">
+              <label for="height">Height</label>
+              <select id="height" name="height" @change="replaceClass(selected_layout, selected_height.value, mappers.sizing_mapper.height.regex_pattern)" v-model="selected_height">
+                <option v-for='(height, index) in mappers.sizing_mapper.height.values' :key="index" :value="height">{{ height.text }}</option>
+              </select>
+            </div>
+          </div>
         </div>
       </div>
     </transition>
@@ -196,7 +212,12 @@
 <script>
 import { emitter } from 'App/Wape'
 import isEmpty from 'lodash/isEmpty'
-import { grid_mapper, flex_mapper, spacing_mapper } from 'Editor/mappers/tailwind'
+import {
+  grid_mapper,
+  flex_mapper,
+  spacing_mapper,
+  sizing_mapper
+} from 'Editor/mappers/tailwind'
 import { appendPlaceholder } from 'Editor/utilities/layout'
 import { replaceClass } from 'Editor/utilities/utilities'
 
@@ -212,6 +233,7 @@ export default {
           grid_mapper,
           flex_mapper,
           spacing_mapper,
+          sizing_mapper,
         },
         container_options: [],
         element_options: [],
@@ -236,6 +258,9 @@ export default {
         selected_bottom_margin: Object,
         selected_left_margin: Object,
         selected_right_margin: Object,
+        //Sizings
+        selected_width: Object,
+        selected_height: Object
       }
     },
     mounted() {
