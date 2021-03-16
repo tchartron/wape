@@ -1,7 +1,7 @@
 <template>
   <div class="right-panel">
     <div class="actions">
-      <div class="container" @click="switchPanel('container')">
+      <div class="layout" @click="switchPanel('layout')">
         <i class="far fa-square" />
       </div>
       <div class="element" @click="switchPanel('element')">
@@ -9,7 +9,7 @@
       </div>
     </div>
     <transition name="left" @after-leave="animationEnd">
-      <div v-if="(showPanel('container')) && !animating" class="container-settings">
+      <div v-if="(showPanel('layout')) && !animating" class="container-settings">
         <!-- GRID -->
         <div class="grid" v-if="isGrid(selected_layout)">
           <div class="setting-label">Grid settings</div>
@@ -47,14 +47,14 @@
             <div class="setting-subtitle">Gap</div>
             <div class="setting">
               <label for="rows-gap">Rows gap</label>
-              <select id="rows-gap" name="rows-gap" @change="replaceClass(selected_layout, selected_row_gap.value, mappers.grid_mapper.rows.gap.regex_pattern)" v-model="selected_row_gap">
-                <option v-for="(row_gap, index) in mappers.grid_mapper.rows.gap.values" :key="index" :value="row_gap">{{ row_gap.text }}</option>
+              <select id="rows-gap" name="rows-gap" @change="replaceClass(selected_layout, selected_row_gap, mappers.grid_mapper.rows.gap.regex_pattern)" v-model="selected_row_gap">
+                <option v-for="(row_gap, index) in mappers.grid_mapper.rows.gap.values" :key="index" :value="row_gap.value">{{ row_gap.text }}</option>
               </select>
             </div>
             <div class="setting">
               <label for="cols-gap">Cols gap</label>
-              <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_layout, selected_col_gap.value, mappers.grid_mapper.cols.gap.regex_pattern)" v-model="selected_col_gap">
-                <option v-for='(col_gap, index) in mappers.grid_mapper.cols.gap.values' :key="index" :value="col_gap">{{ col_gap.text }}</option>
+              <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_layout, selected_col_gap, mappers.grid_mapper.cols.gap.regex_pattern)" v-model="selected_col_gap">
+                <option v-for='(col_gap, index) in mappers.grid_mapper.cols.gap.values' :key="index" :value="col_gap.value">{{ col_gap.text }}</option>
               </select>
             </div>
           </div>
@@ -81,8 +81,8 @@
             <div class="setting-subtitle">Gap</div>
             <div class="setting">
               <label for="cols-gap">Cols gap</label>
-              <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_layout, selected_flex_col_gap.value, mappers.flex_mapper.gap.regex_pattern)" v-model="selected_flex_col_gap">
-                <option v-for='(col_gap, index) in mappers.flex_mapper.gap.values' :key="index" :value="col_gap">{{ col_gap.text }}</option>
+              <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_layout, selected_flex_col_gap, mappers.flex_mapper.gap.regex_pattern)" v-model="selected_flex_col_gap">
+                <option v-for='(col_gap, index) in mappers.flex_mapper.gap.values' :key="index" :value="col_gap.value">{{ col_gap.text }}</option>
               </select>
             </div>
           </div>
@@ -94,44 +94,44 @@
             <div class="setting-subtitle">Paddings</div>
             <div class="setting">
               <label for="padding-all">All</label>
-              <select id="padding-all" name="padding-all" @change="replaceClass(selected_layout, selected_all_padding.value, mappers.spacing_mapper.padding.all.regex_pattern)" v-model="selected_all_padding">
-                <option v-for='(padding_all, index) in mappers.spacing_mapper.padding.all.values' :key="index" :value="padding_all">{{ padding_all.text }}</option>
+              <select id="padding-all" name="padding-all" @change="replaceClass(selected_layout, selected_all_padding, mappers.spacing_mapper.padding.all.regex_pattern)" v-model="selected_all_padding">
+                <option v-for='(padding_all, index) in mappers.spacing_mapper.padding.all.values' :key="index" :value="padding_all.value">{{ padding_all.text }}</option>
               </select>
             </div>
             <div class="setting">
               <label for="padding-vertical">Vertical</label>
-              <select id="padding-vertical" name="padding-vertical" @change="replaceClass(selected_layout, selected_vertical_padding.value, mappers.spacing_mapper.padding.vertical.regex_pattern)" v-model="selected_vertical_padding">
-                <option v-for='(padding_vertical, index) in mappers.spacing_mapper.padding.vertical.values' :key="index" :value="padding_vertical">{{ padding_vertical.text }}</option>
+              <select id="padding-vertical" name="padding-vertical" @change="replaceClass(selected_layout, selected_vertical_padding, mappers.spacing_mapper.padding.vertical.regex_pattern)" v-model="selected_vertical_padding">
+                <option v-for='(padding_vertical, index) in mappers.spacing_mapper.padding.vertical.values' :key="index" :value="padding_vertical.value">{{ padding_vertical.text }}</option>
               </select>
             </div>
             <div class="setting">
               <label for="padding-horizontal">Horizontal</label>
-              <select id="padding-horizontal" name="padding-horizontal" @change="replaceClass(selected_layout, selected_horizontal_padding.value, mappers.spacing_mapper.padding.horizontal.regex_pattern)" v-model="selected_horizontal_padding">
-                <option v-for='(padding_horizontal, index) in mappers.spacing_mapper.padding.horizontal.values' :key="index" :value="padding_horizontal">{{ padding_horizontal.text }}</option>
+              <select id="padding-horizontal" name="padding-horizontal" @change="replaceClass(selected_layout, selected_horizontal_padding, mappers.spacing_mapper.padding.horizontal.regex_pattern)" v-model="selected_horizontal_padding">
+                <option v-for='(padding_horizontal, index) in mappers.spacing_mapper.padding.horizontal.values' :key="index" :value="padding_horizontal.value">{{ padding_horizontal.text }}</option>
               </select>
             </div>
             <div class="setting">
               <label for="padding-top">Top</label>
-              <select id="padding-top" name="padding-top" @change="replaceClass(selected_layout, selected_top_padding.value, mappers.spacing_mapper.padding.top.regex_pattern)" v-model="selected_top_padding">
-                <option v-for='(padding_top, index) in mappers.spacing_mapper.padding.top.values' :key="index" :value="padding_top">{{ padding_top.text }}</option>
+              <select id="padding-top" name="padding-top" @change="replaceClass(selected_layout, selected_top_padding, mappers.spacing_mapper.padding.top.regex_pattern)" v-model="selected_top_padding">
+                <option v-for='(padding_top, index) in mappers.spacing_mapper.padding.top.values' :key="index" :value="padding_top.value">{{ padding_top.text }}</option>
               </select>
             </div>
             <div class="setting">
               <label for="padding-bottom">Bottom</label>
-              <select id="padding-bottom" name="padding-bottom" @change="replaceClass(selected_layout, selected_bottom_padding.value, mappers.spacing_mapper.padding.bottom.regex_pattern)" v-model="selected_bottom_padding">
-                <option v-for='(padding_bottom, index) in mappers.spacing_mapper.padding.bottom.values' :key="index" :value="padding_bottom">{{ padding_bottom.text }}</option>
+              <select id="padding-bottom" name="padding-bottom" @change="replaceClass(selected_layout, selected_bottom_padding, mappers.spacing_mapper.padding.bottom.regex_pattern)" v-model="selected_bottom_padding">
+                <option v-for='(padding_bottom, index) in mappers.spacing_mapper.padding.bottom.values' :key="index" :value="padding_bottom.value">{{ padding_bottom.text }}</option>
               </select>
             </div>
             <div class="setting">
               <label for="padding-left">Left</label>
-              <select id="padding-left" name="padding-left" @change="replaceClass(selected_layout, selected_left_padding.value, mappers.spacing_mapper.padding.left.regex_pattern)" v-model="selected_left_padding">
-                <option v-for='(padding_left, index) in mappers.spacing_mapper.padding.left.values' :key="index" :value="padding_left">{{ padding_left.text }}</option>
+              <select id="padding-left" name="padding-left" @change="replaceClass(selected_layout, selected_left_padding, mappers.spacing_mapper.padding.left.regex_pattern)" v-model="selected_left_padding">
+                <option v-for='(padding_left, index) in mappers.spacing_mapper.padding.left.values' :key="index" :value="padding_left.value">{{ padding_left.text }}</option>
               </select>
             </div>
             <div class="setting">
               <label for="padding-right">Right</label>
-              <select id="padding-right" name="padding-right" @change="replaceClass(selected_layout, selected_right_padding.value, mappers.spacing_mapper.padding.right.regex_pattern)" v-model="selected_right_padding">
-                <option v-for='(padding_right, index) in mappers.spacing_mapper.padding.right.values' :key="index" :value="padding_right">{{ padding_right.text }}</option>
+              <select id="padding-right" name="padding-right" @change="replaceClass(selected_layout, selected_right_padding, mappers.spacing_mapper.padding.right.regex_pattern)" v-model="selected_right_padding">
+                <option v-for='(padding_right, index) in mappers.spacing_mapper.padding.right.values' :key="index" :value="padding_right.value">{{ padding_right.text }}</option>
               </select>
             </div>
           </div>
@@ -140,44 +140,50 @@
             <div class="setting-subtitle">Margins</div>
             <div class="setting">
               <label for="margin-all">All</label>
-              <select id="margin-all" name="margin-all" @change="replaceClass(selected_layout, selected_all_margin.value, mappers.spacing_mapper.margin.all.regex_pattern)" v-model="selected_all_margin">
-                <option v-for='(margin_all, index) in mappers.spacing_mapper.margin.all.values' :key="index" :value="margin_all">{{ margin_all.text }}</option>
+              <select id="margin-all" name="margin-all" @change="replaceClass(selected_layout, selected_all_margin, mappers.spacing_mapper.margin.all.regex_pattern)" v-model="selected_all_margin">
+                <option v-for='(margin_all, index) in mappers.spacing_mapper.margin.all.values' :key="index" :value="margin_all.value">{{ margin_all.text }}</option>
               </select>
             </div>
             <div class="setting">
               <label for="margin-vertical">Vertical</label>
-              <select id="margin-vertical" name="margin-vertical" @change="replaceClass(selected_layout, selected_vertical_margin.value, mappers.spacing_mapper.margin.vertical.regex_pattern)" v-model="selected_vertical_margin">
-                <option v-for='(margin_vertical, index) in mappers.spacing_mapper.margin.vertical.values' :key="index" :value="margin_vertical">{{ margin_vertical.text }}</option>
+              <select id="margin-vertical" name="margin-vertical" @change="replaceClass(selected_layout, selected_vertical_margin, mappers.spacing_mapper.margin.vertical.regex_pattern)" v-model="selected_vertical_margin">
+                <option v-for='(margin_vertical, index) in mappers.spacing_mapper.margin.vertical.values' :key="index" :value="margin_vertical.value">{{ margin_vertical.text }}</option>
               </select>
             </div>
             <div class="setting">
               <label for="margin-horizontal">Horizontal</label>
-              <select id="margin-horizontal" name="margin-horizontal" @change="replaceClass(selected_layout, selected_horizontal_margin.value, mappers.spacing_mapper.margin.horizontal.regex_pattern)" v-model="selected_horizontal_margin">
-                <option v-for='(margin_horizontal, index) in mappers.spacing_mapper.margin.horizontal.values' :key="index" :value="margin_horizontal">{{ margin_horizontal.text }}</option>
+              <select id="margin-horizontal" name="margin-horizontal" @change="replaceClass(selected_layout, selected_horizontal_margin, mappers.spacing_mapper.margin.horizontal.regex_pattern)" v-model="selected_horizontal_margin">
+                <option v-for='(margin_horizontal, index) in mappers.spacing_mapper.margin.horizontal.values' :key="index" :value="margin_horizontal.value">{{ margin_horizontal.text }}</option>
               </select>
             </div>
+            <!-- <div class="setting">
+              <label for="margin-horizontal">Horizontal</label>
+              <select id="margin-horizontal" name="margin-horizontal" @change="replaceClass(selected_layout, selected_horizontal_margin.value, mappers.spacing_mapper.margin.horizontal.regex_pattern)" v-model="selected_horizontal_margin">
+                <option v-for='(margin_horizontal, index) in mappers.spacing_mapper.margin.horizontal.values' :key="index" :value="margin_horizontal.id" :selected="setDefault(margin_horizontal, selected_layout)">{{ margin_horizontal.text }}</option>
+              </select>
+            </div> -->
             <div class="setting">
               <label for="margin-top">Top</label>
-              <select id="margin-top" name="margin-top" @change="replaceClass(selected_layout, selected_top_margin.value, mappers.spacing_mapper.margin.top.regex_pattern)" v-model="selected_top_margin">
-                <option v-for='(margin_top, index) in mappers.spacing_mapper.margin.top.values' :key="index" :value="margin_top">{{ margin_top.text }}</option>
+              <select id="margin-top" name="margin-top" @change="replaceClass(selected_layout, selected_top_margin, mappers.spacing_mapper.margin.top.regex_pattern)" v-model="selected_top_margin">
+                <option v-for='(margin_top, index) in mappers.spacing_mapper.margin.top.values' :key="index" :value="margin_top.value">{{ margin_top.text }}</option>
               </select>
             </div>
             <div class="setting">
               <label for="margin-bottom">Bottom</label>
-              <select id="margin-bottom" name="margin-bottom" @change="replaceClass(selected_layout, selected_bottom_margin.value, mappers.spacing_mapper.margin.bottom.regex_pattern)" v-model="selected_bottom_margin">
-                <option v-for='(margin_bottom, index) in mappers.spacing_mapper.margin.bottom.values' :key="index" :value="margin_bottom">{{ margin_bottom.text }}</option>
+              <select id="margin-bottom" name="margin-bottom" @change="replaceClass(selected_layout, selected_bottom_margin, mappers.spacing_mapper.margin.bottom.regex_pattern)" v-model="selected_bottom_margin">
+                <option v-for='(margin_bottom, index) in mappers.spacing_mapper.margin.bottom.values' :key="index" :value="margin_bottom.value">{{ margin_bottom.text }}</option>
               </select>
             </div>
             <div class="setting">
               <label for="margin-left">Left</label>
-              <select id="margin-left" name="margin-left" @change="replaceClass(selected_layout, selected_left_margin.value, mappers.spacing_mapper.margin.left.regex_pattern)" v-model="selected_left_margin">
-                <option v-for='(margin_left, index) in mappers.spacing_mapper.margin.left.values' :key="index" :value="margin_left">{{ margin_left.text }}</option>
+              <select id="margin-left" name="margin-left" @change="replaceClass(selected_layout, selected_left_margin, mappers.spacing_mapper.margin.left.regex_pattern)" v-model="selected_left_margin">
+                <option v-for='(margin_left, index) in mappers.spacing_mapper.margin.left.values' :key="index" :value="margin_left.value">{{ margin_left.text }}</option>
               </select>
             </div>
             <div class="setting">
               <label for="margin-right">Right</label>
-              <select id="margin-right" name="margin-right" @change="replaceClass(selected_layout, selected_right_margin.value, mappers.spacing_mapper.margin.right.regex_pattern)" v-model="selected_right_margin">
-                <option v-for='(margin_right, index) in mappers.spacing_mapper.margin.right.values' :key="index" :value="margin_right">{{ margin_right.text }}</option>
+              <select id="margin-right" name="margin-right" @change="replaceClass(selected_layout, selected_right_margin, mappers.spacing_mapper.margin.right.regex_pattern)" v-model="selected_right_margin">
+                <option v-for='(margin_right, index) in mappers.spacing_mapper.margin.right.values' :key="index" :value="margin_right.value">{{ margin_right.text }}</option>
               </select>
             </div>
           </div>
@@ -186,14 +192,14 @@
             <div class="setting-subtitle">Sizing</div>
             <div class="setting">
               <label for="width">Width</label>
-              <select id="width" name="width" @change="replaceClass(selected_layout, selected_width.value, mappers.sizing_mapper.width.regex_pattern)" v-model="selected_width">
-                <option v-for='(width, index) in mappers.sizing_mapper.width.values' :key="index" :value="width">{{ width.text }}</option>
+              <select id="width" name="width" @change="replaceClass(selected_layout, selected_width, mappers.sizing_mapper.width.regex_pattern)" v-model="selected_width">
+                <option v-for='(width, index) in mappers.sizing_mapper.width.values' :key="index" :value="width.value">{{ width.text }}</option>
               </select>
             </div>
             <div class="setting">
               <label for="height">Height</label>
-              <select id="height" name="height" @change="replaceClass(selected_layout, selected_height.value, mappers.sizing_mapper.height.regex_pattern)" v-model="selected_height">
-                <option v-for='(height, index) in mappers.sizing_mapper.height.values' :key="index" :value="height">{{ height.text }}</option>
+              <select id="height" name="height" @change="replaceClass(selected_layout, selected_height, mappers.sizing_mapper.height.regex_pattern)" v-model="selected_height">
+                <option v-for='(height, index) in mappers.sizing_mapper.height.values' :key="index" :value="height.value">{{ height.text }}</option>
               </select>
             </div>
           </div>
@@ -202,8 +208,8 @@
             <div class="setting-subtitle">Whitespace</div>
             <div class="setting">
               <label for="width">Whitespace</label>
-              <select id="width" name="width" @change="replaceClass(selected_layout, selected_ws.value, mappers.whitespace_mapper.regex_pattern)" v-model="selected_ws">
-                <option v-for='(ws, index) in mappers.whitespace_mapper.values' :key="index" :value="ws">{{ ws.text }}</option>
+              <select id="width" name="width" @change="replaceClass(selected_layout, selected_ws, mappers.whitespace_mapper.regex_pattern)" v-model="selected_ws">
+                <option v-for='(ws, index) in mappers.whitespace_mapper.values' :key="index" :value="ws.value">{{ ws.text }}</option>
               </select>
             </div>
           </div>
@@ -236,7 +242,7 @@ export default {
     name: 'RightPanel',
     data() {
       return {
-        current_panel: 'container',
+        current_panel: 'layout',
         animating: false,
         selected_layout: null,
         selected_element: null,
@@ -249,11 +255,32 @@ export default {
         },
         container_options: [],
         element_options: [],
+        settings: [
+            { model: 'selected_col_gap', mapper_values: grid_mapper.cols.gap.values },
+            { model: 'selected_row_gap', mapper_values: grid_mapper.rows.gap.values },
+            { model: 'selected_flex_col_gap', mapper_values: flex_mapper.gap.values },
+            { model: 'selected_all_padding', mapper_values: spacing_mapper.padding.all.values },
+            { model: 'selected_vertical_padding', mapper_values: spacing_mapper.padding.vertical.values },
+            { model: 'selected_horizontal_padding', mapper_values: spacing_mapper.padding.horizontal.values },
+            { model: 'selected_top_padding', mapper_values: spacing_mapper.padding.top.values },
+            { model: 'selected_bottom_padding', mapper_values: spacing_mapper.padding.bottom.values },
+            { model: 'selected_left_padding', mapper_values: spacing_mapper.padding.left.values },
+            { model: 'selected_right_padding', mapper_values: spacing_mapper.padding.right.values },
+            { model: 'selected_all_margin', mapper_values: spacing_mapper.margin.all.values },
+            { model: 'selected_vertical_margin', mapper_values: spacing_mapper.margin.vertical.values },
+            { model: 'selected_horizontal_margin', mapper_values: spacing_mapper.margin.horizontal.values },
+            { model: 'selected_top_margin', mapper_values: spacing_mapper.margin.top.values },
+            { model: 'selected_bottom_margin', mapper_values: spacing_mapper.margin.bottom.values },
+            { model: 'selected_left_margin', mapper_values: spacing_mapper.margin.left.values },
+            { model: 'selected_right_margin', mapper_values: spacing_mapper.margin.right.values },
+            { model: 'selected_width', mapper_values: sizing_mapper.width.values },
+            { model: 'selected_height', mapper_values: sizing_mapper.height.values },
+            { model: 'selected_ws', mapper_values: whitespace_mapper.values },
+        ],
         //Gaps
         selected_col_gap: Object,
         selected_row_gap: Object,
         selected_flex_col_gap: Object,
-        //Spacings
         //Paddings
         selected_all_padding: Object,
         selected_vertical_padding: Object,
@@ -281,6 +308,14 @@ export default {
       emitter.on('iframe-click', (args) => { //Fired from MainPanel.vue
         this.selected_layout = args.container
         this.selected_element = args.element
+        switch (this.current_panel) {
+          case 'layout':
+            this.setDefaultValues()
+          break;
+          case 'element':
+          break;
+          default:
+        }
       })
     },
     methods: {
@@ -336,6 +371,19 @@ export default {
       addFlexColumn(layout_instance) {
         if (layout_instance !== null) {
           layout_instance.addColumn()
+        }
+      },
+      setDefaultValues() {
+        let layout_classes = this.selected_layout.getClassesAsArray()
+        for (let setting of this.settings) {
+          //reset old value
+          this[setting.model] = ''
+          let found = setting.mapper_values.find((item) => {
+            return (layout_classes.includes(item.value))
+          })
+          if (typeof found !== 'undefined') {
+            this[setting.model] = found.value
+          }
         }
       }
     }

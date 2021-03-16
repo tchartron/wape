@@ -10665,7 +10665,10 @@ var wape = (function () {
       if (element.matches('.flex')) {
           return 'flex'
       }
-      return 'container'
+      if (element.matches('.container')) {
+          return 'container'
+      }
+      return null
   }
 
   function appendPlaceholder(element_type, container, number_to_append, class_to_add = '') {
@@ -10732,7 +10735,7 @@ var wape = (function () {
       name: 'RightPanel',
       data() {
         return {
-          current_panel: 'container',
+          current_panel: 'layout',
           animating: false,
           selected_layout: null,
           selected_element: null,
@@ -10745,11 +10748,32 @@ var wape = (function () {
           },
           container_options: [],
           element_options: [],
+          settings: [
+              { model: 'selected_col_gap', mapper_values: grid_mapper.cols.gap.values },
+              { model: 'selected_row_gap', mapper_values: grid_mapper.rows.gap.values },
+              { model: 'selected_flex_col_gap', mapper_values: flex_mapper.gap.values },
+              { model: 'selected_all_padding', mapper_values: spacing_mapper.padding.all.values },
+              { model: 'selected_vertical_padding', mapper_values: spacing_mapper.padding.vertical.values },
+              { model: 'selected_horizontal_padding', mapper_values: spacing_mapper.padding.horizontal.values },
+              { model: 'selected_top_padding', mapper_values: spacing_mapper.padding.top.values },
+              { model: 'selected_bottom_padding', mapper_values: spacing_mapper.padding.bottom.values },
+              { model: 'selected_left_padding', mapper_values: spacing_mapper.padding.left.values },
+              { model: 'selected_right_padding', mapper_values: spacing_mapper.padding.right.values },
+              { model: 'selected_all_margin', mapper_values: spacing_mapper.margin.all.values },
+              { model: 'selected_vertical_margin', mapper_values: spacing_mapper.margin.vertical.values },
+              { model: 'selected_horizontal_margin', mapper_values: spacing_mapper.margin.horizontal.values },
+              { model: 'selected_top_margin', mapper_values: spacing_mapper.margin.top.values },
+              { model: 'selected_bottom_margin', mapper_values: spacing_mapper.margin.bottom.values },
+              { model: 'selected_left_margin', mapper_values: spacing_mapper.margin.left.values },
+              { model: 'selected_right_margin', mapper_values: spacing_mapper.margin.right.values },
+              { model: 'selected_width', mapper_values: sizing_mapper.width.values },
+              { model: 'selected_height', mapper_values: sizing_mapper.height.values },
+              { model: 'selected_ws', mapper_values: whitespace_mapper.values },
+          ],
           //Gaps
           selected_col_gap: Object,
           selected_row_gap: Object,
           selected_flex_col_gap: Object,
-          //Spacings
           //Paddings
           selected_all_padding: Object,
           selected_vertical_padding: Object,
@@ -10777,9 +10801,15 @@ var wape = (function () {
         emitter.on('iframe-click', (args) => { //Fired from MainPanel.vue
           this.selected_layout = args.container;
           this.selected_element = args.element;
+          switch (this.current_panel) {
+            case 'layout':
+              this.setDefaultValues();
+            break;
+          }
         });
       },
       methods: {
+        replaceClass,
         switchPanel(panel) {
           this.animating = true;
           this.current_panel = panel;
@@ -10804,7 +10834,6 @@ var wape = (function () {
             return container.type === 'flex'
           }
         },
-        replaceClass,
         addGridColumn(layout_instance) {
           if (layout_instance !== null) {
             layout_instance.cols++;
@@ -10831,9 +10860,20 @@ var wape = (function () {
         },
         addFlexColumn(layout_instance) {
           if (layout_instance !== null) {
-            // if (this.selected_layout.type === 'flex') {
-              layout_instance.addColumn();
-            // }
+            layout_instance.addColumn();
+          }
+        },
+        setDefaultValues() {
+          let layout_classes = this.selected_layout.getClassesAsArray();
+          for (let setting of this.settings) {
+            //reset old value
+            this[setting.model] = '';
+            let found = setting.mapper_values.find((item) => {
+              return (layout_classes.includes(item.value))
+            });
+            if (typeof found !== 'undefined') {
+              this[setting.model] = found.value;
+            }
           }
         }
       }
@@ -10855,10 +10895,10 @@ var wape = (function () {
           _c(
             "div",
             {
-              staticClass: "container",
+              staticClass: "layout",
               on: {
                 click: function($event) {
-                  return _vm.switchPanel("container")
+                  return _vm.switchPanel("layout")
                 }
               }
             },
@@ -10883,7 +10923,7 @@ var wape = (function () {
           "transition",
           { attrs: { name: "left" }, on: { "after-leave": _vm.animationEnd } },
           [
-            _vm.showPanel("container") && !_vm.animating
+            _vm.showPanel("layout") && !_vm.animating
               ? _c("div", { staticClass: "container-settings" }, [
                   _vm.isGrid(_vm.selected_layout)
                     ? _c("div", { staticClass: "grid" }, [
@@ -11049,7 +11089,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_row_gap.value,
+                                        _vm.selected_row_gap,
                                         _vm.mappers.grid_mapper.rows.gap
                                           .regex_pattern
                                       )
@@ -11062,7 +11102,10 @@ var wape = (function () {
                                 function(row_gap, index) {
                                   return _c(
                                     "option",
-                                    { key: index, domProps: { value: row_gap } },
+                                    {
+                                      key: index,
+                                      domProps: { value: row_gap.value }
+                                    },
                                     [_vm._v(_vm._s(row_gap.text))]
                                   )
                                 }
@@ -11108,7 +11151,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_col_gap.value,
+                                        _vm.selected_col_gap,
                                         _vm.mappers.grid_mapper.cols.gap
                                           .regex_pattern
                                       )
@@ -11121,7 +11164,10 @@ var wape = (function () {
                                 function(col_gap, index) {
                                   return _c(
                                     "option",
-                                    { key: index, domProps: { value: col_gap } },
+                                    {
+                                      key: index,
+                                      domProps: { value: col_gap.value }
+                                    },
                                     [_vm._v(_vm._s(col_gap.text))]
                                   )
                                 }
@@ -11228,7 +11274,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_flex_col_gap.value,
+                                        _vm.selected_flex_col_gap,
                                         _vm.mappers.flex_mapper.gap.regex_pattern
                                       )
                                     }
@@ -11241,7 +11287,10 @@ var wape = (function () {
                               ) {
                                 return _c(
                                   "option",
-                                  { key: index, domProps: { value: col_gap } },
+                                  {
+                                    key: index,
+                                    domProps: { value: col_gap.value }
+                                  },
                                   [_vm._v(_vm._s(col_gap.text))]
                                 )
                               }),
@@ -11296,7 +11345,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_all_padding.value,
+                                        _vm.selected_all_padding,
                                         _vm.mappers.spacing_mapper.padding.all
                                           .regex_pattern
                                       )
@@ -11311,7 +11360,7 @@ var wape = (function () {
                                     "option",
                                     {
                                       key: index,
-                                      domProps: { value: padding_all }
+                                      domProps: { value: padding_all.value }
                                     },
                                     [_vm._v(_vm._s(padding_all.text))]
                                   )
@@ -11361,7 +11410,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_vertical_padding.value,
+                                        _vm.selected_vertical_padding,
                                         _vm.mappers.spacing_mapper.padding
                                           .vertical.regex_pattern
                                       )
@@ -11377,7 +11426,7 @@ var wape = (function () {
                                     "option",
                                     {
                                       key: index,
-                                      domProps: { value: padding_vertical }
+                                      domProps: { value: padding_vertical.value }
                                     },
                                     [_vm._v(_vm._s(padding_vertical.text))]
                                   )
@@ -11429,7 +11478,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_horizontal_padding.value,
+                                        _vm.selected_horizontal_padding,
                                         _vm.mappers.spacing_mapper.padding
                                           .horizontal.regex_pattern
                                       )
@@ -11445,7 +11494,9 @@ var wape = (function () {
                                     "option",
                                     {
                                       key: index,
-                                      domProps: { value: padding_horizontal }
+                                      domProps: {
+                                        value: padding_horizontal.value
+                                      }
                                     },
                                     [_vm._v(_vm._s(padding_horizontal.text))]
                                   )
@@ -11492,7 +11543,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_top_padding.value,
+                                        _vm.selected_top_padding,
                                         _vm.mappers.spacing_mapper.padding.top
                                           .regex_pattern
                                       )
@@ -11507,7 +11558,7 @@ var wape = (function () {
                                     "option",
                                     {
                                       key: index,
-                                      domProps: { value: padding_top }
+                                      domProps: { value: padding_top.value }
                                     },
                                     [_vm._v(_vm._s(padding_top.text))]
                                   )
@@ -11557,7 +11608,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_bottom_padding.value,
+                                        _vm.selected_bottom_padding,
                                         _vm.mappers.spacing_mapper.padding.bottom
                                           .regex_pattern
                                       )
@@ -11572,7 +11623,7 @@ var wape = (function () {
                                     "option",
                                     {
                                       key: index,
-                                      domProps: { value: padding_bottom }
+                                      domProps: { value: padding_bottom.value }
                                     },
                                     [_vm._v(_vm._s(padding_bottom.text))]
                                   )
@@ -11622,7 +11673,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_left_padding.value,
+                                        _vm.selected_left_padding,
                                         _vm.mappers.spacing_mapper.padding.left
                                           .regex_pattern
                                       )
@@ -11637,7 +11688,7 @@ var wape = (function () {
                                     "option",
                                     {
                                       key: index,
-                                      domProps: { value: padding_left }
+                                      domProps: { value: padding_left.value }
                                     },
                                     [_vm._v(_vm._s(padding_left.text))]
                                   )
@@ -11687,7 +11738,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_right_padding.value,
+                                        _vm.selected_right_padding,
                                         _vm.mappers.spacing_mapper.padding.right
                                           .regex_pattern
                                       )
@@ -11702,7 +11753,7 @@ var wape = (function () {
                                     "option",
                                     {
                                       key: index,
-                                      domProps: { value: padding_right }
+                                      domProps: { value: padding_right.value }
                                     },
                                     [_vm._v(_vm._s(padding_right.text))]
                                   )
@@ -11755,7 +11806,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_all_margin.value,
+                                        _vm.selected_all_margin,
                                         _vm.mappers.spacing_mapper.margin.all
                                           .regex_pattern
                                       )
@@ -11770,7 +11821,7 @@ var wape = (function () {
                                     "option",
                                     {
                                       key: index,
-                                      domProps: { value: margin_all }
+                                      domProps: { value: margin_all.value }
                                     },
                                     [_vm._v(_vm._s(margin_all.text))]
                                   )
@@ -11820,7 +11871,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_vertical_margin.value,
+                                        _vm.selected_vertical_margin,
                                         _vm.mappers.spacing_mapper.margin.vertical
                                           .regex_pattern
                                       )
@@ -11835,7 +11886,7 @@ var wape = (function () {
                                     "option",
                                     {
                                       key: index,
-                                      domProps: { value: margin_vertical }
+                                      domProps: { value: margin_vertical.value }
                                     },
                                     [_vm._v(_vm._s(margin_vertical.text))]
                                   )
@@ -11885,7 +11936,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_horizontal_margin.value,
+                                        _vm.selected_horizontal_margin,
                                         _vm.mappers.spacing_mapper.margin
                                           .horizontal.regex_pattern
                                       )
@@ -11901,7 +11952,7 @@ var wape = (function () {
                                     "option",
                                     {
                                       key: index,
-                                      domProps: { value: margin_horizontal }
+                                      domProps: { value: margin_horizontal.value }
                                     },
                                     [_vm._v(_vm._s(margin_horizontal.text))]
                                   )
@@ -11948,7 +11999,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_top_margin.value,
+                                        _vm.selected_top_margin,
                                         _vm.mappers.spacing_mapper.margin.top
                                           .regex_pattern
                                       )
@@ -11963,7 +12014,7 @@ var wape = (function () {
                                     "option",
                                     {
                                       key: index,
-                                      domProps: { value: margin_top }
+                                      domProps: { value: margin_top.value }
                                     },
                                     [_vm._v(_vm._s(margin_top.text))]
                                   )
@@ -12013,7 +12064,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_bottom_margin.value,
+                                        _vm.selected_bottom_margin,
                                         _vm.mappers.spacing_mapper.margin.bottom
                                           .regex_pattern
                                       )
@@ -12028,7 +12079,7 @@ var wape = (function () {
                                     "option",
                                     {
                                       key: index,
-                                      domProps: { value: margin_bottom }
+                                      domProps: { value: margin_bottom.value }
                                     },
                                     [_vm._v(_vm._s(margin_bottom.text))]
                                   )
@@ -12075,7 +12126,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_left_margin.value,
+                                        _vm.selected_left_margin,
                                         _vm.mappers.spacing_mapper.margin.left
                                           .regex_pattern
                                       )
@@ -12090,7 +12141,7 @@ var wape = (function () {
                                     "option",
                                     {
                                       key: index,
-                                      domProps: { value: margin_left }
+                                      domProps: { value: margin_left.value }
                                     },
                                     [_vm._v(_vm._s(margin_left.text))]
                                   )
@@ -12140,7 +12191,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_right_margin.value,
+                                        _vm.selected_right_margin,
                                         _vm.mappers.spacing_mapper.margin.right
                                           .regex_pattern
                                       )
@@ -12155,7 +12206,7 @@ var wape = (function () {
                                     "option",
                                     {
                                       key: index,
-                                      domProps: { value: margin_right }
+                                      domProps: { value: margin_right.value }
                                     },
                                     [_vm._v(_vm._s(margin_right.text))]
                                   )
@@ -12207,7 +12258,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_width.value,
+                                        _vm.selected_width,
                                         _vm.mappers.sizing_mapper.width
                                           .regex_pattern
                                       )
@@ -12220,7 +12271,10 @@ var wape = (function () {
                                 function(width, index) {
                                   return _c(
                                     "option",
-                                    { key: index, domProps: { value: width } },
+                                    {
+                                      key: index,
+                                      domProps: { value: width.value }
+                                    },
                                     [_vm._v(_vm._s(width.text))]
                                   )
                                 }
@@ -12265,7 +12319,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_height.value,
+                                        _vm.selected_height,
                                         _vm.mappers.sizing_mapper.height
                                           .regex_pattern
                                       )
@@ -12278,7 +12332,10 @@ var wape = (function () {
                                 function(height, index) {
                                   return _c(
                                     "option",
-                                    { key: index, domProps: { value: height } },
+                                    {
+                                      key: index,
+                                      domProps: { value: height.value }
+                                    },
                                     [_vm._v(_vm._s(height.text))]
                                   )
                                 }
@@ -12329,7 +12386,7 @@ var wape = (function () {
                                     function($event) {
                                       return _vm.replaceClass(
                                         _vm.selected_layout,
-                                        _vm.selected_ws.value,
+                                        _vm.selected_ws,
                                         _vm.mappers.whitespace_mapper
                                           .regex_pattern
                                       )
@@ -12342,7 +12399,7 @@ var wape = (function () {
                                 function(ws, index) {
                                   return _c(
                                     "option",
-                                    { key: index, domProps: { value: ws } },
+                                    { key: index, domProps: { value: ws.value } },
                                     [_vm._v(_vm._s(ws.text))]
                                   )
                                 }
@@ -12379,11 +12436,11 @@ var wape = (function () {
     /* style */
     const __vue_inject_styles__$2 = function (inject) {
       if (!inject) return
-      inject("data-v-6a826952_0", { source: "\ndiv.right-panel[data-v-6a826952] {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n}\ndiv.right-panel > div.actions[data-v-6a826952] {\n      display: flex;\n      border-bottom: .5px solid #000;\n}\ndiv.right-panel > div.actions > div[data-v-6a826952] {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n}\ndiv.right-panel > div.actions > div.container[data-v-6a826952]\n    {\n      border-right: .5px solid #000;\n}\ndiv.right-panel > div.actions > div.element[data-v-6a826952]\n    {\n      border-right: .5px solid #000;\n}\n\n    /* Animations thanks animista.net */\n.left-enter-active[data-v-6a826952] {\n    -webkit-animation: slide-in-left-data-v-6a826952 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left-data-v-6a826952 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n.right-enter-active[data-v-6a826952] {\n  -webkit-animation: slide-in-right-data-v-6a826952 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right-data-v-6a826952 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n@-webkit-keyframes slide-in-left-data-v-6a826952 {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-left-data-v-6a826952 {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@-webkit-keyframes slide-in-right-data-v-6a826952 {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-right-data-v-6a826952 {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\ndiv.setting-label[data-v-6a826952] {\n    color: #fff;\n    text-transform: capitalize;\n    font-size: 1.2rem;\n    border-bottom: 1px solid #fff;\n    padding-bottom: .7rem;\n}\ndiv.container-settings[data-v-6a826952],\n  div.element-settings[data-v-6a826952] {\n    margin: 3% 2.5%;\n    width: 95%;\n    min-width: 95%;\n    box-sizing: border-box;\n    user-select: none;\n    overflow-y: scroll;\n    height: calc(100% - 2.7rem);\n}\ndiv.setting-subtitle[data-v-6a826952] {\n    color: #fff;\n    font-size: 1.1rem;\n    margin: 0.7rem 0.2rem 0.3rem;\n}\ndiv.setting-content[data-v-6a826952] {\n    margin: 0.5rem;\n    color: #d3d3d3;\n    border-bottom: 1px dashed #fff;\n    padding-bottom: 0.7rem;\n}\ndiv.setting[data-v-6a826952] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    line-height: 1.7rem;\n}\ndiv.action[data-v-6a826952] {\n    display: flex;\n    justify-content: flex-end;\n    margin-bottom: 5px;\n}\ndiv.action > div.add-item[data-v-6a826952] {\n    padding: .5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    color: #fff;\n}\ndiv.action > div.add-item[data-v-6a826952]:hover {\n    padding: .5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n}\ndiv.row > div.remove-item[data-v-6a826952] {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    margin: 0.3rem 0;\n}\ndiv.row > div.remove-item[data-v-6a826952]:hover {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n    margin: 0.3rem 0;\n}\ndiv.setting-wrapper > div.rows > div.row[data-v-6a826952]:first-child {\n    line-height: 2rem;\n    border-top: 1px dotted #fff;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n}\ndiv.setting-wrapper > div.rows > div.row[data-v-6a826952] {\n    display: flex;\n    justify-content: space-between;\n    line-height: 2rem;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n}\ndiv.item-title[data-v-6a826952] {\n    display: flex;\n    align-items: center;\n}\n", map: {"version":3,"sources":["/Users/thomas/Developer/perso/wape/src/editor/components/layout/RightPanel.vue"],"names":[],"mappings":";AA2VA;MACA,yBAAA;MACA,2BAAA;MACA,YAAA;MACA,gBAAA;AACA;AACA;MACA,aAAA;MACA,8BAAA;AACA;AACA;MACA,cAAA;MACA,WAAA;MACA,iBAAA;MACA,eAAA;AACA;AACA;;MAEA,6BAAA;AACA;AACA;;MAEA,6BAAA;AACA;;IAEA,mCAAA;AACA;IACA,mGAAA;UACA,2FAAA;AACA;AACA;;;IAGA;AACA;EACA,oGAAA;UACA,4FAAA;AACA;CACA;;;IAGA;EACA,mCAAA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AAEA;IACA,WAAA;IACA,0BAAA;IACA,iBAAA;IACA,6BAAA;IACA,qBAAA;AACA;AAEA;;IAEA,eAAA;IACA,UAAA;IACA,cAAA;IACA,sBAAA;IACA,iBAAA;IACA,kBAAA;IACA,2BAAA;AACA;AAEA;IACA,WAAA;IACA,iBAAA;IACA,4BAAA;AACA;AAEA;IACA,cAAA;IACA,cAAA;IACA,8BAAA;IACA,sBAAA;AACA;AAEA;IACA,aAAA;IACA,mBAAA;IACA,8BAAA;IACA,mBAAA;AACA;AAEA;IACA,aAAA;IACA,yBAAA;IACA,kBAAA;AACA;AACA;IACA,cAAA;IACA,sBAAA;IACA,eAAA;IACA,WAAA;AACA;AACA;IACA,cAAA;IACA,sBAAA;IACA,yBAAA;IACA,eAAA;AACA;AACA;IACA,sBAAA;IACA,sBAAA;IACA,eAAA;IACA,gBAAA;AACA;AACA;IACA,sBAAA;IACA,sBAAA;IACA,yBAAA;IACA,eAAA;IACA,gBAAA;AACA;AACA;IACA,iBAAA;IACA,2BAAA;IACA,8BAAA;IACA,eAAA;AACA;AACA;IACA,aAAA;IACA,8BAAA;IACA,iBAAA;IACA,8BAAA;IACA,eAAA;AACA;AACA;IACA,aAAA;IACA,mBAAA;AACA","file":"RightPanel.vue","sourcesContent":["<template>\n  <div class=\"right-panel\">\n    <div class=\"actions\">\n      <div class=\"container\" @click=\"switchPanel('container')\">\n        <i class=\"far fa-square\" />\n      </div>\n      <div class=\"element\" @click=\"switchPanel('element')\">\n        <i class=\"fas fa-square\" />\n      </div>\n    </div>\n    <transition name=\"left\" @after-leave=\"animationEnd\">\n      <div v-if=\"(showPanel('container')) && !animating\" class=\"container-settings\">\n        <!-- GRID -->\n        <div class=\"grid\" v-if=\"isGrid(selected_layout)\">\n          <div class=\"setting-label\">Grid settings</div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Rows</div>\n            <div class=\"setting-wrapper\">\n              <div class=\"action\">\n                <div class=\"add-item\" @click=\"addGridRow(selected_layout)\">\n                  <i class=\"fas fa-plus\"></i>\n                </div>\n              </div>\n              <div class=\"rows\">\n                <div class=\"row\" v-for=\"(row, index) in selected_layout.rows\" :key=\"index\">\n                  <div class=\"item-title\">Row {{ row }}</div>\n                  <div class=\"remove-item\" @click=\"deleteGridRow(selected_layout)\"><i class=\"fas fa-minus\"></i></div>\n                </div>\n              </div>\n            </div>\n            <div class=\"setting-subtitle\">Columns</div>\n            <div class=\"setting-wrapper\">\n              <div class=\"action\">\n                <div class=\"add-item\" @click=\"addGridColumn(selected_layout)\">\n                  <i class=\"fas fa-plus\"></i>\n                </div>\n              </div>\n              <div class=\"rows\">\n                <div class=\"row\" v-for=\"(col, index) in selected_layout.cols\" :key=\"index\">\n                  <div class=\"item-title\">Column {{ col }}</div>\n                  <div class=\"remove-item\" @click=\"deleteGridRow(selected_layout)\"><i class=\"fas fa-minus\"></i></div>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Gap</div>\n            <div class=\"setting\">\n              <label for=\"rows-gap\">Rows gap</label>\n              <select id=\"rows-gap\" name=\"rows-gap\" @change=\"replaceClass(selected_layout, selected_row_gap.value, mappers.grid_mapper.rows.gap.regex_pattern)\" v-model=\"selected_row_gap\">\n                <option v-for=\"(row_gap, index) in mappers.grid_mapper.rows.gap.values\" :key=\"index\" :value=\"row_gap\">{{ row_gap.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"cols-gap\">Cols gap</label>\n              <select id=\"cols-gap\" name=\"cols-gap\" @change=\"replaceClass(selected_layout, selected_col_gap.value, mappers.grid_mapper.cols.gap.regex_pattern)\" v-model=\"selected_col_gap\">\n                <option v-for='(col_gap, index) in mappers.grid_mapper.cols.gap.values' :key=\"index\" :value=\"col_gap\">{{ col_gap.text }}</option>\n              </select>\n            </div>\n          </div>\n        </div>\n        <!-- FLEX -->\n        <div class=\"flex\" v-if=\"isFlex(selected_layout)\">\n          <div class=\"setting-label\">Columns settings</div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Columns</div>\n            <div class=\"setting-wrapper\">\n              <div class=\"action\">\n                <div class=\"add-item\" @click=\"addFlexColumn(selected_layout)\">\n                  <i class=\"fas fa-plus\"></i>\n                </div>\n              </div>\n              <div class=\"rows\">\n                <div class=\"row\" v-for=\"(col, index) in selected_layout.cols\" :key=\"index\">\n                  Column {{ col }}\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Gap</div>\n            <div class=\"setting\">\n              <label for=\"cols-gap\">Cols gap</label>\n              <select id=\"cols-gap\" name=\"cols-gap\" @change=\"replaceClass(selected_layout, selected_flex_col_gap.value, mappers.flex_mapper.gap.regex_pattern)\" v-model=\"selected_flex_col_gap\">\n                <option v-for='(col_gap, index) in mappers.flex_mapper.gap.values' :key=\"index\" :value=\"col_gap\">{{ col_gap.text }}</option>\n              </select>\n            </div>\n          </div>\n        </div>\n        <!-- GENERALS -->\n        <div class=\"generals\" v-if=\"(selected_layout !== null)\">\n          <!-- PADDINGS -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Paddings</div>\n            <div class=\"setting\">\n              <label for=\"padding-all\">All</label>\n              <select id=\"padding-all\" name=\"padding-all\" @change=\"replaceClass(selected_layout, selected_all_padding.value, mappers.spacing_mapper.padding.all.regex_pattern)\" v-model=\"selected_all_padding\">\n                <option v-for='(padding_all, index) in mappers.spacing_mapper.padding.all.values' :key=\"index\" :value=\"padding_all\">{{ padding_all.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-vertical\">Vertical</label>\n              <select id=\"padding-vertical\" name=\"padding-vertical\" @change=\"replaceClass(selected_layout, selected_vertical_padding.value, mappers.spacing_mapper.padding.vertical.regex_pattern)\" v-model=\"selected_vertical_padding\">\n                <option v-for='(padding_vertical, index) in mappers.spacing_mapper.padding.vertical.values' :key=\"index\" :value=\"padding_vertical\">{{ padding_vertical.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-horizontal\">Horizontal</label>\n              <select id=\"padding-horizontal\" name=\"padding-horizontal\" @change=\"replaceClass(selected_layout, selected_horizontal_padding.value, mappers.spacing_mapper.padding.horizontal.regex_pattern)\" v-model=\"selected_horizontal_padding\">\n                <option v-for='(padding_horizontal, index) in mappers.spacing_mapper.padding.horizontal.values' :key=\"index\" :value=\"padding_horizontal\">{{ padding_horizontal.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-top\">Top</label>\n              <select id=\"padding-top\" name=\"padding-top\" @change=\"replaceClass(selected_layout, selected_top_padding.value, mappers.spacing_mapper.padding.top.regex_pattern)\" v-model=\"selected_top_padding\">\n                <option v-for='(padding_top, index) in mappers.spacing_mapper.padding.top.values' :key=\"index\" :value=\"padding_top\">{{ padding_top.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-bottom\">Bottom</label>\n              <select id=\"padding-bottom\" name=\"padding-bottom\" @change=\"replaceClass(selected_layout, selected_bottom_padding.value, mappers.spacing_mapper.padding.bottom.regex_pattern)\" v-model=\"selected_bottom_padding\">\n                <option v-for='(padding_bottom, index) in mappers.spacing_mapper.padding.bottom.values' :key=\"index\" :value=\"padding_bottom\">{{ padding_bottom.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-left\">Left</label>\n              <select id=\"padding-left\" name=\"padding-left\" @change=\"replaceClass(selected_layout, selected_left_padding.value, mappers.spacing_mapper.padding.left.regex_pattern)\" v-model=\"selected_left_padding\">\n                <option v-for='(padding_left, index) in mappers.spacing_mapper.padding.left.values' :key=\"index\" :value=\"padding_left\">{{ padding_left.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-right\">Right</label>\n              <select id=\"padding-right\" name=\"padding-right\" @change=\"replaceClass(selected_layout, selected_right_padding.value, mappers.spacing_mapper.padding.right.regex_pattern)\" v-model=\"selected_right_padding\">\n                <option v-for='(padding_right, index) in mappers.spacing_mapper.padding.right.values' :key=\"index\" :value=\"padding_right\">{{ padding_right.text }}</option>\n              </select>\n            </div>\n          </div>\n          <!-- MARGINS -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Margins</div>\n            <div class=\"setting\">\n              <label for=\"margin-all\">All</label>\n              <select id=\"margin-all\" name=\"margin-all\" @change=\"replaceClass(selected_layout, selected_all_margin.value, mappers.spacing_mapper.margin.all.regex_pattern)\" v-model=\"selected_all_margin\">\n                <option v-for='(margin_all, index) in mappers.spacing_mapper.margin.all.values' :key=\"index\" :value=\"margin_all\">{{ margin_all.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-vertical\">Vertical</label>\n              <select id=\"margin-vertical\" name=\"margin-vertical\" @change=\"replaceClass(selected_layout, selected_vertical_margin.value, mappers.spacing_mapper.margin.vertical.regex_pattern)\" v-model=\"selected_vertical_margin\">\n                <option v-for='(margin_vertical, index) in mappers.spacing_mapper.margin.vertical.values' :key=\"index\" :value=\"margin_vertical\">{{ margin_vertical.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-horizontal\">Horizontal</label>\n              <select id=\"margin-horizontal\" name=\"margin-horizontal\" @change=\"replaceClass(selected_layout, selected_horizontal_margin.value, mappers.spacing_mapper.margin.horizontal.regex_pattern)\" v-model=\"selected_horizontal_margin\">\n                <option v-for='(margin_horizontal, index) in mappers.spacing_mapper.margin.horizontal.values' :key=\"index\" :value=\"margin_horizontal\">{{ margin_horizontal.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-top\">Top</label>\n              <select id=\"margin-top\" name=\"margin-top\" @change=\"replaceClass(selected_layout, selected_top_margin.value, mappers.spacing_mapper.margin.top.regex_pattern)\" v-model=\"selected_top_margin\">\n                <option v-for='(margin_top, index) in mappers.spacing_mapper.margin.top.values' :key=\"index\" :value=\"margin_top\">{{ margin_top.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-bottom\">Bottom</label>\n              <select id=\"margin-bottom\" name=\"margin-bottom\" @change=\"replaceClass(selected_layout, selected_bottom_margin.value, mappers.spacing_mapper.margin.bottom.regex_pattern)\" v-model=\"selected_bottom_margin\">\n                <option v-for='(margin_bottom, index) in mappers.spacing_mapper.margin.bottom.values' :key=\"index\" :value=\"margin_bottom\">{{ margin_bottom.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-left\">Left</label>\n              <select id=\"margin-left\" name=\"margin-left\" @change=\"replaceClass(selected_layout, selected_left_margin.value, mappers.spacing_mapper.margin.left.regex_pattern)\" v-model=\"selected_left_margin\">\n                <option v-for='(margin_left, index) in mappers.spacing_mapper.margin.left.values' :key=\"index\" :value=\"margin_left\">{{ margin_left.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-right\">Right</label>\n              <select id=\"margin-right\" name=\"margin-right\" @change=\"replaceClass(selected_layout, selected_right_margin.value, mappers.spacing_mapper.margin.right.regex_pattern)\" v-model=\"selected_right_margin\">\n                <option v-for='(margin_right, index) in mappers.spacing_mapper.margin.right.values' :key=\"index\" :value=\"margin_right\">{{ margin_right.text }}</option>\n              </select>\n            </div>\n          </div>\n           <!-- SIZINGS -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Sizing</div>\n            <div class=\"setting\">\n              <label for=\"width\">Width</label>\n              <select id=\"width\" name=\"width\" @change=\"replaceClass(selected_layout, selected_width.value, mappers.sizing_mapper.width.regex_pattern)\" v-model=\"selected_width\">\n                <option v-for='(width, index) in mappers.sizing_mapper.width.values' :key=\"index\" :value=\"width\">{{ width.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"height\">Height</label>\n              <select id=\"height\" name=\"height\" @change=\"replaceClass(selected_layout, selected_height.value, mappers.sizing_mapper.height.regex_pattern)\" v-model=\"selected_height\">\n                <option v-for='(height, index) in mappers.sizing_mapper.height.values' :key=\"index\" :value=\"height\">{{ height.text }}</option>\n              </select>\n            </div>\n          </div>\n           <!-- WHITESPACE -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Whitespace</div>\n            <div class=\"setting\">\n              <label for=\"width\">Whitespace</label>\n              <select id=\"width\" name=\"width\" @change=\"replaceClass(selected_layout, selected_ws.value, mappers.whitespace_mapper.regex_pattern)\" v-model=\"selected_ws\">\n                <option v-for='(ws, index) in mappers.whitespace_mapper.values' :key=\"index\" :value=\"ws\">{{ ws.text }}</option>\n              </select>\n            </div>\n          </div>\n        </div>\n      </div>\n    </transition>\n\n    <transition name=\"right\" @after-leave=\"animationEnd\">\n      <div v-if=\"(showPanel('element')) && !animating\" class=\"element-settings\">\n        ELEMENT\n      </div>\n    </transition>\n  </div>\n</template>\n\n<script>\nimport { emitter } from 'App/Wape'\nimport isEmpty from 'lodash/isEmpty'\nimport {\n  grid_mapper,\n  flex_mapper,\n  spacing_mapper,\n  sizing_mapper,\n  whitespace_mapper\n} from 'Editor/mappers/tailwind/layout'\nimport { appendPlaceholder } from 'Editor/utilities/layout'\nimport { replaceClass } from 'Editor/utilities/utilities'\n\nexport default {\n    name: 'RightPanel',\n    data() {\n      return {\n        current_panel: 'container',\n        animating: false,\n        selected_layout: null,\n        selected_element: null,\n        mappers: {\n          grid_mapper,\n          flex_mapper,\n          spacing_mapper,\n          sizing_mapper,\n          whitespace_mapper,\n        },\n        container_options: [],\n        element_options: [],\n        //Gaps\n        selected_col_gap: Object,\n        selected_row_gap: Object,\n        selected_flex_col_gap: Object,\n        //Spacings\n        //Paddings\n        selected_all_padding: Object,\n        selected_vertical_padding: Object,\n        selected_horizontal_padding: Object,\n        selected_top_padding: Object,\n        selected_bottom_padding: Object,\n        selected_left_padding: Object,\n        selected_right_padding: Object,\n        //Margins\n        selected_all_margin: Object,\n        selected_vertical_margin: Object,\n        selected_horizontal_margin: Object,\n        selected_top_margin: Object,\n        selected_bottom_margin: Object,\n        selected_left_margin: Object,\n        selected_right_margin: Object,\n        //Sizings\n        selected_width: Object,\n        selected_height: Object,\n        //Whitespace\n        selected_ws: Object,\n      }\n    },\n    mounted() {\n      emitter.on('iframe-click', (args) => { //Fired from MainPanel.vue\n        this.selected_layout = args.container\n        this.selected_element = args.element\n      })\n    },\n    methods: {\n      switchPanel(panel) {\n        this.animating = true\n        this.current_panel = panel\n      },\n      showPanel(panel) {\n        return (this.current_panel === panel)\n      },\n      animationEnd() {\n        this.animating = false\n      },\n      isGrid(container) {\n        if (container === null) {\n          return false\n        } else {\n          return container.type === 'grid'\n        }\n      },\n      isFlex(container) {\n        if (container === null) {\n          return false\n        } else {\n          return container.type === 'flex'\n        }\n      },\n      replaceClass,\n      addGridColumn(layout_instance) {\n        if (layout_instance !== null) {\n          layout_instance.cols++\n          this.replaceClass(layout_instance, `grid-cols-${layout_instance.cols}`, this.mappers.grid_mapper.cols.template.regex_pattern)\n          let total_places_in_grid = ((layout_instance.cols !== 0) ? layout_instance.cols : 1) * ((layout_instance.rows !== 0) ? layout_instance.rows : 1)\n          let elements_in_grid = layout_instance.element.children.length\n          let number_of_placeholder_to_append = total_places_in_grid - elements_in_grid\n          if (number_of_placeholder_to_append > 0) {\n            appendPlaceholder('div', layout_instance.element, number_of_placeholder_to_append, 'grid-placeholder')\n          }\n        }\n      },\n      addGridRow(layout_instance) {\n        if (layout_instance !== null) {\n          layout_instance.rows++\n          this.replaceClass(layout_instance, `grid-rows-${layout_instance.rows}`, this.mappers.grid_mapper.rows.template.regex_pattern)\n          let total_places_in_grid = ((layout_instance.cols !== 0) ? layout_instance.cols : 1) * ((layout_instance.rows !== 0) ? layout_instance.rows : 1)\n          let elements_in_grid = layout_instance.element.children.length\n          let number_of_placeholder_to_append = total_places_in_grid - elements_in_grid\n          if (number_of_placeholder_to_append > 0) {\n            appendPlaceholder('div', layout_instance.element, number_of_placeholder_to_append, 'grid-placeholder')\n          }\n        }\n      },\n      addFlexColumn(layout_instance) {\n        if (layout_instance !== null) {\n          // if (this.selected_layout.type === 'flex') {\n            layout_instance.addColumn()\n          // }\n        }\n      }\n    }\n}\n</script>\n\n<style scoped>\n    div.right-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n    }\n    div.right-panel > div.actions {\n      display: flex;\n      border-bottom: .5px solid #000;\n    }\n    div.right-panel > div.actions > div {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n    }\n    div.right-panel > div.actions > div.container\n    {\n      border-right: .5px solid #000;\n    }\n    div.right-panel > div.actions > div.element\n    {\n      border-right: .5px solid #000;\n    }\n\n    /* Animations thanks animista.net */\n  .left-enter-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  .right-enter-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n  @-webkit-keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @-webkit-keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n\n  div.setting-label {\n    color: #fff;\n    text-transform: capitalize;\n    font-size: 1.2rem;\n    border-bottom: 1px solid #fff;\n    padding-bottom: .7rem;\n  }\n\n  div.container-settings,\n  div.element-settings {\n    margin: 3% 2.5%;\n    width: 95%;\n    min-width: 95%;\n    box-sizing: border-box;\n    user-select: none;\n    overflow-y: scroll;\n    height: calc(100% - 2.7rem);\n  }\n\n  div.setting-subtitle {\n    color: #fff;\n    font-size: 1.1rem;\n    margin: 0.7rem 0.2rem 0.3rem;\n  }\n\n  div.setting-content {\n    margin: 0.5rem;\n    color: #d3d3d3;\n    border-bottom: 1px dashed #fff;\n    padding-bottom: 0.7rem;\n  }\n\n  div.setting {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    line-height: 1.7rem;\n  }\n\n  div.action {\n    display: flex;\n    justify-content: flex-end;\n    margin-bottom: 5px;\n  }\n  div.action > div.add-item {\n    padding: .5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    color: #fff;\n  }\n  div.action > div.add-item:hover {\n    padding: .5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n  }\n  div.row > div.remove-item {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    margin: 0.3rem 0;\n  }\n  div.row > div.remove-item:hover {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n    margin: 0.3rem 0;\n  }\n  div.setting-wrapper > div.rows > div.row:first-child {\n    line-height: 2rem;\n    border-top: 1px dotted #fff;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n  }\n  div.setting-wrapper > div.rows > div.row {\n    display: flex;\n    justify-content: space-between;\n    line-height: 2rem;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n  }\n  div.item-title {\n    display: flex;\n    align-items: center;\n  }\n</style>\n"]}, media: undefined });
+      inject("data-v-0f2518ec_0", { source: "\ndiv.right-panel[data-v-0f2518ec] {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n}\ndiv.right-panel > div.actions[data-v-0f2518ec] {\n      display: flex;\n      border-bottom: .5px solid #000;\n}\ndiv.right-panel > div.actions > div[data-v-0f2518ec] {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n}\ndiv.right-panel > div.actions > div.container[data-v-0f2518ec]\n    {\n      border-right: .5px solid #000;\n}\ndiv.right-panel > div.actions > div.element[data-v-0f2518ec]\n    {\n      border-right: .5px solid #000;\n}\n\n    /* Animations thanks animista.net */\n.left-enter-active[data-v-0f2518ec] {\n    -webkit-animation: slide-in-left-data-v-0f2518ec 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left-data-v-0f2518ec 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n.right-enter-active[data-v-0f2518ec] {\n  -webkit-animation: slide-in-right-data-v-0f2518ec 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right-data-v-0f2518ec 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n@-webkit-keyframes slide-in-left-data-v-0f2518ec {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-left-data-v-0f2518ec {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@-webkit-keyframes slide-in-right-data-v-0f2518ec {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-right-data-v-0f2518ec {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\ndiv.setting-label[data-v-0f2518ec] {\n    color: #fff;\n    text-transform: capitalize;\n    font-size: 1.2rem;\n    border-bottom: 1px solid #fff;\n    padding-bottom: .7rem;\n}\ndiv.container-settings[data-v-0f2518ec],\n  div.element-settings[data-v-0f2518ec] {\n    margin: 3% 2.5%;\n    width: 95%;\n    min-width: 95%;\n    box-sizing: border-box;\n    user-select: none;\n    overflow-y: scroll;\n    height: calc(100% - 2.7rem);\n}\ndiv.setting-subtitle[data-v-0f2518ec] {\n    color: #fff;\n    font-size: 1.1rem;\n    margin: 0.7rem 0.2rem 0.3rem;\n}\ndiv.setting-content[data-v-0f2518ec] {\n    margin: 0.5rem;\n    color: #d3d3d3;\n    border-bottom: 1px dashed #fff;\n    padding-bottom: 0.7rem;\n}\ndiv.setting[data-v-0f2518ec] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    line-height: 1.7rem;\n}\ndiv.action[data-v-0f2518ec] {\n    display: flex;\n    justify-content: flex-end;\n    margin-bottom: 5px;\n}\ndiv.action > div.add-item[data-v-0f2518ec] {\n    padding: .5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    color: #fff;\n}\ndiv.action > div.add-item[data-v-0f2518ec]:hover {\n    padding: .5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n}\ndiv.row > div.remove-item[data-v-0f2518ec] {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    margin: 0.3rem 0;\n}\ndiv.row > div.remove-item[data-v-0f2518ec]:hover {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n    margin: 0.3rem 0;\n}\ndiv.setting-wrapper > div.rows > div.row[data-v-0f2518ec]:first-child {\n    line-height: 2rem;\n    border-top: 1px dotted #fff;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n}\ndiv.setting-wrapper > div.rows > div.row[data-v-0f2518ec] {\n    display: flex;\n    justify-content: space-between;\n    line-height: 2rem;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n}\ndiv.item-title[data-v-0f2518ec] {\n    display: flex;\n    align-items: center;\n}\n", map: {"version":3,"sources":["/Users/thomas/Developer/perso/wape/src/editor/components/layout/RightPanel.vue"],"names":[],"mappings":";AAyYA;MACA,yBAAA;MACA,2BAAA;MACA,YAAA;MACA,gBAAA;AACA;AACA;MACA,aAAA;MACA,8BAAA;AACA;AACA;MACA,cAAA;MACA,WAAA;MACA,iBAAA;MACA,eAAA;AACA;AACA;;MAEA,6BAAA;AACA;AACA;;MAEA,6BAAA;AACA;;IAEA,mCAAA;AACA;IACA,mGAAA;UACA,2FAAA;AACA;AACA;;;IAGA;AACA;EACA,oGAAA;UACA,4FAAA;AACA;CACA;;;IAGA;EACA,mCAAA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AAEA;IACA,WAAA;IACA,0BAAA;IACA,iBAAA;IACA,6BAAA;IACA,qBAAA;AACA;AAEA;;IAEA,eAAA;IACA,UAAA;IACA,cAAA;IACA,sBAAA;IACA,iBAAA;IACA,kBAAA;IACA,2BAAA;AACA;AAEA;IACA,WAAA;IACA,iBAAA;IACA,4BAAA;AACA;AAEA;IACA,cAAA;IACA,cAAA;IACA,8BAAA;IACA,sBAAA;AACA;AAEA;IACA,aAAA;IACA,mBAAA;IACA,8BAAA;IACA,mBAAA;AACA;AAEA;IACA,aAAA;IACA,yBAAA;IACA,kBAAA;AACA;AACA;IACA,cAAA;IACA,sBAAA;IACA,eAAA;IACA,WAAA;AACA;AACA;IACA,cAAA;IACA,sBAAA;IACA,yBAAA;IACA,eAAA;AACA;AACA;IACA,sBAAA;IACA,sBAAA;IACA,eAAA;IACA,gBAAA;AACA;AACA;IACA,sBAAA;IACA,sBAAA;IACA,yBAAA;IACA,eAAA;IACA,gBAAA;AACA;AACA;IACA,iBAAA;IACA,2BAAA;IACA,8BAAA;IACA,eAAA;AACA;AACA;IACA,aAAA;IACA,8BAAA;IACA,iBAAA;IACA,8BAAA;IACA,eAAA;AACA;AACA;IACA,aAAA;IACA,mBAAA;AACA","file":"RightPanel.vue","sourcesContent":["<template>\n  <div class=\"right-panel\">\n    <div class=\"actions\">\n      <div class=\"layout\" @click=\"switchPanel('layout')\">\n        <i class=\"far fa-square\" />\n      </div>\n      <div class=\"element\" @click=\"switchPanel('element')\">\n        <i class=\"fas fa-square\" />\n      </div>\n    </div>\n    <transition name=\"left\" @after-leave=\"animationEnd\">\n      <div v-if=\"(showPanel('layout')) && !animating\" class=\"container-settings\">\n        <!-- GRID -->\n        <div class=\"grid\" v-if=\"isGrid(selected_layout)\">\n          <div class=\"setting-label\">Grid settings</div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Rows</div>\n            <div class=\"setting-wrapper\">\n              <div class=\"action\">\n                <div class=\"add-item\" @click=\"addGridRow(selected_layout)\">\n                  <i class=\"fas fa-plus\"></i>\n                </div>\n              </div>\n              <div class=\"rows\">\n                <div class=\"row\" v-for=\"(row, index) in selected_layout.rows\" :key=\"index\">\n                  <div class=\"item-title\">Row {{ row }}</div>\n                  <div class=\"remove-item\" @click=\"deleteGridRow(selected_layout)\"><i class=\"fas fa-minus\"></i></div>\n                </div>\n              </div>\n            </div>\n            <div class=\"setting-subtitle\">Columns</div>\n            <div class=\"setting-wrapper\">\n              <div class=\"action\">\n                <div class=\"add-item\" @click=\"addGridColumn(selected_layout)\">\n                  <i class=\"fas fa-plus\"></i>\n                </div>\n              </div>\n              <div class=\"rows\">\n                <div class=\"row\" v-for=\"(col, index) in selected_layout.cols\" :key=\"index\">\n                  <div class=\"item-title\">Column {{ col }}</div>\n                  <div class=\"remove-item\" @click=\"deleteGridRow(selected_layout)\"><i class=\"fas fa-minus\"></i></div>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Gap</div>\n            <div class=\"setting\">\n              <label for=\"rows-gap\">Rows gap</label>\n              <select id=\"rows-gap\" name=\"rows-gap\" @change=\"replaceClass(selected_layout, selected_row_gap, mappers.grid_mapper.rows.gap.regex_pattern)\" v-model=\"selected_row_gap\">\n                <option v-for=\"(row_gap, index) in mappers.grid_mapper.rows.gap.values\" :key=\"index\" :value=\"row_gap.value\">{{ row_gap.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"cols-gap\">Cols gap</label>\n              <select id=\"cols-gap\" name=\"cols-gap\" @change=\"replaceClass(selected_layout, selected_col_gap, mappers.grid_mapper.cols.gap.regex_pattern)\" v-model=\"selected_col_gap\">\n                <option v-for='(col_gap, index) in mappers.grid_mapper.cols.gap.values' :key=\"index\" :value=\"col_gap.value\">{{ col_gap.text }}</option>\n              </select>\n            </div>\n          </div>\n        </div>\n        <!-- FLEX -->\n        <div class=\"flex\" v-if=\"isFlex(selected_layout)\">\n          <div class=\"setting-label\">Columns settings</div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Columns</div>\n            <div class=\"setting-wrapper\">\n              <div class=\"action\">\n                <div class=\"add-item\" @click=\"addFlexColumn(selected_layout)\">\n                  <i class=\"fas fa-plus\"></i>\n                </div>\n              </div>\n              <div class=\"rows\">\n                <div class=\"row\" v-for=\"(col, index) in selected_layout.cols\" :key=\"index\">\n                  Column {{ col }}\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Gap</div>\n            <div class=\"setting\">\n              <label for=\"cols-gap\">Cols gap</label>\n              <select id=\"cols-gap\" name=\"cols-gap\" @change=\"replaceClass(selected_layout, selected_flex_col_gap, mappers.flex_mapper.gap.regex_pattern)\" v-model=\"selected_flex_col_gap\">\n                <option v-for='(col_gap, index) in mappers.flex_mapper.gap.values' :key=\"index\" :value=\"col_gap.value\">{{ col_gap.text }}</option>\n              </select>\n            </div>\n          </div>\n        </div>\n        <!-- GENERALS -->\n        <div class=\"generals\" v-if=\"(selected_layout !== null)\">\n          <!-- PADDINGS -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Paddings</div>\n            <div class=\"setting\">\n              <label for=\"padding-all\">All</label>\n              <select id=\"padding-all\" name=\"padding-all\" @change=\"replaceClass(selected_layout, selected_all_padding, mappers.spacing_mapper.padding.all.regex_pattern)\" v-model=\"selected_all_padding\">\n                <option v-for='(padding_all, index) in mappers.spacing_mapper.padding.all.values' :key=\"index\" :value=\"padding_all.value\">{{ padding_all.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-vertical\">Vertical</label>\n              <select id=\"padding-vertical\" name=\"padding-vertical\" @change=\"replaceClass(selected_layout, selected_vertical_padding, mappers.spacing_mapper.padding.vertical.regex_pattern)\" v-model=\"selected_vertical_padding\">\n                <option v-for='(padding_vertical, index) in mappers.spacing_mapper.padding.vertical.values' :key=\"index\" :value=\"padding_vertical.value\">{{ padding_vertical.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-horizontal\">Horizontal</label>\n              <select id=\"padding-horizontal\" name=\"padding-horizontal\" @change=\"replaceClass(selected_layout, selected_horizontal_padding, mappers.spacing_mapper.padding.horizontal.regex_pattern)\" v-model=\"selected_horizontal_padding\">\n                <option v-for='(padding_horizontal, index) in mappers.spacing_mapper.padding.horizontal.values' :key=\"index\" :value=\"padding_horizontal.value\">{{ padding_horizontal.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-top\">Top</label>\n              <select id=\"padding-top\" name=\"padding-top\" @change=\"replaceClass(selected_layout, selected_top_padding, mappers.spacing_mapper.padding.top.regex_pattern)\" v-model=\"selected_top_padding\">\n                <option v-for='(padding_top, index) in mappers.spacing_mapper.padding.top.values' :key=\"index\" :value=\"padding_top.value\">{{ padding_top.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-bottom\">Bottom</label>\n              <select id=\"padding-bottom\" name=\"padding-bottom\" @change=\"replaceClass(selected_layout, selected_bottom_padding, mappers.spacing_mapper.padding.bottom.regex_pattern)\" v-model=\"selected_bottom_padding\">\n                <option v-for='(padding_bottom, index) in mappers.spacing_mapper.padding.bottom.values' :key=\"index\" :value=\"padding_bottom.value\">{{ padding_bottom.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-left\">Left</label>\n              <select id=\"padding-left\" name=\"padding-left\" @change=\"replaceClass(selected_layout, selected_left_padding, mappers.spacing_mapper.padding.left.regex_pattern)\" v-model=\"selected_left_padding\">\n                <option v-for='(padding_left, index) in mappers.spacing_mapper.padding.left.values' :key=\"index\" :value=\"padding_left.value\">{{ padding_left.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-right\">Right</label>\n              <select id=\"padding-right\" name=\"padding-right\" @change=\"replaceClass(selected_layout, selected_right_padding, mappers.spacing_mapper.padding.right.regex_pattern)\" v-model=\"selected_right_padding\">\n                <option v-for='(padding_right, index) in mappers.spacing_mapper.padding.right.values' :key=\"index\" :value=\"padding_right.value\">{{ padding_right.text }}</option>\n              </select>\n            </div>\n          </div>\n          <!-- MARGINS -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Margins</div>\n            <div class=\"setting\">\n              <label for=\"margin-all\">All</label>\n              <select id=\"margin-all\" name=\"margin-all\" @change=\"replaceClass(selected_layout, selected_all_margin, mappers.spacing_mapper.margin.all.regex_pattern)\" v-model=\"selected_all_margin\">\n                <option v-for='(margin_all, index) in mappers.spacing_mapper.margin.all.values' :key=\"index\" :value=\"margin_all.value\">{{ margin_all.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-vertical\">Vertical</label>\n              <select id=\"margin-vertical\" name=\"margin-vertical\" @change=\"replaceClass(selected_layout, selected_vertical_margin, mappers.spacing_mapper.margin.vertical.regex_pattern)\" v-model=\"selected_vertical_margin\">\n                <option v-for='(margin_vertical, index) in mappers.spacing_mapper.margin.vertical.values' :key=\"index\" :value=\"margin_vertical.value\">{{ margin_vertical.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-horizontal\">Horizontal</label>\n              <select id=\"margin-horizontal\" name=\"margin-horizontal\" @change=\"replaceClass(selected_layout, selected_horizontal_margin, mappers.spacing_mapper.margin.horizontal.regex_pattern)\" v-model=\"selected_horizontal_margin\">\n                <option v-for='(margin_horizontal, index) in mappers.spacing_mapper.margin.horizontal.values' :key=\"index\" :value=\"margin_horizontal.value\">{{ margin_horizontal.text }}</option>\n              </select>\n            </div>\n            <!-- <div class=\"setting\">\n              <label for=\"margin-horizontal\">Horizontal</label>\n              <select id=\"margin-horizontal\" name=\"margin-horizontal\" @change=\"replaceClass(selected_layout, selected_horizontal_margin.value, mappers.spacing_mapper.margin.horizontal.regex_pattern)\" v-model=\"selected_horizontal_margin\">\n                <option v-for='(margin_horizontal, index) in mappers.spacing_mapper.margin.horizontal.values' :key=\"index\" :value=\"margin_horizontal.id\" :selected=\"setDefault(margin_horizontal, selected_layout)\">{{ margin_horizontal.text }}</option>\n              </select>\n            </div> -->\n            <div class=\"setting\">\n              <label for=\"margin-top\">Top</label>\n              <select id=\"margin-top\" name=\"margin-top\" @change=\"replaceClass(selected_layout, selected_top_margin, mappers.spacing_mapper.margin.top.regex_pattern)\" v-model=\"selected_top_margin\">\n                <option v-for='(margin_top, index) in mappers.spacing_mapper.margin.top.values' :key=\"index\" :value=\"margin_top.value\">{{ margin_top.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-bottom\">Bottom</label>\n              <select id=\"margin-bottom\" name=\"margin-bottom\" @change=\"replaceClass(selected_layout, selected_bottom_margin, mappers.spacing_mapper.margin.bottom.regex_pattern)\" v-model=\"selected_bottom_margin\">\n                <option v-for='(margin_bottom, index) in mappers.spacing_mapper.margin.bottom.values' :key=\"index\" :value=\"margin_bottom.value\">{{ margin_bottom.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-left\">Left</label>\n              <select id=\"margin-left\" name=\"margin-left\" @change=\"replaceClass(selected_layout, selected_left_margin, mappers.spacing_mapper.margin.left.regex_pattern)\" v-model=\"selected_left_margin\">\n                <option v-for='(margin_left, index) in mappers.spacing_mapper.margin.left.values' :key=\"index\" :value=\"margin_left.value\">{{ margin_left.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-right\">Right</label>\n              <select id=\"margin-right\" name=\"margin-right\" @change=\"replaceClass(selected_layout, selected_right_margin, mappers.spacing_mapper.margin.right.regex_pattern)\" v-model=\"selected_right_margin\">\n                <option v-for='(margin_right, index) in mappers.spacing_mapper.margin.right.values' :key=\"index\" :value=\"margin_right.value\">{{ margin_right.text }}</option>\n              </select>\n            </div>\n          </div>\n           <!-- SIZINGS -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Sizing</div>\n            <div class=\"setting\">\n              <label for=\"width\">Width</label>\n              <select id=\"width\" name=\"width\" @change=\"replaceClass(selected_layout, selected_width, mappers.sizing_mapper.width.regex_pattern)\" v-model=\"selected_width\">\n                <option v-for='(width, index) in mappers.sizing_mapper.width.values' :key=\"index\" :value=\"width.value\">{{ width.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"height\">Height</label>\n              <select id=\"height\" name=\"height\" @change=\"replaceClass(selected_layout, selected_height, mappers.sizing_mapper.height.regex_pattern)\" v-model=\"selected_height\">\n                <option v-for='(height, index) in mappers.sizing_mapper.height.values' :key=\"index\" :value=\"height.value\">{{ height.text }}</option>\n              </select>\n            </div>\n          </div>\n           <!-- WHITESPACE -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Whitespace</div>\n            <div class=\"setting\">\n              <label for=\"width\">Whitespace</label>\n              <select id=\"width\" name=\"width\" @change=\"replaceClass(selected_layout, selected_ws, mappers.whitespace_mapper.regex_pattern)\" v-model=\"selected_ws\">\n                <option v-for='(ws, index) in mappers.whitespace_mapper.values' :key=\"index\" :value=\"ws.value\">{{ ws.text }}</option>\n              </select>\n            </div>\n          </div>\n        </div>\n      </div>\n    </transition>\n\n    <transition name=\"right\" @after-leave=\"animationEnd\">\n      <div v-if=\"(showPanel('element')) && !animating\" class=\"element-settings\">\n        ELEMENT\n      </div>\n    </transition>\n  </div>\n</template>\n\n<script>\nimport { emitter } from 'App/Wape'\nimport isEmpty from 'lodash/isEmpty'\nimport {\n  grid_mapper,\n  flex_mapper,\n  spacing_mapper,\n  sizing_mapper,\n  whitespace_mapper\n} from 'Editor/mappers/tailwind/layout'\nimport { appendPlaceholder } from 'Editor/utilities/layout'\nimport { replaceClass } from 'Editor/utilities/utilities'\n\nexport default {\n    name: 'RightPanel',\n    data() {\n      return {\n        current_panel: 'layout',\n        animating: false,\n        selected_layout: null,\n        selected_element: null,\n        mappers: {\n          grid_mapper,\n          flex_mapper,\n          spacing_mapper,\n          sizing_mapper,\n          whitespace_mapper,\n        },\n        container_options: [],\n        element_options: [],\n        settings: [\n            { model: 'selected_col_gap', mapper_values: grid_mapper.cols.gap.values },\n            { model: 'selected_row_gap', mapper_values: grid_mapper.rows.gap.values },\n            { model: 'selected_flex_col_gap', mapper_values: flex_mapper.gap.values },\n            { model: 'selected_all_padding', mapper_values: spacing_mapper.padding.all.values },\n            { model: 'selected_vertical_padding', mapper_values: spacing_mapper.padding.vertical.values },\n            { model: 'selected_horizontal_padding', mapper_values: spacing_mapper.padding.horizontal.values },\n            { model: 'selected_top_padding', mapper_values: spacing_mapper.padding.top.values },\n            { model: 'selected_bottom_padding', mapper_values: spacing_mapper.padding.bottom.values },\n            { model: 'selected_left_padding', mapper_values: spacing_mapper.padding.left.values },\n            { model: 'selected_right_padding', mapper_values: spacing_mapper.padding.right.values },\n            { model: 'selected_all_margin', mapper_values: spacing_mapper.margin.all.values },\n            { model: 'selected_vertical_margin', mapper_values: spacing_mapper.margin.vertical.values },\n            { model: 'selected_horizontal_margin', mapper_values: spacing_mapper.margin.horizontal.values },\n            { model: 'selected_top_margin', mapper_values: spacing_mapper.margin.top.values },\n            { model: 'selected_bottom_margin', mapper_values: spacing_mapper.margin.bottom.values },\n            { model: 'selected_left_margin', mapper_values: spacing_mapper.margin.left.values },\n            { model: 'selected_right_margin', mapper_values: spacing_mapper.margin.right.values },\n            { model: 'selected_width', mapper_values: sizing_mapper.width.values },\n            { model: 'selected_height', mapper_values: sizing_mapper.height.values },\n            { model: 'selected_ws', mapper_values: whitespace_mapper.values },\n        ],\n        //Gaps\n        selected_col_gap: Object,\n        selected_row_gap: Object,\n        selected_flex_col_gap: Object,\n        //Paddings\n        selected_all_padding: Object,\n        selected_vertical_padding: Object,\n        selected_horizontal_padding: Object,\n        selected_top_padding: Object,\n        selected_bottom_padding: Object,\n        selected_left_padding: Object,\n        selected_right_padding: Object,\n        //Margins\n        selected_all_margin: Object,\n        selected_vertical_margin: Object,\n        selected_horizontal_margin: Object,\n        selected_top_margin: Object,\n        selected_bottom_margin: Object,\n        selected_left_margin: Object,\n        selected_right_margin: Object,\n        //Sizings\n        selected_width: Object,\n        selected_height: Object,\n        //Whitespace\n        selected_ws: Object,\n      }\n    },\n    mounted() {\n      emitter.on('iframe-click', (args) => { //Fired from MainPanel.vue\n        this.selected_layout = args.container\n        this.selected_element = args.element\n        switch (this.current_panel) {\n          case 'layout':\n            this.setDefaultValues()\n          break;\n          case 'element':\n          break;\n          default:\n        }\n      })\n    },\n    methods: {\n      replaceClass,\n      switchPanel(panel) {\n        this.animating = true\n        this.current_panel = panel\n      },\n      showPanel(panel) {\n        return (this.current_panel === panel)\n      },\n      animationEnd() {\n        this.animating = false\n      },\n      isGrid(container) {\n        if (container === null) {\n          return false\n        } else {\n          return container.type === 'grid'\n        }\n      },\n      isFlex(container) {\n        if (container === null) {\n          return false\n        } else {\n          return container.type === 'flex'\n        }\n      },\n      addGridColumn(layout_instance) {\n        if (layout_instance !== null) {\n          layout_instance.cols++\n          this.replaceClass(layout_instance, `grid-cols-${layout_instance.cols}`, this.mappers.grid_mapper.cols.template.regex_pattern)\n          let total_places_in_grid = ((layout_instance.cols !== 0) ? layout_instance.cols : 1) * ((layout_instance.rows !== 0) ? layout_instance.rows : 1)\n          let elements_in_grid = layout_instance.element.children.length\n          let number_of_placeholder_to_append = total_places_in_grid - elements_in_grid\n          if (number_of_placeholder_to_append > 0) {\n            appendPlaceholder('div', layout_instance.element, number_of_placeholder_to_append, 'grid-placeholder')\n          }\n        }\n      },\n      addGridRow(layout_instance) {\n        if (layout_instance !== null) {\n          layout_instance.rows++\n          this.replaceClass(layout_instance, `grid-rows-${layout_instance.rows}`, this.mappers.grid_mapper.rows.template.regex_pattern)\n          let total_places_in_grid = ((layout_instance.cols !== 0) ? layout_instance.cols : 1) * ((layout_instance.rows !== 0) ? layout_instance.rows : 1)\n          let elements_in_grid = layout_instance.element.children.length\n          let number_of_placeholder_to_append = total_places_in_grid - elements_in_grid\n          if (number_of_placeholder_to_append > 0) {\n            appendPlaceholder('div', layout_instance.element, number_of_placeholder_to_append, 'grid-placeholder')\n          }\n        }\n      },\n      addFlexColumn(layout_instance) {\n        if (layout_instance !== null) {\n          layout_instance.addColumn()\n        }\n      },\n      setDefaultValues() {\n        let layout_classes = this.selected_layout.getClassesAsArray()\n        for (let setting of this.settings) {\n          //reset old value\n          this[setting.model] = ''\n          let found = setting.mapper_values.find((item) => {\n            return (layout_classes.includes(item.value))\n          })\n          if (typeof found !== 'undefined') {\n            this[setting.model] = found.value\n          }\n        }\n      }\n    }\n}\n</script>\n\n<style scoped>\n    div.right-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n    }\n    div.right-panel > div.actions {\n      display: flex;\n      border-bottom: .5px solid #000;\n    }\n    div.right-panel > div.actions > div {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n    }\n    div.right-panel > div.actions > div.container\n    {\n      border-right: .5px solid #000;\n    }\n    div.right-panel > div.actions > div.element\n    {\n      border-right: .5px solid #000;\n    }\n\n    /* Animations thanks animista.net */\n  .left-enter-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  .right-enter-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n  @-webkit-keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @-webkit-keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n\n  div.setting-label {\n    color: #fff;\n    text-transform: capitalize;\n    font-size: 1.2rem;\n    border-bottom: 1px solid #fff;\n    padding-bottom: .7rem;\n  }\n\n  div.container-settings,\n  div.element-settings {\n    margin: 3% 2.5%;\n    width: 95%;\n    min-width: 95%;\n    box-sizing: border-box;\n    user-select: none;\n    overflow-y: scroll;\n    height: calc(100% - 2.7rem);\n  }\n\n  div.setting-subtitle {\n    color: #fff;\n    font-size: 1.1rem;\n    margin: 0.7rem 0.2rem 0.3rem;\n  }\n\n  div.setting-content {\n    margin: 0.5rem;\n    color: #d3d3d3;\n    border-bottom: 1px dashed #fff;\n    padding-bottom: 0.7rem;\n  }\n\n  div.setting {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    line-height: 1.7rem;\n  }\n\n  div.action {\n    display: flex;\n    justify-content: flex-end;\n    margin-bottom: 5px;\n  }\n  div.action > div.add-item {\n    padding: .5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    color: #fff;\n  }\n  div.action > div.add-item:hover {\n    padding: .5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n  }\n  div.row > div.remove-item {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    margin: 0.3rem 0;\n  }\n  div.row > div.remove-item:hover {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n    margin: 0.3rem 0;\n  }\n  div.setting-wrapper > div.rows > div.row:first-child {\n    line-height: 2rem;\n    border-top: 1px dotted #fff;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n  }\n  div.setting-wrapper > div.rows > div.row {\n    display: flex;\n    justify-content: space-between;\n    line-height: 2rem;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n  }\n  div.item-title {\n    display: flex;\n    align-items: center;\n  }\n</style>\n"]}, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__$2 = "data-v-6a826952";
+    const __vue_scope_id__$2 = "data-v-0f2518ec";
     /* module identifier */
     const __vue_module_identifier__$2 = undefined;
     /* functional template */
@@ -12741,15 +12798,15 @@ var wape = (function () {
           this.type = type;
       }
 
-      addClass(cssClass) {
-          this.element.classList.add(cssClass);
+      addClass(css_class) {
+          this.element.classList.add(css_class);
       }
-      removeClass(cssClass) {
-          this.element.classList.remove(cssClass);
+      removeClass(css_class) {
+          this.element.classList.remove(css_class);
       }
-      // getChildren() {
-      //     return this.element.children
-      // }
+      getClassesAsArray() {
+          return [...this.element.classList]
+      }
   }
 
   class Grid extends Layout {
@@ -12845,7 +12902,6 @@ var wape = (function () {
         },
         iframeClick(event) {
           let elements = this.iframe.document.elementsFromPoint(event.clientX, event.clientY);
-          console.log(elements);
           let layout = elements.reverse().find((elem) => { // reverse elements to place flex containers before their columns (we need flex columns to have the layout class to handle dropping elements inside in dragger.js)
               return (elem.matches('.layout')) //If you find .flex first take this as main layout not the columns inside it
           });
@@ -12865,7 +12921,6 @@ var wape = (function () {
                 default:
                   this.selected_layout = new Layout(layout, layout_type);
               }
-              console.log(this.selected_layout);
               this.selected_layout.addClass('layout-selected');
             }
           } else {
@@ -12920,11 +12975,11 @@ var wape = (function () {
     /* style */
     const __vue_inject_styles__$3 = function (inject) {
       if (!inject) return
-      inject("data-v-2d43297c_0", { source: "\ndiv.canvas[data-v-2d43297c] {\n  width: calc(100vw - 500px);\n  height: 100%;\n  background-color: #fff;\n  transition: width 0.5s ease 0s;\n}\niframe.iframe[data-v-2d43297c] {\n  display: block;\n  border: 0px none;\n  height: 100%;\n  width: 100%;\n}\n", map: {"version":3,"sources":["/Users/thomas/Developer/perso/wape/src/editor/components/layout/MainPanel.vue"],"names":[],"mappings":";AA4HA;EACA,0BAAA;EACA,YAAA;EACA,sBAAA;EACA,8BAAA;AACA;AACA;EACA,cAAA;EACA,gBAAA;EACA,YAAA;EACA,WAAA;AACA","file":"MainPanel.vue","sourcesContent":["<template>\n  <div id=\"canvas\" class=\"canvas\" :style=\"{ width: canvas_width }\">\n    <iframe id=\"iframe\" name=\"iframe\" :src=\"iframeFilePath\" class=\"iframe\" @load=\"iframeLoaded\" />\n  </div>\n</template>\n\n<script>\nimport Iframe from 'Editor/Iframe'\nimport layouts from 'Editor/blocks/layouts'\nimport elements from 'Editor/blocks/elements'\nimport { Dragger } from 'Editor/Dragger/Dragger'\nimport Layout from 'Editor/classes/layouts/Layout'\nimport Grid from 'Editor/classes/layouts/Grid'\nimport Flex from 'Editor/classes/layouts/Flex'\nimport Element from 'Editor/classes/elements/Element'\nimport isEmpty from 'lodash/isEmpty'\nimport { emitter } from 'App/Wape'\nimport { layoutType } from 'Editor/utilities/layout'\nimport { findFirstChildMatching } from 'Editor/utilities/utilities'\n\nexport default {\n    name: 'MainPanel',\n    data() {\n      return {\n        iframe: Object,\n        canvas_width: 'calc(100vw - 500px)',\n        element_hovered: null,\n        selected_layout: null,\n        selected_element: null\n      }\n    },\n    computed: {\n      iframeFilePath() {\n        return 'iframe.html'\n      }\n    },\n    mounted() {\n      emitter.on('device-change', (args) => { //Fired from TopPanel.vue\n        this.canvas_width = args.width\n      })\n    },\n    methods: {\n      iframeLoaded() {\n        let elemArray = []\n        for(let elem of elements) {\n          elemArray.push(...elem.elements)\n        }\n        let templates = [...layouts, ...elemArray]\n        this.iframe = new Iframe('#iframe')\n        this.dragger = new Dragger('.draggable', {\n          iframe: this.iframe,\n          templates: templates\n        })\n        this.iframe.document.documentElement.addEventListener('click', this.iframeClick, false)\n        this.iframe.document.documentElement.addEventListener('mousemove', this.iframeMouseMove, false)\n      },\n      iframeMouseMove(event) {\n        let element = event.target\n        let dontHighlightTags = ['HTML', 'BODY']\n        if (!dontHighlightTags.includes(element.tagName)) {\n          if (this.element_hovered !== element) {\n            if (this.element_hovered !== null) {\n              this.element_hovered.classList.remove('element-hovered')\n            }\n            // this.element_hovered = new Element(element)\n            this.element_hovered = element\n            this.element_hovered.classList.add('element-hovered')\n          }\n        } else {\n          if (this.element_hovered !== null) {\n            this.element_hovered.classList.remove('element-hovered')\n          }\n          this.element_hovered = null\n        }\n      },\n      iframeClick(event) {\n        let elements = this.iframe.document.elementsFromPoint(event.clientX, event.clientY)\n        console.log(elements)\n        let layout = elements.reverse().find((elem) => { // reverse elements to place flex containers before their columns (we need flex columns to have the layout class to handle dropping elements inside in dragger.js)\n            return (elem.matches('.layout')) //If you find .flex first take this as main layout not the columns inside it\n        })\n        if (typeof layout !== 'undefined') {\n          if (this.selected_layout === null || this.selected_layout.element !== layout) { //if we selected another layout than the current one\n            if (this.selected_layout !== null) {\n              this.selected_layout.removeClass('layout-selected')\n            }\n            let layout_type = layoutType(layout)\n            switch(layout_type) {\n              case 'grid':\n                this.selected_layout = new Grid(layout, layout_type)\n              break;\n              case 'flex':\n                this.selected_layout = new Flex(layout, layout_type)\n              break;\n              default:\n                this.selected_layout = new Layout(layout, layout_type)\n            }\n            console.log(this.selected_layout)\n            this.selected_layout.addClass('layout-selected')\n          }\n        } else {\n          this.selected_layout = null\n        }\n        let element = elements.find((elem) => {\n            return (elem.matches('.element-hovered'))\n        })\n        if (typeof element !== 'undefined') {\n          if (this.selected_element === null || this.selected_element !== element) {\n            if (this.selected_element !== null) {\n              this.selected_element.removeClass('element-selected')\n            }\n            this.selected_element = new Element(element)\n            this.selected_element.addClass('element-selected')\n            }\n          } else {\n            this.selected_element = null\n        }\n        emitter.emit('iframe-click', { container: this.selected_layout, element: this.selected_element })\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.canvas {\n    width: calc(100vw - 500px);\n    height: 100%;\n    background-color: #fff;\n    transition: width 0.5s ease 0s;\n  }\n  iframe.iframe {\n    display: block;\n    border: 0px none;\n    height: 100%;\n    width: 100%;\n  }\n</style>\n"]}, media: undefined });
+      inject("data-v-7a822d43_0", { source: "\ndiv.canvas[data-v-7a822d43] {\n  width: calc(100vw - 500px);\n  height: 100%;\n  background-color: #fff;\n  transition: width 0.5s ease 0s;\n}\niframe.iframe[data-v-7a822d43] {\n  display: block;\n  border: 0px none;\n  height: 100%;\n  width: 100%;\n}\n", map: {"version":3,"sources":["/Users/thomas/Developer/perso/wape/src/editor/components/layout/MainPanel.vue"],"names":[],"mappings":";AA0HA;EACA,0BAAA;EACA,YAAA;EACA,sBAAA;EACA,8BAAA;AACA;AACA;EACA,cAAA;EACA,gBAAA;EACA,YAAA;EACA,WAAA;AACA","file":"MainPanel.vue","sourcesContent":["<template>\n  <div id=\"canvas\" class=\"canvas\" :style=\"{ width: canvas_width }\">\n    <iframe id=\"iframe\" name=\"iframe\" :src=\"iframeFilePath\" class=\"iframe\" @load=\"iframeLoaded\" />\n  </div>\n</template>\n\n<script>\nimport Iframe from 'Editor/Iframe'\nimport layouts from 'Editor/blocks/layouts'\nimport elements from 'Editor/blocks/elements'\nimport { Dragger } from 'Editor/Dragger/Dragger'\nimport Layout from 'Editor/classes/layouts/Layout'\nimport Grid from 'Editor/classes/layouts/Grid'\nimport Flex from 'Editor/classes/layouts/Flex'\nimport Element from 'Editor/classes/elements/Element'\nimport isEmpty from 'lodash/isEmpty'\nimport { emitter } from 'App/Wape'\nimport { layoutType } from 'Editor/utilities/layout'\nimport { findFirstChildMatching } from 'Editor/utilities/utilities'\n\nexport default {\n    name: 'MainPanel',\n    data() {\n      return {\n        iframe: Object,\n        canvas_width: 'calc(100vw - 500px)',\n        element_hovered: null,\n        selected_layout: null,\n        selected_element: null\n      }\n    },\n    computed: {\n      iframeFilePath() {\n        return 'iframe.html'\n      }\n    },\n    mounted() {\n      emitter.on('device-change', (args) => { //Fired from TopPanel.vue\n        this.canvas_width = args.width\n      })\n    },\n    methods: {\n      iframeLoaded() {\n        let elemArray = []\n        for(let elem of elements) {\n          elemArray.push(...elem.elements)\n        }\n        let templates = [...layouts, ...elemArray]\n        this.iframe = new Iframe('#iframe')\n        this.dragger = new Dragger('.draggable', {\n          iframe: this.iframe,\n          templates: templates\n        })\n        this.iframe.document.documentElement.addEventListener('click', this.iframeClick, false)\n        this.iframe.document.documentElement.addEventListener('mousemove', this.iframeMouseMove, false)\n      },\n      iframeMouseMove(event) {\n        let element = event.target\n        let dontHighlightTags = ['HTML', 'BODY']\n        if (!dontHighlightTags.includes(element.tagName)) {\n          if (this.element_hovered !== element) {\n            if (this.element_hovered !== null) {\n              this.element_hovered.classList.remove('element-hovered')\n            }\n            // this.element_hovered = new Element(element)\n            this.element_hovered = element\n            this.element_hovered.classList.add('element-hovered')\n          }\n        } else {\n          if (this.element_hovered !== null) {\n            this.element_hovered.classList.remove('element-hovered')\n          }\n          this.element_hovered = null\n        }\n      },\n      iframeClick(event) {\n        let elements = this.iframe.document.elementsFromPoint(event.clientX, event.clientY)\n        let layout = elements.reverse().find((elem) => { // reverse elements to place flex containers before their columns (we need flex columns to have the layout class to handle dropping elements inside in dragger.js)\n            return (elem.matches('.layout')) //If you find .flex first take this as main layout not the columns inside it\n        })\n        if (typeof layout !== 'undefined') {\n          if (this.selected_layout === null || this.selected_layout.element !== layout) { //if we selected another layout than the current one\n            if (this.selected_layout !== null) {\n              this.selected_layout.removeClass('layout-selected')\n            }\n            let layout_type = layoutType(layout)\n            switch(layout_type) {\n              case 'grid':\n                this.selected_layout = new Grid(layout, layout_type)\n              break;\n              case 'flex':\n                this.selected_layout = new Flex(layout, layout_type)\n              break;\n              default:\n                this.selected_layout = new Layout(layout, layout_type)\n            }\n            this.selected_layout.addClass('layout-selected')\n          }\n        } else {\n          this.selected_layout = null\n        }\n        let element = elements.find((elem) => {\n            return (elem.matches('.element-hovered'))\n        })\n        if (typeof element !== 'undefined') {\n          if (this.selected_element === null || this.selected_element !== element) {\n            if (this.selected_element !== null) {\n              this.selected_element.removeClass('element-selected')\n            }\n            this.selected_element = new Element(element)\n            this.selected_element.addClass('element-selected')\n            }\n          } else {\n            this.selected_element = null\n        }\n        emitter.emit('iframe-click', { container: this.selected_layout, element: this.selected_element })\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.canvas {\n    width: calc(100vw - 500px);\n    height: 100%;\n    background-color: #fff;\n    transition: width 0.5s ease 0s;\n  }\n  iframe.iframe {\n    display: block;\n    border: 0px none;\n    height: 100%;\n    width: 100%;\n  }\n</style>\n"]}, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__$3 = "data-v-2d43297c";
+    const __vue_scope_id__$3 = "data-v-7a822d43";
     /* module identifier */
     const __vue_module_identifier__$3 = undefined;
     /* functional template */
