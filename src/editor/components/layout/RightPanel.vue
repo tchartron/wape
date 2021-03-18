@@ -38,7 +38,7 @@
               <div class="rows">
                 <div class="row" v-for="(col, index) in selected_layout.cols" :key="index">
                   <div class="item-title">Column {{ col }}</div>
-                  <div class="remove-item" @click="deleteGridRow(selected_layout)"><i class="fas fa-minus"></i></div>
+                  <div class="remove-item" @click="deleteGridColumn(selected_layout)"><i class="fas fa-minus"></i></div>
                 </div>
               </div>
             </div>
@@ -366,6 +366,26 @@ export default {
           if (number_of_placeholder_to_append > 0) {
             appendPlaceholder('div', layout_instance.element, number_of_placeholder_to_append, 'grid-placeholder')
           }
+        }
+      },
+      deleteGridRow(layout_instance) {
+        if (layout_instance !== null) {
+          layout_instance.rows--
+          this.replaceClass(layout_instance, `grid-rows-${layout_instance.rows}`, this.mappers.grid_mapper.rows.template.regex_pattern)
+          let total_places_in_grid = ((layout_instance.cols !== 0) ? layout_instance.cols : 1) * ((layout_instance.rows !== 0) ? layout_instance.rows : 1)
+          //remove all placeholders
+          layout_instance.element.replaceChildren()
+          appendPlaceholder('div', layout_instance.element, total_places_in_grid, 'grid-placeholder')
+        }
+      },
+      deleteGridColumn(layout_instance) {
+        if (layout_instance !== null) {
+          layout_instance.cols--
+          this.replaceClass(layout_instance, `grid-cols-${layout_instance.cols}`, this.mappers.grid_mapper.cols.template.regex_pattern)
+          let total_places_in_grid = ((layout_instance.cols !== 0) ? layout_instance.cols : 1) * ((layout_instance.rows !== 0) ? layout_instance.rows : 1)
+          //remove all placeholders
+          layout_instance.element.replaceChildren()
+          appendPlaceholder('div', layout_instance.element, total_places_in_grid, 'grid-placeholder')
         }
       },
       addFlexColumn(layout_instance) {
