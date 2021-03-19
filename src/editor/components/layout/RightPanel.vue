@@ -207,9 +207,19 @@
           <div class="setting-content">
             <div class="setting-subtitle">Whitespace</div>
             <div class="setting">
-              <label for="width">Whitespace</label>
-              <select id="width" name="width" @change="replaceClass(selected_layout, selected_ws, mappers.whitespace_mapper.regex_pattern)" v-model="selected_ws">
+              <label for="whitespace">Whitespace</label>
+              <select id="whitespace" name="whitespace" @change="replaceClass(selected_layout, selected_ws, mappers.whitespace_mapper.regex_pattern)" v-model="selected_ws">
                 <option v-for='(ws, index) in mappers.whitespace_mapper.values' :key="index" :value="ws.value">{{ ws.text }}</option>
+              </select>
+            </div>
+          </div>
+          <!-- OVERFLOW -->
+          <div class="setting-content">
+            <div class="setting-subtitle">Overflow</div>
+            <div class="setting">
+              <label for="overflow">Overflow</label>
+              <select id="overflow" name="overflow" @change="replaceClass(selected_layout, selected_overflow, mappers.overflow_mapper.regex_pattern)" v-model="selected_overflow">
+                <option v-for='(overflow, index) in mappers.overflow_mapper.values' :key="index" :value="overflow.value">{{ overflow.text }}</option>
               </select>
             </div>
           </div>
@@ -233,7 +243,8 @@ import {
   flex_mapper,
   spacing_mapper,
   sizing_mapper,
-  whitespace_mapper
+  whitespace_mapper,
+  overflow_mapper,
 } from 'Editor/mappers/tailwind/layout'
 import { appendPlaceholder } from 'Editor/utilities/layout'
 import { replaceClass } from 'Editor/utilities/utilities'
@@ -252,6 +263,7 @@ export default {
           spacing_mapper,
           sizing_mapper,
           whitespace_mapper,
+          overflow_mapper,
         },
         container_options: [],
         element_options: [],
@@ -276,6 +288,7 @@ export default {
             { model: 'selected_width', mapper_values: sizing_mapper.width.values },
             { model: 'selected_height', mapper_values: sizing_mapper.height.values },
             { model: 'selected_ws', mapper_values: whitespace_mapper.values },
+            { model: 'selected_overflow', mapper_values: overflow_mapper.values },
         ],
         //Gaps
         selected_col_gap: '',
@@ -302,6 +315,8 @@ export default {
         selected_height: '',
         //Whitespace
         selected_ws: '',
+        //Overflow
+        selected_overflow: '',
       }
     },
     mounted() {

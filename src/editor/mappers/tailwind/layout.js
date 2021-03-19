@@ -1090,4 +1090,22 @@ const whitespace_mapper = {
     ]
 };
 
-export { grid_mapper, flex_mapper, spacing_mapper, sizing_mapper, whitespace_mapper }
+const overflow_mapper = {
+    regex_pattern: '^overflow-([xy]-)?(\\w+)?$',
+    values: [
+        { id: 1, text: 'auto', value: 'overflow-auto' },
+        { id: 2, text: 'hidden', value: 'overflow-hidden' },
+        { id: 2, text: 'visible', value: 'overflow-visible' },
+        { id: 2, text: 'scroll', value: 'overflow-scroll' },
+        { id: 2, text: 'x-auto', value: 'overflow-x-auto' },
+        { id: 2, text: 'y-auto', value: 'overflow-y-auto' },
+        { id: 2, text: 'x-hidden', value: 'overflow-x-hidden' },
+        { id: 2, text: 'y-hidden', value: 'overflow-y-hidden' },
+        { id: 2, text: 'x-visible', value: 'overflow-x-visible' },
+        { id: 2, text: 'y-visible', value: 'overflow-y-visible' },
+        { id: 2, text: 'x-scroll', value: 'overflow-x-scroll' },
+        { id: 2, text: 'y-scroll', value: 'overflow-y-scroll' },
+    ]
+};
+
+export { grid_mapper, flex_mapper, spacing_mapper, sizing_mapper, whitespace_mapper, overflow_mapper }
