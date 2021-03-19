@@ -233,6 +233,48 @@
               </select>
             </div>
           </div>
+          <!-- POSITION -->
+          <div class="setting-content">
+            <div class="setting-subtitle">Position</div>
+            <div class="setting">
+              <label for="position">Position</label>
+              <select id="position" name="position" @change="replaceClass(selected_layout, selected_position, mappers.position_mapper.regex_pattern)" v-model="selected_position">
+                <option v-for='(position, index) in mappers.position_mapper.values' :key="index" :value="position.value">{{ position.text }}</option>
+              </select>
+            </div>
+            <div class="absolute" v-if="(selected_position === 'absolute')">
+              <div class="setting">
+                <label for="inset">Inset</label>
+                <select id="inset" name="inset" @change="replaceClass(selected_layout, selected_absolute_inset, mappers.absolute_mapper.inset.regex_pattern)" v-model="selected_absolute_inset">
+                  <option v-for='(inset, index) in mappers.absolute_mapper.inset.values' :key="index" :value="inset.value">{{ inset.text }}</option>
+                </select>
+              </div>
+              <div class="setting">
+                <label for="top">Top</label>
+                <select id="top" name="top" @change="replaceClass(selected_layout, selected_absolute_top, mappers.absolute_mapper.top.regex_pattern)" v-model="selected_absolute_top">
+                  <option v-for='(top, index) in mappers.absolute_mapper.top.values' :key="index" :value="top.value">{{ top.text }}</option>
+                </select>
+              </div>
+              <div class="setting">
+                <label for="right">Right</label>
+                <select id="right" name="right" @change="replaceClass(selected_layout, selected_absolute_right, mappers.absolute_mapper.right.regex_pattern)" v-model="selected_absolute_right">
+                  <option v-for='(right, index) in mappers.absolute_mapper.right.values' :key="index" :value="right.value">{{ right.text }}</option>
+                </select>
+              </div>
+              <div class="setting">
+                <label for="left">Left</label>
+                <select id="left" name="left" @change="replaceClass(selected_layout, selected_absolute_left, mappers.absolute_mapper.left.regex_pattern)" v-model="selected_absolute_left">
+                  <option v-for='(left, index) in mappers.absolute_mapper.left.values' :key="index" :value="left.value">{{ left.text }}</option>
+                </select>
+              </div>
+              <div class="setting">
+                <label for="bottom">Bottom</label>
+                <select id="bottom" name="bottom" @change="replaceClass(selected_layout, selected_absolute_bottom, mappers.absolute_mapper.bottom.regex_pattern)" v-model="selected_absolute_bottom">
+                  <option v-for='(bottom, index) in mappers.absolute_mapper.bottom.values' :key="index" :value="bottom.value">{{ bottom.text }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </transition>
@@ -256,6 +298,8 @@ import {
   whitespace_mapper,
   overflow_mapper,
   overscroll_mapper,
+  position_mapper,
+  absolute_mapper,
 } from 'Editor/mappers/tailwind/layout'
 import { appendPlaceholder } from 'Editor/utilities/layout'
 import { replaceClass } from 'Editor/utilities/utilities'
@@ -276,6 +320,8 @@ export default {
           whitespace_mapper,
           overflow_mapper,
           overscroll_mapper,
+          position_mapper,
+          absolute_mapper,
         },
         container_options: [],
         element_options: [],
@@ -302,6 +348,12 @@ export default {
             { model: 'selected_ws', mapper_values: whitespace_mapper.values },
             { model: 'selected_overflow', mapper_values: overflow_mapper.values },
             { model: 'selected_overscroll', mapper_values: overscroll_mapper.values },
+            { model: 'selected_position', mapper_values: position_mapper.values },
+            { model: 'selected_absolute_inset', mapper_values: absolute_mapper.inset.values },
+            { model: 'selected_absolute_top', mapper_values: absolute_mapper.top.values },
+            { model: 'selected_absolute_right', mapper_values: absolute_mapper.right.values },
+            { model: 'selected_absolute_left', mapper_values: absolute_mapper.left.values },
+            { model: 'selected_absolute_bottom', mapper_values: absolute_mapper.bottom.values },
         ],
         //Gaps
         selected_col_gap: '',
@@ -332,6 +384,14 @@ export default {
         selected_overflow: '',
         //Overscroll
         selected_overscroll: '',
+        //Position
+        selected_position: '',
+        //Absolute
+        selected_absolute_inset: '',
+        selected_absolute_top: '',
+        selected_absolute_right: '',
+        selected_absolute_left: '',
+        selected_absolute_bottom: '',
       }
     },
     mounted() {
