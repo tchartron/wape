@@ -223,6 +223,16 @@
               </select>
             </div>
           </div>
+          <!-- OVERSCROLL -->
+          <div class="setting-content">
+            <div class="setting-subtitle">Overscroll</div>
+            <div class="setting">
+              <label for="overscroll">Overscroll</label>
+              <select id="overscroll" name="overscroll" @change="replaceClass(selected_layout, selected_overscroll, mappers.overscroll_mapper.regex_pattern)" v-model="selected_overscroll">
+                <option v-for='(overscroll, index) in mappers.overscroll_mapper.values' :key="index" :value="overscroll.value">{{ overscroll.text }}</option>
+              </select>
+            </div>
+          </div>
         </div>
       </div>
     </transition>
@@ -245,6 +255,7 @@ import {
   sizing_mapper,
   whitespace_mapper,
   overflow_mapper,
+  overscroll_mapper,
 } from 'Editor/mappers/tailwind/layout'
 import { appendPlaceholder } from 'Editor/utilities/layout'
 import { replaceClass } from 'Editor/utilities/utilities'
@@ -264,6 +275,7 @@ export default {
           sizing_mapper,
           whitespace_mapper,
           overflow_mapper,
+          overscroll_mapper,
         },
         container_options: [],
         element_options: [],
@@ -289,6 +301,7 @@ export default {
             { model: 'selected_height', mapper_values: sizing_mapper.height.values },
             { model: 'selected_ws', mapper_values: whitespace_mapper.values },
             { model: 'selected_overflow', mapper_values: overflow_mapper.values },
+            { model: 'selected_overscroll', mapper_values: overscroll_mapper.values },
         ],
         //Gaps
         selected_col_gap: '',
@@ -317,6 +330,8 @@ export default {
         selected_ws: '',
         //Overflow
         selected_overflow: '',
+        //Overscroll
+        selected_overscroll: '',
       }
     },
     mounted() {

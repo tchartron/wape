@@ -1095,17 +1095,32 @@ const overflow_mapper = {
     values: [
         { id: 1, text: 'auto', value: 'overflow-auto' },
         { id: 2, text: 'hidden', value: 'overflow-hidden' },
-        { id: 2, text: 'visible', value: 'overflow-visible' },
-        { id: 2, text: 'scroll', value: 'overflow-scroll' },
-        { id: 2, text: 'x-auto', value: 'overflow-x-auto' },
-        { id: 2, text: 'y-auto', value: 'overflow-y-auto' },
-        { id: 2, text: 'x-hidden', value: 'overflow-x-hidden' },
-        { id: 2, text: 'y-hidden', value: 'overflow-y-hidden' },
-        { id: 2, text: 'x-visible', value: 'overflow-x-visible' },
-        { id: 2, text: 'y-visible', value: 'overflow-y-visible' },
-        { id: 2, text: 'x-scroll', value: 'overflow-x-scroll' },
-        { id: 2, text: 'y-scroll', value: 'overflow-y-scroll' },
+        { id: 3, text: 'visible', value: 'overflow-visible' },
+        { id: 4, text: 'scroll', value: 'overflow-scroll' },
+        { id: 5, text: 'x-auto', value: 'overflow-x-auto' },
+        { id: 6, text: 'y-auto', value: 'overflow-y-auto' },
+        { id: 7, text: 'x-hidden', value: 'overflow-x-hidden' },
+        { id: 8, text: 'y-hidden', value: 'overflow-y-hidden' },
+        { id: 9, text: 'x-visible', value: 'overflow-x-visible' },
+        { id: 10, text: 'y-visible', value: 'overflow-y-visible' },
+        { id: 11, text: 'x-scroll', value: 'overflow-x-scroll' },
+        { id: 12, text: 'y-scroll', value: 'overflow-y-scroll' },
     ]
 };
 
-export { grid_mapper, flex_mapper, spacing_mapper, sizing_mapper, whitespace_mapper, overflow_mapper }
+const overscroll_mapper = {
+    regex_pattern: '^overscroll-([xy]-)?(\\w+)?$',
+    values: [
+        { id: 1, text: 'auto', value: 'overscroll-auto' },
+        { id: 2, text: 'contain', value: 'overscroll-contain' },
+        { id: 3, text: 'none', value: 'overscroll-none' },
+        { id: 4, text: 'y-auto', value: 'overscroll-y-auto' },
+        { id: 5, text: 'y-contain', value: 'overscroll-y-contain' },
+        { id: 6, text: 'y-none', value: 'overscroll-y-none' },
+        { id: 7, text: 'x-auto', value: 'overscroll-x-auto' },
+        { id: 8, text: 'x-contain', value: 'overscroll-x-contain' },
+        { id: 9, text: 'x-none', value: 'overscroll-x-none' },
+    ]
+};
+
+export { grid_mapper, flex_mapper, spacing_mapper, sizing_mapper, whitespace_mapper, overflow_mapper, overscroll_mapper }
