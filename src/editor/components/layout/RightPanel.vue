@@ -274,6 +274,26 @@
                 </select>
               </div>
             </div>
+            <!-- VISIBILITY -->
+            <div class="setting-content">
+              <div class="setting-subtitle">Visibility</div>
+              <div class="setting">
+                <label for="visibility">Visibility</label>
+                <select id="visibility" name="visibility" @change="replaceClass(selected_layout, selected_visibility, mappers.visibility_mapper.regex_pattern)" v-model="selected_visibility">
+                  <option v-for='(visibility, index) in mappers.visibility_mapper.values' :key="index" :value="visibility.value">{{ visibility.text }}</option>
+                </select>
+              </div>
+            </div>
+            <!-- Z-INDEX -->
+            <div class="setting-content">
+              <div class="setting-subtitle">Z-index</div>
+              <div class="setting">
+                <label for="zindex">Z-index</label>
+                <select id="zindex" name="zindex" @change="replaceClass(selected_layout, selected_zindex, mappers.zindex_mapper.regex_pattern)" v-model="selected_zindex">
+                  <option v-for='(zindex, index) in mappers.zindex_mapper.values' :key="index" :value="zindex.value">{{ zindex.text }}</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -300,6 +320,8 @@ import {
   overscroll_mapper,
   position_mapper,
   absolute_mapper,
+  visibility_mapper,
+  zindex_mapper,
 } from 'Editor/mappers/tailwind/layout'
 import { appendPlaceholder } from 'Editor/utilities/layout'
 import { replaceClass } from 'Editor/utilities/utilities'
@@ -322,6 +344,8 @@ export default {
           overscroll_mapper,
           position_mapper,
           absolute_mapper,
+          visibility_mapper,
+          zindex_mapper,
         },
         container_options: [],
         element_options: [],
@@ -354,6 +378,8 @@ export default {
             { model: 'selected_absolute_right', mapper_values: absolute_mapper.right.values },
             { model: 'selected_absolute_left', mapper_values: absolute_mapper.left.values },
             { model: 'selected_absolute_bottom', mapper_values: absolute_mapper.bottom.values },
+            { model: 'selected_visibility', mapper_values: visibility_mapper.values },
+            { model: 'selected_zindex', mapper_values: zindex_mapper.values },
         ],
         //Gaps
         selected_col_gap: '',
@@ -392,6 +418,10 @@ export default {
         selected_absolute_right: '',
         selected_absolute_left: '',
         selected_absolute_bottom: '',
+        //Visibility
+        selected_visibility: '',
+        //Z-index
+        selected_zindex: '',
       }
     },
     mounted() {

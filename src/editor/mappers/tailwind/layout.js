@@ -1722,6 +1722,27 @@ const absolute_mapper = {
     }
 };
 
+const visibility_mapper = {
+    regex_pattern: '^(visible|invisible)$',
+    values: [
+        { id: 1, text: 'visible', value: 'visible' },
+        { id: 2, text: 'invisible', value: 'invisible' },
+    ]
+};
+
+const zindex_mapper = {
+    regex_pattern: '^z-([0-9]+)?(\\w+)?',
+    values: [
+        { id: 1, text: '0', value: 'z-0' },
+        { id: 2, text: '10', value: 'z-10' },
+        { id: 3, text: '20', value: 'z-20' },
+        { id: 4, text: '30', value: 'z-30' },
+        { id: 5, text: '40', value: 'z-40' },
+        { id: 6, text: '50', value: 'z-50' },
+        { id: 7, text: 'auto', value: 'z-auto' },
+    ]
+};
+
 export {
     grid_mapper,
     flex_mapper,
@@ -1732,4 +1753,6 @@ export {
     overscroll_mapper,
     position_mapper,
     absolute_mapper,
+    visibility_mapper,
+    zindex_mapper,
 }
