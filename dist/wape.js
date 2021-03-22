@@ -9582,6 +9582,7 @@ var wape = (function () {
           gap: {
               regex_pattern: '^gap-(y-)?[0-9]+(\.[0-9])?$',
               values: [
+                  { id: 0, text: 'default', value: '' },
                   { id: 1, text: '0', value: 'gap-y-0' },
                   { id: 2, text: '0.125rem', value: 'gap-y-0.5' },
                   { id: 3, text: '0.25rem', value: 'gap-y-1' },
@@ -9641,6 +9642,7 @@ var wape = (function () {
           gap: {
               regex_pattern: '^gap-(x-)?[0-9]+(\.[0-9])?$',
               values: [
+                  { id: 0, text: 'default', value: '' },
                   { id: 1, text: '0', value: 'gap-x-0' },
                   { id: 2, text: '0.125rem', value: 'gap-x-0.5' },
                   { id: 3, text: '0.25rem', value: 'gap-x-1' },
@@ -9682,6 +9684,7 @@ var wape = (function () {
           order: {
               regex_pattern: '^order-([0-9]+)?(-\\w+)?$',
               values: [
+                  { id: 0, text: 'default', value: '' },
                   { id: 1, text: '1', value: 'order-1' },
                   { id: 2, text: '2', value: 'order-2' },
                   { id: 3, text: '3', value: 'order-3' },
@@ -9706,6 +9709,7 @@ var wape = (function () {
       gap: {
           regex_pattern: '^gap-(x-)?[0-9]+(\.[0-9])?$',
           values: [
+              { id: 0, text: 'default', value: '' },
               { id: 1, text: '0', value: 'gap-x-0' },
               { id: 2, text: '0.125rem', value: 'gap-x-0.5' },
               { id: 3, text: '0.25rem', value: 'gap-x-1' },
@@ -9771,6 +9775,7 @@ var wape = (function () {
       grow: {
           regex_pattern: '^flex-(grow)?(-\\d)?$',
           values: [
+              { id: 0, text: 'default', value: '' },
               { id: 1, text: 'do not grow', value: 'flex-grow-0' },
               { id: 2, text: 'grow to fill any available space', value: 'flex-grow' },
           ]
@@ -9778,6 +9783,7 @@ var wape = (function () {
       shrink: {
           regex_pattern: '^flex-(shrink)?(-\\d)?$',
           values: [
+              { id: 0, text: 'default', value: '' },
               { id: 1, text: 'do not shrink', value: 'flex-shrink-0' },
               { id: 2, text: 'shrink if needed', value: 'flex-shrink' },
           ]
@@ -9785,6 +9791,7 @@ var wape = (function () {
       order: {
           regex_pattern: '^order-([0-9]+)?(-\\w+)?$',
           values: [
+              { id: 0, text: 'default', value: '' },
               { id: 1, text: '1', value: 'order-1' },
               { id: 2, text: '2', value: 'order-2' },
               { id: 3, text: '3', value: 'order-3' },
@@ -9809,6 +9816,7 @@ var wape = (function () {
           all: {
               regex_pattern: '^p-[0-9]+(\.[0-9])?$',
               values: [
+                  { id: 0, text: 'default', value: '' },
                   { id: 1, text: '0', value: 'p-0' },
                   { id: 2, text: '0.125rem', value: 'p-0.5' },
                   { id: 3, text: '0.25rem', value: 'p-1' },
@@ -9848,6 +9856,7 @@ var wape = (function () {
           vertical: {
               regex_pattern: '^py-[0-9]+(\.[0-9])?$',
               values: [
+                  { id: 0, text: 'default', value: '' },
                   { id: 1, text: '0', value: 'py-0' },
                   { id: 2, text: '0.125rem', value: 'py-0.5' },
                   { id: 3, text: '0.25rem', value: 'py-1' },
@@ -9887,6 +9896,7 @@ var wape = (function () {
           horizontal: {
               regex_pattern: '^px-[0-9]+(\.[0-9])?$',
               values: [
+                  { id: 0, text: 'default', value: '' },
                   { id: 1, text: '0', value: 'px-0' },
                   { id: 2, text: '0.125rem', value: 'px-0.5' },
                   { id: 3, text: '0.25rem', value: 'px-1' },
@@ -9926,6 +9936,7 @@ var wape = (function () {
           top: {
               regex_pattern: '^pt-[0-9]+(\.[0-9])?$',
               values: [
+                  { id: 0, text: 'default', value: '' },
                   { id: 1, text: '0', value: 'pt-0' },
                   { id: 2, text: '0.125rem', value: 'pt-0.5' },
                   { id: 3, text: '0.25rem', value: 'pt-1' },
@@ -9965,6 +9976,7 @@ var wape = (function () {
           right: {
               regex_pattern: '^pr-[0-9]+(\.[0-9])?$',
               values: [
+                  { id: 0, text: 'default', value: '' },
                   { id: 1, text: '0', value: 'pr-0' },
                   { id: 2, text: '0.125rem', value: 'pr-0.5' },
                   { id: 3, text: '0.25rem', value: 'pr-1' },
@@ -10004,6 +10016,7 @@ var wape = (function () {
           bottom: {
               regex_pattern: '^pb-[0-9]+(\.[0-9])?$',
               values: [
+                  { id: 0, text: 'default', value: '' },
                   { id: 1, text: '0', value: 'pb-0' },
                   { id: 2, text: '0.125rem', value: 'pb-0.5' },
                   { id: 3, text: '0.25rem', value: 'pb-1' },
@@ -10043,6 +10056,7 @@ var wape = (function () {
           left: {
               regex_pattern: '^pl-[0-9]+(\.[0-9])?$',
               values: [
+                  { id: 0, text: 'default', value: '' },
                   { id: 1, text: '0', value: 'pl-0' },
                   { id: 2, text: '0.125rem', value: 'pl-0.5' },
                   { id: 3, text: '0.25rem', value: 'pl-1' },
@@ -10082,9 +10096,9 @@ var wape = (function () {
       },
       margin: {
           all: {
-              // regex_pattern: '-?m-[0-9]+(\.[0-9])?',
               regex_pattern: '^-?m-([0-9]+)?(\.[0-9])?(\\w+)?$',
               values: [
+                  { id: 0, text: 'default', value: '' },
                   { id: 1, text: '0', value: 'm-0' },
                   { id: 2, text: '0.125rem', value: 'm-0.5' },
                   { id: 3, text: '0.25rem', value: 'm-1' },
@@ -10157,9 +10171,9 @@ var wape = (function () {
               ]
           },
           vertical: {
-              // regex_pattern: 'my-[0-9]+(\.[0-9])?',
               regex_pattern: '^-?my-([0-9]+)?(\.[0-9])?(\\w+)?$',
               values: [
+                  { id: 0, text: 'default', value: '' },
                   { id: 1, text: '0', value: 'my-0' },
                   { id: 2, text: '0.125rem', value: 'my-0.5' },
                   { id: 3, text: '0.25rem', value: 'my-1' },
@@ -10232,9 +10246,9 @@ var wape = (function () {
               ]
           },
           horizontal: {
-              // regex_pattern: 'mx-[0-9]+(\.[0-9])?',
               regex_pattern: '^-?mx-([0-9]+)?(\.[0-9])?(\\w+)?$',
               values: [
+                  { id: 0, text: 'default', value: '' },
                   { id: 1, text: '0', value: 'mx-0' },
                   { id: 2, text: '0.125rem', value: 'mx-0.5' },
                   { id: 3, text: '0.25rem', value: 'mx-1' },
@@ -10307,9 +10321,9 @@ var wape = (function () {
               ]
           },
           top: {
-              // regex_pattern: 'mt-[0-9]+(\.[0-9])?',
               regex_pattern: '^-?mt-([0-9]+)?(\.[0-9])?(\\w+)?$',
               values: [
+                  { id: 0, text: 'default', value: '' },
                   { id: 1, text: '0', value: 'mt-0' },
                   { id: 2, text: '0.125rem', value: 'mt-0.5' },
                   { id: 3, text: '0.25rem', value: 'mt-1' },
@@ -10382,9 +10396,9 @@ var wape = (function () {
               ]
           },
           right: {
-              // regex_pattern: 'mr-[0-9]+(\.[0-9])?',
               regex_pattern: '^-?mr-([0-9]+)?(\.[0-9])?(\\w+)?$',
               values: [
+                  { id: 0, text: 'default', value: '' },
                   { id: 1, text: '0', value: 'mr-0' },
                   { id: 2, text: '0.125rem', value: 'mr-0.5' },
                   { id: 3, text: '0.25rem', value: 'mr-1' },
@@ -10457,9 +10471,9 @@ var wape = (function () {
               ]
           },
           bottom: {
-              // regex_pattern: 'mb-[0-9]+(\.[0-9])?',
               regex_pattern: '^-?mb-([0-9]+)?(\.[0-9])?(\\w+)?$',
               values: [
+                  { id: 0, text: 'default', value: '' },
                   { id: 1, text: '0', value: 'mb-0' },
                   { id: 2, text: '0.125rem', value: 'mb-0.5' },
                   { id: 3, text: '0.25rem', value: 'mb-1' },
@@ -10532,9 +10546,9 @@ var wape = (function () {
               ]
           },
           left: {
-              // regex_pattern: 'ml-[0-9]+(\.[0-9])?',
               regex_pattern: '^-?ml-([0-9]+)?(\.[0-9])?(\\w+)?$',
               values: [
+                  { id: 0, text: 'default', value: '' },
                   { id: 1, text: '0', value: 'ml-0' },
                   { id: 2, text: '0.125rem', value: 'ml-0.5' },
                   { id: 3, text: '0.25rem', value: 'ml-1' },
@@ -10613,6 +10627,7 @@ var wape = (function () {
       width: {
           regex_pattern: '^-?w-([0-9]+)?(\/[0-9]+)?(\.[0-9])?(\\w+)?$',
           values: [
+              { id: 0, text: 'default', value: '' },
               { id: 1, text: '0', value: 'w-0' },
               { id: 2, text: '0.125rem', value: 'w-0.5' },
               { id: 3, text: '0.25rem', value: 'w-1' },
@@ -10672,6 +10687,7 @@ var wape = (function () {
       height: {
           regex_pattern: '^-?h-([0-9]+)?(\/[0-9]+)?(\.[0-9])?(\\w+)?$',
           values: [
+              { id: 0, text: 'default', value: '' },
               { id: 1, text: '0', value: 'h-0' },
               { id: 2, text: '0.125rem', value: 'h-0.5' },
               { id: 3, text: '0.25rem', value: 'h-1' },
@@ -10731,6 +10747,7 @@ var wape = (function () {
   const whitespace_mapper = {
       regex_pattern: '^whitespace-\\w+(-\\w+)?$',
       values: [
+          { id: 0, text: 'default', value: '' },
           { id: 1, text: 'normal', value: 'whitespace-normal' },
           { id: 2, text: 'nowrap', value: 'whitespace-nowrap' },
           { id: 3, text: 'pre', value: 'whitespace-pre' },
@@ -10742,6 +10759,7 @@ var wape = (function () {
   const overflow_mapper = {
       regex_pattern: '^overflow-([xy]-)?(\\w+)?$',
       values: [
+          { id: 0, text: 'default', value: '' },
           { id: 1, text: 'auto', value: 'overflow-auto' },
           { id: 2, text: 'hidden', value: 'overflow-hidden' },
           { id: 3, text: 'visible', value: 'overflow-visible' },
@@ -10760,6 +10778,7 @@ var wape = (function () {
   const overscroll_mapper = {
       regex_pattern: '^overscroll-([xy]-)?(\\w+)?$',
       values: [
+          { id: 0, text: 'default', value: '' },
           { id: 1, text: 'auto', value: 'overscroll-auto' },
           { id: 2, text: 'contain', value: 'overscroll-contain' },
           { id: 3, text: 'none', value: 'overscroll-none' },
@@ -10775,6 +10794,7 @@ var wape = (function () {
   const position_mapper = {
       regex_pattern: '^(static|fixed|absolute|relative|sticky)$',
       values: [
+          { id: 0, text: 'default', value: '' },
           { id: 1, text: 'static', value: 'static' },
           { id: 2, text: 'fixed', value: 'fixed' },
           { id: 3, text: 'absolute', value: 'absolute' },
@@ -10787,6 +10807,7 @@ var wape = (function () {
       inset: {
           regex_pattern: '^-?inset-([xy]-)?([0-9]+)?(\/[0-9]+)?(\.[0-9])?(\\w+)?$',
           values: [
+              { id: 0, text: 'default', value: '' },
               { id: 1, text: 'auto', value: 'inset-auto' },
               { id: 2, text: '25%', value: 'inset-1/4' },
               { id: 3, text: '33.333333%', value: 'inset-1/3' },
@@ -11032,6 +11053,7 @@ var wape = (function () {
       top: {
           regex_pattern: '^-?top-([0-9]+)?(\/[0-9]+)?(\.[0-9])?(\\w+)?$',
           values: [
+              { id: 0, text: 'default', value: '' },
               { id: 1, text: 'auto', value: 'top-auto' },
               { id: 2, text: '25%', value: 'top-1/4' },
               { id: 3, text: '33.333333%', value: 'top-1/3' },
@@ -11117,6 +11139,7 @@ var wape = (function () {
       right: {
           regex_pattern: '^-?right-([0-9]+)?(\/[0-9]+)?(\.[0-9])?(\\w+)?$',
           values: [
+              { id: 0, text: 'default', value: '' },
               { id: 1, text: 'auto', value: 'right-auto' },
               { id: 2, text: '25%', value: 'right-1/4' },
               { id: 3, text: '33.333333%', value: 'right-1/3' },
@@ -11202,6 +11225,7 @@ var wape = (function () {
       left: {
           regex_pattern: '^-?left-([0-9]+)?(\/[0-9]+)?(\.[0-9])?(\\w+)?$',
           values: [
+              { id: 0, text: 'default', value: '' },
               { id: 1, text: 'auto', value: 'left-auto' },
               { id: 2, text: '25%', value: 'left-1/4' },
               { id: 3, text: '33.333333%', value: 'left-1/3' },
@@ -11287,6 +11311,7 @@ var wape = (function () {
       bottom: {
           regex_pattern: '^-?bottom-([0-9]+)?(\/[0-9]+)?(\.[0-9])?(\\w+)?$',
           values: [
+              { id: 0, text: 'default', value: '' },
               { id: 1, text: 'auto', value: 'bottom-auto' },
               { id: 2, text: '25%', value: 'bottom-1/4' },
               { id: 3, text: '33.333333%', value: 'bottom-1/3' },
@@ -11374,6 +11399,7 @@ var wape = (function () {
   const visibility_mapper = {
       regex_pattern: '^(visible|invisible)$',
       values: [
+          { id: 0, text: 'default', value: '' },
           { id: 1, text: 'visible', value: 'visible' },
           { id: 2, text: 'invisible', value: 'invisible' },
       ]
@@ -11382,6 +11408,7 @@ var wape = (function () {
   const zindex_mapper = {
       regex_pattern: '^z-([0-9]+)?(\\w+)?$',
       values: [
+          { id: 0, text: 'default', value: '' },
           { id: 1, text: '0', value: 'z-0' },
           { id: 2, text: '10', value: 'z-10' },
           { id: 3, text: '20', value: 'z-20' },
