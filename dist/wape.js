@@ -9580,7 +9580,7 @@ var wape = (function () {
               ],
           },
           gap: {
-              regex_pattern: 'gap-(y-)?[0-9]+(\.[0-9])?',
+              regex_pattern: '^gap-(y-)?[0-9]+(\.[0-9])?$',
               values: [
                   { id: 1, text: '0', value: 'gap-y-0' },
                   { id: 2, text: '0.125rem', value: 'gap-y-0.5' },
@@ -9617,7 +9617,7 @@ var wape = (function () {
                   { id: 33, text: '20rem', value: 'gap-y-80' },
                   { id: 34, text: '24rem', value: 'gap-y-96' },
               ],
-          }
+          },
       },
       cols: {
           template: {
@@ -9639,7 +9639,7 @@ var wape = (function () {
               ],
           },
           gap: {
-              regex_pattern: 'gap-(x-)?[0-9]+(\.[0-9])?',
+              regex_pattern: '^gap-(x-)?[0-9]+(\.[0-9])?$',
               values: [
                   { id: 1, text: '0', value: 'gap-x-0' },
                   { id: 2, text: '0.125rem', value: 'gap-x-0.5' },
@@ -9676,13 +9676,35 @@ var wape = (function () {
                   { id: 33, text: '20rem', value: 'gap-x-80' },
                   { id: 34, text: '24rem', value: 'gap-x-96' },
               ]
-          }
+          },
+      },
+      generics: {
+          order: {
+              regex_pattern: '^order-([0-9]+)?(-\\w+)?$',
+              values: [
+                  { id: 1, text: '1', value: 'order-1' },
+                  { id: 2, text: '2', value: 'order-2' },
+                  { id: 3, text: '3', value: 'order-3' },
+                  { id: 4, text: '4', value: 'order-4' },
+                  { id: 5, text: '5', value: 'order-5' },
+                  { id: 6, text: '6', value: 'order-6' },
+                  { id: 7, text: '7', value: 'order-7' },
+                  { id: 8, text: '8', value: 'order-8' },
+                  { id: 9, text: '9', value: 'order-9' },
+                  { id: 10, text: '10', value: 'order-10' },
+                  { id: 11, text: '11', value: 'order-11' },
+                  { id: 12, text: '12', value: 'order-12' },
+                  { id: 13, text: 'first', value: 'order-first' },
+                  { id: 14, text: 'last', value: 'order-last' },
+                  { id: 15, text: 'none', value: 'order-none' },
+              ]
+          },
       }
   };
 
   const flex_mapper = {
       gap: {
-          regex_pattern: 'gap-(x-)?[0-9]+(\.[0-9])?',
+          regex_pattern: '^gap-(x-)?[0-9]+(\.[0-9])?$',
           values: [
               { id: 1, text: '0', value: 'gap-x-0' },
               { id: 2, text: '0.125rem', value: 'gap-x-0.5' },
@@ -9719,13 +9741,73 @@ var wape = (function () {
               { id: 33, text: '20rem', value: 'gap-x-80' },
               { id: 34, text: '24rem', value: 'gap-x-96' },
           ]
-      }
+      },
+      direction: {
+          regex_pattern: '^flex-(row|col)?(-reverse)?$',
+          values: [
+              { id: 1, text: 'row', value: 'flex-row' },
+              { id: 2, text: 'row reverse', value: 'flex-row-reverse' },
+              { id: 3, text: 'col', value: 'flex-col' },
+              { id: 4, text: 'col reverse', value: 'flex-col-reverse' },
+          ]
+      },
+      wrap: {
+          regex_pattern: '^flex-(wrap|nowrap)?(-reverse)?$',
+          values: [
+              { id: 1, text: 'wrap', value: 'flex-wrap' },
+              { id: 2, text: 'wrap reverse', value: 'flex-wrap-reverse' },
+              { id: 3, text: 'no wrap', value: 'flex-nowrap' },
+          ]
+      },
+      flex: {
+          regex_pattern: '^flex-(1|auto|initial|none)$',
+          values: [
+              { id: 1, text: 'grow and shrink ignore initial size', value: 'flex-1' },
+              { id: 2, text: 'grow and shrink taking account initial size', value: 'flex-auto' },
+              { id: 3, text: 'shrink but not grow', value: 'flex-initial' },
+              { id: 4, text: 'do not grow or shrink', value: 'flex-none' },
+          ]
+      },
+      grow: {
+          regex_pattern: '^flex-(grow)?(-\\d)?$',
+          values: [
+              { id: 1, text: 'do not grow', value: 'flex-grow-0' },
+              { id: 2, text: 'grow to fill any available space', value: 'flex-grow' },
+          ]
+      },
+      shrink: {
+          regex_pattern: '^flex-(shrink)?(-\\d)?$',
+          values: [
+              { id: 1, text: 'do not shrink', value: 'flex-shrink-0' },
+              { id: 2, text: 'shrink if needed', value: 'flex-shrink' },
+          ]
+      },
+      order: {
+          regex_pattern: '^order-([0-9]+)?(-\\w+)?$',
+          values: [
+              { id: 1, text: '1', value: 'order-1' },
+              { id: 2, text: '2', value: 'order-2' },
+              { id: 3, text: '3', value: 'order-3' },
+              { id: 4, text: '4', value: 'order-4' },
+              { id: 5, text: '5', value: 'order-5' },
+              { id: 6, text: '6', value: 'order-6' },
+              { id: 7, text: '7', value: 'order-7' },
+              { id: 8, text: '8', value: 'order-8' },
+              { id: 9, text: '9', value: 'order-9' },
+              { id: 10, text: '10', value: 'order-10' },
+              { id: 11, text: '11', value: 'order-11' },
+              { id: 12, text: '12', value: 'order-12' },
+              { id: 13, text: 'first', value: 'order-first' },
+              { id: 14, text: 'last', value: 'order-last' },
+              { id: 15, text: 'none', value: 'order-none' },
+          ]
+      },
   };
 
   const spacing_mapper = {
       padding: {
           all: {
-              regex_pattern: 'p-[0-9]+(\.[0-9])?',
+              regex_pattern: '^p-[0-9]+(\.[0-9])?$',
               values: [
                   { id: 1, text: '0', value: 'p-0' },
                   { id: 2, text: '0.125rem', value: 'p-0.5' },
@@ -9764,7 +9846,7 @@ var wape = (function () {
               ]
           },
           vertical: {
-              regex_pattern: 'py-[0-9]+(\.[0-9])?',
+              regex_pattern: '^py-[0-9]+(\.[0-9])?$',
               values: [
                   { id: 1, text: '0', value: 'py-0' },
                   { id: 2, text: '0.125rem', value: 'py-0.5' },
@@ -9803,7 +9885,7 @@ var wape = (function () {
               ]
           },
           horizontal: {
-              regex_pattern: 'px-[0-9]+(\.[0-9])?',
+              regex_pattern: '^px-[0-9]+(\.[0-9])?$',
               values: [
                   { id: 1, text: '0', value: 'px-0' },
                   { id: 2, text: '0.125rem', value: 'px-0.5' },
@@ -9842,7 +9924,7 @@ var wape = (function () {
               ]
           },
           top: {
-              regex_pattern: 'pt-[0-9]+(\.[0-9])?',
+              regex_pattern: '^pt-[0-9]+(\.[0-9])?$',
               values: [
                   { id: 1, text: '0', value: 'pt-0' },
                   { id: 2, text: '0.125rem', value: 'pt-0.5' },
@@ -9881,7 +9963,7 @@ var wape = (function () {
               ]
           },
           right: {
-              regex_pattern: 'pr-[0-9]+(\.[0-9])?',
+              regex_pattern: '^pr-[0-9]+(\.[0-9])?$',
               values: [
                   { id: 1, text: '0', value: 'pr-0' },
                   { id: 2, text: '0.125rem', value: 'pr-0.5' },
@@ -9920,7 +10002,7 @@ var wape = (function () {
               ]
           },
           bottom: {
-              regex_pattern: 'pb-[0-9]+(\.[0-9])?',
+              regex_pattern: '^pb-[0-9]+(\.[0-9])?$',
               values: [
                   { id: 1, text: '0', value: 'pb-0' },
                   { id: 2, text: '0.125rem', value: 'pb-0.5' },
@@ -9959,7 +10041,7 @@ var wape = (function () {
               ]
           },
           left: {
-              regex_pattern: 'pl-[0-9]+(\.[0-9])?',
+              regex_pattern: '^pl-[0-9]+(\.[0-9])?$',
               values: [
                   { id: 1, text: '0', value: 'pl-0' },
                   { id: 2, text: '0.125rem', value: 'pl-0.5' },
@@ -11298,7 +11380,7 @@ var wape = (function () {
   };
 
   const zindex_mapper = {
-      regex_pattern: '^z-([0-9]+)?(\\w+)?',
+      regex_pattern: '^z-([0-9]+)?(\\w+)?$',
       values: [
           { id: 1, text: '0', value: 'z-0' },
           { id: 2, text: '10', value: 'z-10' },
@@ -11438,6 +11520,13 @@ var wape = (function () {
               { model: 'selected_absolute_bottom', mapper_values: absolute_mapper.bottom.values },
               { model: 'selected_visibility', mapper_values: visibility_mapper.values },
               { model: 'selected_zindex', mapper_values: zindex_mapper.values },
+              { model: 'selected_flex_direction', mapper_values: flex_mapper.direction.values },
+              { model: 'selected_flex_wrap', mapper_values: flex_mapper.wrap.values },
+              { model: 'selected_flex_behaviour', mapper_values: flex_mapper.flex.values },
+              { model: 'selected_flex_grow', mapper_values: flex_mapper.grow.values },
+              { model: 'selected_flex_shrink', mapper_values: flex_mapper.shrink.values },
+              { model: 'selected_grid_order', mapper_values: grid_mapper.generics.order.values },
+              { model: 'selected_flex_order', mapper_values: flex_mapper.order.values },
           ],
           //Gaps
           selected_col_gap: '',
@@ -11480,17 +11569,24 @@ var wape = (function () {
           selected_visibility: '',
           //Z-index
           selected_zindex: '',
+          // Flex specifics
+          selected_flex_direction: '',
+          selected_flex_wrap: '',
+          selected_flex_behaviour: '',
+          selected_flex_grow: '',
+          selected_flex_shrink: '',
+
+          //Elements
+          //Order
+          selected_grid_order: '',
+          selected_flex_order: '',
         }
       },
       mounted() {
         emitter.on('iframe-click', (args) => { //Fired from MainPanel.vue
           this.selected_layout = args.container;
           this.selected_element = args.element;
-          switch (this.current_panel) {
-            case 'layout':
-              this.setDefaultValues();
-            break;
-          }
+          this.triggerSetDefaultValues();
         });
       },
       methods: {
@@ -11498,6 +11594,7 @@ var wape = (function () {
         switchPanel(panel) {
           this.animating = true;
           this.current_panel = panel;
+          this.triggerSetDefaultValues();
         },
         showPanel(panel) {
           return (this.current_panel === panel)
@@ -11505,18 +11602,32 @@ var wape = (function () {
         animationEnd() {
           this.animating = false;
         },
-        isGrid(container) {
-          if (container === null) {
+        isGrid(layout_instance) {
+          if (layout_instance === null) {
             return false
           } else {
-            return container.type === 'grid'
+            return layout_instance.type === 'grid'
           }
         },
-        isFlex(container) {
-          if (container === null) {
+        isFlex(layout_instance) {
+          if (layout_instance === null) {
             return false
           } else {
-            return container.type === 'flex'
+            return layout_instance.type === 'flex'
+          }
+        },
+        isGridChild(layout_instance, element_instance) {
+          if (layout_instance === null || layout_instance.type !== 'grid') {
+            return false
+          } else {
+            return [...layout_instance.element.children].includes(element_instance.element)
+          }
+        },
+        isFlexChild(layout_instance, element_instance) {
+          if (layout_instance === null || layout_instance.type !== 'flex') {
+            return false
+          } else {
+            return [...layout_instance.element.children].includes(element_instance.element)
           }
         },
         addGridColumn(layout_instance) {
@@ -11562,17 +11673,27 @@ var wape = (function () {
             layout_instance.addColumn();
           }
         },
-        setDefaultValues() {
-          let layout_classes = this.selected_layout.getClassesAsArray();
+        setDefaultValues(element_selected) {
+          let element_classes = element_selected.getClassesAsArray();
           for (let setting of this.settings) {
             //reset old value
             this[setting.model] = '';
             let found = setting.mapper_values.find((item) => {
-              return (layout_classes.includes(item.value))
+              return (element_classes.includes(item.value))
             });
             if (typeof found !== 'undefined') {
               this[setting.model] = found.value;
             }
+          }
+        },
+        triggerSetDefaultValues() {
+          switch (this.current_panel) {
+            case 'layout':
+              this.setDefaultValues(this.selected_layout);
+            break;
+            case 'element':
+              this.setDefaultValues(this.selected_element);
+            break;
           }
         }
       }
@@ -11995,6 +12116,141 @@ var wape = (function () {
                                   [_vm._v(_vm._s(col_gap.text))]
                                 )
                               }),
+                              0
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "setting-content" }, [
+                          _c("div", { staticClass: "setting-subtitle" }, [
+                            _vm._v("Direction")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c("label", { attrs: { for: "direction" } }, [
+                              _vm._v("Flex direction")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_flex_direction,
+                                    expression: "selected_flex_direction"
+                                  }
+                                ],
+                                attrs: { id: "direction", name: "direction" },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_flex_direction = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_layout,
+                                        _vm.selected_flex_direction,
+                                        _vm.mappers.flex_mapper.direction
+                                          .regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.flex_mapper.direction.values,
+                                function(direction, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: direction.value }
+                                    },
+                                    [_vm._v(_vm._s(direction.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "setting-content" }, [
+                          _c("div", { staticClass: "setting-subtitle" }, [
+                            _vm._v("Wrap")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c("label", { attrs: { for: "wrap" } }, [
+                              _vm._v("Flex wrap")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_flex_wrap,
+                                    expression: "selected_flex_wrap"
+                                  }
+                                ],
+                                attrs: { id: "wrap", name: "wrap" },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_flex_wrap = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_layout,
+                                        _vm.selected_flex_wrap,
+                                        _vm.mappers.flex_mapper.wrap.regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.flex_mapper.wrap.values,
+                                function(wrap, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: wrap.value }
+                                    },
+                                    [_vm._v(_vm._s(wrap.text))]
+                                  )
+                                }
+                              ),
                               0
                             )
                           ])
@@ -13802,7 +14058,351 @@ var wape = (function () {
           [
             _vm.showPanel("element") && !_vm.animating
               ? _c("div", { staticClass: "element-settings" }, [
-                  _vm._v("\n      ELEMENT\n    ")
+                  _vm.isGridChild(_vm.selected_layout, _vm.selected_element)
+                    ? _c("div", { staticClass: "grid" }, [
+                        _c("div", { staticClass: "setting-content" }, [
+                          _c("div", { staticClass: "setting-subtitle" }, [
+                            _vm._v("Order")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c("label", { attrs: { for: "order" } }, [
+                              _vm._v("Grid order")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_grid_order,
+                                    expression: "selected_grid_order"
+                                  }
+                                ],
+                                attrs: { id: "order", name: "order" },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_grid_order = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_element,
+                                        _vm.selected_grid_order,
+                                        _vm.mappers.grid_mapper.generics.order
+                                          .regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.grid_mapper.generics.order.values,
+                                function(order, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: order.value }
+                                    },
+                                    [_vm._v(_vm._s(order.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
+                          ])
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.isFlexChild(_vm.selected_layout, _vm.selected_element)
+                    ? _c("div", { staticClass: "flex" }, [
+                        _c("div", { staticClass: "setting-content" }, [
+                          _c("div", { staticClass: "setting-subtitle" }, [
+                            _vm._v("Flex")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c("label", { attrs: { for: "behaviour" } }, [
+                              _vm._v("Flex behaviour")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_flex_behaviour,
+                                    expression: "selected_flex_behaviour"
+                                  }
+                                ],
+                                attrs: { id: "behaviour", name: "behaviour" },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_flex_behaviour = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_element,
+                                        _vm.selected_flex_behaviour,
+                                        _vm.mappers.flex_mapper.flex.regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.flex_mapper.flex.values,
+                                function(behaviour, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: behaviour.value }
+                                    },
+                                    [_vm._v(_vm._s(behaviour.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "setting-content" }, [
+                          _c("div", { staticClass: "setting-subtitle" }, [
+                            _vm._v("Grow")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c("label", { attrs: { for: "grow" } }, [
+                              _vm._v("Flex grow")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_flex_grow,
+                                    expression: "selected_flex_grow"
+                                  }
+                                ],
+                                attrs: { id: "grow", name: "grow" },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_flex_grow = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_element,
+                                        _vm.selected_flex_grow,
+                                        _vm.mappers.flex_mapper.grow.regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.flex_mapper.grow.values,
+                                function(grow, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: grow.value }
+                                    },
+                                    [_vm._v(_vm._s(grow.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "setting-content" }, [
+                          _c("div", { staticClass: "setting-subtitle" }, [
+                            _vm._v("Shrink")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c("label", { attrs: { for: "grow" } }, [
+                              _vm._v("Flex shrink")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_flex_shrink,
+                                    expression: "selected_flex_shrink"
+                                  }
+                                ],
+                                attrs: { id: "grow", name: "grow" },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_flex_shrink = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_element,
+                                        _vm.selected_flex_shrink,
+                                        _vm.mappers.flex_mapper.shrink
+                                          .regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.flex_mapper.shrink.values,
+                                function(shrink, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: shrink.value }
+                                    },
+                                    [_vm._v(_vm._s(shrink.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "setting-content" }, [
+                          _c("div", { staticClass: "setting-subtitle" }, [
+                            _vm._v("Order")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "setting" }, [
+                            _c("label", { attrs: { for: "order" } }, [
+                              _vm._v("Flex order")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selected_flex_order,
+                                    expression: "selected_flex_order"
+                                  }
+                                ],
+                                attrs: { id: "order", name: "order" },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(o) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value;
+                                          return val
+                                        });
+                                      _vm.selected_flex_order = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0];
+                                    },
+                                    function($event) {
+                                      return _vm.replaceClass(
+                                        _vm.selected_element,
+                                        _vm.selected_flex_order,
+                                        _vm.mappers.flex_mapper.order
+                                          .regex_pattern
+                                      )
+                                    }
+                                  ]
+                                }
+                              },
+                              _vm._l(
+                                _vm.mappers.flex_mapper.order.values,
+                                function(order, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: order.value }
+                                    },
+                                    [_vm._v(_vm._s(order.text))]
+                                  )
+                                }
+                              ),
+                              0
+                            )
+                          ])
+                        ])
+                      ])
+                    : _vm._e()
                 ])
               : _vm._e()
           ]
@@ -13817,11 +14417,11 @@ var wape = (function () {
     /* style */
     const __vue_inject_styles__$2 = function (inject) {
       if (!inject) return
-      inject("data-v-5c6f3c59_0", { source: "\ndiv.right-panel[data-v-5c6f3c59] {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n}\ndiv.right-panel > div.actions[data-v-5c6f3c59] {\n      display: flex;\n      border-bottom: .5px solid #000;\n}\ndiv.right-panel > div.actions > div[data-v-5c6f3c59] {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n}\ndiv.right-panel > div.actions > div.container[data-v-5c6f3c59]\n    {\n      border-right: .5px solid #000;\n}\ndiv.right-panel > div.actions > div.element[data-v-5c6f3c59]\n    {\n      border-right: .5px solid #000;\n}\n\n    /* Animations thanks animista.net */\n.left-enter-active[data-v-5c6f3c59] {\n    -webkit-animation: slide-in-left-data-v-5c6f3c59 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left-data-v-5c6f3c59 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n.right-enter-active[data-v-5c6f3c59] {\n  -webkit-animation: slide-in-right-data-v-5c6f3c59 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right-data-v-5c6f3c59 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n@-webkit-keyframes slide-in-left-data-v-5c6f3c59 {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-left-data-v-5c6f3c59 {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@-webkit-keyframes slide-in-right-data-v-5c6f3c59 {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-right-data-v-5c6f3c59 {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\ndiv.setting-label[data-v-5c6f3c59] {\n    color: #fff;\n    text-transform: capitalize;\n    font-size: 1.2rem;\n    border-bottom: 1px solid #fff;\n    padding-bottom: .7rem;\n}\ndiv.container-settings[data-v-5c6f3c59],\n  div.element-settings[data-v-5c6f3c59] {\n    margin: 3% 2.5%;\n    width: 95%;\n    min-width: 95%;\n    box-sizing: border-box;\n    user-select: none;\n    overflow-y: scroll;\n    height: calc(100% - 2.7rem);\n}\ndiv.setting-subtitle[data-v-5c6f3c59] {\n    color: #fff;\n    font-size: 1.1rem;\n    margin: 0.7rem 0.2rem 0.3rem;\n}\ndiv.setting-content[data-v-5c6f3c59] {\n    margin: 0.5rem;\n    color: #d3d3d3;\n    border-bottom: 1px dashed #fff;\n    padding-bottom: 0.7rem;\n}\ndiv.setting[data-v-5c6f3c59] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    line-height: 1.7rem;\n}\ndiv.action[data-v-5c6f3c59] {\n    display: flex;\n    justify-content: flex-end;\n    margin-bottom: 5px;\n}\ndiv.action > div.add-item[data-v-5c6f3c59] {\n    padding: .5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    color: #fff;\n}\ndiv.action > div.add-item[data-v-5c6f3c59]:hover {\n    padding: .5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n}\ndiv.row > div.remove-item[data-v-5c6f3c59] {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    margin: 0.3rem 0;\n}\ndiv.row > div.remove-item[data-v-5c6f3c59]:hover {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n    margin: 0.3rem 0;\n}\ndiv.setting-wrapper > div.rows > div.row[data-v-5c6f3c59]:first-child {\n    line-height: 2rem;\n    border-top: 1px dotted #fff;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n}\ndiv.setting-wrapper > div.rows > div.row[data-v-5c6f3c59] {\n    display: flex;\n    justify-content: space-between;\n    line-height: 2rem;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n}\ndiv.item-title[data-v-5c6f3c59] {\n    display: flex;\n    align-items: center;\n}\n", map: {"version":3,"sources":["/Users/thomas/Developer/perso/wape/src/editor/components/layout/RightPanel.vue"],"names":[],"mappings":";AA+gBA;MACA,yBAAA;MACA,2BAAA;MACA,YAAA;MACA,gBAAA;AACA;AACA;MACA,aAAA;MACA,8BAAA;AACA;AACA;MACA,cAAA;MACA,WAAA;MACA,iBAAA;MACA,eAAA;AACA;AACA;;MAEA,6BAAA;AACA;AACA;;MAEA,6BAAA;AACA;;IAEA,mCAAA;AACA;IACA,mGAAA;UACA,2FAAA;AACA;AACA;;;IAGA;AACA;EACA,oGAAA;UACA,4FAAA;AACA;CACA;;;IAGA;EACA,mCAAA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AAEA;IACA,WAAA;IACA,0BAAA;IACA,iBAAA;IACA,6BAAA;IACA,qBAAA;AACA;AAEA;;IAEA,eAAA;IACA,UAAA;IACA,cAAA;IACA,sBAAA;IACA,iBAAA;IACA,kBAAA;IACA,2BAAA;AACA;AAEA;IACA,WAAA;IACA,iBAAA;IACA,4BAAA;AACA;AAEA;IACA,cAAA;IACA,cAAA;IACA,8BAAA;IACA,sBAAA;AACA;AAEA;IACA,aAAA;IACA,mBAAA;IACA,8BAAA;IACA,mBAAA;AACA;AAEA;IACA,aAAA;IACA,yBAAA;IACA,kBAAA;AACA;AACA;IACA,cAAA;IACA,sBAAA;IACA,eAAA;IACA,WAAA;AACA;AACA;IACA,cAAA;IACA,sBAAA;IACA,yBAAA;IACA,eAAA;AACA;AACA;IACA,sBAAA;IACA,sBAAA;IACA,eAAA;IACA,gBAAA;AACA;AACA;IACA,sBAAA;IACA,sBAAA;IACA,yBAAA;IACA,eAAA;IACA,gBAAA;AACA;AACA;IACA,iBAAA;IACA,2BAAA;IACA,8BAAA;IACA,eAAA;AACA;AACA;IACA,aAAA;IACA,8BAAA;IACA,iBAAA;IACA,8BAAA;IACA,eAAA;AACA;AACA;IACA,aAAA;IACA,mBAAA;AACA","file":"RightPanel.vue","sourcesContent":["<template>\n  <div class=\"right-panel\">\n    <div class=\"actions\">\n      <div class=\"layout\" @click=\"switchPanel('layout')\">\n        <i class=\"far fa-square\" />\n      </div>\n      <div class=\"element\" @click=\"switchPanel('element')\">\n        <i class=\"fas fa-square\" />\n      </div>\n    </div>\n    <transition name=\"left\" @after-leave=\"animationEnd\">\n      <div v-if=\"(showPanel('layout')) && !animating\" class=\"container-settings\">\n        <!-- GRID -->\n        <div class=\"grid\" v-if=\"isGrid(selected_layout)\">\n          <div class=\"setting-label\">Grid settings</div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Rows</div>\n            <div class=\"setting-wrapper\">\n              <div class=\"action\">\n                <div class=\"add-item\" @click=\"addGridRow(selected_layout)\">\n                  <i class=\"fas fa-plus\"></i>\n                </div>\n              </div>\n              <div class=\"rows\">\n                <div class=\"row\" v-for=\"(row, index) in selected_layout.rows\" :key=\"index\">\n                  <div class=\"item-title\">Row {{ row }}</div>\n                  <div class=\"remove-item\" @click=\"deleteGridRow(selected_layout, row)\"><i class=\"fas fa-minus\"></i></div>\n                </div>\n              </div>\n            </div>\n            <div class=\"setting-subtitle\">Columns</div>\n            <div class=\"setting-wrapper\">\n              <div class=\"action\">\n                <div class=\"add-item\" @click=\"addGridColumn(selected_layout)\">\n                  <i class=\"fas fa-plus\"></i>\n                </div>\n              </div>\n              <div class=\"rows\">\n                <div class=\"row\" v-for=\"(col, index) in selected_layout.cols\" :key=\"index\">\n                  <div class=\"item-title\">Column {{ col }}</div>\n                  <div class=\"remove-item\" @click=\"deleteGridColumn(selected_layout, col)\"><i class=\"fas fa-minus\"></i></div>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Gap</div>\n            <div class=\"setting\">\n              <label for=\"rows-gap\">Rows gap</label>\n              <select id=\"rows-gap\" name=\"rows-gap\" @change=\"replaceClass(selected_layout, selected_row_gap, mappers.grid_mapper.rows.gap.regex_pattern)\" v-model=\"selected_row_gap\">\n                <option v-for=\"(row_gap, index) in mappers.grid_mapper.rows.gap.values\" :key=\"index\" :value=\"row_gap.value\">{{ row_gap.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"cols-gap\">Cols gap</label>\n              <select id=\"cols-gap\" name=\"cols-gap\" @change=\"replaceClass(selected_layout, selected_col_gap, mappers.grid_mapper.cols.gap.regex_pattern)\" v-model=\"selected_col_gap\">\n                <option v-for='(col_gap, index) in mappers.grid_mapper.cols.gap.values' :key=\"index\" :value=\"col_gap.value\">{{ col_gap.text }}</option>\n              </select>\n            </div>\n          </div>\n        </div>\n        <!-- FLEX -->\n        <div class=\"flex\" v-if=\"isFlex(selected_layout)\">\n          <div class=\"setting-label\">Columns settings</div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Columns</div>\n            <div class=\"setting-wrapper\">\n              <div class=\"action\">\n                <div class=\"add-item\" @click=\"addFlexColumn(selected_layout)\">\n                  <i class=\"fas fa-plus\"></i>\n                </div>\n              </div>\n              <div class=\"rows\">\n                <div class=\"row\" v-for=\"(col, index) in selected_layout.cols\" :key=\"index\">\n                  Column {{ col }}\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Gap</div>\n            <div class=\"setting\">\n              <label for=\"cols-gap\">Cols gap</label>\n              <select id=\"cols-gap\" name=\"cols-gap\" @change=\"replaceClass(selected_layout, selected_flex_col_gap, mappers.flex_mapper.gap.regex_pattern)\" v-model=\"selected_flex_col_gap\">\n                <option v-for='(col_gap, index) in mappers.flex_mapper.gap.values' :key=\"index\" :value=\"col_gap.value\">{{ col_gap.text }}</option>\n              </select>\n            </div>\n          </div>\n        </div>\n        <!-- GENERALS -->\n        <div class=\"generals\" v-if=\"(selected_layout !== null)\">\n          <!-- PADDINGS -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Paddings</div>\n            <div class=\"setting\">\n              <label for=\"padding-all\">All</label>\n              <select id=\"padding-all\" name=\"padding-all\" @change=\"replaceClass(selected_layout, selected_all_padding, mappers.spacing_mapper.padding.all.regex_pattern)\" v-model=\"selected_all_padding\">\n                <option v-for='(padding_all, index) in mappers.spacing_mapper.padding.all.values' :key=\"index\" :value=\"padding_all.value\">{{ padding_all.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-vertical\">Vertical</label>\n              <select id=\"padding-vertical\" name=\"padding-vertical\" @change=\"replaceClass(selected_layout, selected_vertical_padding, mappers.spacing_mapper.padding.vertical.regex_pattern)\" v-model=\"selected_vertical_padding\">\n                <option v-for='(padding_vertical, index) in mappers.spacing_mapper.padding.vertical.values' :key=\"index\" :value=\"padding_vertical.value\">{{ padding_vertical.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-horizontal\">Horizontal</label>\n              <select id=\"padding-horizontal\" name=\"padding-horizontal\" @change=\"replaceClass(selected_layout, selected_horizontal_padding, mappers.spacing_mapper.padding.horizontal.regex_pattern)\" v-model=\"selected_horizontal_padding\">\n                <option v-for='(padding_horizontal, index) in mappers.spacing_mapper.padding.horizontal.values' :key=\"index\" :value=\"padding_horizontal.value\">{{ padding_horizontal.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-top\">Top</label>\n              <select id=\"padding-top\" name=\"padding-top\" @change=\"replaceClass(selected_layout, selected_top_padding, mappers.spacing_mapper.padding.top.regex_pattern)\" v-model=\"selected_top_padding\">\n                <option v-for='(padding_top, index) in mappers.spacing_mapper.padding.top.values' :key=\"index\" :value=\"padding_top.value\">{{ padding_top.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-bottom\">Bottom</label>\n              <select id=\"padding-bottom\" name=\"padding-bottom\" @change=\"replaceClass(selected_layout, selected_bottom_padding, mappers.spacing_mapper.padding.bottom.regex_pattern)\" v-model=\"selected_bottom_padding\">\n                <option v-for='(padding_bottom, index) in mappers.spacing_mapper.padding.bottom.values' :key=\"index\" :value=\"padding_bottom.value\">{{ padding_bottom.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-left\">Left</label>\n              <select id=\"padding-left\" name=\"padding-left\" @change=\"replaceClass(selected_layout, selected_left_padding, mappers.spacing_mapper.padding.left.regex_pattern)\" v-model=\"selected_left_padding\">\n                <option v-for='(padding_left, index) in mappers.spacing_mapper.padding.left.values' :key=\"index\" :value=\"padding_left.value\">{{ padding_left.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-right\">Right</label>\n              <select id=\"padding-right\" name=\"padding-right\" @change=\"replaceClass(selected_layout, selected_right_padding, mappers.spacing_mapper.padding.right.regex_pattern)\" v-model=\"selected_right_padding\">\n                <option v-for='(padding_right, index) in mappers.spacing_mapper.padding.right.values' :key=\"index\" :value=\"padding_right.value\">{{ padding_right.text }}</option>\n              </select>\n            </div>\n          </div>\n          <!-- MARGINS -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Margins</div>\n            <div class=\"setting\">\n              <label for=\"margin-all\">All</label>\n              <select id=\"margin-all\" name=\"margin-all\" @change=\"replaceClass(selected_layout, selected_all_margin, mappers.spacing_mapper.margin.all.regex_pattern)\" v-model=\"selected_all_margin\">\n                <option v-for='(margin_all, index) in mappers.spacing_mapper.margin.all.values' :key=\"index\" :value=\"margin_all.value\">{{ margin_all.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-vertical\">Vertical</label>\n              <select id=\"margin-vertical\" name=\"margin-vertical\" @change=\"replaceClass(selected_layout, selected_vertical_margin, mappers.spacing_mapper.margin.vertical.regex_pattern)\" v-model=\"selected_vertical_margin\">\n                <option v-for='(margin_vertical, index) in mappers.spacing_mapper.margin.vertical.values' :key=\"index\" :value=\"margin_vertical.value\">{{ margin_vertical.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-horizontal\">Horizontal</label>\n              <select id=\"margin-horizontal\" name=\"margin-horizontal\" @change=\"replaceClass(selected_layout, selected_horizontal_margin, mappers.spacing_mapper.margin.horizontal.regex_pattern)\" v-model=\"selected_horizontal_margin\">\n                <option v-for='(margin_horizontal, index) in mappers.spacing_mapper.margin.horizontal.values' :key=\"index\" :value=\"margin_horizontal.value\">{{ margin_horizontal.text }}</option>\n              </select>\n            </div>\n            <!-- <div class=\"setting\">\n              <label for=\"margin-horizontal\">Horizontal</label>\n              <select id=\"margin-horizontal\" name=\"margin-horizontal\" @change=\"replaceClass(selected_layout, selected_horizontal_margin.value, mappers.spacing_mapper.margin.horizontal.regex_pattern)\" v-model=\"selected_horizontal_margin\">\n                <option v-for='(margin_horizontal, index) in mappers.spacing_mapper.margin.horizontal.values' :key=\"index\" :value=\"margin_horizontal.id\" :selected=\"setDefault(margin_horizontal, selected_layout)\">{{ margin_horizontal.text }}</option>\n              </select>\n            </div> -->\n            <div class=\"setting\">\n              <label for=\"margin-top\">Top</label>\n              <select id=\"margin-top\" name=\"margin-top\" @change=\"replaceClass(selected_layout, selected_top_margin, mappers.spacing_mapper.margin.top.regex_pattern)\" v-model=\"selected_top_margin\">\n                <option v-for='(margin_top, index) in mappers.spacing_mapper.margin.top.values' :key=\"index\" :value=\"margin_top.value\">{{ margin_top.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-bottom\">Bottom</label>\n              <select id=\"margin-bottom\" name=\"margin-bottom\" @change=\"replaceClass(selected_layout, selected_bottom_margin, mappers.spacing_mapper.margin.bottom.regex_pattern)\" v-model=\"selected_bottom_margin\">\n                <option v-for='(margin_bottom, index) in mappers.spacing_mapper.margin.bottom.values' :key=\"index\" :value=\"margin_bottom.value\">{{ margin_bottom.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-left\">Left</label>\n              <select id=\"margin-left\" name=\"margin-left\" @change=\"replaceClass(selected_layout, selected_left_margin, mappers.spacing_mapper.margin.left.regex_pattern)\" v-model=\"selected_left_margin\">\n                <option v-for='(margin_left, index) in mappers.spacing_mapper.margin.left.values' :key=\"index\" :value=\"margin_left.value\">{{ margin_left.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-right\">Right</label>\n              <select id=\"margin-right\" name=\"margin-right\" @change=\"replaceClass(selected_layout, selected_right_margin, mappers.spacing_mapper.margin.right.regex_pattern)\" v-model=\"selected_right_margin\">\n                <option v-for='(margin_right, index) in mappers.spacing_mapper.margin.right.values' :key=\"index\" :value=\"margin_right.value\">{{ margin_right.text }}</option>\n              </select>\n            </div>\n          </div>\n           <!-- SIZINGS -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Sizing</div>\n            <div class=\"setting\">\n              <label for=\"width\">Width</label>\n              <select id=\"width\" name=\"width\" @change=\"replaceClass(selected_layout, selected_width, mappers.sizing_mapper.width.regex_pattern)\" v-model=\"selected_width\">\n                <option v-for='(width, index) in mappers.sizing_mapper.width.values' :key=\"index\" :value=\"width.value\">{{ width.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"height\">Height</label>\n              <select id=\"height\" name=\"height\" @change=\"replaceClass(selected_layout, selected_height, mappers.sizing_mapper.height.regex_pattern)\" v-model=\"selected_height\">\n                <option v-for='(height, index) in mappers.sizing_mapper.height.values' :key=\"index\" :value=\"height.value\">{{ height.text }}</option>\n              </select>\n            </div>\n          </div>\n           <!-- WHITESPACE -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Whitespace</div>\n            <div class=\"setting\">\n              <label for=\"whitespace\">Whitespace</label>\n              <select id=\"whitespace\" name=\"whitespace\" @change=\"replaceClass(selected_layout, selected_ws, mappers.whitespace_mapper.regex_pattern)\" v-model=\"selected_ws\">\n                <option v-for='(ws, index) in mappers.whitespace_mapper.values' :key=\"index\" :value=\"ws.value\">{{ ws.text }}</option>\n              </select>\n            </div>\n          </div>\n          <!-- OVERFLOW -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Overflow</div>\n            <div class=\"setting\">\n              <label for=\"overflow\">Overflow</label>\n              <select id=\"overflow\" name=\"overflow\" @change=\"replaceClass(selected_layout, selected_overflow, mappers.overflow_mapper.regex_pattern)\" v-model=\"selected_overflow\">\n                <option v-for='(overflow, index) in mappers.overflow_mapper.values' :key=\"index\" :value=\"overflow.value\">{{ overflow.text }}</option>\n              </select>\n            </div>\n          </div>\n          <!-- OVERSCROLL -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Overscroll</div>\n            <div class=\"setting\">\n              <label for=\"overscroll\">Overscroll</label>\n              <select id=\"overscroll\" name=\"overscroll\" @change=\"replaceClass(selected_layout, selected_overscroll, mappers.overscroll_mapper.regex_pattern)\" v-model=\"selected_overscroll\">\n                <option v-for='(overscroll, index) in mappers.overscroll_mapper.values' :key=\"index\" :value=\"overscroll.value\">{{ overscroll.text }}</option>\n              </select>\n            </div>\n          </div>\n          <!-- POSITION -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Position</div>\n            <div class=\"setting\">\n              <label for=\"position\">Position</label>\n              <select id=\"position\" name=\"position\" @change=\"replaceClass(selected_layout, selected_position, mappers.position_mapper.regex_pattern)\" v-model=\"selected_position\">\n                <option v-for='(position, index) in mappers.position_mapper.values' :key=\"index\" :value=\"position.value\">{{ position.text }}</option>\n              </select>\n            </div>\n            <div class=\"absolute\" v-if=\"(selected_position === 'absolute')\">\n              <div class=\"setting\">\n                <label for=\"inset\">Inset</label>\n                <select id=\"inset\" name=\"inset\" @change=\"replaceClass(selected_layout, selected_absolute_inset, mappers.absolute_mapper.inset.regex_pattern)\" v-model=\"selected_absolute_inset\">\n                  <option v-for='(inset, index) in mappers.absolute_mapper.inset.values' :key=\"index\" :value=\"inset.value\">{{ inset.text }}</option>\n                </select>\n              </div>\n              <div class=\"setting\">\n                <label for=\"top\">Top</label>\n                <select id=\"top\" name=\"top\" @change=\"replaceClass(selected_layout, selected_absolute_top, mappers.absolute_mapper.top.regex_pattern)\" v-model=\"selected_absolute_top\">\n                  <option v-for='(top, index) in mappers.absolute_mapper.top.values' :key=\"index\" :value=\"top.value\">{{ top.text }}</option>\n                </select>\n              </div>\n              <div class=\"setting\">\n                <label for=\"right\">Right</label>\n                <select id=\"right\" name=\"right\" @change=\"replaceClass(selected_layout, selected_absolute_right, mappers.absolute_mapper.right.regex_pattern)\" v-model=\"selected_absolute_right\">\n                  <option v-for='(right, index) in mappers.absolute_mapper.right.values' :key=\"index\" :value=\"right.value\">{{ right.text }}</option>\n                </select>\n              </div>\n              <div class=\"setting\">\n                <label for=\"left\">Left</label>\n                <select id=\"left\" name=\"left\" @change=\"replaceClass(selected_layout, selected_absolute_left, mappers.absolute_mapper.left.regex_pattern)\" v-model=\"selected_absolute_left\">\n                  <option v-for='(left, index) in mappers.absolute_mapper.left.values' :key=\"index\" :value=\"left.value\">{{ left.text }}</option>\n                </select>\n              </div>\n              <div class=\"setting\">\n                <label for=\"bottom\">Bottom</label>\n                <select id=\"bottom\" name=\"bottom\" @change=\"replaceClass(selected_layout, selected_absolute_bottom, mappers.absolute_mapper.bottom.regex_pattern)\" v-model=\"selected_absolute_bottom\">\n                  <option v-for='(bottom, index) in mappers.absolute_mapper.bottom.values' :key=\"index\" :value=\"bottom.value\">{{ bottom.text }}</option>\n                </select>\n              </div>\n            </div>\n            <!-- VISIBILITY -->\n            <div class=\"setting-content\">\n              <div class=\"setting-subtitle\">Visibility</div>\n              <div class=\"setting\">\n                <label for=\"visibility\">Visibility</label>\n                <select id=\"visibility\" name=\"visibility\" @change=\"replaceClass(selected_layout, selected_visibility, mappers.visibility_mapper.regex_pattern)\" v-model=\"selected_visibility\">\n                  <option v-for='(visibility, index) in mappers.visibility_mapper.values' :key=\"index\" :value=\"visibility.value\">{{ visibility.text }}</option>\n                </select>\n              </div>\n            </div>\n            <!-- Z-INDEX -->\n            <div class=\"setting-content\">\n              <div class=\"setting-subtitle\">Z-index</div>\n              <div class=\"setting\">\n                <label for=\"zindex\">Z-index</label>\n                <select id=\"zindex\" name=\"zindex\" @change=\"replaceClass(selected_layout, selected_zindex, mappers.zindex_mapper.regex_pattern)\" v-model=\"selected_zindex\">\n                  <option v-for='(zindex, index) in mappers.zindex_mapper.values' :key=\"index\" :value=\"zindex.value\">{{ zindex.text }}</option>\n                </select>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </transition>\n\n    <transition name=\"right\" @after-leave=\"animationEnd\">\n      <div v-if=\"(showPanel('element')) && !animating\" class=\"element-settings\">\n        ELEMENT\n      </div>\n    </transition>\n  </div>\n</template>\n\n<script>\nimport { emitter } from 'App/Wape'\nimport isEmpty from 'lodash/isEmpty'\nimport {\n  grid_mapper,\n  flex_mapper,\n  spacing_mapper,\n  sizing_mapper,\n  whitespace_mapper,\n  overflow_mapper,\n  overscroll_mapper,\n  position_mapper,\n  absolute_mapper,\n  visibility_mapper,\n  zindex_mapper,\n} from 'Editor/mappers/tailwind/layout'\nimport { appendPlaceholder } from 'Editor/utilities/layout'\nimport { replaceClass } from 'Editor/utilities/utilities'\n\nexport default {\n    name: 'RightPanel',\n    data() {\n      return {\n        current_panel: 'layout',\n        animating: false,\n        selected_layout: null,\n        selected_element: null,\n        mappers: {\n          grid_mapper,\n          flex_mapper,\n          spacing_mapper,\n          sizing_mapper,\n          whitespace_mapper,\n          overflow_mapper,\n          overscroll_mapper,\n          position_mapper,\n          absolute_mapper,\n          visibility_mapper,\n          zindex_mapper,\n        },\n        container_options: [],\n        element_options: [],\n        settings: [\n            { model: 'selected_col_gap', mapper_values: grid_mapper.cols.gap.values },\n            { model: 'selected_row_gap', mapper_values: grid_mapper.rows.gap.values },\n            { model: 'selected_flex_col_gap', mapper_values: flex_mapper.gap.values },\n            { model: 'selected_all_padding', mapper_values: spacing_mapper.padding.all.values },\n            { model: 'selected_vertical_padding', mapper_values: spacing_mapper.padding.vertical.values },\n            { model: 'selected_horizontal_padding', mapper_values: spacing_mapper.padding.horizontal.values },\n            { model: 'selected_top_padding', mapper_values: spacing_mapper.padding.top.values },\n            { model: 'selected_bottom_padding', mapper_values: spacing_mapper.padding.bottom.values },\n            { model: 'selected_left_padding', mapper_values: spacing_mapper.padding.left.values },\n            { model: 'selected_right_padding', mapper_values: spacing_mapper.padding.right.values },\n            { model: 'selected_all_margin', mapper_values: spacing_mapper.margin.all.values },\n            { model: 'selected_vertical_margin', mapper_values: spacing_mapper.margin.vertical.values },\n            { model: 'selected_horizontal_margin', mapper_values: spacing_mapper.margin.horizontal.values },\n            { model: 'selected_top_margin', mapper_values: spacing_mapper.margin.top.values },\n            { model: 'selected_bottom_margin', mapper_values: spacing_mapper.margin.bottom.values },\n            { model: 'selected_left_margin', mapper_values: spacing_mapper.margin.left.values },\n            { model: 'selected_right_margin', mapper_values: spacing_mapper.margin.right.values },\n            { model: 'selected_width', mapper_values: sizing_mapper.width.values },\n            { model: 'selected_height', mapper_values: sizing_mapper.height.values },\n            { model: 'selected_ws', mapper_values: whitespace_mapper.values },\n            { model: 'selected_overflow', mapper_values: overflow_mapper.values },\n            { model: 'selected_overscroll', mapper_values: overscroll_mapper.values },\n            { model: 'selected_position', mapper_values: position_mapper.values },\n            { model: 'selected_absolute_inset', mapper_values: absolute_mapper.inset.values },\n            { model: 'selected_absolute_top', mapper_values: absolute_mapper.top.values },\n            { model: 'selected_absolute_right', mapper_values: absolute_mapper.right.values },\n            { model: 'selected_absolute_left', mapper_values: absolute_mapper.left.values },\n            { model: 'selected_absolute_bottom', mapper_values: absolute_mapper.bottom.values },\n            { model: 'selected_visibility', mapper_values: visibility_mapper.values },\n            { model: 'selected_zindex', mapper_values: zindex_mapper.values },\n        ],\n        //Gaps\n        selected_col_gap: '',\n        selected_row_gap: '',\n        selected_flex_col_gap: '',\n        //Paddings\n        selected_all_padding: '',\n        selected_vertical_padding: '',\n        selected_horizontal_padding: '',\n        selected_top_padding: '',\n        selected_bottom_padding: '',\n        selected_left_padding: '',\n        selected_right_padding: '',\n        //Margins\n        selected_all_margin: '',\n        selected_vertical_margin: '',\n        selected_horizontal_margin: '',\n        selected_top_margin: '',\n        selected_bottom_margin: '',\n        selected_left_margin: '',\n        selected_right_margin: '',\n        //Sizings\n        selected_width: '',\n        selected_height: '',\n        //Whitespace\n        selected_ws: '',\n        //Overflow\n        selected_overflow: '',\n        //Overscroll\n        selected_overscroll: '',\n        //Position\n        selected_position: '',\n        //Absolute\n        selected_absolute_inset: '',\n        selected_absolute_top: '',\n        selected_absolute_right: '',\n        selected_absolute_left: '',\n        selected_absolute_bottom: '',\n        //Visibility\n        selected_visibility: '',\n        //Z-index\n        selected_zindex: '',\n      }\n    },\n    mounted() {\n      emitter.on('iframe-click', (args) => { //Fired from MainPanel.vue\n        this.selected_layout = args.container\n        this.selected_element = args.element\n        switch (this.current_panel) {\n          case 'layout':\n            this.setDefaultValues()\n          break;\n          case 'element':\n          break;\n          default:\n        }\n      })\n    },\n    methods: {\n      replaceClass,\n      switchPanel(panel) {\n        this.animating = true\n        this.current_panel = panel\n      },\n      showPanel(panel) {\n        return (this.current_panel === panel)\n      },\n      animationEnd() {\n        this.animating = false\n      },\n      isGrid(container) {\n        if (container === null) {\n          return false\n        } else {\n          return container.type === 'grid'\n        }\n      },\n      isFlex(container) {\n        if (container === null) {\n          return false\n        } else {\n          return container.type === 'flex'\n        }\n      },\n      addGridColumn(layout_instance) {\n        if (layout_instance !== null) {\n          layout_instance.cols++\n          this.replaceClass(layout_instance, `grid-cols-${layout_instance.cols}`, this.mappers.grid_mapper.cols.template.regex_pattern)\n          let total_places_in_grid = ((layout_instance.cols !== 0) ? layout_instance.cols : 1) * ((layout_instance.rows !== 0) ? layout_instance.rows : 1)\n          let elements_in_grid = layout_instance.element.children.length\n          let number_of_placeholder_to_append = total_places_in_grid - elements_in_grid\n          if (number_of_placeholder_to_append > 0) {\n            appendPlaceholder('div', layout_instance.element, number_of_placeholder_to_append, 'grid-placeholder')\n          }\n        }\n      },\n      addGridRow(layout_instance) {\n        if (layout_instance !== null) {\n          layout_instance.rows++\n          this.replaceClass(layout_instance, `grid-rows-${layout_instance.rows}`, this.mappers.grid_mapper.rows.template.regex_pattern)\n          let total_places_in_grid = ((layout_instance.cols !== 0) ? layout_instance.cols : 1) * ((layout_instance.rows !== 0) ? layout_instance.rows : 1)\n          let elements_in_grid = layout_instance.element.children.length\n          let number_of_placeholder_to_append = total_places_in_grid - elements_in_grid\n          if (number_of_placeholder_to_append > 0) {\n            appendPlaceholder('div', layout_instance.element, number_of_placeholder_to_append, 'grid-placeholder')\n          }\n        }\n      },\n      deleteGridRow(layout_instance, row_number) {\n        if (layout_instance !== null) {\n          layout_instance.deleteRowChildren(row_number)\n          layout_instance.rows--\n          this.replaceClass(layout_instance, `grid-rows-${layout_instance.rows}`, this.mappers.grid_mapper.rows.template.regex_pattern)\n        }\n      },\n      deleteGridColumn(layout_instance, col_number) {\n        if (layout_instance !== null) {\n         layout_instance.deleteColChildren(col_number)\n          layout_instance.cols--\n          this.replaceClass(layout_instance, `grid-cols-${layout_instance.cols}`, this.mappers.grid_mapper.cols.template.regex_pattern)\n        }\n      },\n      addFlexColumn(layout_instance) {\n        if (layout_instance !== null) {\n          layout_instance.addColumn()\n        }\n      },\n      setDefaultValues() {\n        let layout_classes = this.selected_layout.getClassesAsArray()\n        for (let setting of this.settings) {\n          //reset old value\n          this[setting.model] = ''\n          let found = setting.mapper_values.find((item) => {\n            return (layout_classes.includes(item.value))\n          })\n          if (typeof found !== 'undefined') {\n            this[setting.model] = found.value\n          }\n        }\n      }\n    }\n}\n</script>\n\n<style scoped>\n    div.right-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n    }\n    div.right-panel > div.actions {\n      display: flex;\n      border-bottom: .5px solid #000;\n    }\n    div.right-panel > div.actions > div {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n    }\n    div.right-panel > div.actions > div.container\n    {\n      border-right: .5px solid #000;\n    }\n    div.right-panel > div.actions > div.element\n    {\n      border-right: .5px solid #000;\n    }\n\n    /* Animations thanks animista.net */\n  .left-enter-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  .right-enter-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n  @-webkit-keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @-webkit-keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n\n  div.setting-label {\n    color: #fff;\n    text-transform: capitalize;\n    font-size: 1.2rem;\n    border-bottom: 1px solid #fff;\n    padding-bottom: .7rem;\n  }\n\n  div.container-settings,\n  div.element-settings {\n    margin: 3% 2.5%;\n    width: 95%;\n    min-width: 95%;\n    box-sizing: border-box;\n    user-select: none;\n    overflow-y: scroll;\n    height: calc(100% - 2.7rem);\n  }\n\n  div.setting-subtitle {\n    color: #fff;\n    font-size: 1.1rem;\n    margin: 0.7rem 0.2rem 0.3rem;\n  }\n\n  div.setting-content {\n    margin: 0.5rem;\n    color: #d3d3d3;\n    border-bottom: 1px dashed #fff;\n    padding-bottom: 0.7rem;\n  }\n\n  div.setting {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    line-height: 1.7rem;\n  }\n\n  div.action {\n    display: flex;\n    justify-content: flex-end;\n    margin-bottom: 5px;\n  }\n  div.action > div.add-item {\n    padding: .5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    color: #fff;\n  }\n  div.action > div.add-item:hover {\n    padding: .5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n  }\n  div.row > div.remove-item {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    margin: 0.3rem 0;\n  }\n  div.row > div.remove-item:hover {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n    margin: 0.3rem 0;\n  }\n  div.setting-wrapper > div.rows > div.row:first-child {\n    line-height: 2rem;\n    border-top: 1px dotted #fff;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n  }\n  div.setting-wrapper > div.rows > div.row {\n    display: flex;\n    justify-content: space-between;\n    line-height: 2rem;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n  }\n  div.item-title {\n    display: flex;\n    align-items: center;\n  }\n</style>\n"]}, media: undefined });
+      inject("data-v-15a2c4c6_0", { source: "\ndiv.right-panel[data-v-15a2c4c6] {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n}\ndiv.right-panel > div.actions[data-v-15a2c4c6] {\n      display: flex;\n      border-bottom: .5px solid #000;\n}\ndiv.right-panel > div.actions > div[data-v-15a2c4c6] {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n}\ndiv.right-panel > div.actions > div.container[data-v-15a2c4c6]\n    {\n      border-right: .5px solid #000;\n}\ndiv.right-panel > div.actions > div.element[data-v-15a2c4c6]\n    {\n      border-right: .5px solid #000;\n}\n\n    /* Animations thanks animista.net */\n.left-enter-active[data-v-15a2c4c6] {\n    -webkit-animation: slide-in-left-data-v-15a2c4c6 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left-data-v-15a2c4c6 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n.right-enter-active[data-v-15a2c4c6] {\n  -webkit-animation: slide-in-right-data-v-15a2c4c6 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right-data-v-15a2c4c6 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n}\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n@-webkit-keyframes slide-in-left-data-v-15a2c4c6 {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-left-data-v-15a2c4c6 {\n0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@-webkit-keyframes slide-in-right-data-v-15a2c4c6 {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\n@keyframes slide-in-right-data-v-15a2c4c6 {\n0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n}\n100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n}\n}\ndiv.setting-label[data-v-15a2c4c6] {\n    color: #fff;\n    text-transform: capitalize;\n    font-size: 1.2rem;\n    border-bottom: 1px solid #fff;\n    padding-bottom: .7rem;\n}\ndiv.container-settings[data-v-15a2c4c6],\n  div.element-settings[data-v-15a2c4c6] {\n    margin: 3% 2.5%;\n    width: 95%;\n    min-width: 95%;\n    box-sizing: border-box;\n    user-select: none;\n    overflow-y: scroll;\n    height: calc(100% - 2.7rem);\n}\ndiv.setting-subtitle[data-v-15a2c4c6] {\n    color: #fff;\n    font-size: 1.1rem;\n    margin: 0.7rem 0.2rem 0.3rem;\n}\ndiv.setting-content[data-v-15a2c4c6] {\n    margin: 0.5rem;\n    color: #d3d3d3;\n    border-bottom: 1px dashed #fff;\n    padding-bottom: 0.7rem;\n}\ndiv.setting[data-v-15a2c4c6] {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    line-height: 1.7rem;\n}\ndiv.action[data-v-15a2c4c6] {\n    display: flex;\n    justify-content: flex-end;\n    margin-bottom: 5px;\n}\ndiv.action > div.add-item[data-v-15a2c4c6] {\n    padding: .5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    color: #fff;\n}\ndiv.action > div.add-item[data-v-15a2c4c6]:hover {\n    padding: .5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n}\ndiv.row > div.remove-item[data-v-15a2c4c6] {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    margin: 0.3rem 0;\n}\ndiv.row > div.remove-item[data-v-15a2c4c6]:hover {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n    margin: 0.3rem 0;\n}\ndiv.setting-wrapper > div.rows > div.row[data-v-15a2c4c6]:first-child {\n    line-height: 2rem;\n    border-top: 1px dotted #fff;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n}\ndiv.setting-wrapper > div.rows > div.row[data-v-15a2c4c6] {\n    display: flex;\n    justify-content: space-between;\n    line-height: 2rem;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n}\ndiv.item-title[data-v-15a2c4c6] {\n    display: flex;\n    align-items: center;\n}\n", map: {"version":3,"sources":["/Users/thomas/Developer/perso/wape/src/editor/components/layout/RightPanel.vue"],"names":[],"mappings":";AA6nBA;MACA,yBAAA;MACA,2BAAA;MACA,YAAA;MACA,gBAAA;AACA;AACA;MACA,aAAA;MACA,8BAAA;AACA;AACA;MACA,cAAA;MACA,WAAA;MACA,iBAAA;MACA,eAAA;AACA;AACA;;MAEA,6BAAA;AACA;AACA;;MAEA,6BAAA;AACA;;IAEA,mCAAA;AACA;IACA,mGAAA;UACA,2FAAA;AACA;AACA;;;IAGA;AACA;EACA,oGAAA;UACA,4FAAA;AACA;CACA;;;IAGA;EACA,mCAAA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,qCAAA;cACA,6BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AACA;AACA;MACA,oCAAA;cACA,4BAAA;MACA,UAAA;AACA;AACA;MACA,gCAAA;cACA,wBAAA;MACA,UAAA;AACA;AACA;AAEA;IACA,WAAA;IACA,0BAAA;IACA,iBAAA;IACA,6BAAA;IACA,qBAAA;AACA;AAEA;;IAEA,eAAA;IACA,UAAA;IACA,cAAA;IACA,sBAAA;IACA,iBAAA;IACA,kBAAA;IACA,2BAAA;AACA;AAEA;IACA,WAAA;IACA,iBAAA;IACA,4BAAA;AACA;AAEA;IACA,cAAA;IACA,cAAA;IACA,8BAAA;IACA,sBAAA;AACA;AAEA;IACA,aAAA;IACA,mBAAA;IACA,8BAAA;IACA,mBAAA;AACA;AAEA;IACA,aAAA;IACA,yBAAA;IACA,kBAAA;AACA;AACA;IACA,cAAA;IACA,sBAAA;IACA,eAAA;IACA,WAAA;AACA;AACA;IACA,cAAA;IACA,sBAAA;IACA,yBAAA;IACA,eAAA;AACA;AACA;IACA,sBAAA;IACA,sBAAA;IACA,eAAA;IACA,gBAAA;AACA;AACA;IACA,sBAAA;IACA,sBAAA;IACA,yBAAA;IACA,eAAA;IACA,gBAAA;AACA;AACA;IACA,iBAAA;IACA,2BAAA;IACA,8BAAA;IACA,eAAA;AACA;AACA;IACA,aAAA;IACA,8BAAA;IACA,iBAAA;IACA,8BAAA;IACA,eAAA;AACA;AACA;IACA,aAAA;IACA,mBAAA;AACA","file":"RightPanel.vue","sourcesContent":["<template>\n  <div class=\"right-panel\">\n    <div class=\"actions\">\n      <div class=\"layout\" @click=\"switchPanel('layout')\">\n        <i class=\"far fa-square\" />\n      </div>\n      <div class=\"element\" @click=\"switchPanel('element')\">\n        <i class=\"fas fa-square\" />\n      </div>\n    </div>\n\n    <!-- GRID PANEL -->\n\n    <transition name=\"left\" @after-leave=\"animationEnd\">\n      <div v-if=\"(showPanel('layout')) && !animating\" class=\"container-settings\">\n        <!-- GRID -->\n        <div class=\"grid\" v-if=\"isGrid(selected_layout)\">\n          <div class=\"setting-label\">Grid settings</div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Rows</div>\n            <div class=\"setting-wrapper\">\n              <div class=\"action\">\n                <div class=\"add-item\" @click=\"addGridRow(selected_layout)\">\n                  <i class=\"fas fa-plus\"></i>\n                </div>\n              </div>\n              <div class=\"rows\">\n                <div class=\"row\" v-for=\"(row, index) in selected_layout.rows\" :key=\"index\">\n                  <div class=\"item-title\">Row {{ row }}</div>\n                  <div class=\"remove-item\" @click=\"deleteGridRow(selected_layout, row)\"><i class=\"fas fa-minus\"></i></div>\n                </div>\n              </div>\n            </div>\n            <div class=\"setting-subtitle\">Columns</div>\n            <div class=\"setting-wrapper\">\n              <div class=\"action\">\n                <div class=\"add-item\" @click=\"addGridColumn(selected_layout)\">\n                  <i class=\"fas fa-plus\"></i>\n                </div>\n              </div>\n              <div class=\"rows\">\n                <div class=\"row\" v-for=\"(col, index) in selected_layout.cols\" :key=\"index\">\n                  <div class=\"item-title\">Column {{ col }}</div>\n                  <div class=\"remove-item\" @click=\"deleteGridColumn(selected_layout, col)\"><i class=\"fas fa-minus\"></i></div>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Gap</div>\n            <div class=\"setting\">\n              <label for=\"rows-gap\">Rows gap</label>\n              <select id=\"rows-gap\" name=\"rows-gap\" @change=\"replaceClass(selected_layout, selected_row_gap, mappers.grid_mapper.rows.gap.regex_pattern)\" v-model=\"selected_row_gap\">\n                <option v-for=\"(row_gap, index) in mappers.grid_mapper.rows.gap.values\" :key=\"index\" :value=\"row_gap.value\">{{ row_gap.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"cols-gap\">Cols gap</label>\n              <select id=\"cols-gap\" name=\"cols-gap\" @change=\"replaceClass(selected_layout, selected_col_gap, mappers.grid_mapper.cols.gap.regex_pattern)\" v-model=\"selected_col_gap\">\n                <option v-for='(col_gap, index) in mappers.grid_mapper.cols.gap.values' :key=\"index\" :value=\"col_gap.value\">{{ col_gap.text }}</option>\n              </select>\n            </div>\n          </div>\n        </div>\n        <!-- FLEX -->\n        <div class=\"flex\" v-if=\"isFlex(selected_layout)\">\n          <div class=\"setting-label\">Columns settings</div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Columns</div>\n            <div class=\"setting-wrapper\">\n              <div class=\"action\">\n                <div class=\"add-item\" @click=\"addFlexColumn(selected_layout)\">\n                  <i class=\"fas fa-plus\"></i>\n                </div>\n              </div>\n              <div class=\"rows\">\n                <div class=\"row\" v-for=\"(col, index) in selected_layout.cols\" :key=\"index\">\n                  Column {{ col }}\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Gap</div>\n            <div class=\"setting\">\n              <label for=\"cols-gap\">Cols gap</label>\n              <select id=\"cols-gap\" name=\"cols-gap\" @change=\"replaceClass(selected_layout, selected_flex_col_gap, mappers.flex_mapper.gap.regex_pattern)\" v-model=\"selected_flex_col_gap\">\n                <option v-for='(col_gap, index) in mappers.flex_mapper.gap.values' :key=\"index\" :value=\"col_gap.value\">{{ col_gap.text }}</option>\n              </select>\n            </div>\n          </div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Direction</div>\n            <div class=\"setting\">\n              <label for=\"direction\">Flex direction</label>\n              <select id=\"direction\" name=\"direction\" @change=\"replaceClass(selected_layout, selected_flex_direction, mappers.flex_mapper.direction.regex_pattern)\" v-model=\"selected_flex_direction\">\n                <option v-for='(direction, index) in mappers.flex_mapper.direction.values' :key=\"index\" :value=\"direction.value\">{{ direction.text }}</option>\n              </select>\n            </div>\n          </div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Wrap</div>\n            <div class=\"setting\">\n              <label for=\"wrap\">Flex wrap</label>\n              <select id=\"wrap\" name=\"wrap\" @change=\"replaceClass(selected_layout, selected_flex_wrap, mappers.flex_mapper.wrap.regex_pattern)\" v-model=\"selected_flex_wrap\">\n                <option v-for='(wrap, index) in mappers.flex_mapper.wrap.values' :key=\"index\" :value=\"wrap.value\">{{ wrap.text }}</option>\n              </select>\n            </div>\n          </div>\n        </div>\n        <!-- GENERALS -->\n        <div class=\"generals\" v-if=\"(selected_layout !== null)\">\n          <!-- PADDINGS -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Paddings</div>\n            <div class=\"setting\">\n              <label for=\"padding-all\">All</label>\n              <select id=\"padding-all\" name=\"padding-all\" @change=\"replaceClass(selected_layout, selected_all_padding, mappers.spacing_mapper.padding.all.regex_pattern)\" v-model=\"selected_all_padding\">\n                <option v-for='(padding_all, index) in mappers.spacing_mapper.padding.all.values' :key=\"index\" :value=\"padding_all.value\">{{ padding_all.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-vertical\">Vertical</label>\n              <select id=\"padding-vertical\" name=\"padding-vertical\" @change=\"replaceClass(selected_layout, selected_vertical_padding, mappers.spacing_mapper.padding.vertical.regex_pattern)\" v-model=\"selected_vertical_padding\">\n                <option v-for='(padding_vertical, index) in mappers.spacing_mapper.padding.vertical.values' :key=\"index\" :value=\"padding_vertical.value\">{{ padding_vertical.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-horizontal\">Horizontal</label>\n              <select id=\"padding-horizontal\" name=\"padding-horizontal\" @change=\"replaceClass(selected_layout, selected_horizontal_padding, mappers.spacing_mapper.padding.horizontal.regex_pattern)\" v-model=\"selected_horizontal_padding\">\n                <option v-for='(padding_horizontal, index) in mappers.spacing_mapper.padding.horizontal.values' :key=\"index\" :value=\"padding_horizontal.value\">{{ padding_horizontal.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-top\">Top</label>\n              <select id=\"padding-top\" name=\"padding-top\" @change=\"replaceClass(selected_layout, selected_top_padding, mappers.spacing_mapper.padding.top.regex_pattern)\" v-model=\"selected_top_padding\">\n                <option v-for='(padding_top, index) in mappers.spacing_mapper.padding.top.values' :key=\"index\" :value=\"padding_top.value\">{{ padding_top.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-bottom\">Bottom</label>\n              <select id=\"padding-bottom\" name=\"padding-bottom\" @change=\"replaceClass(selected_layout, selected_bottom_padding, mappers.spacing_mapper.padding.bottom.regex_pattern)\" v-model=\"selected_bottom_padding\">\n                <option v-for='(padding_bottom, index) in mappers.spacing_mapper.padding.bottom.values' :key=\"index\" :value=\"padding_bottom.value\">{{ padding_bottom.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-left\">Left</label>\n              <select id=\"padding-left\" name=\"padding-left\" @change=\"replaceClass(selected_layout, selected_left_padding, mappers.spacing_mapper.padding.left.regex_pattern)\" v-model=\"selected_left_padding\">\n                <option v-for='(padding_left, index) in mappers.spacing_mapper.padding.left.values' :key=\"index\" :value=\"padding_left.value\">{{ padding_left.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"padding-right\">Right</label>\n              <select id=\"padding-right\" name=\"padding-right\" @change=\"replaceClass(selected_layout, selected_right_padding, mappers.spacing_mapper.padding.right.regex_pattern)\" v-model=\"selected_right_padding\">\n                <option v-for='(padding_right, index) in mappers.spacing_mapper.padding.right.values' :key=\"index\" :value=\"padding_right.value\">{{ padding_right.text }}</option>\n              </select>\n            </div>\n          </div>\n          <!-- MARGINS -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Margins</div>\n            <div class=\"setting\">\n              <label for=\"margin-all\">All</label>\n              <select id=\"margin-all\" name=\"margin-all\" @change=\"replaceClass(selected_layout, selected_all_margin, mappers.spacing_mapper.margin.all.regex_pattern)\" v-model=\"selected_all_margin\">\n                <option v-for='(margin_all, index) in mappers.spacing_mapper.margin.all.values' :key=\"index\" :value=\"margin_all.value\">{{ margin_all.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-vertical\">Vertical</label>\n              <select id=\"margin-vertical\" name=\"margin-vertical\" @change=\"replaceClass(selected_layout, selected_vertical_margin, mappers.spacing_mapper.margin.vertical.regex_pattern)\" v-model=\"selected_vertical_margin\">\n                <option v-for='(margin_vertical, index) in mappers.spacing_mapper.margin.vertical.values' :key=\"index\" :value=\"margin_vertical.value\">{{ margin_vertical.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-horizontal\">Horizontal</label>\n              <select id=\"margin-horizontal\" name=\"margin-horizontal\" @change=\"replaceClass(selected_layout, selected_horizontal_margin, mappers.spacing_mapper.margin.horizontal.regex_pattern)\" v-model=\"selected_horizontal_margin\">\n                <option v-for='(margin_horizontal, index) in mappers.spacing_mapper.margin.horizontal.values' :key=\"index\" :value=\"margin_horizontal.value\">{{ margin_horizontal.text }}</option>\n              </select>\n            </div>\n            <!-- <div class=\"setting\">\n              <label for=\"margin-horizontal\">Horizontal</label>\n              <select id=\"margin-horizontal\" name=\"margin-horizontal\" @change=\"replaceClass(selected_layout, selected_horizontal_margin.value, mappers.spacing_mapper.margin.horizontal.regex_pattern)\" v-model=\"selected_horizontal_margin\">\n                <option v-for='(margin_horizontal, index) in mappers.spacing_mapper.margin.horizontal.values' :key=\"index\" :value=\"margin_horizontal.id\" :selected=\"setDefault(margin_horizontal, selected_layout)\">{{ margin_horizontal.text }}</option>\n              </select>\n            </div> -->\n            <div class=\"setting\">\n              <label for=\"margin-top\">Top</label>\n              <select id=\"margin-top\" name=\"margin-top\" @change=\"replaceClass(selected_layout, selected_top_margin, mappers.spacing_mapper.margin.top.regex_pattern)\" v-model=\"selected_top_margin\">\n                <option v-for='(margin_top, index) in mappers.spacing_mapper.margin.top.values' :key=\"index\" :value=\"margin_top.value\">{{ margin_top.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-bottom\">Bottom</label>\n              <select id=\"margin-bottom\" name=\"margin-bottom\" @change=\"replaceClass(selected_layout, selected_bottom_margin, mappers.spacing_mapper.margin.bottom.regex_pattern)\" v-model=\"selected_bottom_margin\">\n                <option v-for='(margin_bottom, index) in mappers.spacing_mapper.margin.bottom.values' :key=\"index\" :value=\"margin_bottom.value\">{{ margin_bottom.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-left\">Left</label>\n              <select id=\"margin-left\" name=\"margin-left\" @change=\"replaceClass(selected_layout, selected_left_margin, mappers.spacing_mapper.margin.left.regex_pattern)\" v-model=\"selected_left_margin\">\n                <option v-for='(margin_left, index) in mappers.spacing_mapper.margin.left.values' :key=\"index\" :value=\"margin_left.value\">{{ margin_left.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"margin-right\">Right</label>\n              <select id=\"margin-right\" name=\"margin-right\" @change=\"replaceClass(selected_layout, selected_right_margin, mappers.spacing_mapper.margin.right.regex_pattern)\" v-model=\"selected_right_margin\">\n                <option v-for='(margin_right, index) in mappers.spacing_mapper.margin.right.values' :key=\"index\" :value=\"margin_right.value\">{{ margin_right.text }}</option>\n              </select>\n            </div>\n          </div>\n           <!-- SIZINGS -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Sizing</div>\n            <div class=\"setting\">\n              <label for=\"width\">Width</label>\n              <select id=\"width\" name=\"width\" @change=\"replaceClass(selected_layout, selected_width, mappers.sizing_mapper.width.regex_pattern)\" v-model=\"selected_width\">\n                <option v-for='(width, index) in mappers.sizing_mapper.width.values' :key=\"index\" :value=\"width.value\">{{ width.text }}</option>\n              </select>\n            </div>\n            <div class=\"setting\">\n              <label for=\"height\">Height</label>\n              <select id=\"height\" name=\"height\" @change=\"replaceClass(selected_layout, selected_height, mappers.sizing_mapper.height.regex_pattern)\" v-model=\"selected_height\">\n                <option v-for='(height, index) in mappers.sizing_mapper.height.values' :key=\"index\" :value=\"height.value\">{{ height.text }}</option>\n              </select>\n            </div>\n          </div>\n           <!-- WHITESPACE -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Whitespace</div>\n            <div class=\"setting\">\n              <label for=\"whitespace\">Whitespace</label>\n              <select id=\"whitespace\" name=\"whitespace\" @change=\"replaceClass(selected_layout, selected_ws, mappers.whitespace_mapper.regex_pattern)\" v-model=\"selected_ws\">\n                <option v-for='(ws, index) in mappers.whitespace_mapper.values' :key=\"index\" :value=\"ws.value\">{{ ws.text }}</option>\n              </select>\n            </div>\n          </div>\n          <!-- OVERFLOW -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Overflow</div>\n            <div class=\"setting\">\n              <label for=\"overflow\">Overflow</label>\n              <select id=\"overflow\" name=\"overflow\" @change=\"replaceClass(selected_layout, selected_overflow, mappers.overflow_mapper.regex_pattern)\" v-model=\"selected_overflow\">\n                <option v-for='(overflow, index) in mappers.overflow_mapper.values' :key=\"index\" :value=\"overflow.value\">{{ overflow.text }}</option>\n              </select>\n            </div>\n          </div>\n          <!-- OVERSCROLL -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Overscroll</div>\n            <div class=\"setting\">\n              <label for=\"overscroll\">Overscroll</label>\n              <select id=\"overscroll\" name=\"overscroll\" @change=\"replaceClass(selected_layout, selected_overscroll, mappers.overscroll_mapper.regex_pattern)\" v-model=\"selected_overscroll\">\n                <option v-for='(overscroll, index) in mappers.overscroll_mapper.values' :key=\"index\" :value=\"overscroll.value\">{{ overscroll.text }}</option>\n              </select>\n            </div>\n          </div>\n          <!-- POSITION -->\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Position</div>\n            <div class=\"setting\">\n              <label for=\"position\">Position</label>\n              <select id=\"position\" name=\"position\" @change=\"replaceClass(selected_layout, selected_position, mappers.position_mapper.regex_pattern)\" v-model=\"selected_position\">\n                <option v-for='(position, index) in mappers.position_mapper.values' :key=\"index\" :value=\"position.value\">{{ position.text }}</option>\n              </select>\n            </div>\n            <div class=\"absolute\" v-if=\"(selected_position === 'absolute')\">\n              <div class=\"setting\">\n                <label for=\"inset\">Inset</label>\n                <select id=\"inset\" name=\"inset\" @change=\"replaceClass(selected_layout, selected_absolute_inset, mappers.absolute_mapper.inset.regex_pattern)\" v-model=\"selected_absolute_inset\">\n                  <option v-for='(inset, index) in mappers.absolute_mapper.inset.values' :key=\"index\" :value=\"inset.value\">{{ inset.text }}</option>\n                </select>\n              </div>\n              <div class=\"setting\">\n                <label for=\"top\">Top</label>\n                <select id=\"top\" name=\"top\" @change=\"replaceClass(selected_layout, selected_absolute_top, mappers.absolute_mapper.top.regex_pattern)\" v-model=\"selected_absolute_top\">\n                  <option v-for='(top, index) in mappers.absolute_mapper.top.values' :key=\"index\" :value=\"top.value\">{{ top.text }}</option>\n                </select>\n              </div>\n              <div class=\"setting\">\n                <label for=\"right\">Right</label>\n                <select id=\"right\" name=\"right\" @change=\"replaceClass(selected_layout, selected_absolute_right, mappers.absolute_mapper.right.regex_pattern)\" v-model=\"selected_absolute_right\">\n                  <option v-for='(right, index) in mappers.absolute_mapper.right.values' :key=\"index\" :value=\"right.value\">{{ right.text }}</option>\n                </select>\n              </div>\n              <div class=\"setting\">\n                <label for=\"left\">Left</label>\n                <select id=\"left\" name=\"left\" @change=\"replaceClass(selected_layout, selected_absolute_left, mappers.absolute_mapper.left.regex_pattern)\" v-model=\"selected_absolute_left\">\n                  <option v-for='(left, index) in mappers.absolute_mapper.left.values' :key=\"index\" :value=\"left.value\">{{ left.text }}</option>\n                </select>\n              </div>\n              <div class=\"setting\">\n                <label for=\"bottom\">Bottom</label>\n                <select id=\"bottom\" name=\"bottom\" @change=\"replaceClass(selected_layout, selected_absolute_bottom, mappers.absolute_mapper.bottom.regex_pattern)\" v-model=\"selected_absolute_bottom\">\n                  <option v-for='(bottom, index) in mappers.absolute_mapper.bottom.values' :key=\"index\" :value=\"bottom.value\">{{ bottom.text }}</option>\n                </select>\n              </div>\n            </div>\n            <!-- VISIBILITY -->\n            <div class=\"setting-content\">\n              <div class=\"setting-subtitle\">Visibility</div>\n              <div class=\"setting\">\n                <label for=\"visibility\">Visibility</label>\n                <select id=\"visibility\" name=\"visibility\" @change=\"replaceClass(selected_layout, selected_visibility, mappers.visibility_mapper.regex_pattern)\" v-model=\"selected_visibility\">\n                  <option v-for='(visibility, index) in mappers.visibility_mapper.values' :key=\"index\" :value=\"visibility.value\">{{ visibility.text }}</option>\n                </select>\n              </div>\n            </div>\n            <!-- Z-INDEX -->\n            <div class=\"setting-content\">\n              <div class=\"setting-subtitle\">Z-index</div>\n              <div class=\"setting\">\n                <label for=\"zindex\">Z-index</label>\n                <select id=\"zindex\" name=\"zindex\" @change=\"replaceClass(selected_layout, selected_zindex, mappers.zindex_mapper.regex_pattern)\" v-model=\"selected_zindex\">\n                  <option v-for='(zindex, index) in mappers.zindex_mapper.values' :key=\"index\" :value=\"zindex.value\">{{ zindex.text }}</option>\n                </select>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </transition>\n\n    <!-- ELEMENTS PANEL -->\n\n    <transition name=\"right\" @after-leave=\"animationEnd\">\n      <div v-if=\"(showPanel('element')) && !animating\" class=\"element-settings\">\n        <!-- GRID CHILD -->\n        <div class=\"grid\" v-if=\"isGridChild(selected_layout, selected_element)\">\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Order</div>\n            <div class=\"setting\">\n              <label for=\"order\">Grid order</label>\n              <select id=\"order\" name=\"order\" @change=\"replaceClass(selected_element, selected_grid_order, mappers.grid_mapper.generics.order.regex_pattern)\" v-model=\"selected_grid_order\">\n                <option v-for='(order, index) in mappers.grid_mapper.generics.order.values' :key=\"index\" :value=\"order.value\">{{ order.text }}</option>\n              </select>\n            </div>\n          </div>\n        </div>\n        <!-- FLEX CHILD -->\n        <div class=\"flex\" v-if=\"isFlexChild(selected_layout, selected_element)\">\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Flex</div>\n            <div class=\"setting\">\n              <label for=\"behaviour\">Flex behaviour</label>\n              <select id=\"behaviour\" name=\"behaviour\" @change=\"replaceClass(selected_element, selected_flex_behaviour, mappers.flex_mapper.flex.regex_pattern)\" v-model=\"selected_flex_behaviour\">\n                <option v-for='(behaviour, index) in mappers.flex_mapper.flex.values' :key=\"index\" :value=\"behaviour.value\">{{ behaviour.text }}</option>\n              </select>\n            </div>\n          </div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Grow</div>\n            <div class=\"setting\">\n              <label for=\"grow\">Flex grow</label>\n              <select id=\"grow\" name=\"grow\" @change=\"replaceClass(selected_element, selected_flex_grow, mappers.flex_mapper.grow.regex_pattern)\" v-model=\"selected_flex_grow\">\n                <option v-for='(grow, index) in mappers.flex_mapper.grow.values' :key=\"index\" :value=\"grow.value\">{{ grow.text }}</option>\n              </select>\n            </div>\n          </div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Shrink</div>\n            <div class=\"setting\">\n              <label for=\"grow\">Flex shrink</label>\n              <select id=\"grow\" name=\"grow\" @change=\"replaceClass(selected_element, selected_flex_shrink, mappers.flex_mapper.shrink.regex_pattern)\" v-model=\"selected_flex_shrink\">\n                <option v-for='(shrink, index) in mappers.flex_mapper.shrink.values' :key=\"index\" :value=\"shrink.value\">{{ shrink.text }}</option>\n              </select>\n            </div>\n          </div>\n          <div class=\"setting-content\">\n            <div class=\"setting-subtitle\">Order</div>\n            <div class=\"setting\">\n              <label for=\"order\">Flex order</label>\n              <select id=\"order\" name=\"order\" @change=\"replaceClass(selected_element, selected_flex_order, mappers.flex_mapper.order.regex_pattern)\" v-model=\"selected_flex_order\">\n                <option v-for='(order, index) in mappers.flex_mapper.order.values' :key=\"index\" :value=\"order.value\">{{ order.text }}</option>\n              </select>\n            </div>\n          </div>\n        </div>\n      </div>\n    </transition>\n  </div>\n</template>\n\n<script>\nimport { emitter } from 'App/Wape'\nimport isEmpty from 'lodash/isEmpty'\nimport {\n  grid_mapper,\n  flex_mapper,\n  spacing_mapper,\n  sizing_mapper,\n  whitespace_mapper,\n  overflow_mapper,\n  overscroll_mapper,\n  position_mapper,\n  absolute_mapper,\n  visibility_mapper,\n  zindex_mapper,\n} from 'Editor/mappers/tailwind/layout'\nimport { appendPlaceholder } from 'Editor/utilities/layout'\nimport { replaceClass } from 'Editor/utilities/utilities'\n\nexport default {\n    name: 'RightPanel',\n    data() {\n      return {\n        current_panel: 'layout',\n        animating: false,\n        selected_layout: null,\n        selected_element: null,\n        mappers: {\n          grid_mapper,\n          flex_mapper,\n          spacing_mapper,\n          sizing_mapper,\n          whitespace_mapper,\n          overflow_mapper,\n          overscroll_mapper,\n          position_mapper,\n          absolute_mapper,\n          visibility_mapper,\n          zindex_mapper,\n        },\n        container_options: [],\n        element_options: [],\n        settings: [\n            { model: 'selected_col_gap', mapper_values: grid_mapper.cols.gap.values },\n            { model: 'selected_row_gap', mapper_values: grid_mapper.rows.gap.values },\n            { model: 'selected_flex_col_gap', mapper_values: flex_mapper.gap.values },\n            { model: 'selected_all_padding', mapper_values: spacing_mapper.padding.all.values },\n            { model: 'selected_vertical_padding', mapper_values: spacing_mapper.padding.vertical.values },\n            { model: 'selected_horizontal_padding', mapper_values: spacing_mapper.padding.horizontal.values },\n            { model: 'selected_top_padding', mapper_values: spacing_mapper.padding.top.values },\n            { model: 'selected_bottom_padding', mapper_values: spacing_mapper.padding.bottom.values },\n            { model: 'selected_left_padding', mapper_values: spacing_mapper.padding.left.values },\n            { model: 'selected_right_padding', mapper_values: spacing_mapper.padding.right.values },\n            { model: 'selected_all_margin', mapper_values: spacing_mapper.margin.all.values },\n            { model: 'selected_vertical_margin', mapper_values: spacing_mapper.margin.vertical.values },\n            { model: 'selected_horizontal_margin', mapper_values: spacing_mapper.margin.horizontal.values },\n            { model: 'selected_top_margin', mapper_values: spacing_mapper.margin.top.values },\n            { model: 'selected_bottom_margin', mapper_values: spacing_mapper.margin.bottom.values },\n            { model: 'selected_left_margin', mapper_values: spacing_mapper.margin.left.values },\n            { model: 'selected_right_margin', mapper_values: spacing_mapper.margin.right.values },\n            { model: 'selected_width', mapper_values: sizing_mapper.width.values },\n            { model: 'selected_height', mapper_values: sizing_mapper.height.values },\n            { model: 'selected_ws', mapper_values: whitespace_mapper.values },\n            { model: 'selected_overflow', mapper_values: overflow_mapper.values },\n            { model: 'selected_overscroll', mapper_values: overscroll_mapper.values },\n            { model: 'selected_position', mapper_values: position_mapper.values },\n            { model: 'selected_absolute_inset', mapper_values: absolute_mapper.inset.values },\n            { model: 'selected_absolute_top', mapper_values: absolute_mapper.top.values },\n            { model: 'selected_absolute_right', mapper_values: absolute_mapper.right.values },\n            { model: 'selected_absolute_left', mapper_values: absolute_mapper.left.values },\n            { model: 'selected_absolute_bottom', mapper_values: absolute_mapper.bottom.values },\n            { model: 'selected_visibility', mapper_values: visibility_mapper.values },\n            { model: 'selected_zindex', mapper_values: zindex_mapper.values },\n            { model: 'selected_flex_direction', mapper_values: flex_mapper.direction.values },\n            { model: 'selected_flex_wrap', mapper_values: flex_mapper.wrap.values },\n            { model: 'selected_flex_behaviour', mapper_values: flex_mapper.flex.values },\n            { model: 'selected_flex_grow', mapper_values: flex_mapper.grow.values },\n            { model: 'selected_flex_shrink', mapper_values: flex_mapper.shrink.values },\n            { model: 'selected_grid_order', mapper_values: grid_mapper.generics.order.values },\n            { model: 'selected_flex_order', mapper_values: flex_mapper.order.values },\n        ],\n        //Gaps\n        selected_col_gap: '',\n        selected_row_gap: '',\n        selected_flex_col_gap: '',\n        //Paddings\n        selected_all_padding: '',\n        selected_vertical_padding: '',\n        selected_horizontal_padding: '',\n        selected_top_padding: '',\n        selected_bottom_padding: '',\n        selected_left_padding: '',\n        selected_right_padding: '',\n        //Margins\n        selected_all_margin: '',\n        selected_vertical_margin: '',\n        selected_horizontal_margin: '',\n        selected_top_margin: '',\n        selected_bottom_margin: '',\n        selected_left_margin: '',\n        selected_right_margin: '',\n        //Sizings\n        selected_width: '',\n        selected_height: '',\n        //Whitespace\n        selected_ws: '',\n        //Overflow\n        selected_overflow: '',\n        //Overscroll\n        selected_overscroll: '',\n        //Position\n        selected_position: '',\n        //Absolute\n        selected_absolute_inset: '',\n        selected_absolute_top: '',\n        selected_absolute_right: '',\n        selected_absolute_left: '',\n        selected_absolute_bottom: '',\n        //Visibility\n        selected_visibility: '',\n        //Z-index\n        selected_zindex: '',\n        // Flex specifics\n        selected_flex_direction: '',\n        selected_flex_wrap: '',\n        selected_flex_behaviour: '',\n        selected_flex_grow: '',\n        selected_flex_shrink: '',\n\n        //Elements\n        //Order\n        selected_grid_order: '',\n        selected_flex_order: '',\n      }\n    },\n    mounted() {\n      emitter.on('iframe-click', (args) => { //Fired from MainPanel.vue\n        this.selected_layout = args.container\n        this.selected_element = args.element\n        this.triggerSetDefaultValues()\n      })\n    },\n    methods: {\n      replaceClass,\n      switchPanel(panel) {\n        this.animating = true\n        this.current_panel = panel\n        this.triggerSetDefaultValues()\n      },\n      showPanel(panel) {\n        return (this.current_panel === panel)\n      },\n      animationEnd() {\n        this.animating = false\n      },\n      isGrid(layout_instance) {\n        if (layout_instance === null) {\n          return false\n        } else {\n          return layout_instance.type === 'grid'\n        }\n      },\n      isFlex(layout_instance) {\n        if (layout_instance === null) {\n          return false\n        } else {\n          return layout_instance.type === 'flex'\n        }\n      },\n      isGridChild(layout_instance, element_instance) {\n        if (layout_instance === null || layout_instance.type !== 'grid') {\n          return false\n        } else {\n          return [...layout_instance.element.children].includes(element_instance.element)\n        }\n      },\n      isFlexChild(layout_instance, element_instance) {\n        if (layout_instance === null || layout_instance.type !== 'flex') {\n          return false\n        } else {\n          return [...layout_instance.element.children].includes(element_instance.element)\n        }\n      },\n      addGridColumn(layout_instance) {\n        if (layout_instance !== null) {\n          layout_instance.cols++\n          this.replaceClass(layout_instance, `grid-cols-${layout_instance.cols}`, this.mappers.grid_mapper.cols.template.regex_pattern)\n          let total_places_in_grid = ((layout_instance.cols !== 0) ? layout_instance.cols : 1) * ((layout_instance.rows !== 0) ? layout_instance.rows : 1)\n          let elements_in_grid = layout_instance.element.children.length\n          let number_of_placeholder_to_append = total_places_in_grid - elements_in_grid\n          if (number_of_placeholder_to_append > 0) {\n            appendPlaceholder('div', layout_instance.element, number_of_placeholder_to_append, 'grid-placeholder')\n          }\n        }\n      },\n      addGridRow(layout_instance) {\n        if (layout_instance !== null) {\n          layout_instance.rows++\n          this.replaceClass(layout_instance, `grid-rows-${layout_instance.rows}`, this.mappers.grid_mapper.rows.template.regex_pattern)\n          let total_places_in_grid = ((layout_instance.cols !== 0) ? layout_instance.cols : 1) * ((layout_instance.rows !== 0) ? layout_instance.rows : 1)\n          let elements_in_grid = layout_instance.element.children.length\n          let number_of_placeholder_to_append = total_places_in_grid - elements_in_grid\n          if (number_of_placeholder_to_append > 0) {\n            appendPlaceholder('div', layout_instance.element, number_of_placeholder_to_append, 'grid-placeholder')\n          }\n        }\n      },\n      deleteGridRow(layout_instance, row_number) {\n        if (layout_instance !== null) {\n          layout_instance.deleteRowChildren(row_number)\n          layout_instance.rows--\n          this.replaceClass(layout_instance, `grid-rows-${layout_instance.rows}`, this.mappers.grid_mapper.rows.template.regex_pattern)\n        }\n      },\n      deleteGridColumn(layout_instance, col_number) {\n        if (layout_instance !== null) {\n         layout_instance.deleteColChildren(col_number)\n          layout_instance.cols--\n          this.replaceClass(layout_instance, `grid-cols-${layout_instance.cols}`, this.mappers.grid_mapper.cols.template.regex_pattern)\n        }\n      },\n      addFlexColumn(layout_instance) {\n        if (layout_instance !== null) {\n          layout_instance.addColumn()\n        }\n      },\n      setDefaultValues(element_selected) {\n        let element_classes = element_selected.getClassesAsArray()\n        for (let setting of this.settings) {\n          //reset old value\n          this[setting.model] = ''\n          let found = setting.mapper_values.find((item) => {\n            return (element_classes.includes(item.value))\n          })\n          if (typeof found !== 'undefined') {\n            this[setting.model] = found.value\n          }\n        }\n      },\n      triggerSetDefaultValues() {\n        switch (this.current_panel) {\n          case 'layout':\n            this.setDefaultValues(this.selected_layout)\n          break;\n          case 'element':\n            this.setDefaultValues(this.selected_element)\n          break;\n          default:\n        }\n      }\n    }\n}\n</script>\n\n<style scoped>\n    div.right-panel {\n      background-color: #454545;\n      border-top: .5px solid #000;\n      width: 250px;\n      overflow: hidden;\n    }\n    div.right-panel > div.actions {\n      display: flex;\n      border-bottom: .5px solid #000;\n    }\n    div.right-panel > div.actions > div {\n      padding: .5rem;\n      color: #fff;\n      font-size: 1.5rem;\n      cursor: pointer;\n    }\n    div.right-panel > div.actions > div.container\n    {\n      border-right: .5px solid #000;\n    }\n    div.right-panel > div.actions > div.element\n    {\n      border-right: .5px solid #000;\n    }\n\n    /* Animations thanks animista.net */\n  .left-enter-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n/*  .left-leave-active {\n    -webkit-animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  .right-enter-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }\n /* .right-leave-active {\n  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n          animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;\n  }*/\n  /* Animations thanks animista.net */\n  @-webkit-keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-left {\n    0% {\n      -webkit-transform: translateX(-250px);\n              transform: translateX(-250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @-webkit-keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n  @keyframes slide-in-right {\n    0% {\n      -webkit-transform: translateX(250px);\n              transform: translateX(250px);\n      opacity: 0;\n    }\n    100% {\n      -webkit-transform: translateX(0);\n              transform: translateX(0);\n      opacity: 1;\n    }\n  }\n\n  div.setting-label {\n    color: #fff;\n    text-transform: capitalize;\n    font-size: 1.2rem;\n    border-bottom: 1px solid #fff;\n    padding-bottom: .7rem;\n  }\n\n  div.container-settings,\n  div.element-settings {\n    margin: 3% 2.5%;\n    width: 95%;\n    min-width: 95%;\n    box-sizing: border-box;\n    user-select: none;\n    overflow-y: scroll;\n    height: calc(100% - 2.7rem);\n  }\n\n  div.setting-subtitle {\n    color: #fff;\n    font-size: 1.1rem;\n    margin: 0.7rem 0.2rem 0.3rem;\n  }\n\n  div.setting-content {\n    margin: 0.5rem;\n    color: #d3d3d3;\n    border-bottom: 1px dashed #fff;\n    padding-bottom: 0.7rem;\n  }\n\n  div.setting {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    line-height: 1.7rem;\n  }\n\n  div.action {\n    display: flex;\n    justify-content: flex-end;\n    margin-bottom: 5px;\n  }\n  div.action > div.add-item {\n    padding: .5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    color: #fff;\n  }\n  div.action > div.add-item:hover {\n    padding: .5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n  }\n  div.row > div.remove-item {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    cursor: pointer;\n    margin: 0.3rem 0;\n  }\n  div.row > div.remove-item:hover {\n    padding: 0.2rem 0.5rem;\n    border: 1px solid #000;\n    background-color: #707070;\n    cursor: pointer;\n    margin: 0.3rem 0;\n  }\n  div.setting-wrapper > div.rows > div.row:first-child {\n    line-height: 2rem;\n    border-top: 1px dotted #fff;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n  }\n  div.setting-wrapper > div.rows > div.row {\n    display: flex;\n    justify-content: space-between;\n    line-height: 2rem;\n    border-bottom: 1px dotted #fff;\n    cursor: pointer;\n  }\n  div.item-title {\n    display: flex;\n    align-items: center;\n  }\n</style>\n"]}, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__$2 = "data-v-5c6f3c59";
+    const __vue_scope_id__$2 = "data-v-15a2c4c6";
     /* module identifier */
     const __vue_module_identifier__$2 = undefined;
     /* functional template */
@@ -14247,11 +14847,14 @@ var wape = (function () {
           this.element = element; // html element
       }
 
-      addClass(cssClass) {
-          this.element.classList.add(cssClass);
+      addClass(css_class) {
+          this.element.classList.add(css_class);
       }
-      removeClass(cssClass) {
-          this.element.classList.remove(cssClass);
+      removeClass(css_class) {
+          this.element.classList.remove(css_class);
+      }
+      getClassesAsArray() {
+          return [...this.element.classList]
       }
   }
 
