@@ -8,6 +8,9 @@
         <i class="fas fa-square" />
       </div>
     </div>
+
+    <!-- GRID PANEL -->
+
     <transition name="left" @after-leave="animationEnd">
       <div v-if="(showPanel('layout')) && !animating" class="container-settings">
         <!-- GRID -->
@@ -83,6 +86,24 @@
               <label for="cols-gap">Cols gap</label>
               <select id="cols-gap" name="cols-gap" @change="replaceClass(selected_layout, selected_flex_col_gap, mappers.flex_mapper.gap.regex_pattern)" v-model="selected_flex_col_gap">
                 <option v-for='(col_gap, index) in mappers.flex_mapper.gap.values' :key="index" :value="col_gap.value">{{ col_gap.text }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="setting-content">
+            <div class="setting-subtitle">Direction</div>
+            <div class="setting">
+              <label for="direction">Flex direction</label>
+              <select id="direction" name="direction" @change="replaceClass(selected_layout, selected_flex_direction, mappers.flex_mapper.direction.regex_pattern)" v-model="selected_flex_direction">
+                <option v-for='(direction, index) in mappers.flex_mapper.direction.values' :key="index" :value="direction.value">{{ direction.text }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="setting-content">
+            <div class="setting-subtitle">Wrap</div>
+            <div class="setting">
+              <label for="wrap">Flex wrap</label>
+              <select id="wrap" name="wrap" @change="replaceClass(selected_layout, selected_flex_wrap, mappers.flex_mapper.wrap.regex_pattern)" v-model="selected_flex_wrap">
+                <option v-for='(wrap, index) in mappers.flex_mapper.wrap.values' :key="index" :value="wrap.value">{{ wrap.text }}</option>
               </select>
             </div>
           </div>
@@ -299,9 +320,61 @@
       </div>
     </transition>
 
+    <!-- ELEMENTS PANEL -->
+
     <transition name="right" @after-leave="animationEnd">
       <div v-if="(showPanel('element')) && !animating" class="element-settings">
-        ELEMENT
+        <!-- GRID CHILD -->
+        <div class="grid" v-if="isGridChild(selected_layout, selected_element)">
+          <div class="setting-content">
+            <div class="setting-subtitle">Order</div>
+            <div class="setting">
+              <label for="order">Grid order</label>
+              <select id="order" name="order" @change="replaceClass(selected_element, selected_grid_order, mappers.grid_mapper.generics.order.regex_pattern)" v-model="selected_grid_order">
+                <option v-for='(order, index) in mappers.grid_mapper.generics.order.values' :key="index" :value="order.value">{{ order.text }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- FLEX CHILD -->
+        <div class="flex" v-if="isFlexChild(selected_layout, selected_element)">
+          <div class="setting-content">
+            <div class="setting-subtitle">Flex</div>
+            <div class="setting">
+              <label for="behaviour">Flex behaviour</label>
+              <select id="behaviour" name="behaviour" @change="replaceClass(selected_element, selected_flex_behaviour, mappers.flex_mapper.flex.regex_pattern)" v-model="selected_flex_behaviour">
+                <option v-for='(behaviour, index) in mappers.flex_mapper.flex.values' :key="index" :value="behaviour.value">{{ behaviour.text }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="setting-content">
+            <div class="setting-subtitle">Grow</div>
+            <div class="setting">
+              <label for="grow">Flex grow</label>
+              <select id="grow" name="grow" @change="replaceClass(selected_element, selected_flex_grow, mappers.flex_mapper.grow.regex_pattern)" v-model="selected_flex_grow">
+                <option v-for='(grow, index) in mappers.flex_mapper.grow.values' :key="index" :value="grow.value">{{ grow.text }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="setting-content">
+            <div class="setting-subtitle">Shrink</div>
+            <div class="setting">
+              <label for="grow">Flex shrink</label>
+              <select id="grow" name="grow" @change="replaceClass(selected_element, selected_flex_shrink, mappers.flex_mapper.shrink.regex_pattern)" v-model="selected_flex_shrink">
+                <option v-for='(shrink, index) in mappers.flex_mapper.shrink.values' :key="index" :value="shrink.value">{{ shrink.text }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="setting-content">
+            <div class="setting-subtitle">Order</div>
+            <div class="setting">
+              <label for="order">Flex order</label>
+              <select id="order" name="order" @change="replaceClass(selected_element, selected_flex_order, mappers.flex_mapper.order.regex_pattern)" v-model="selected_flex_order">
+                <option v-for='(order, index) in mappers.flex_mapper.order.values' :key="index" :value="order.value">{{ order.text }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
     </transition>
   </div>
@@ -380,6 +453,13 @@ export default {
             { model: 'selected_absolute_bottom', mapper_values: absolute_mapper.bottom.values },
             { model: 'selected_visibility', mapper_values: visibility_mapper.values },
             { model: 'selected_zindex', mapper_values: zindex_mapper.values },
+            { model: 'selected_flex_direction', mapper_values: flex_mapper.direction.values },
+            { model: 'selected_flex_wrap', mapper_values: flex_mapper.wrap.values },
+            { model: 'selected_flex_behaviour', mapper_values: flex_mapper.flex.values },
+            { model: 'selected_flex_grow', mapper_values: flex_mapper.grow.values },
+            { model: 'selected_flex_shrink', mapper_values: flex_mapper.shrink.values },
+            { model: 'selected_grid_order', mapper_values: grid_mapper.generics.order.values },
+            { model: 'selected_flex_order', mapper_values: flex_mapper.order.values },
         ],
         //Gaps
         selected_col_gap: '',
@@ -422,20 +502,24 @@ export default {
         selected_visibility: '',
         //Z-index
         selected_zindex: '',
+        // Flex specifics
+        selected_flex_direction: '',
+        selected_flex_wrap: '',
+        selected_flex_behaviour: '',
+        selected_flex_grow: '',
+        selected_flex_shrink: '',
+
+        //Elements
+        //Order
+        selected_grid_order: '',
+        selected_flex_order: '',
       }
     },
     mounted() {
       emitter.on('iframe-click', (args) => { //Fired from MainPanel.vue
         this.selected_layout = args.container
         this.selected_element = args.element
-        switch (this.current_panel) {
-          case 'layout':
-            this.setDefaultValues()
-          break;
-          case 'element':
-          break;
-          default:
-        }
+        this.triggerSetDefaultValues()
       })
     },
     methods: {
@@ -443,6 +527,7 @@ export default {
       switchPanel(panel) {
         this.animating = true
         this.current_panel = panel
+        this.triggerSetDefaultValues()
       },
       showPanel(panel) {
         return (this.current_panel === panel)
@@ -450,18 +535,32 @@ export default {
       animationEnd() {
         this.animating = false
       },
-      isGrid(container) {
-        if (container === null) {
+      isGrid(layout_instance) {
+        if (layout_instance === null) {
           return false
         } else {
-          return container.type === 'grid'
+          return layout_instance.type === 'grid'
         }
       },
-      isFlex(container) {
-        if (container === null) {
+      isFlex(layout_instance) {
+        if (layout_instance === null) {
           return false
         } else {
-          return container.type === 'flex'
+          return layout_instance.type === 'flex'
+        }
+      },
+      isGridChild(layout_instance, element_instance) {
+        if (layout_instance === null || layout_instance.type !== 'grid') {
+          return false
+        } else {
+          return [...layout_instance.element.children].includes(element_instance.element)
+        }
+      },
+      isFlexChild(layout_instance, element_instance) {
+        if (layout_instance === null || layout_instance.type !== 'flex') {
+          return false
+        } else {
+          return [...layout_instance.element.children].includes(element_instance.element)
         }
       },
       addGridColumn(layout_instance) {
@@ -507,17 +606,28 @@ export default {
           layout_instance.addColumn()
         }
       },
-      setDefaultValues() {
-        let layout_classes = this.selected_layout.getClassesAsArray()
+      setDefaultValues(element_selected) {
+        let element_classes = element_selected.getClassesAsArray()
         for (let setting of this.settings) {
           //reset old value
           this[setting.model] = ''
           let found = setting.mapper_values.find((item) => {
-            return (layout_classes.includes(item.value))
+            return (element_classes.includes(item.value))
           })
           if (typeof found !== 'undefined') {
             this[setting.model] = found.value
           }
+        }
+      },
+      triggerSetDefaultValues() {
+        switch (this.current_panel) {
+          case 'layout':
+            this.setDefaultValues(this.selected_layout)
+          break;
+          case 'element':
+            this.setDefaultValues(this.selected_element)
+          break;
+          default:
         }
       }
     }
