@@ -13,7 +13,7 @@ const grid_mapper = {
             ],
         },
         gap: {
-            regex_pattern: 'gap-(y-)?[0-9]+(\.[0-9])?',
+            regex_pattern: '^gap-(y-)?[0-9]+(\.[0-9])?$',
             values: [
                 { id: 1, text: '0', value: 'gap-y-0' },
                 { id: 2, text: '0.125rem', value: 'gap-y-0.5' },
@@ -50,7 +50,7 @@ const grid_mapper = {
                 { id: 33, text: '20rem', value: 'gap-y-80' },
                 { id: 34, text: '24rem', value: 'gap-y-96' },
             ],
-        }
+        },
     },
     cols: {
         template: {
@@ -72,7 +72,7 @@ const grid_mapper = {
             ],
         },
         gap: {
-            regex_pattern: 'gap-(x-)?[0-9]+(\.[0-9])?',
+            regex_pattern: '^gap-(x-)?[0-9]+(\.[0-9])?$',
             values: [
                 { id: 1, text: '0', value: 'gap-x-0' },
                 { id: 2, text: '0.125rem', value: 'gap-x-0.5' },
@@ -109,13 +109,35 @@ const grid_mapper = {
                 { id: 33, text: '20rem', value: 'gap-x-80' },
                 { id: 34, text: '24rem', value: 'gap-x-96' },
             ]
-        }
+        },
+    },
+    generics: {
+        order: {
+            regex_pattern: '^order-([0-9]+)?(-\\w+)?$',
+            values: [
+                { id: 1, text: '1', value: 'order-1' },
+                { id: 2, text: '2', value: 'order-2' },
+                { id: 3, text: '3', value: 'order-3' },
+                { id: 4, text: '4', value: 'order-4' },
+                { id: 5, text: '5', value: 'order-5' },
+                { id: 6, text: '6', value: 'order-6' },
+                { id: 7, text: '7', value: 'order-7' },
+                { id: 8, text: '8', value: 'order-8' },
+                { id: 9, text: '9', value: 'order-9' },
+                { id: 10, text: '10', value: 'order-10' },
+                { id: 11, text: '11', value: 'order-11' },
+                { id: 12, text: '12', value: 'order-12' },
+                { id: 13, text: 'first', value: 'order-first' },
+                { id: 14, text: 'last', value: 'order-last' },
+                { id: 15, text: 'none', value: 'order-none' },
+            ]
+        },
     }
 };
 
 const flex_mapper = {
     gap: {
-        regex_pattern: 'gap-(x-)?[0-9]+(\.[0-9])?',
+        regex_pattern: '^gap-(x-)?[0-9]+(\.[0-9])?$',
         values: [
             { id: 1, text: '0', value: 'gap-x-0' },
             { id: 2, text: '0.125rem', value: 'gap-x-0.5' },
@@ -152,13 +174,73 @@ const flex_mapper = {
             { id: 33, text: '20rem', value: 'gap-x-80' },
             { id: 34, text: '24rem', value: 'gap-x-96' },
         ]
-    }
+    },
+    direction: {
+        regex_pattern: '^flex-(row|col)?(-reverse)?$',
+        values: [
+            { id: 1, text: 'row', value: 'flex-row' },
+            { id: 2, text: 'row reverse', value: 'flex-row-reverse' },
+            { id: 3, text: 'col', value: 'flex-col' },
+            { id: 4, text: 'col reverse', value: 'flex-col-reverse' },
+        ]
+    },
+    wrap: {
+        regex_pattern: '^flex-(wrap|nowrap)?(-reverse)?$',
+        values: [
+            { id: 1, text: 'wrap', value: 'flex-wrap' },
+            { id: 2, text: 'wrap reverse', value: 'flex-wrap-reverse' },
+            { id: 3, text: 'no wrap', value: 'flex-nowrap' },
+        ]
+    },
+    flex: {
+        regex_pattern: '^flex-(1|auto|initial|none)$',
+        values: [
+            { id: 1, text: 'grow and shrink ignore initial size', value: 'flex-1' },
+            { id: 2, text: 'grow and shrink taking account initial size', value: 'flex-auto' },
+            { id: 3, text: 'shrink but not grow', value: 'flex-initial' },
+            { id: 4, text: 'do not grow or shrink', value: 'flex-none' },
+        ]
+    },
+    grow: {
+        regex_pattern: '^flex-(grow)?(-\\d)?$',
+        values: [
+            { id: 1, text: 'do not grow', value: 'flex-grow-0' },
+            { id: 2, text: 'grow to fill any available space', value: 'flex-grow' },
+        ]
+    },
+    shrink: {
+        regex_pattern: '^flex-(shrink)?(-\\d)?$',
+        values: [
+            { id: 1, text: 'do not shrink', value: 'flex-shrink-0' },
+            { id: 2, text: 'shrink if needed', value: 'flex-shrink' },
+        ]
+    },
+    order: {
+        regex_pattern: '^order-([0-9]+)?(-\\w+)?$',
+        values: [
+            { id: 1, text: '1', value: 'order-1' },
+            { id: 2, text: '2', value: 'order-2' },
+            { id: 3, text: '3', value: 'order-3' },
+            { id: 4, text: '4', value: 'order-4' },
+            { id: 5, text: '5', value: 'order-5' },
+            { id: 6, text: '6', value: 'order-6' },
+            { id: 7, text: '7', value: 'order-7' },
+            { id: 8, text: '8', value: 'order-8' },
+            { id: 9, text: '9', value: 'order-9' },
+            { id: 10, text: '10', value: 'order-10' },
+            { id: 11, text: '11', value: 'order-11' },
+            { id: 12, text: '12', value: 'order-12' },
+            { id: 13, text: 'first', value: 'order-first' },
+            { id: 14, text: 'last', value: 'order-last' },
+            { id: 15, text: 'none', value: 'order-none' },
+        ]
+    },
 };
 
 const spacing_mapper = {
     padding: {
         all: {
-            regex_pattern: 'p-[0-9]+(\.[0-9])?',
+            regex_pattern: '^p-[0-9]+(\.[0-9])?$',
             values: [
                 { id: 1, text: '0', value: 'p-0' },
                 { id: 2, text: '0.125rem', value: 'p-0.5' },
@@ -197,7 +279,7 @@ const spacing_mapper = {
             ]
         },
         vertical: {
-            regex_pattern: 'py-[0-9]+(\.[0-9])?',
+            regex_pattern: '^py-[0-9]+(\.[0-9])?$',
             values: [
                 { id: 1, text: '0', value: 'py-0' },
                 { id: 2, text: '0.125rem', value: 'py-0.5' },
@@ -236,7 +318,7 @@ const spacing_mapper = {
             ]
         },
         horizontal: {
-            regex_pattern: 'px-[0-9]+(\.[0-9])?',
+            regex_pattern: '^px-[0-9]+(\.[0-9])?$',
             values: [
                 { id: 1, text: '0', value: 'px-0' },
                 { id: 2, text: '0.125rem', value: 'px-0.5' },
@@ -275,7 +357,7 @@ const spacing_mapper = {
             ]
         },
         top: {
-            regex_pattern: 'pt-[0-9]+(\.[0-9])?',
+            regex_pattern: '^pt-[0-9]+(\.[0-9])?$',
             values: [
                 { id: 1, text: '0', value: 'pt-0' },
                 { id: 2, text: '0.125rem', value: 'pt-0.5' },
@@ -314,7 +396,7 @@ const spacing_mapper = {
             ]
         },
         right: {
-            regex_pattern: 'pr-[0-9]+(\.[0-9])?',
+            regex_pattern: '^pr-[0-9]+(\.[0-9])?$',
             values: [
                 { id: 1, text: '0', value: 'pr-0' },
                 { id: 2, text: '0.125rem', value: 'pr-0.5' },
@@ -353,7 +435,7 @@ const spacing_mapper = {
             ]
         },
         bottom: {
-            regex_pattern: 'pb-[0-9]+(\.[0-9])?',
+            regex_pattern: '^pb-[0-9]+(\.[0-9])?$',
             values: [
                 { id: 1, text: '0', value: 'pb-0' },
                 { id: 2, text: '0.125rem', value: 'pb-0.5' },
@@ -392,7 +474,7 @@ const spacing_mapper = {
             ]
         },
         left: {
-            regex_pattern: 'pl-[0-9]+(\.[0-9])?',
+            regex_pattern: '^pl-[0-9]+(\.[0-9])?$',
             values: [
                 { id: 1, text: '0', value: 'pl-0' },
                 { id: 2, text: '0.125rem', value: 'pl-0.5' },
@@ -1731,7 +1813,7 @@ const visibility_mapper = {
 };
 
 const zindex_mapper = {
-    regex_pattern: '^z-([0-9]+)?(\\w+)?',
+    regex_pattern: '^z-([0-9]+)?(\\w+)?$',
     values: [
         { id: 1, text: '0', value: 'z-0' },
         { id: 2, text: '10', value: 'z-10' },
