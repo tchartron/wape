@@ -3,10 +3,13 @@ export default class Element {
         this.element = element // html element
     }
 
-    addClass(cssClass) {
-        this.element.classList.add(cssClass)
+    addClass(css_class) {
+        this.element.classList.add(css_class)
     }
-    removeClass(cssClass) {
-        this.element.classList.remove(cssClass)
+    removeClass(css_class) {
+        this.element.classList.remove(css_class)
+    }
+    getClassesAsArray() {
+        return [...this.element.classList]
     }
 }
