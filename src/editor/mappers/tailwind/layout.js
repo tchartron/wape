@@ -1984,6 +1984,17 @@ const zindex_mapper = {
     ]
 };
 
+const box_sizing_mapper = {
+    regex_pattern: '^box-(border|content)$',
+    values: [
+        { id: 0, text: 'default', value: '' },
+        { id: 1, text: 'border', value: 'box-border' },
+        { id: 2, text: 'content', value: 'box-content' },
+    ]
+};
+
+
+
 export {
     grid_mapper,
     flex_mapper,
@@ -1996,4 +2007,5 @@ export {
     absolute_mapper,
     visibility_mapper,
     zindex_mapper,
+    box_sizing_mapper,
 }

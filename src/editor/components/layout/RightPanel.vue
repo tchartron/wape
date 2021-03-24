@@ -137,6 +137,16 @@
         </div>
         <!-- GENERALS -->
         <div class="generals" v-if="(selected_layout !== null)">
+          <!-- BOX SIZING -->
+          <div class="setting-content">
+            <div class="setting-subtitle">Box sizing</div>
+            <div class="setting">
+              <label for="box-sizing">Box sizing</label>
+              <select id="box-sizing" name="box-sizing" @change="replaceClass(selected_layout, selected_box_sizing, mappers.box_sizing_mapper.regex_pattern)" v-model="selected_box_sizing">
+                <option v-for='(box_sizing, index) in mappers.box_sizing_mapper.values' :key="index" :value="box_sizing.value">{{ box_sizing.text }}</option>
+              </select>
+            </div>
+          </div>
           <!-- PADDINGS -->
           <div class="setting-content">
             <div class="setting-subtitle">Paddings</div>
@@ -476,6 +486,7 @@ import {
   absolute_mapper,
   visibility_mapper,
   zindex_mapper,
+  box_sizing_mapper,
 } from 'Editor/mappers/tailwind/layout'
 import { appendPlaceholder } from 'Editor/utilities/layout'
 import { replaceClass } from 'Editor/utilities/utilities'
@@ -500,6 +511,7 @@ export default {
           absolute_mapper,
           visibility_mapper,
           zindex_mapper,
+          box_sizing_mapper,
         },
         container_options: [],
         element_options: [],
@@ -550,11 +562,14 @@ export default {
             { model: 'selected_grid_flow', mapper_values: grid_mapper.flow.values },
             { model: 'selected_grid_rows_auto', mapper_values: grid_mapper.rows.auto.values },
             { model: 'selected_grid_cols_auto', mapper_values: grid_mapper.cols.auto.values },
+            { model: 'selected_box_sizing', mapper_values: box_sizing_mapper.values },
         ],
         //Gaps
         selected_col_gap: '',
         selected_row_gap: '',
         selected_flex_col_gap: '',
+        //Box sizing
+        selected_box_sizing: '',
         //Paddings
         selected_all_padding: '',
         selected_vertical_padding: '',
