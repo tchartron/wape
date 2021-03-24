@@ -61,6 +61,33 @@
               </select>
             </div>
           </div>
+          <div class="setting-content">
+            <div class="setting-subtitle">Flow</div>
+            <div class="setting">
+              <label for="flow">Flow</label>
+              <select id="flow" name="flow" @change="replaceClass(selected_layout, selected_grid_flow, mappers.grid_mapper.flow.regex_pattern)" v-model="selected_grid_flow">
+                <option v-for='(flow, index) in mappers.grid_mapper.flow.values' :key="index" :value="flow.value">{{ flow.text }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="setting-content">
+            <div class="setting-subtitle">Auto rows</div>
+            <div class="setting">
+              <label for="rows-auto">Auto rows</label>
+              <select id="rows-auto" name="rows-auto" @change="replaceClass(selected_layout, selected_grid_rows_auto, mappers.grid_mapper.rows.auto.regex_pattern)" v-model="selected_grid_rows_auto">
+                <option v-for='(rows_auto, index) in mappers.grid_mapper.rows.auto.values' :key="index" :value="rows_auto.value">{{ rows_auto.text }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="setting-content">
+            <div class="setting-subtitle">Auto cols</div>
+            <div class="setting">
+              <label for="cols-auto">Cols auto</label>
+              <select id="cols-auto" name="cols-auto" @change="replaceClass(selected_layout, selected_grid_cols_auto, mappers.grid_mapper.cols.auto.regex_pattern)" v-model="selected_grid_cols_auto">
+                <option v-for='(cols_auto, index) in mappers.grid_mapper.cols.auto.values' :key="index" :value="cols_auto.value">{{ cols_auto.text }}</option>
+              </select>
+            </div>
+          </div>
         </div>
         <!-- FLEX -->
         <div class="flex" v-if="isFlex(selected_layout)">
@@ -335,6 +362,60 @@
               </select>
             </div>
           </div>
+          <div class="setting-content">
+            <div class="setting-subtitle">Col Span</div>
+            <div class="setting">
+              <label for="col-span">Grid child col span</label>
+              <select id="col-span" name="col-span" @change="replaceClass(selected_element, selected_grid_col_span, mappers.grid_mapper.cols.span.regex_pattern)" v-model="selected_grid_col_span">
+                <option v-for='(col_span, index) in mappers.grid_mapper.cols.span.values' :key="index" :value="col_span.value">{{ col_span.text }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="setting-content">
+            <div class="setting-subtitle">Row Span</div>
+            <div class="setting">
+              <label for="row-span">Grid child row span</label>
+              <select id="row-span" name="row-span" @change="replaceClass(selected_element, selected_grid_row_span, mappers.grid_mapper.rows.span.regex_pattern)" v-model="selected_grid_row_span">
+                <option v-for='(row_span, index) in mappers.grid_mapper.rows.span.values' :key="index" :value="row_span.value">{{ row_span.text }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="setting-content">
+            <div class="setting-subtitle">Col start</div>
+            <div class="setting">
+              <label for="col-start">Grid child col start</label>
+              <select id="col-start" name="col-start" @change="replaceClass(selected_element, selected_grid_col_start, mappers.grid_mapper.cols.start.regex_pattern)" v-model="selected_grid_col_start">
+                <option v-for='(col_start, index) in mappers.grid_mapper.cols.start.values' :key="index" :value="col_start.value">{{ col_start.text }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="setting-content">
+            <div class="setting-subtitle">Col end</div>
+            <div class="setting">
+              <label for="col-end">Grid child col end</label>
+              <select id="col-end" name="col-end" @change="replaceClass(selected_element, selected_grid_col_end, mappers.grid_mapper.cols.end.regex_pattern)" v-model="selected_grid_col_end">
+                <option v-for='(col_end, index) in mappers.grid_mapper.cols.end.values' :key="index" :value="col_end.value">{{ col_end.text }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="setting-content">
+            <div class="setting-subtitle">Row start</div>
+            <div class="setting">
+              <label for="row-start">Grid child row start</label>
+              <select id="row-start" name="row-start" @change="replaceClass(selected_element, selected_grid_row_start, mappers.grid_mapper.rows.start.regex_pattern)" v-model="selected_grid_row_start">
+                <option v-for='(row_start, index) in mappers.grid_mapper.rows.start.values' :key="index" :value="row_start.value">{{ row_start.text }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="setting-content">
+            <div class="setting-subtitle">Row end</div>
+            <div class="setting">
+              <label for="row-end">Grid child row end</label>
+              <select id="row-end" name="row-end" @change="replaceClass(selected_element, selected_grid_row_end, mappers.grid_mapper.rows.end.regex_pattern)" v-model="selected_grid_row_end">
+                <option v-for='(row_end, index) in mappers.grid_mapper.rows.end.values' :key="index" :value="row_end.value">{{ row_end.text }}</option>
+              </select>
+            </div>
+          </div>
         </div>
         <!-- FLEX CHILD -->
         <div class="flex" v-if="isFlexChild(selected_layout, selected_element)">
@@ -460,6 +541,15 @@ export default {
             { model: 'selected_flex_shrink', mapper_values: flex_mapper.shrink.values },
             { model: 'selected_grid_order', mapper_values: grid_mapper.generics.order.values },
             { model: 'selected_flex_order', mapper_values: flex_mapper.order.values },
+            { model: 'selected_grid_col_span', mapper_values: grid_mapper.cols.span.values },
+            { model: 'selected_grid_row_span', mapper_values: grid_mapper.rows.span.values },
+            { model: 'selected_grid_col_start', mapper_values: grid_mapper.cols.start.values },
+            { model: 'selected_grid_col_end', mapper_values: grid_mapper.cols.end.values },
+            { model: 'selected_grid_row_start', mapper_values: grid_mapper.rows.start.values },
+            { model: 'selected_grid_row_end', mapper_values: grid_mapper.rows.end.values },
+            { model: 'selected_grid_flow', mapper_values: grid_mapper.flow.values },
+            { model: 'selected_grid_rows_auto', mapper_values: grid_mapper.rows.auto.values },
+            { model: 'selected_grid_cols_auto', mapper_values: grid_mapper.cols.auto.values },
         ],
         //Gaps
         selected_col_gap: '',
@@ -508,11 +598,22 @@ export default {
         selected_flex_behaviour: '',
         selected_flex_grow: '',
         selected_flex_shrink: '',
+        //Grid specifics
+        selected_grid_flow: '',
+        selected_grid_rows_auto: '',
+        selected_grid_cols_auto: '',
 
         //Elements
         //Order
         selected_grid_order: '',
         selected_flex_order: '',
+        //Span, start, end
+        selected_grid_col_span: '',
+        selected_grid_row_span: '',
+        selected_grid_col_start: '',
+        selected_grid_col_end: '',
+        selected_grid_row_start: '',
+        selected_grid_row_end: '',
       }
     },
     mounted() {
