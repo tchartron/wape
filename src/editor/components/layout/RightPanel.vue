@@ -723,6 +723,9 @@ export default {
         }
       },
       setDefaultValues(element_selected) {
+        if (element_selected === null) {
+          return false
+        }
         let element_classes = element_selected.getClassesAsArray()
         for (let setting of this.settings) {
           //reset old value
