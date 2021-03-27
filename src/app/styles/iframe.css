@@ -40,3 +40,16 @@ div.flex.layout > div.empty-flex-col {
     border: 1px dashed #000;
     min-height: 150px;
 }*/
+
+.toolbar {
+    position: absolute;
+    background-color: #3b97e3;
+    display: flex;
+    column-gap: 10px;
+}
+
+.toolbar > div {
+    cursor: pointer;
+    /*border: 1px solid black;*/
+    padding: .5px 5px;
+}

@@ -31225,6 +31225,20 @@ div.flex.layout > div.empty-flex-col {
     min-height: 150px;
 }*/
 
+.toolbar {
+  position: absolute;
+  background-color: #3b97e3;
+  display: flex;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+}
+
+.toolbar > div {
+  cursor: pointer;
+  /*border: 1px solid black;*/
+  padding: .5px 5px;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

@@ -12,4 +12,10 @@ export default class Element {
     getClassesAsArray() {
         return [...this.element.classList]
     }
+    displayToolbar() {
+        // this._inner_x = event.clientX - grabbedElem.getBoundingClientRect().left
+        // this._inner_y = event.clientY - grabbedElem.getBoundingClientRect().top
+        let element_position = this.element.getBoundingClientRect()
+        // console.log(element_position)
+    }
 }

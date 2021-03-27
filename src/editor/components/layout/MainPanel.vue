@@ -64,7 +64,9 @@ export default {
             }
             // this.element_hovered = new Element(element)
             this.element_hovered = element
-            this.element_hovered.classList.add('element-hovered')
+            if (!this.element_hovered.matches('.toolbar, .toolbar *')) {
+              this.element_hovered.classList.add('element-hovered')
+            }
           }
         } else {
           if (this.element_hovered !== null) {
@@ -82,6 +84,8 @@ export default {
           if (this.selected_layout === null || this.selected_layout.element !== layout) { //if we selected another layout than the current one
             if (this.selected_layout !== null) {
               this.selected_layout.removeClass('layout-selected')
+              //remove previous layout toolbar
+              this.selected_layout.element.querySelector('.toolbar').remove()
             }
             let layout_type = layoutType(layout)
             switch(layout_type) {
@@ -95,6 +99,7 @@ export default {
                 this.selected_layout = new Layout(layout, layout_type)
             }
             this.selected_layout.addClass('layout-selected')
+            this.selected_layout.displayToolbar()
           }
         } else {
           this.selected_layout = null
@@ -109,6 +114,7 @@ export default {
             }
             this.selected_element = new Element(element)
             this.selected_element.addClass('element-selected')
+            this.selected_element.displayToolbar()
             }
           } else {
             this.selected_element = null

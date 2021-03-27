@@ -15662,6 +15662,22 @@ var wape = (function () {
       getClassesAsArray() {
           return [...this.element.classList]
       }
+      displayToolbar() {
+          let toolbar = document.createElement("div");
+          toolbar.className = "toolbar";
+          let html = `
+            <div class="up"><i class="fas fa-arrow-up"></i></div>
+            <div class="down"><i class="fas fa-arrow-down"></i></div>
+            <div class="duplicate"><i class="far fa-copy"></i></div>
+            <div class="delete"><i class="fas fa-trash-alt"></i></div>`;
+          toolbar.innerHTML = html;
+          let element_position = this.element.getBoundingClientRect();
+          let top = `${element_position.top}px`;
+          let right = `${element_position.right - element_position.width}px`;
+          toolbar.style.top = top;
+          toolbar.style.right = right;
+          this.element.appendChild(toolbar);
+      }
   }
 
   class Grid extends Layout {
@@ -15730,6 +15746,12 @@ var wape = (function () {
       getClassesAsArray() {
           return [...this.element.classList]
       }
+      displayToolbar() {
+          // this._inner_x = event.clientX - grabbedElem.getBoundingClientRect().left
+          // this._inner_y = event.clientY - grabbedElem.getBoundingClientRect().top
+          this.element.getBoundingClientRect();
+          // console.log(element_position)
+      }
   }
 
   //
@@ -15780,7 +15802,9 @@ var wape = (function () {
               }
               // this.element_hovered = new Element(element)
               this.element_hovered = element;
-              this.element_hovered.classList.add('element-hovered');
+              if (!this.element_hovered.matches('.toolbar, .toolbar *')) {
+                this.element_hovered.classList.add('element-hovered');
+              }
             }
           } else {
             if (this.element_hovered !== null) {
@@ -15798,6 +15822,8 @@ var wape = (function () {
             if (this.selected_layout === null || this.selected_layout.element !== layout) { //if we selected another layout than the current one
               if (this.selected_layout !== null) {
                 this.selected_layout.removeClass('layout-selected');
+                //remove previous layout toolbar
+                this.selected_layout.element.querySelector('.toolbar').remove();
               }
               let layout_type = layoutType(layout);
               switch(layout_type) {
@@ -15811,6 +15837,7 @@ var wape = (function () {
                   this.selected_layout = new Layout(layout, layout_type);
               }
               this.selected_layout.addClass('layout-selected');
+              this.selected_layout.displayToolbar();
             }
           } else {
             this.selected_layout = null;
@@ -15825,6 +15852,7 @@ var wape = (function () {
               }
               this.selected_element = new Element(element);
               this.selected_element.addClass('element-selected');
+              this.selected_element.displayToolbar();
               }
             } else {
               this.selected_element = null;
@@ -15864,11 +15892,11 @@ var wape = (function () {
     /* style */
     const __vue_inject_styles__$3 = function (inject) {
       if (!inject) return
-      inject("data-v-7a822d43_0", { source: "\ndiv.canvas[data-v-7a822d43] {\n  width: calc(100vw - 500px);\n  height: 100%;\n  background-color: #fff;\n  transition: width 0.5s ease 0s;\n}\niframe.iframe[data-v-7a822d43] {\n  display: block;\n  border: 0px none;\n  height: 100%;\n  width: 100%;\n}\n", map: {"version":3,"sources":["/Users/thomas/Developer/perso/wape/src/editor/components/layout/MainPanel.vue"],"names":[],"mappings":";AA0HA;EACA,0BAAA;EACA,YAAA;EACA,sBAAA;EACA,8BAAA;AACA;AACA;EACA,cAAA;EACA,gBAAA;EACA,YAAA;EACA,WAAA;AACA","file":"MainPanel.vue","sourcesContent":["<template>\n  <div id=\"canvas\" class=\"canvas\" :style=\"{ width: canvas_width }\">\n    <iframe id=\"iframe\" name=\"iframe\" :src=\"iframeFilePath\" class=\"iframe\" @load=\"iframeLoaded\" />\n  </div>\n</template>\n\n<script>\nimport Iframe from 'Editor/Iframe'\nimport layouts from 'Editor/blocks/layouts'\nimport elements from 'Editor/blocks/elements'\nimport { Dragger } from 'Editor/Dragger/Dragger'\nimport Layout from 'Editor/classes/layouts/Layout'\nimport Grid from 'Editor/classes/layouts/Grid'\nimport Flex from 'Editor/classes/layouts/Flex'\nimport Element from 'Editor/classes/elements/Element'\nimport isEmpty from 'lodash/isEmpty'\nimport { emitter } from 'App/Wape'\nimport { layoutType } from 'Editor/utilities/layout'\nimport { findFirstChildMatching } from 'Editor/utilities/utilities'\n\nexport default {\n    name: 'MainPanel',\n    data() {\n      return {\n        iframe: Object,\n        canvas_width: 'calc(100vw - 500px)',\n        element_hovered: null,\n        selected_layout: null,\n        selected_element: null\n      }\n    },\n    computed: {\n      iframeFilePath() {\n        return 'iframe.html'\n      }\n    },\n    mounted() {\n      emitter.on('device-change', (args) => { //Fired from TopPanel.vue\n        this.canvas_width = args.width\n      })\n    },\n    methods: {\n      iframeLoaded() {\n        let elemArray = []\n        for(let elem of elements) {\n          elemArray.push(...elem.elements)\n        }\n        let templates = [...layouts, ...elemArray]\n        this.iframe = new Iframe('#iframe')\n        this.dragger = new Dragger('.draggable', {\n          iframe: this.iframe,\n          templates: templates\n        })\n        this.iframe.document.documentElement.addEventListener('click', this.iframeClick, false)\n        this.iframe.document.documentElement.addEventListener('mousemove', this.iframeMouseMove, false)\n      },\n      iframeMouseMove(event) {\n        let element = event.target\n        let dontHighlightTags = ['HTML', 'BODY']\n        if (!dontHighlightTags.includes(element.tagName)) {\n          if (this.element_hovered !== element) {\n            if (this.element_hovered !== null) {\n              this.element_hovered.classList.remove('element-hovered')\n            }\n            // this.element_hovered = new Element(element)\n            this.element_hovered = element\n            this.element_hovered.classList.add('element-hovered')\n          }\n        } else {\n          if (this.element_hovered !== null) {\n            this.element_hovered.classList.remove('element-hovered')\n          }\n          this.element_hovered = null\n        }\n      },\n      iframeClick(event) {\n        let elements = this.iframe.document.elementsFromPoint(event.clientX, event.clientY)\n        let layout = elements.reverse().find((elem) => { // reverse elements to place flex containers before their columns (we need flex columns to have the layout class to handle dropping elements inside in dragger.js)\n            return (elem.matches('.layout')) //If you find .flex first take this as main layout not the columns inside it\n        })\n        if (typeof layout !== 'undefined') {\n          if (this.selected_layout === null || this.selected_layout.element !== layout) { //if we selected another layout than the current one\n            if (this.selected_layout !== null) {\n              this.selected_layout.removeClass('layout-selected')\n            }\n            let layout_type = layoutType(layout)\n            switch(layout_type) {\n              case 'grid':\n                this.selected_layout = new Grid(layout, layout_type)\n              break;\n              case 'flex':\n                this.selected_layout = new Flex(layout, layout_type)\n              break;\n              default:\n                this.selected_layout = new Layout(layout, layout_type)\n            }\n            this.selected_layout.addClass('layout-selected')\n          }\n        } else {\n          this.selected_layout = null\n        }\n        let element = elements.find((elem) => {\n            return (elem.matches('.element-hovered'))\n        })\n        if (typeof element !== 'undefined') {\n          if (this.selected_element === null || this.selected_element !== element) {\n            if (this.selected_element !== null) {\n              this.selected_element.removeClass('element-selected')\n            }\n            this.selected_element = new Element(element)\n            this.selected_element.addClass('element-selected')\n            }\n          } else {\n            this.selected_element = null\n        }\n        emitter.emit('iframe-click', { container: this.selected_layout, element: this.selected_element })\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.canvas {\n    width: calc(100vw - 500px);\n    height: 100%;\n    background-color: #fff;\n    transition: width 0.5s ease 0s;\n  }\n  iframe.iframe {\n    display: block;\n    border: 0px none;\n    height: 100%;\n    width: 100%;\n  }\n</style>\n"]}, media: undefined });
+      inject("data-v-ea73d530_0", { source: "\ndiv.canvas[data-v-ea73d530] {\n  width: calc(100vw - 500px);\n  height: 100%;\n  background-color: #fff;\n  transition: width 0.5s ease 0s;\n}\niframe.iframe[data-v-ea73d530] {\n  display: block;\n  border: 0px none;\n  height: 100%;\n  width: 100%;\n}\n", map: {"version":3,"sources":["/Users/thomas/Developer/perso/wape/src/editor/components/layout/MainPanel.vue"],"names":[],"mappings":";AAgIA;EACA,0BAAA;EACA,YAAA;EACA,sBAAA;EACA,8BAAA;AACA;AACA;EACA,cAAA;EACA,gBAAA;EACA,YAAA;EACA,WAAA;AACA","file":"MainPanel.vue","sourcesContent":["<template>\n  <div id=\"canvas\" class=\"canvas\" :style=\"{ width: canvas_width }\">\n    <iframe id=\"iframe\" name=\"iframe\" :src=\"iframeFilePath\" class=\"iframe\" @load=\"iframeLoaded\" />\n  </div>\n</template>\n\n<script>\nimport Iframe from 'Editor/Iframe'\nimport layouts from 'Editor/blocks/layouts'\nimport elements from 'Editor/blocks/elements'\nimport { Dragger } from 'Editor/Dragger/Dragger'\nimport Layout from 'Editor/classes/layouts/Layout'\nimport Grid from 'Editor/classes/layouts/Grid'\nimport Flex from 'Editor/classes/layouts/Flex'\nimport Element from 'Editor/classes/elements/Element'\nimport isEmpty from 'lodash/isEmpty'\nimport { emitter } from 'App/Wape'\nimport { layoutType } from 'Editor/utilities/layout'\nimport { findFirstChildMatching } from 'Editor/utilities/utilities'\n\nexport default {\n    name: 'MainPanel',\n    data() {\n      return {\n        iframe: Object,\n        canvas_width: 'calc(100vw - 500px)',\n        element_hovered: null,\n        selected_layout: null,\n        selected_element: null\n      }\n    },\n    computed: {\n      iframeFilePath() {\n        return 'iframe.html'\n      }\n    },\n    mounted() {\n      emitter.on('device-change', (args) => { //Fired from TopPanel.vue\n        this.canvas_width = args.width\n      })\n    },\n    methods: {\n      iframeLoaded() {\n        let elemArray = []\n        for(let elem of elements) {\n          elemArray.push(...elem.elements)\n        }\n        let templates = [...layouts, ...elemArray]\n        this.iframe = new Iframe('#iframe')\n        this.dragger = new Dragger('.draggable', {\n          iframe: this.iframe,\n          templates: templates\n        })\n        this.iframe.document.documentElement.addEventListener('click', this.iframeClick, false)\n        this.iframe.document.documentElement.addEventListener('mousemove', this.iframeMouseMove, false)\n      },\n      iframeMouseMove(event) {\n        let element = event.target\n        let dontHighlightTags = ['HTML', 'BODY']\n        if (!dontHighlightTags.includes(element.tagName)) {\n          if (this.element_hovered !== element) {\n            if (this.element_hovered !== null) {\n              this.element_hovered.classList.remove('element-hovered')\n            }\n            // this.element_hovered = new Element(element)\n            this.element_hovered = element\n            if (!this.element_hovered.matches('.toolbar, .toolbar *')) {\n              this.element_hovered.classList.add('element-hovered')\n            }\n          }\n        } else {\n          if (this.element_hovered !== null) {\n            this.element_hovered.classList.remove('element-hovered')\n          }\n          this.element_hovered = null\n        }\n      },\n      iframeClick(event) {\n        let elements = this.iframe.document.elementsFromPoint(event.clientX, event.clientY)\n        let layout = elements.reverse().find((elem) => { // reverse elements to place flex containers before their columns (we need flex columns to have the layout class to handle dropping elements inside in dragger.js)\n            return (elem.matches('.layout')) //If you find .flex first take this as main layout not the columns inside it\n        })\n        if (typeof layout !== 'undefined') {\n          if (this.selected_layout === null || this.selected_layout.element !== layout) { //if we selected another layout than the current one\n            if (this.selected_layout !== null) {\n              this.selected_layout.removeClass('layout-selected')\n              //remove previous layout toolbar\n              this.selected_layout.element.querySelector('.toolbar').remove()\n            }\n            let layout_type = layoutType(layout)\n            switch(layout_type) {\n              case 'grid':\n                this.selected_layout = new Grid(layout, layout_type)\n              break;\n              case 'flex':\n                this.selected_layout = new Flex(layout, layout_type)\n              break;\n              default:\n                this.selected_layout = new Layout(layout, layout_type)\n            }\n            this.selected_layout.addClass('layout-selected')\n            this.selected_layout.displayToolbar()\n          }\n        } else {\n          this.selected_layout = null\n        }\n        let element = elements.find((elem) => {\n            return (elem.matches('.element-hovered'))\n        })\n        if (typeof element !== 'undefined') {\n          if (this.selected_element === null || this.selected_element !== element) {\n            if (this.selected_element !== null) {\n              this.selected_element.removeClass('element-selected')\n            }\n            this.selected_element = new Element(element)\n            this.selected_element.addClass('element-selected')\n            this.selected_element.displayToolbar()\n            }\n          } else {\n            this.selected_element = null\n        }\n        emitter.emit('iframe-click', { container: this.selected_layout, element: this.selected_element })\n      }\n    }\n}\n</script>\n\n<style scoped>\n  div.canvas {\n    width: calc(100vw - 500px);\n    height: 100%;\n    background-color: #fff;\n    transition: width 0.5s ease 0s;\n  }\n  iframe.iframe {\n    display: block;\n    border: 0px none;\n    height: 100%;\n    width: 100%;\n  }\n</style>\n"]}, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__$3 = "data-v-7a822d43";
+    const __vue_scope_id__$3 = "data-v-ea73d530";
     /* module identifier */
     const __vue_module_identifier__$3 = undefined;
     /* functional template */
