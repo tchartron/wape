@@ -684,7 +684,8 @@ export default {
           layout_instance.cols++
           this.replaceClass(layout_instance, `grid-cols-${layout_instance.cols}`, this.mappers.grid_mapper.cols.template.regex_pattern)
           let total_places_in_grid = ((layout_instance.cols !== 0) ? layout_instance.cols : 1) * ((layout_instance.rows !== 0) ? layout_instance.rows : 1)
-          let elements_in_grid = layout_instance.element.children.length
+          // let elements_in_grid = layout_instance.element.children.length
+          let elements_in_grid = layout_instance.element.querySelectorAll(':not(.toolbar, .toolbar *)').length
           let number_of_placeholder_to_append = total_places_in_grid - elements_in_grid
           if (number_of_placeholder_to_append > 0) {
             appendPlaceholder('div', layout_instance.element, number_of_placeholder_to_append, 'grid-placeholder')
@@ -696,7 +697,8 @@ export default {
           layout_instance.rows++
           this.replaceClass(layout_instance, `grid-rows-${layout_instance.rows}`, this.mappers.grid_mapper.rows.template.regex_pattern)
           let total_places_in_grid = ((layout_instance.cols !== 0) ? layout_instance.cols : 1) * ((layout_instance.rows !== 0) ? layout_instance.rows : 1)
-          let elements_in_grid = layout_instance.element.children.length
+          // let elements_in_grid = layout_instance.element.children.length
+          let elements_in_grid = layout_instance.element.querySelectorAll(':not(.toolbar, .toolbar *)').length
           let number_of_placeholder_to_append = total_places_in_grid - elements_in_grid
           if (number_of_placeholder_to_append > 0) {
             appendPlaceholder('div', layout_instance.element, number_of_placeholder_to_append, 'grid-placeholder')
