@@ -114,7 +114,7 @@ export default {
             }
             this.selected_element = new Element(element)
             this.selected_element.addClass('element-selected')
-            this.selected_element.displayToolbar()
+            // this.selected_element.displayToolbar()
             }
           } else {
             this.selected_element = null
