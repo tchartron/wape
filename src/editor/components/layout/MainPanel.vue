@@ -76,6 +76,11 @@ export default {
         }
       },
       iframeClick(event) {
+        if (event.target.classList) {
+          if (event.originalTarget.closest('.toolbar') !== null) { //Clicked in toolbar
+            return false
+          }
+        }
         let elements = this.iframe.document.elementsFromPoint(event.clientX, event.clientY)
         let layout = elements.reverse().find((elem) => { // reverse elements to place flex containers before their columns (we need flex columns to have the layout class to handle dropping elements inside in dragger.js)
             return (elem.matches('.layout')) //If you find .flex first take this as main layout not the columns inside it
@@ -85,7 +90,11 @@ export default {
             if (this.selected_layout !== null) {
               this.selected_layout.removeClass('layout-selected')
               //remove previous layout toolbar
-              this.selected_layout.element.querySelector('.toolbar').remove()
+              // console.log(this.selected_layout)
+              let previous_toolbar = this.selected_layout.element.querySelector('.toolbar')
+              if (previous_toolbar !== null) {
+                this.selected_layout.element.querySelector('.toolbar').remove()
+              }
             }
             let layout_type = layoutType(layout)
             switch(layout_type) {

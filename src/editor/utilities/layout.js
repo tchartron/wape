@@ -33,6 +33,9 @@ export function countChildren(element) {
 }
 
 export function closestDescendantLayout(y, layouts) {
+    if (!Array.isArray(layouts)) {
+      layouts = [...layouts]
+    }
     if (layouts.length > 0) {
         return layouts.find((layout) => {
             return (layout.getBoundingClientRect().bottom >= y)

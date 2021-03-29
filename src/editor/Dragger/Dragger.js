@@ -62,6 +62,8 @@ export class Dragger {
             this._object_dragged = this.getBlockFromId(grabbedElement.dataset.id)
             this._element_dragged = this.convertToDomElement(this._object_dragged.content)
             this.createClone(grabbedElement, event)
+            this._containers = this._options.iframe.document.body.querySelectorAll('.layout')
+            // console.log(all_layouts)
         }
     }
     move(event) {
@@ -78,12 +80,12 @@ export class Dragger {
             return false
         }
         this._clone.remove()
-        if (hasChild(this._options.iframe.document.body, this._element_dragged)) {
-            if (this._object_dragged.type === 'layout') {
-                //Store new container in global containers list
-                this._containers.push(this._element_dragged)
-            }
-        }
+        // if (hasChild(this._options.iframe.document.body, this._element_dragged)) {
+        //     if (this._object_dragged.type === 'layout') {
+        //         //Store new container in global containers list
+        //         this._containers.push(this._element_dragged)
+        //     }
+        // }
         this._object_dragged = null
         this._element_dragged.classList.remove('half-opacity')
         this._element_dragged = null
