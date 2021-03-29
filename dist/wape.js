@@ -15463,7 +15463,6 @@ var wape = (function () {
               this._element_dragged = this.convertToDomElement(this._object_dragged.content);
               this.createClone(grabbedElement, event);
               this._containers = this._options.iframe.document.body.querySelectorAll('.layout');
-              // console.log(all_layouts)
           }
       }
       move(event) {
@@ -15679,7 +15678,8 @@ var wape = (function () {
             <div class="delete"><i class="fas fa-trash-alt"></i></div>`;
           toolbar.innerHTML = html;
           let element_position = this.element.getBoundingClientRect();
-          let top = `${element_position.top}px`;
+          let scroll_top = document.body.querySelector('#iframe').contentDocument.documentElement.scrollTop;
+          let top = `${element_position.top + scroll_top}px`;
           let right = `${element_position.right - element_position.width}px`;
           toolbar.style.top = top;
           toolbar.style.right = right;

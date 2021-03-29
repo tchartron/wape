@@ -63,7 +63,6 @@ export class Dragger {
             this._element_dragged = this.convertToDomElement(this._object_dragged.content)
             this.createClone(grabbedElement, event)
             this._containers = this._options.iframe.document.body.querySelectorAll('.layout')
-            // console.log(all_layouts)
         }
     }
     move(event) {
