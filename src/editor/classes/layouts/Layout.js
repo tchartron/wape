@@ -77,7 +77,8 @@ export default class Layout {
             <div class="delete"><i class="fas fa-trash-alt"></i></div>`
         toolbar.innerHTML = html;
         let element_position = clone.getBoundingClientRect()
-        let top = `${element_position.top}px`
+        let scroll_top = document.body.querySelector('#iframe').contentDocument.documentElement.scrollTop
+        let top = `${element_position.top + scroll_top}px`
         let right = `${element_position.right - element_position.width}px`
         toolbar.style.top = top
         toolbar.style.right = right
@@ -94,7 +95,8 @@ export default class Layout {
     }
     updateToolbarPosition(toolbar, layout_element) {
         let element_position = layout_element.getBoundingClientRect()
-        let top = `${element_position.top}px`
+        let scroll_top = document.body.querySelector('#iframe').contentDocument.documentElement.scrollTop
+        let top = `${element_position.top + scroll_top}px`
         let right = `${element_position.right - element_position.width}px`
         toolbar.style.top = top
         toolbar.style.right = right
