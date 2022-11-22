@@ -53,7 +53,7 @@
     "tailwindcss": "^2.0.3"
   },
   "dependencies": {
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "mitt": "^2.1.0",
     "vue": "^2.6.12"
   }
